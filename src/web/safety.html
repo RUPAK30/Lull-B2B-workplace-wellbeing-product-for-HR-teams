@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Safety and limits</title>
+<meta name="description" content="What Lull does when someone reports pain, what it never claims, where content review stands, and how accessible it is.">
+<meta name="theme-color" content="#2A5444"><link rel="icon" href="/web/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/web/styles.css"><link rel="stylesheet" href="/web/landing.css"></head>
+<body class="landing">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="l-nav">
+  <a href="/teams" class="brand" aria-label="Lull for teams"><span class="brand-mark" aria-hidden="true"></span><span>lull</span></a>
+  <nav aria-label="On this page"><a href="#pain">Pain and symptoms</a><a href="#claims">What it never claims</a><a href="#review">Content review</a><a href="#access">Accessibility</a></nav>
+  <div class="l-nav-cta"><a class="button ghost" href="/teams">For teams</a><a class="button primary" href="/">Try it</a></div>
+</header>
+
+<main id="main" class="s-page">
+<section class="l-section s-intro">
+  <p class="l-eyebrow">Safety and limits</p>
+  <h1>What Lull does, and what it doesn’t.</h1>
+  <p class="l-lede">Lull suggests gentle movement. It is not a medical device and can’t see anyone. This page sets out how it handles pain, what it will never claim, and where reviews and checks stand today, including the parts that aren’t done yet.</p>
+  <p class="s-updated">Last reviewed: October 2026 · Prototype version</p>
+</section>
+
+<section id="pain" class="l-section">
+  <h2>When someone mentions pain or symptoms</h2>
+  <p>Lull listens for this before anything else, both on the home screen and in the middle of a session. Safety always wins over any other request in the same message.</p>
+  <div class="s-levels">
+    <article class="s-level urgent"><h3>Urgent symptoms</h3><p class="s-examples">For example: chest pain, trouble breathing, fainting, numbness, sudden or severe pain.</p><p><strong>What happens:</strong> no session is offered. It says this needs urgent medical attention, not exercise, and asks the person to contact their local emergency number or urgent care now.</p></article>
+    <article class="s-level"><h3>Pain, injury or feeling unwell</h3><p class="s-examples">For example: “my back hurts”, dizziness, a sprain, cramp, feeling sick.</p><p><strong>What happens:</strong> it won’t pick a session around it, and suggests advice from a doctor or physiotherapist. During a session, the timer pauses, no more movements are offered, and the person decides whether to stop.</p></article>
+    <article class="s-level"><h3>Recovering or in rehab</h3><p class="s-examples">For example: “after surgery”, “seeing a physio”, “recovering from”.</p><p><strong>What happens:</strong> it says their clinician’s advice comes first and that these sessions are not a rehab plan.</p></article>
+  </div>
+  <p class="l-note"><strong>How it recognises this, and the honest limit:</strong> a fixed list of words and phrases always runs, and it can’t be switched off. With Claude turned on, Claude also reads the message and can catch wording the list misses, like “my knee feels weird” or “that pinched”. Claude can only add caution, never remove it, and the safety wording people see is always Lull’s own fixed text. In our test of 44 realistic messages, the list alone missed 10 of 16 body concerns, and the list plus Claude missed none. That is a small test, not proof: either can miss unusual wording, and neither can tell how serious something is. This is a safety net, not an assessment. With Claude on, typed messages are sent to Anthropic to be read. Taps and choices are not. The home screen also tells people to stop anything that doesn’t feel right, and the cues during a session ask them to move only in a range that feels comfortable.</p>
+</section>
+
+<section id="claims" class="l-section l-split">
+  <div>
+    <h2>What it never claims</h2>
+    <ul class="l-list">
+      <li><strong>That anyone exercised.</strong> Timers measure time on a page. The end-of-session record says how long timers ran, not what someone did.</li>
+      <li><strong>Weight loss or treatment.</strong> No promises about weight, pain relief, posture or health outcomes.</li>
+      <li><strong>That it can see or hear you.</strong> It is text only. No camera, no microphone, no motion sensing.</li>
+      <li><strong>That you should keep a streak.</strong> No badges, no reminders you didn’t ask for, no “you missed a day”.</li>
+    </ul>
+  </div>
+  <figure class="l-shot"><img src="/web/img/safety.png" alt="The safety screen shown when someone reports pain" loading="lazy" width="1280" height="800"></figure>
+</section>
+
+<section id="review" class="l-section">
+  <h2>Content review</h2>
+  <p>Every movement and cue was written by the Lull team to be gentle, low impact and doable at a desk or in a small space. They have <strong>not yet</strong> been reviewed by a physiotherapist. That review is required before any wider launch or any paid pilot.</p>
+  <div class="s-table" role="table" aria-label="Review status for each session">
+    <div class="s-row s-head" role="row"><span role="columnheader">Session</span><span role="columnheader">Length</span><span role="columnheader">Written</span><span role="columnheader">Physiotherapist review</span></div>
+    <div class="s-row" role="row"><span role="cell">Mobility, gentle</span><span role="cell">2:40</span><span role="cell" class="s-ok">Done</span><span role="cell" class="s-pending">Pending</span></div>
+    <div class="s-row" role="row"><span role="cell">Mobility, steady</span><span role="cell">4:00</span><span role="cell" class="s-ok">Done</span><span role="cell" class="s-pending">Pending</span></div>
+    <div class="s-row" role="row"><span role="cell">Stretching, gentle</span><span role="cell">2:30</span><span role="cell" class="s-ok">Done</span><span role="cell" class="s-pending">Pending</span></div>
+    <div class="s-row" role="row"><span role="cell">Stretching, steady</span><span role="cell">3:45</span><span role="cell" class="s-ok">Done</span><span role="cell" class="s-pending">Pending</span></div>
+    <div class="s-row" role="row"><span role="cell">Low-impact cardio, gentle</span><span role="cell">2:30</span><span role="cell" class="s-ok">Done</span><span role="cell" class="s-pending">Pending</span></div>
+    <div class="s-row" role="row"><span role="cell">Low-impact cardio, steady</span><span role="cell">4:00</span><span role="cell" class="s-ok">Done</span><span role="cell" class="s-pending">Pending</span></div>
+    <div class="s-row" role="row"><span role="cell">Safety wording and trigger phrases</span><span role="cell">–</span><span role="cell" class="s-ok">Done</span><span role="cell" class="s-pending">Pending, also needs clinical sign-off</span></div>
+  </div>
+  <p class="s-small">Lengths are the real totals of each session’s timers, checked by an automated test.</p>
+</section>
+
+<section id="access" class="l-section">
+  <h2>Accessibility</h2>
+  <p>The aim is WCAG 2.2 level AA. Here is what has been checked, how, and what hasn’t been done yet.</p>
+  <div class="l-cards s-cards">
+    <article><h3>Checked</h3><ul class="l-list">
+      <li>Text contrast meets AA in both light and evening themes (measured for every text and background pair).</li>
+      <li>A whole session can be run from the keyboard: Space starts and pauses a timer, arrows move between steps. Covered by an automated test.</li>
+      <li>Timer changes are announced to screen readers, and focus moves to each new step.</li>
+      <li>Reduced-motion settings are respected, and the layout works on phone screens.</li>
+    </ul></article>
+    <article><h3>Not done yet</h3><ul class="l-list">
+      <li>Testing with people who use screen readers (NVDA, JAWS, VoiceOver) day to day.</li>
+      <li>A formal audit by an accessibility specialist.</li>
+      <li>Languages other than English.</li>
+      <li>Movement alternatives for wheelchair users and people with limited mobility.</li>
+    </ul></article>
+  </div>
+  <p class="s-small">Found a barrier? In a live launch, a contact address for accessibility reports would be listed here, with a reply within five working days.</p>
+</section>
+</main>
+
+<footer class="l-footer">
+  <p><strong>lull</strong> · A working prototype. Not medical advice. If you feel unwell, stop and get help.</p>
+  <p><a href="/teams">Lull for teams</a> · <a href="/">Try a session</a></p>
+  <p>Adapted from a starter harness provided for a take-home exercise.</p>
+</footer>
+</body></html>

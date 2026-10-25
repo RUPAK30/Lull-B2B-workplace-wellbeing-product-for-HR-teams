@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Concept: a reminder in team chat</title>
+<!-- A design concept, rendered to docs/images/15-nudge-concept.png. Not part of the app. -->
+<style>
+*{box-sizing:border-box}
+body{margin:0;width:1280px;height:800px;font-family:"Segoe UI",-apple-system,Arial,sans-serif;background:#efe9dc;display:grid;place-items:center}
+.frame{width:1180px;height:700px;display:grid;grid-template-columns:250px 1fr;border-radius:18px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(29,36,31,.5),0 0 0 1px #d9d1bf;background:#fff;position:relative}
+.side{background:#2b3138;color:#c9ced4;padding:18px 0;font-size:14px}
+.ws{padding:0 18px 16px;color:#fff;font-weight:700;font-size:16px;border-bottom:1px solid #3a414a}
+.group{padding:14px 18px 4px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#8a929b}
+.item{padding:6px 18px;display:flex;align-items:center;gap:8px}
+.item.on{background:#3d4652;color:#fff}
+.dot{width:18px;height:18px;border-radius:6px;background:radial-gradient(circle at 35% 30%,#8fae93,#2a5444);flex:none}
+.main{display:flex;flex-direction:column;background:#fbfaf7}
+.head{padding:16px 24px;border-bottom:1px solid #e6e1d6;display:flex;align-items:center;gap:10px;font-weight:700;color:#1d241f}
+.head small{font-weight:400;color:#6b716a}
+.feed{flex:1;padding:22px 24px;display:flex;flex-direction:column;gap:22px;overflow:hidden}
+.day{align-self:center;font-size:12px;color:#6b716a;border:1px solid #e1dbcf;border-radius:999px;padding:3px 12px;background:#fff}
+.msg{display:grid;grid-template-columns:40px 1fr;gap:12px}
+.avatar{width:40px;height:40px;border-radius:10px;background:radial-gradient(circle at 35% 30%,#8fae93,#2a5444)}
+.avatar.me{background:#c9b48a}
+.who{font-weight:700;color:#1d241f}.who span{font-weight:400;font-size:12px;color:#6b716a;margin-left:8px}
+.tag{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;background:#e6e9e3;color:#3d4a41;font-size:11px;font-weight:700;vertical-align:1px}
+.text{margin-top:3px;color:#2b322d;font-size:15px;line-height:1.5}
+.card{margin-top:10px;max-width:520px;border:1px solid #e1dbcf;border-left:4px solid #2a5444;border-radius:10px;padding:14px 16px;background:#fff}
+.card b{display:block;color:#1d241f;font-size:15px}
+.card p{margin:4px 0 12px;color:#5e665d;font-size:14px}
+.btns{display:flex;gap:8px}
+.btn{padding:8px 14px;border-radius:8px;border:1px solid #cfc7b5;background:#fff;font-size:14px;font-weight:600;color:#1d241f}
+.btn.go{background:#2a5444;border-color:#2a5444;color:#fff}
+.fine{margin-top:10px;font-size:12px;color:#6b716a}
+.reply{margin-top:8px;font-size:14px;color:#5e665d;font-style:italic}
+.compose{margin:0 24px 20px;padding:14px 16px;border:1px solid #e1dbcf;border-radius:10px;color:#9a9f97;font-size:14px;background:#fff}
+.concept{position:absolute;top:16px;right:16px;padding:8px 14px;border-radius:999px;background:#2a5444;color:#fff;font-size:13px;font-weight:700;letter-spacing:.02em;box-shadow:0 6px 14px -6px rgba(0,0,0,.4)}
+</style></head>
+<body>
+<div class="frame">
+  <aside class="side">
+    <div class="ws">Your workspace</div>
+    <div class="group">Channels</div>
+    <div class="item"># general</div><div class="item"># product</div><div class="item"># design-review</div>
+    <div class="group">Apps</div>
+    <div class="item on"><span class="dot"></span>Lull</div>
+  </aside>
+  <section class="main">
+    <div class="head"><span class="dot"></span>Lull <small>· App · Only you can see these messages</small></div>
+    <div class="feed">
+      <div class="day">Tuesday</div>
+      <div class="msg"><div class="avatar"></div><div>
+        <div class="who">Lull <span class="tag">APP</span><span>3:00 PM</span></div>
+        <div class="text">Been sitting a while? Here’s a short break, if you want it.</div>
+        <div class="card"><b>Mobility reset · gentle · 2:40</b><p>Slow movement for the back and hips. Works sitting or standing.</p>
+          <div class="btns"><span class="btn go">Start now</span><span class="btn">In an hour</span><span class="btn">Not today</span></div></div>
+        <div class="fine">You asked for weekday reminders at 3pm. Change or turn them off in Lull settings.</div>
+      </div></div>
+      <div class="day">Wednesday</div>
+      <div class="msg"><div class="avatar"></div><div>
+        <div class="who">Lull <span class="tag">APP</span><span>3:00 PM</span></div>
+        <div class="text">Three minutes, if you have them.</div>
+        <div class="card"><b>Stretch and settle · gentle · 2:30</b><p>Neck, chest and the backs of the legs.</p>
+          <div class="btns"><span class="btn go">Start now</span><span class="btn">In an hour</span><span class="btn">Not today</span></div></div>
+        <div class="reply">You chose “Not today”. No follow-up, no reminder later.</div>
+      </div></div>
+    </div>
+    <div class="compose">Message Lull</div>
+  </section>
+  <div class="concept">CONCEPT · NOT BUILT YET</div>
+</div>
+</body></html>
