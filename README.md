@@ -1,5 +1,7 @@
 # Lull
 
+**Live site:** https://rupak30.github.io/Lull-B2B-workplace-wellbeing-product-for-HR-teams/
+
 Three-minute guided movement breaks for teams who sit all day. Someone types how they feel, gets one short session, and Lull adjusts or stops as they go. Employers see team totals only, never a person.
 
 Lull is a working prototype designed to support a first pilot, pending clinical, privacy and technical readiness checks. It includes the app, a page for HR and wellbeing buyers, a team view, a public safety page and a one-page pilot proposal. It runs entirely on your machine in a deterministic **Mock** mode: no account, no API key, no data leaves the page. All usage figures shown are made-up sample data, and labelled as such.
