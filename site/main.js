@@ -1,80 +1,152 @@
 (function () {
+  var params = new URLSearchParams(location.search);
+  var clean = function (v, max) { return (v || '').replace(/[^\p{L}\p{N} &.,'()-]/gu, '').replace(/\s+/g, ' ').trim().slice(0, max); };
+  var company = clean(params.get('for'), 40);
+  var ref = (params.get('ref') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 60);
+
+  // Analytics: GoatCounter events, with ref when present. Never shown on the page.
+  function track(name) {
+    var path = name + (ref ? '?ref=' + ref : '');
+    var send = function () { window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: path, title: name, event: true }); };
+    if (window.goatcounter && window.goatcounter.count) send(); else setTimeout(send, 1500);
+  }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-ev]'); if (el) track(el.dataset.ev);
+  });
+
+  // Personal opening.
+  var forLine = document.getElementById('for-line');
+  if (forLine && company) {
+    forLine.textContent = 'A 2-minute look at Lull, prepared for the People team at ' + company;
+    forLine.hidden = false;
+  }
+
+  // Tally links carry cta (already in href) and ref.
+  if (ref) document.querySelectorAll('a[data-cta]').forEach(function (a) { a.href += '&ref=' + encodeURIComponent(ref); });
+
   var nav = document.getElementById('nav');
   addEventListener('scroll', function () { nav.classList.toggle('scrolled', scrollY > 8); }, { passive: true });
 
-  var items = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    items.forEach(function (el) { io.observe(el); });
-  } else items.forEach(function (el) { el.classList.add('in'); });
+  var io = 'IntersectionObserver' in window;
+  var reveals = document.querySelectorAll('.reveal');
+  if (io) {
+    var ro = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -6% 0px' });
+    reveals.forEach(function (el) { ro.observe(el); });
+  } else reveals.forEach(function (el) { el.classList.add('in'); });
 
-  // Privacy demo. Sample data: weekly active % per team over a six-week pilot.
-  var list = document.getElementById('teams');
-  if (!list) return;
-  var COMPANY = 103;
-  var teams = [
-    { name: 'Engineering', size: 38, pct: [71, 68, 60, 52, 54, 51] },
-    { name: 'Sales', size: 21, pct: [62, 57, 48, 43, 45, 43] },
-    { name: 'Customer Success', size: 14, pct: [79, 71, 64, 57, 64, 57] },
-    { name: 'Product', size: 12, pct: [75, 75, 67, 58, 58, 58] },
-    { name: 'Operations', size: 11, hidden: 'pair' },
-    { name: 'Finance', size: 7, hidden: 'small' }
-  ];
-  var company = [69, 66, 58, 50, 52, 49];
-  var TIPS = {
-    small: 'Teams under 10 are hidden so no one can be identified.',
-    pair: 'Also hidden: with only one small team, showing this one would let anyone work out the small team by subtraction.'
-  };
-  var lock = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>';
+  var split = document.getElementById('split');
+  if (split) {
+    // Sessions adapted from the app's mock content (src/server/lull.ts): the need each phrase maps to, and its gentle plan.
+    var SESSIONS = {
+      stiff: { ack: 'Heard: some stiffness. Slow and controlled range fits well.', title: 'Gentle mobility', time: '2:40', team: 'Engineering', blocks: [
+        ['Wake the spine', '0:40', 'Breathe in as the chest opens, out as the back rounds.'],
+        ['Shoulders and neck', '0:45', 'Slow shoulder circles. Let each exhale lower the shoulders.'],
+        ['Downshift', '0:30', 'An easy breathing reset between blocks.'],
+        ['Hip hinge reach', '0:45', 'Keep the back long rather than chasing depth.']] },
+      switchoff: { ack: 'Something quieter, then.', title: 'Gentle stretching', time: '2:30', team: 'Sales', blocks: [
+        ['Neck side stretch', '0:40', 'Keep both shoulders relaxed and low. Mild tension only.'],
+        ['Chest opener', '0:40', 'Draw the shoulders back, not up. Keep breathing slowly.'],
+        ['Settle', '0:30', 'Soften the jaw. Lengthen each exhale.'],
+        ['Back of the legs', '0:40', 'Lead with the chest, not the head. Mild stretch, never sharp.']] },
+      restless: { ack: 'Restless energy does well with a bit of rhythm.', title: 'Gentle low-impact cardio', time: '2:30', team: 'Customer Success', blocks: [
+        ['Warm-up march', '0:45', 'Keep one foot on the ground. Breathing should stay easy.'],
+        ['Step-touch', '0:45', 'Light on your feet; no jumping.'],
+        ['Recover', '0:30', 'Smaller steps. Longer exhales.'],
+        ['Cool-down', '0:30', 'Slow, even steps. Notice the breath settling.']] }
+    };
+    var TEAMS = [['Engineering', 22, '38 people'], ['Sales', 11, '21 people'], ['Customer Success', 9, '14 people'], ['Finance', null, 'under 10']];
+    var rows = document.getElementById('hr-rows');
+    rows.innerHTML = TEAMS.map(function (t) {
+      return t[1] === null
+        ? '<li class="hr-row hidden"><span><b>' + t[0] + '</b></span><span class="n">Hidden · team under 10</span></li>'
+        : '<li class="hr-row" data-team="' + t[0] + '"><span><b>' + t[0] + '</b></span><span class="n"><strong>' + t[1] + '</strong> active this week<span class="delta">+1</span></span></li>';
+    }).join('');
 
-  list.innerHTML = teams.map(function (t, i) {
-    var right = t.hidden
-      ? '<span class="pct"><button type="button" class="lock-tip" aria-expanded="false">' + lock + 'Hidden<span class="tip" role="tooltip">' + TIPS[t.hidden] + '</span></button></span>'
-      : '<span class="pct" data-i="' + i + '">0%</span>';
-    return '<li class="team' + (t.hidden ? ' hidden' : '') + '"><span class="team-name">' + t.name + '<small>' + (t.hidden === 'small' ? 'Under 10 people' : t.size + ' people') + '</small></span>' +
-      '<span class="bar"><i data-i="' + i + '"></i></span>' + right + '</li>';
-  }).join('');
-
-  var weeks = document.getElementById('weeks'), week = 5;
-  weeks.innerHTML = company.map(function (_, w) {
-    return '<button type="button" aria-pressed="' + (w === week) + '" aria-label="Week ' + (w + 1) + '">W' + (w + 1) + '</button>';
-  }).join('');
-
-  function render() {
-    teams.forEach(function (t, i) {
-      if (t.hidden) return;
-      list.querySelector('i[data-i="' + i + '"]').style.width = t.pct[week] + '%';
-      list.querySelector('.pct[data-i="' + i + '"]').textContent = t.pct[week] + '%';
+    var chips = document.querySelectorAll('.chip');
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var s = SESSIONS[chip.dataset.chip];
+        chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip); });
+        document.getElementById('emp-ack').textContent = s.ack;
+        document.getElementById('emp-title').textContent = s.title;
+        document.getElementById('emp-meta').textContent = s.time + ' on the timers · ' + s.blocks.length + ' steps';
+        document.getElementById('emp-blocks').innerHTML = s.blocks.map(function (b) {
+          return '<li><b>' + b[0] + '</b><span>' + b[1] + '</span><small>' + b[2] + '</small></li>';
+        }).join('');
+        var reopen = split.hidden, small = matchMedia('(max-width:859px)').matches;
+        split.hidden = false;
+        document.getElementById('try-hint').hidden = true;
+        if (!reopen) { split.querySelectorAll('.side').forEach(function (el) { el.style.animation = 'none'; el.offsetWidth; el.style.animation = ''; }); }
+        rows.querySelectorAll('.hr-row[data-team]').forEach(function (r) {
+          var base = TEAMS.filter(function (t) { return t[0] === r.dataset.team; })[0][1];
+          var hit = r.dataset.team === s.team;
+          r.classList.remove('bump');
+          r.querySelector('strong').textContent = base;
+          if (hit) setTimeout(function () { r.querySelector('strong').textContent = base + 1; r.classList.add('bump'); }, small ? 900 : (reopen ? 650 : 350));
+        });
+        document.getElementById('hr-live').textContent = 'HR sees: ' + s.team + ', one more active this week. Nothing else.';
+        if (matchMedia('(max-width:859px)').matches) setTimeout(function () { split.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }, 60);
+        track('chip-' + chip.dataset.chip);
+      });
     });
-    document.getElementById('total-pct').textContent = company[week] + '%';
-    document.getElementById('total-txt').textContent = Math.round(company[week] * COMPANY / 100) + ' of ' + COMPANY + ' people active in week ' + (week + 1);
-    weeks.querySelectorAll('button').forEach(function (b, w) { b.setAttribute('aria-pressed', w === week); });
   }
 
-  weeks.addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (!b) return;
-    week = Array.prototype.indexOf.call(weeks.children, b); render();
-  });
-
-  list.addEventListener('click', function (e) {
-    var b = e.target.closest('.lock-tip'); if (!b) return;
-    var open = b.getAttribute('aria-expanded') !== 'true';
-    list.querySelectorAll('.lock-tip').forEach(function (x) { x.setAttribute('aria-expanded', 'false'); });
-    b.setAttribute('aria-expanded', open);
-  });
-
-  var dash = document.getElementById('dash'), sw = document.getElementById('try-ind'), panel = document.getElementById('locked');
-  function setLocked(on) {
-    dash.classList.toggle('locked', on);
-    sw.setAttribute('aria-checked', on);
-    panel.setAttribute('aria-hidden', !on);
-    if (on) document.getElementById('unlock-back').focus({ preventScroll: true });
+  // Calculator.
+  var size = document.getElementById('size');
+  if (size) {
+    var fmt = function (n) { return '₹' + n.toLocaleString('en-IN'); };
+    var used = false;
+    var calc = function () {
+      var n = +size.value;
+      document.getElementById('cost').innerHTML = '<span class="ppl">' + n + ' people:</span> <span class="amt">' + fmt(n * 60) + '–' + fmt(n * 120).slice(1) + '</span> <span class="mo">/ month</span>';
+    };
+    size.addEventListener('input', function () { calc(); if (!used) { used = true; track('calculator-used'); } });
+    calc();
   }
-  sw.addEventListener('click', function () { setLocked(sw.getAttribute('aria-checked') !== 'true'); });
-  document.getElementById('unlock-back').addEventListener('click', function () { setLocked(false); sw.focus(); });
-  addEventListener('keydown', function (e) { if (e.key === 'Escape' && dash.classList.contains('locked')) { setLocked(false); sw.focus(); } });
 
-  render();
+  // FAQ.
+  document.querySelectorAll('details[data-faq]').forEach(function (d) {
+    d.addEventListener('toggle', function () { if (d.open) track('faq-' + d.dataset.faq); });
+  });
+
+  // Video modal: the file only loads when opened.
+  var dlg = document.getElementById('vid'), openBtn = document.getElementById('open-video');
+  if (dlg && openBtn) {
+    var video = dlg.querySelector('video');
+    openBtn.addEventListener('click', function () {
+      var src = video.querySelector('source');
+      if (!src.src) { src.src = src.dataset.src; video.load(); }
+      if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+      video.play().catch(function () {});
+      track('video-opened');
+    });
+    var shut = function () { video.pause(); dlg.close ? dlg.close() : dlg.removeAttribute('open'); };
+    document.getElementById('vid-close').addEventListener('click', shut);
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) shut(); });
+    dlg.addEventListener('close', function () { video.pause(); });
+  }
+
+  // Send this to my founder: WhatsApp on phones, email on desktop.
+  var share = document.getElementById('share');
+  if (share) {
+    var url = location.origin + location.pathname + (company ? '?for=' + encodeURIComponent(company) : '');
+    var text = 'Worth a look: Lull, 3-minute guided movement breaks for our team, where HR sees team totals only (never individuals). 6-week pilot with targets agreed up front. ' + url;
+    var phone = matchMedia('(max-width:760px), (pointer:coarse)').matches;
+    share.href = phone
+      ? 'https://wa.me/?text=' + encodeURIComponent(text)
+      : 'mailto:?subject=' + encodeURIComponent('Worth a look: Lull pilot') + '&body=' + encodeURIComponent(text);
+    if (phone) { share.target = '_blank'; share.rel = 'noopener'; }
+    share.addEventListener('click', function () { track('share-founder-' + (phone ? 'whatsapp' : 'email')); });
+  }
+
+  // Sticky mobile bar: after the hero, hidden once the close is on screen.
+  var sticky = document.getElementById('sticky'), hero = document.getElementById('hero'), close = document.getElementById('close');
+  if (sticky && io) {
+    var heroOut = false, closeIn = false;
+    var upd = function () { sticky.classList.toggle('show', heroOut && !closeIn); };
+    new IntersectionObserver(function (es) { heroOut = !es[0].isIntersecting; upd(); }).observe(hero);
+    new IntersectionObserver(function (es) { closeIn = es[0].isIntersecting; upd(); }).observe(close);
+  }
 })();
