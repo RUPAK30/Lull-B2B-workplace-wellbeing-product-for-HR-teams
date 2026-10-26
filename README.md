@@ -10,7 +10,16 @@ Lull is a working prototype designed to support a first pilot, pending clinical,
 
 ![Lull: the active movement stage](docs/images/02-stage-running.png)
 
-## Run it
+## Running a team pilot
+
+1. **Give each pilot team its own link:** `https://lull-hr.vercel.app/app/?team=sales`. Only send it to teams of 10 or more; the code is cleaned to lower-case letters, digits and hyphens.
+2. **What leaves an employee's device**, and nothing else (enforced by `src/shared/pilot.ts`, tested in `tests/pilot.test.mjs`): `session-started`, `session-finished`, `felt-lighter` / `felt-same` / `felt-not-for-me`, `reminder-set` (once per device), `came-back`, `opened-from-reminder`. No name, device ID, typed text or anything about pain or safety is ever sent. Each person sees the exact list under **Settings → What leaves this device** and can switch counting off.
+3. **Reminders belong to the employee.** After a session, "Make it a habit" adds a weekday reminder to their own Google, Outlook or Apple calendar, or copies a Slack `/remind` command. Lull never sends reminders itself.
+4. **Reading the numbers:** in GoatCounter (`lull.goatcounter.com`), events appear as `pilot/<team>/<event>`. GoatCounter counts events, not people; use them for the week-3 check-in and the week-6 report, and never show a team under 10.
+5. **Leading indicator for week 3:** the share of the team with `reminder-set`. If few people set a reminder, return rates will fall like every other tool, and that is the thing to fix first.
+
+The local app (`npm start`) never sends pilot counts: its Content Security Policy only allows its own origin.
+
 
 Requires **Node.js 22.18 or later** and npm.
 

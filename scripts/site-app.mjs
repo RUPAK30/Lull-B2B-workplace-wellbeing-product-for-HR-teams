@@ -1,14 +1,15 @@
 // Copies the built app into site/app so the public site can host the real Lull in Mock mode.
 // The browser answers the app's two API calls itself (site/app/shim.js) with the same mockTurn
 // the local server uses, so no server, account or model is involved. Run `npm run build` first.
-import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const root = process.cwd(), dist = join(root, 'dist'), out = join(root, 'site/app');
 await rm(out, { recursive: true, force: true });
 await mkdir(join(out, 'web'), { recursive: true });
 
-const web = ['analytics.js', 'app.js', 'components.js', 'dom.js', 'insights-view.js', 'prefs.js', 'styles.css', 'icon.svg', 'icon-192.png', 'icon-512.png'];
+// Every app script except the old landing page and the local service worker, plus its assets.
+const web = (await readdir(join(dist, 'web'))).filter(f => (f.endsWith('.js') && !['landing.js', 'sw.js'].includes(f)) || ['styles.css', 'icon.svg', 'icon-192.png', 'icon-512.png'].includes(f));
 for (const f of web) await cp(join(dist, 'web', f), join(out, 'web', f));
 await cp(join(dist, 'shared'), join(out, 'shared'), { recursive: true });
 await mkdir(join(out, 'server'), { recursive: true });

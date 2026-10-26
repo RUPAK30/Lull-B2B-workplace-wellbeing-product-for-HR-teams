@@ -8,7 +8,9 @@ import type { StatementNode } from '../shared/openui/openui-model.js';
 import { redactValue } from '../shared/redact.js';
 import { renderComponent, type Context } from './components.js';
 import { byId,el,button } from './dom.js';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun } from './analytics.js';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js';
+import { pilotTeam, pilotCounting, sentLog, openedFromReminder } from './pilot.js';
+import { reminderCard } from './reminder.js';
 import { renderInsights, teamExport, type Source } from './insights-view.js';
 import { sampleEvents } from '../shared/insights.js';
 import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce, type Theme } from './prefs.js';
@@ -133,7 +135,7 @@ function render(){let moveFocus=false;
   holdForSafety();const screens=c.document.screens,index=screens.findIndex(s=>s.key===c.document.cursor),key=c.document.echo()+String(paused);
   if(key!==renderKey || !byId('screen').childNodes.length){renderKey=key;updates=[];const surface=byId('screen');if(surface.contains(byId('navigation')))surface.after(byId('navigation'));surface.replaceChildren();const stage=`${c.document.clearVersion}:${c.document.cursor}`;const current=c.document.current,workoutNow=isWorkout(current);if(stage!==lastStage){surface.classList.remove('enter','enter-stage','enter-soft');void surface.offsetWidth;surface.classList.add(lastStage&&!lastStage.startsWith(`${c.document.clearVersion}:`)?'enter-stage':workoutNow&&lastWasWorkout?'enter-soft':'enter');lastStage=stage;moveFocus=true;}lastWasWorkout=workoutNow;surface.classList.toggle('closing',(c.document.current?.props.children as StatementNode[]??[]).some(n=>n.name==='Recap'));
     if(!current)surface.append(renderHome());
-    else{const ctx:Context={send,timers,timerAction,updates,paused:paused||safetyHold(),safetyPaused,earlyFinish,busy:()=>c.pending,upNext,advance,wasReset,countdown:id=>countdowns.get(id)?.n??0,rememberedName:loadMemory().name??''};if(workoutNow)surface.append(renderWorkout(current,ctx));else for(const node of current.props.children as StatementNode[])if(node.name!=='Cue')surface.append(renderComponent(node,ctx));if((current.props.children as StatementNode[]).some(n=>n.name==='Recap')&&logging.on)surface.append(feelingCard());}
+    else{const ctx:Context={send,timers,timerAction,updates,paused:paused||safetyHold(),safetyPaused,earlyFinish,busy:()=>c.pending,upNext,advance,wasReset,countdown:id=>countdowns.get(id)?.n??0,rememberedName:loadMemory().name??''};if(workoutNow)surface.append(renderWorkout(current,ctx));else for(const node of current.props.children as StatementNode[])if(node.name!=='Cue')surface.append(renderComponent(node,ctx));if((current.props.children as StatementNode[]).some(n=>n.name==='Recap')){if(logging.on||pilotCounting.on)surface.append(feelingCard());if(lastFinishReason()!=='safety')surface.append(reminderCard());}}
     const progress=byId('progress');progress.replaceChildren();if(screens.length>1)for(let i=0;i<screens.length;i++){const n=el('span','',''+(i===index?'active':i<index?'past':''));n.setAttribute('aria-label',`Screen ${i+1}${i===index?', current':''}`);progress.append(n);}
   }
   byId('navigation').hidden=screens.length<2;byId('position').textContent=`${index+1} / ${screens.length}`;byId<HTMLButtonElement>('back').disabled=paused||safetyHold()||index<=0;const awaitingReply=index===screens.length-1&&(c.document.current?.props.children as StatementNode[]??[]).some(n=>n.name==='FollowUps'||n.name==='NameInput'||n.name==='TextInput');const closing=index===screens.length-1&&(c.document.current?.props.children as StatementNode[]??[]).some(n=>n.name==='Recap');byId<HTMLButtonElement>('next').disabled=paused||safetyHold()||awaitingReply||(closing&&closedRun);byId('next').textContent=awaitingReply?'Answer above':closing?(closedRun?'Done for today':'Finish'):index===screens.length-1?'Finish preview':'Next →';
@@ -164,7 +166,7 @@ function renderHome(){
   if(mem.last){const again=button('',()=>send(`/workout ${mem.last!.path} ${mem.last!.intensity}`,'again'),'quick again');again.append(el('strong','Same as last time'),el('span',mem.last.title));quick.append(again);}
   for(const q of QUICK){if(variantOf('home-quick')==='B')break;const b=button('',()=>send(q.cmd,'quick'),'quick');b.append(el('strong',q.label),el('span',q.detail));quick.append(b);}
   const shelf=mem.words?.length?[el('p',`Words you’ve picked up · ${mem.words.length}`,'home-label'),(()=>{const row=el('div','','home-words');for(const w of mem.words!)row.append(el('span',w,'word-chip'));return row;})()]:[];
-  n.append(begin,...(quick.childNodes.length?[el('p',mem.last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick something quick','home-label'),quick]:[]),...shelf,el('p','Simulated and text-only: Lull can’t see you. Stop anything that doesn’t feel right.','micro home-note'));
+  n.append(begin,...(quick.childNodes.length?[el('p',mem.last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick something quick','home-label'),quick]:[]),...shelf,el('p','Simulated and text-only: Lull can’t see you. Stop anything that doesn’t feel right.','micro home-note'),...(pilotTeam?[pilotNote()]:[]));
   return n;
 }
 /** Lull's latest words, shown as a caption outside the workout (where the stage speaks for itself). */
@@ -180,7 +182,7 @@ function rememberSession(){if(!prefs.remember)return;const nodes=c.document.scre
 function focusSession(){const a=document.activeElement as HTMLElement|null;if(a&&a.closest('.talk,#drawer')&&a!==document.body)return;byId('screen').focus({preventScroll:true});}
 // Drawer: conversation history, settings and developer tools.
 function selectTab(tab:string){for(const t of document.querySelectorAll<HTMLElement>('[role=tab]')){const on=t.dataset.tab===tab;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;}for(const panel of document.querySelectorAll<HTMLElement>('.drawer-panel'))panel.hidden=panel.dataset.panel!==tab;}
-function openDrawer(tab?:string){if(tab)selectTab(tab);byId('drawer').hidden=false;byId('scrim').hidden=false;document.body.classList.add('drawer-open');byId('menu').setAttribute('aria-expanded','true');document.querySelector<HTMLElement>('[role=tab][aria-selected=true]')?.focus();}
+function openDrawer(tab?:string){if(tab)selectTab(tab);renderDeviceSends();byId('drawer').hidden=false;byId('scrim').hidden=false;document.body.classList.add('drawer-open');byId('menu').setAttribute('aria-expanded','true');document.querySelector<HTMLElement>('[role=tab][aria-selected=true]')?.focus();}
 function closeDrawer(){byId('drawer').hidden=true;byId('scrim').hidden=true;document.body.classList.remove('drawer-open');byId('menu').setAttribute('aria-expanded','false');byId('menu').focus();}
 byId('menu').addEventListener('click',()=>byId('drawer').hidden?openDrawer():closeDrawer());byId('close-drawer').addEventListener('click',closeDrawer);byId('scrim').addEventListener('click',closeDrawer);
 for(const t of document.querySelectorAll<HTMLElement>('[role=tab]'))t.addEventListener('click',()=>selectTab(t.dataset.tab!));
@@ -208,11 +210,11 @@ draft.addEventListener('input',()=>{draft.style.height='auto';draft.style.height
 /** The one optional question at the end: self-reported, one tap, skippable, stored only here. */
 const felt=new Set<string>();
 function feelingCard(){const run=currentRun()??'none',n=el('section','','feeling');
-  if(felt.has(run)){n.append(el('p','Thanks. That’s noted on this device only.','feeling-thanks'));return n;}
+  if(felt.has(run)){n.append(el('p',pilotCounting.on?'Thanks. Only the answer counts toward your team’s total, never who gave it.':'Thanks. That’s noted on this device only.','feeling-thanks'));return n;}
   n.append(el('p','How did that feel?','feeling-q'));const row=el('div','','row choices');
   for(const [value,text] of [['lighter','Lighter'],['same','About the same'],['not-for-me','Not for me']] as const)row.append(button(text,()=>{felt.add(run);track('feeling',{value});renderKey='';render();}));
   row.append(button('Skip',()=>{felt.add(run);renderKey='';render();},'ghost'));
-  n.append(row,el('p','Optional. It helps decide what to build next.','micro'));return n;}
+  n.append(row,el('p',pilotCounting.on?'Optional. Counted anonymously for your team’s pilot.':'Optional. It helps decide what to build next.','micro'));return n;}
 // Insights: the product numbers, from this device's log or the synthetic sample.
 let insightSource:Source='device';
 function showInsights(){renderInsights(byId('insights'),{events:insightSource==='sample'?sampleEvents():events(),source:insightSource,onSource:s=>{insightSource=s;showInsights();},onClose:closeInsights,onClear:()=>{clearEvents();showInsights();},onExport:()=>{const data=insightSource==='team'?{report:teamExport()}:{events:insightSource==='sample'?sampleEvents():events()};const url=URL.createObjectURL(new Blob([JSON.stringify({format:'lull-activity-v1',source:insightSource,...data},null,2)],{type:'application/json'}));const a=el('a');a.href=url;a.download=`lull-${insightSource}-activity.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}});}
@@ -232,5 +234,20 @@ byId('clear-log').addEventListener('click',()=>{clearEvents();announce('Activity
 if(!prefs.readySet)prefs.ready=variantOf('ready-default')==='A';
 renderExperiments();
 syncSettings();
+byId('reminder-settings').append(reminderCard(true));
+// A reminder link marks itself so the pilot can see whether reminders bring people back.
+if(openedFromReminder){track('opened_from_reminder');history.replaceState(null,'',location.pathname);}
+/** In a pilot, the home screen says so plainly and links to the list of what has been sent. */
+function pilotNote(){const p=el('p','','micro pilot-note');p.append(`Part of the ${pilotTeam} team pilot. Your sessions count anonymously toward a team total, never by name. `,button('See what’s sent',()=>openDrawer('settings'),'link'));return p;}
+/** "What leaves this device": the exact anonymous counts sent, or a plain statement that nothing is. */
+function renderDeviceSends(){const box=byId('sent-box');box.replaceChildren();
+  if(!pilotTeam){box.append(el('p','Nothing. This copy of Lull isn’t part of a team pilot, so nothing is sent anywhere.','micro'));return;}
+  const toggle=el('label','','toggle'),input=el('input');input.type='checkbox';input.checked=pilotCounting.on;input.addEventListener('change',()=>{pilotCounting.on=input.checked;renderDeviceSends();renderKey='';render();});
+  const text=el('span');text.append(el('strong',`Count my sessions for the ${pilotTeam} team`),` Only these leave this device: session started or finished, a one-tap “How did that feel?”, setting a reminder, and coming back. No name, no device ID, nothing you type, and nothing about pain.`);
+  toggle.append(input,text);box.append(toggle);
+  const log=sentLog().slice(-8).reverse();
+  if(!log.length){box.append(el('p','Nothing sent yet.','micro'));return;}
+  const list=el('ul','','sent-list');for(const s of log)list.append(el('li',`${new Date(s.t).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})} · ${s.team} · ${s.event.replace(/-/g,' ')}`));
+  box.append(el('p','Last sent from this device:','micro'),list);}
 if('serviceWorker' in navigator)navigator.serviceWorker.register('/web/sw.js',{scope:'/'}).catch(()=>{/* installable only where supported */});
 setInterval(tick,250);void start();

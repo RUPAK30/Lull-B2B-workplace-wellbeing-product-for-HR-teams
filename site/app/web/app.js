@@ -7,7 +7,9 @@ import { splitReply } from '../shared/openui/document.js';
 import { redactValue } from '../shared/redact.js';
 import { renderComponent } from './components.js';
 import { byId, el, button } from './dom.js';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun } from './analytics.js';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js';
+import { pilotTeam, pilotCounting, sentLog, openedFromReminder } from './pilot.js';
+import { reminderCard } from './reminder.js';
 import { renderInsights, teamExport } from './insights-view.js';
 import { sampleEvents } from '../shared/insights.js';
 import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js';
@@ -401,8 +403,12 @@ function render() {
                 for (const node of current.props.children)
                     if (node.name !== 'Cue')
                         surface.append(renderComponent(node, ctx));
-            if (current.props.children.some(n => n.name === 'Recap') && logging.on)
-                surface.append(feelingCard());
+            if (current.props.children.some(n => n.name === 'Recap')) {
+                if (logging.on || pilotCounting.on)
+                    surface.append(feelingCard());
+                if (lastFinishReason() !== 'safety')
+                    surface.append(reminderCard());
+            }
         }
         const progress = byId('progress');
         progress.replaceChildren();
@@ -522,7 +528,7 @@ function renderHome() {
     }
     const shelf = mem.words?.length ? [el('p', `Words you’ve picked up · ${mem.words.length}`, 'home-label'), (() => { const row = el('div', '', 'home-words'); for (const w of mem.words)
             row.append(el('span', w, 'word-chip')); return row; })()] : [];
-    n.append(begin, ...(quick.childNodes.length ? [el('p', mem.last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick something quick', 'home-label'), quick] : []), ...shelf, el('p', 'Simulated and text-only: Lull can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'));
+    n.append(begin, ...(quick.childNodes.length ? [el('p', mem.last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick something quick', 'home-label'), quick] : []), ...shelf, el('p', 'Simulated and text-only: Lull can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
     return n;
 }
 /** Lull's latest words, shown as a caption outside the workout (where the stage speaks for itself). */
@@ -565,7 +571,7 @@ function selectTab(tab) { for (const t of document.querySelectorAll('[role=tab]'
 } for (const panel of document.querySelectorAll('.drawer-panel'))
     panel.hidden = panel.dataset.panel !== tab; }
 function openDrawer(tab) { if (tab)
-    selectTab(tab); byId('drawer').hidden = false; byId('scrim').hidden = false; document.body.classList.add('drawer-open'); byId('menu').setAttribute('aria-expanded', 'true'); document.querySelector('[role=tab][aria-selected=true]')?.focus(); }
+    selectTab(tab); renderDeviceSends(); byId('drawer').hidden = false; byId('scrim').hidden = false; document.body.classList.add('drawer-open'); byId('menu').setAttribute('aria-expanded', 'true'); document.querySelector('[role=tab][aria-selected=true]')?.focus(); }
 function closeDrawer() { byId('drawer').hidden = true; byId('scrim').hidden = true; document.body.classList.remove('drawer-open'); byId('menu').setAttribute('aria-expanded', 'false'); byId('menu').focus(); }
 byId('menu').addEventListener('click', () => byId('drawer').hidden ? openDrawer() : closeDrawer());
 byId('close-drawer').addEventListener('click', closeDrawer);
@@ -628,7 +634,7 @@ const felt = new Set();
 function feelingCard() {
     const run = currentRun() ?? 'none', n = el('section', '', 'feeling');
     if (felt.has(run)) {
-        n.append(el('p', 'Thanks. That’s noted on this device only.', 'feeling-thanks'));
+        n.append(el('p', pilotCounting.on ? 'Thanks. Only the answer counts toward your team’s total, never who gave it.' : 'Thanks. That’s noted on this device only.', 'feeling-thanks'));
         return n;
     }
     n.append(el('p', 'How did that feel?', 'feeling-q'));
@@ -636,7 +642,7 @@ function feelingCard() {
     for (const [value, text] of [['lighter', 'Lighter'], ['same', 'About the same'], ['not-for-me', 'Not for me']])
         row.append(button(text, () => { felt.add(run); track('feeling', { value }); renderKey = ''; render(); }));
     row.append(button('Skip', () => { felt.add(run); renderKey = ''; render(); }, 'ghost'));
-    n.append(row, el('p', 'Optional. It helps decide what to build next.', 'micro'));
+    n.append(row, el('p', pilotCounting.on ? 'Optional. Counted anonymously for your team’s pilot.' : 'Optional. It helps decide what to build next.', 'micro'));
     return n;
 }
 // Insights: the product numbers, from this device's log or the synthetic sample.
@@ -682,6 +688,40 @@ if (!prefs.readySet)
     prefs.ready = variantOf('ready-default') === 'A';
 renderExperiments();
 syncSettings();
+byId('reminder-settings').append(reminderCard(true));
+// A reminder link marks itself so the pilot can see whether reminders bring people back.
+if (openedFromReminder) {
+    track('opened_from_reminder');
+    history.replaceState(null, '', location.pathname);
+}
+/** In a pilot, the home screen says so plainly and links to the list of what has been sent. */
+function pilotNote() { const p = el('p', '', 'micro pilot-note'); p.append(`Part of the ${pilotTeam} team pilot. Your sessions count anonymously toward a team total, never by name. `, button('See what’s sent', () => openDrawer('settings'), 'link')); return p; }
+/** "What leaves this device": the exact anonymous counts sent, or a plain statement that nothing is. */
+function renderDeviceSends() {
+    const box = byId('sent-box');
+    box.replaceChildren();
+    if (!pilotTeam) {
+        box.append(el('p', 'Nothing. This copy of Lull isn’t part of a team pilot, so nothing is sent anywhere.', 'micro'));
+        return;
+    }
+    const toggle = el('label', '', 'toggle'), input = el('input');
+    input.type = 'checkbox';
+    input.checked = pilotCounting.on;
+    input.addEventListener('change', () => { pilotCounting.on = input.checked; renderDeviceSends(); renderKey = ''; render(); });
+    const text = el('span');
+    text.append(el('strong', `Count my sessions for the ${pilotTeam} team`), ` Only these leave this device: session started or finished, a one-tap “How did that feel?”, setting a reminder, and coming back. No name, no device ID, nothing you type, and nothing about pain.`);
+    toggle.append(input, text);
+    box.append(toggle);
+    const log = sentLog().slice(-8).reverse();
+    if (!log.length) {
+        box.append(el('p', 'Nothing sent yet.', 'micro'));
+        return;
+    }
+    const list = el('ul', '', 'sent-list');
+    for (const s of log)
+        list.append(el('li', `${new Date(s.t).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} · ${s.team} · ${s.event.replace(/-/g, ' ')}`));
+    box.append(el('p', 'Last sent from this device:', 'micro'), list);
+}
 if ('serviceWorker' in navigator)
     navigator.serviceWorker.register('/web/sw.js', { scope: '/' }).catch(() => { });
 setInterval(tick, 250);

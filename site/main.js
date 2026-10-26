@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
       el.textContent = (met ? 'Met' : 'Not met') + ' · target ' + LABELS[k][String(target[k])];
     });
   }
-  document.querySelectorAll('.seg').forEach(function (seg) {
+  document.querySelectorAll('.seg[data-target]').forEach(function (seg) {
     seg.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b) return;
       seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
@@ -282,14 +282,43 @@ document.addEventListener('DOMContentLoaded', function () {
     track('slide-downloaded');
   });
 
-  // Calculator.
+  // Her own usage guess against cited benchmarks (Plum 2023, JMIR 2019). Lull's number is a target.
+  var usage = document.getElementById('usage'), usageUsed = false;
+  var usageRead = function () {
+    var v = +usage.value;
+    document.getElementById('usage-out').textContent = v + '%';
+    document.getElementById('usage-you').textContent = v + '%';
+    document.getElementById('usage-bar').style.setProperty('--w', Math.max(v, 1) + '%');
+    document.getElementById('usage-verdict').textContent = v < 10
+      ? 'Below even typical counselling-service use. The content is rarely the problem; nothing brings people back.'
+      : v <= 35 ? 'About where most companies are. Most tools are bought at launch and quietly forgotten by week four.'
+      : 'Better than most. The harder part is showing it to your CEO without naming anyone.';
+  };
+  usage.addEventListener('input', function () { usageRead(); if (!usageUsed) { usageUsed = true; track('usage-guess-used'); } });
+  usage.addEventListener('change', function () { track('usage-guess-' + (+usage.value < 10 ? 'under10' : +usage.value <= 35 ? '10to35' : 'over35')); });
+  usageRead();
+
+  // Calculator: a pilot team first (what she can approve), the whole company on request.
   var size = document.getElementById('size');
   var fmt = function (n) { return n.toLocaleString('en-IN'); };
-  var used = false;
+  var MODES = { pilot: { min: 10, max: 50, step: 5, value: 20, label: 'Pilot team size' }, company: { min: 20, max: 500, step: 10, value: 100, label: 'Company size' } };
+  var mode = 'pilot', used = false;
   var calc = function () {
     var n = +size.value;
     document.getElementById('cost').innerHTML = '<span class="ppl">' + n + ' people:</span> <span class="amt">₹' + fmt(n * 60) + '–' + fmt(n * 120) + '</span> <span class="mo">/ month</span>';
+    document.getElementById('cost-note').textContent = mode === 'pilot'
+      ? '6-week pilot total: ₹' + fmt(n * 90) + '–' + fmt(n * 180) + '. Indicative.'
+      : 'Indicative, at ₹60–120 per person per month. Pilots start with one team of 10–50.';
   };
+  document.getElementById('calc-mode').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b || b.dataset.mode === mode) return;
+    mode = b.dataset.mode; var m = MODES[mode];
+    this.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+    size.min = m.min; size.max = m.max; size.step = m.step; size.value = m.value;
+    document.getElementById('size-min').textContent = m.min; document.getElementById('size-max').textContent = m.max;
+    document.getElementById('size-label').textContent = m.label;
+    calc(); track('calculator-mode-' + mode);
+  });
   size.addEventListener('input', function () { calc(); if (!used) { used = true; track('calculator-used'); } });
   calc();
 
