@@ -10,7 +10,11 @@ export function cleanTeam(raw: string | null | undefined): string | null {
   return team || null;
 }
 
-export type PilotEvent = 'session-started' | 'session-finished' | 'felt-lighter' | 'felt-same' | 'felt-not-for-me' | 'came-back' | 'reminder-set' | 'opened-from-reminder';
+export type PilotEvent = 'session-started' | 'session-finished' | 'felt-lighter' | 'felt-same' | 'felt-not-for-me' | 'came-back' | 'reminder-set' | 'opened-from-reminder' | 'team-reset-joined' | `need-${NeedKey}`;
+
+/** Broad need categories HR may see per team. Never pain or safety, which are care, not needs. */
+export type NeedKey = 'sitting' | 'stiff' | 'legs' | 'time' | 'low' | 'restless' | 'energetic' | 'calm' | 'unsure' | 'fitness';
+const NEED_FROM_HEARD: Record<string, NeedKey> = { 'a lot of sitting': 'sitting', 'some stiffness': 'stiff', 'tight legs': 'legs', 'not much time': 'time', 'low energy': 'low', 'restless energy': 'restless', 'wanting more energy': 'energetic', 'wanting something calm': 'calm', 'not sure where to start': 'unsure', 'general fitness': 'fitness' };
 const FELT: Record<string, PilotEvent> = { lighter: 'felt-lighter', same: 'felt-same', 'not-for-me': 'felt-not-for-me' };
 
 /**
@@ -26,6 +30,9 @@ export function pilotEvent(type: string, data?: Record<string, unknown>): PilotE
     case 'returned': return 'came-back';
     case 'reminder_set': return 'reminder-set';
     case 'opened_from_reminder': return 'opened-from-reminder';
+    case 'team_reset': return 'team-reset-joined';
+    // Only the first broad category Lull heard, from a fixed list. Never the words themselves.
+    case 'need': { const first = Array.isArray(data?.kinds) ? NEED_FROM_HEARD[String(data.kinds[0])] : undefined; return first ? `need-${first}` : null; }
     default: return null;
   }
 }
@@ -78,4 +85,20 @@ export function reminderGoogle(time: string, link: string, from: Date, zone: str
 export function reminderSlack(time: string, link: string): string {
   const { h, m } = parseTime(time), hour = h % 12 || 12;
   return `/remind me "Take a 3-minute Lull reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
+}
+
+/** Team reset: a meeting link that opens one known session for everyone. Anything else is ignored. */
+export type Reset = { path: 'mobility' | 'stretching' | 'cardio'; intensity: 'gentle' | 'steady' };
+export function parseReset(raw: string | null | undefined): Reset | null {
+  const match = /^(mobility|stretching|cardio)-(gentle|steady)$/.exec((raw ?? '').trim().toLowerCase());
+  return match ? { path: match[1] as Reset['path'], intensity: match[2] as Reset['intensity'] } : null;
+}
+/** The text a manager pastes into a recurring meeting invite. */
+export const teamResetInvite = (link: string) => `Last 3 minutes: Lull team reset. Open this together and press Start: ${link}`;
+
+/** Reads the session's own title (e.g. "Gentle · Mobility reset") back into a reset code, or null. */
+export function resetFromTitle(title: string): string | null {
+  const t = title.toLowerCase(), intensity = t.startsWith('steady') ? 'steady' : t.startsWith('gentle') ? 'gentle' : null;
+  const path = t.includes('mobility') ? 'mobility' : t.includes('stretch') ? 'stretching' : t.includes('cardio') ? 'cardio' : null;
+  return intensity && path ? `${path}-${intensity}` : null;
 }

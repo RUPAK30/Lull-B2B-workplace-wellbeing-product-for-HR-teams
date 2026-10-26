@@ -8,6 +8,7 @@ export function cleanTeam(raw) {
     const team = (raw ?? '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 24);
     return team || null;
 }
+const NEED_FROM_HEARD = { 'a lot of sitting': 'sitting', 'some stiffness': 'stiff', 'tight legs': 'legs', 'not much time': 'time', 'low energy': 'low', 'restless energy': 'restless', 'wanting more energy': 'energetic', 'wanting something calm': 'calm', 'not sure where to start': 'unsure', 'general fitness': 'fitness' };
 const FELT = { lighter: 'felt-lighter', same: 'felt-same', 'not-for-me': 'felt-not-for-me' };
 /**
  * Maps a local activity event to the anonymous pilot event it may be sent as, or null.
@@ -22,6 +23,12 @@ export function pilotEvent(type, data) {
         case 'returned': return 'came-back';
         case 'reminder_set': return 'reminder-set';
         case 'opened_from_reminder': return 'opened-from-reminder';
+        case 'team_reset': return 'team-reset-joined';
+        // Only the first broad category Lull heard, from a fixed list. Never the words themselves.
+        case 'need': {
+            const first = Array.isArray(data?.kinds) ? NEED_FROM_HEARD[String(data.kinds[0])] : undefined;
+            return first ? `need-${first}` : null;
+        }
         default: return null;
     }
 }
@@ -68,4 +75,16 @@ export function reminderGoogle(time, link, from, zone) {
 export function reminderSlack(time, link) {
     const { h, m } = parseTime(time), hour = h % 12 || 12;
     return `/remind me "Take a 3-minute Lull reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
+}
+export function parseReset(raw) {
+    const match = /^(mobility|stretching|cardio)-(gentle|steady)$/.exec((raw ?? '').trim().toLowerCase());
+    return match ? { path: match[1], intensity: match[2] } : null;
+}
+/** The text a manager pastes into a recurring meeting invite. */
+export const teamResetInvite = (link) => `Last 3 minutes: Lull team reset. Open this together and press Start: ${link}`;
+/** Reads the session's own title (e.g. "Gentle · Mobility reset") back into a reset code, or null. */
+export function resetFromTitle(title) {
+    const t = title.toLowerCase(), intensity = t.startsWith('steady') ? 'steady' : t.startsWith('gentle') ? 'gentle' : null;
+    const path = t.includes('mobility') ? 'mobility' : t.includes('stretch') ? 'stretching' : t.includes('cardio') ? 'cardio' : null;
+    return intensity && path ? `${path}-${intensity}` : null;
 }

@@ -8,7 +8,7 @@ import { redactValue } from '../shared/redact.js';
 import { renderComponent } from './components.js';
 import { byId, el, button } from './dom.js';
 import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js';
-import { pilotTeam, pilotCounting, sentLog, openedFromReminder } from './pilot.js';
+import { pilotTeam, pilotCounting, sentLog, openedFromReminder, teamReset, usualReset } from './pilot.js';
 import { reminderCard } from './reminder.js';
 import { renderInsights, teamExport } from './insights-view.js';
 import { sampleEvents } from '../shared/insights.js';
@@ -497,6 +497,11 @@ async function start() { render(); try {
     select.value = 'mock';
     select.disabled = false;
     render();
+    if (teamReset) {
+        track('team_reset');
+        send(`/workout ${teamReset.path} ${teamReset.intensity}`, 'team-reset');
+        history.replaceState(null, '', location.pathname);
+    }
 }
 catch {
     byId('status').textContent = 'Could not connect. Restart the local server and reload.';
@@ -513,6 +518,16 @@ function renderHome() {
     n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', 'A few good minutes of movement.', 'home-title'), el('p', 'Tell me what today needs in the box below, or pick something quick. I’ll shape the session and stay quiet while you move.', 'home-lede'));
     const begin = button('Start with Lull', () => send('Start Lull', 'onboarding'), 'primary home-start');
     begin.id = 'workout';
+    // Opened from their own reminder: their usual session is one tap away.
+    const usual = openedFromReminder ? usualReset() : null;
+    if (usual) {
+        const label = `${usual.intensity === 'gentle' ? 'Gentle' : 'Steady'} ${usual.path === 'cardio' ? 'low-impact cardio' : usual.path}`;
+        n.append(el('p', 'Your reset time. Same as usual?', 'home-label'));
+        const one = button(`Start ${label}`, () => send(`/workout ${usual.path} ${usual.intensity}`, 'reminder'), 'primary home-start');
+        n.append(one);
+        begin.className = 'home-start';
+        begin.textContent = 'Something different';
+    }
     const quick = el('div', '', 'home-quick');
     if (mem.last) {
         const again = button('', () => send(`/workout ${mem.last.path} ${mem.last.intensity}`, 'again'), 'quick again');
@@ -709,7 +724,7 @@ function renderDeviceSends() {
     input.checked = pilotCounting.on;
     input.addEventListener('change', () => { pilotCounting.on = input.checked; renderDeviceSends(); renderKey = ''; render(); });
     const text = el('span');
-    text.append(el('strong', `Count my sessions for the ${pilotTeam} team`), ` Only these leave this device: session started or finished, a one-tap “How did that feel?”, setting a reminder, and coming back. No name, no device ID, nothing you type, and nothing about pain.`);
+    text.append(el('strong', `Count my sessions for the ${pilotTeam} team`), ` Only these leave this device: session started or finished, a one-tap “How did that feel?”, the broad kind of need Lull heard (like “stiffness” or “short on time”, never your words), setting a reminder, joining a team reset, and coming back. No name, no device ID, nothing you type, and nothing about pain.`);
     toggle.append(input, text);
     box.append(toggle);
     const log = sentLog().slice(-8).reverse();

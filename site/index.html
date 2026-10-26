@@ -68,6 +68,7 @@
         <input id="say-input" name="say" maxlength="120" placeholder="Or type how you feel…" enterkeyhint="go">
         <button type="submit" class="say-go">Try</button>
       </form>
+      <p class="tiny say-hint">Hinglish works too: try “gardan akad gayi” or “kamar mein dard”.</p>
       <div class="split" id="split">
         <div class="side emp" aria-live="polite">
           <p class="chrome phone" aria-hidden="true"><span class="notch"></span><span class="app-name">lull</span></p>
@@ -126,6 +127,7 @@
     <div class="sec-head reveal">
       <p class="kicker">Why people come back</p>
       <h2 id="return-h">Most tools rely on a launch email. Lull relies on a moment people choose.</h2>
+      <p class="lede">And nobody has to admit they're struggling to use it. It's a stretch break, not a counselling session.</p>
     </div>
     <ol class="loop">
       <li class="reveal"><span class="loop-n">1</span><h3>They pick a time, once</h3><p>After a session, one tap puts a weekday reminder on their own calendar or in Slack. Lull never sends reminders itself, so “not today” costs nothing.</p>
@@ -135,6 +137,19 @@
       <li class="reveal"><span class="loop-n">3</span><h3>You see the team total move</h3><p>Only anonymous counts leave the device: started, finished, how it felt, reminder set. Each person can see exactly what was sent, and switch it off.</p>
         <div class="mini mini-hr" aria-hidden="true"><span>Sales · reminders set</span><b>+1</b></div></li>
     </ol>
+    <div class="together reveal">
+      <div>
+        <h3>Or make it a team habit</h3>
+        <p>Any manager can end a recurring meeting with a 3-minute reset. One link in the invite opens the same session for everyone. No install, no accounts. People do what their team does, so this is often what makes it stick.</p>
+        <button type="button" class="btn btn-ghost" id="copy-reset" data-ev="team-reset-copied">Copy a team reset invite</button>
+        <p class="tiny" id="copy-reset-done" role="status"></p>
+      </div>
+      <div class="invite" aria-hidden="true">
+        <p class="invite-title">Weekly stand-up</p>
+        <p class="invite-time">Tue · 10:00–10:30</p>
+        <p class="invite-body">Agenda: updates, blockers.<br><b>Last 3 minutes: Lull team reset.</b> Open together and press Start: <span>lull-hr.vercel.app/app/?reset=mobility-gentle</span></p>
+      </div>
+    </div>
     <p class="loop-try reveal"><a href="app/" data-ev="app-opened-loop">Try it: finish a session in the app and set your own reminder →</a></p>
   </div>
 </section>
@@ -175,6 +190,21 @@
           <details class="why-hidden"><summary>Why are two teams hidden?</summary><p>Both have fewer than 10 people, so neither is shown. If only one team were that small, Lull would hide the next-smallest team too. Otherwise anyone could subtract the visible teams from the company total and work out the small one.</p></details>
         </div>
       </div>
+      <div class="slide-extra">
+        <div>
+          <p class="slide-sub">What each team asked for most</p>
+          <ul class="needs-list">
+            <li><span>Engineering</span><b>Not much time</b><small>12 of 36 requests</small></li>
+            <li><span>Sales</span><b>Not much time</b><small>10 of 31</small></li>
+            <li><span>Product &amp; Design</span><b>A lot of sitting</b><small>8 of 22</small></li>
+          </ul>
+        </div>
+        <div class="cost-cell">
+          <p class="slide-sub">Cost per finished session</p>
+          <p class="cost-big">₹26–53</p>
+          <p class="cost-sub">219 finished sessions in 6 weeks, at the indicative price</p>
+        </div>
+      </div>
       <p class="slide-foot">HR saw team totals only. No names, no messages.</p>
     </article>
     <p class="slide-actions reveal"><button type="button" class="btn btn-ghost" id="dl-slide">Download this slide (PNG)</button><span class="tiny">Forward it to your founder as-is.</span></p>
@@ -187,6 +217,11 @@
     <div class="reveal">
       <h2 id="pilot-h">6-week pilot with one team.</h2>
       <p class="pilot-lines">Targets agreed before day one.<br>₹60–120 per person per month, <em>indicative</em>.</p>
+      <ul class="terms">
+        <li><b>Nothing new to log into.</b> Employees use a link; you get a one-page report at weeks 3 and 6.</li>
+        <li><b>No annual contract.</b> Monthly after the pilot, stop any time. If you don't continue, pilot data is deleted.</li>
+        <li><b>Works alongside your insurance and counselling benefits.</b> They cover the serious moments; Lull covers the ordinary Tuesday afternoon.</li>
+      </ul>
       <p style="margin-top:22px"><a class="textlink" href="lull-pilot-proposal.pdf" download data-ev="proposal-download">Download the pilot proposal (PDF)</a></p>
     </div>
     <div class="calc reveal">
@@ -200,19 +235,44 @@
   </div>
 </section>
 
-<section class="sec band" id="faq" aria-labelledby="faq-h">
+<section class="sec band" id="launch" aria-labelledby="launch-h">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Launch kit</p>
+      <h2 id="launch-h">Ready to launch in 10 minutes. The words are already written.</h2>
+      <p class="lede">Most tools die at launch because HR has to write everything. Here's what your team would get, ready to copy.</p>
+    </div>
+    <div class="kit reveal">
+      <div class="kit-tabs" role="tablist" aria-label="Launch messages">
+        <button type="button" role="tab" id="kt-slack" aria-selected="true" aria-controls="kit-panel" data-kit="slack">Slack post</button>
+        <button type="button" role="tab" id="kt-email" aria-selected="false" aria-controls="kit-panel" data-kit="email">Email</button>
+        <button type="button" role="tab" id="kt-managers" aria-selected="false" aria-controls="kit-panel" data-kit="managers">For managers</button>
+        <button type="button" role="tab" id="kt-card" aria-selected="false" aria-controls="kit-panel" data-kit="card">Desk card</button>
+      </div>
+      <div class="kit-panel" id="kit-panel" role="tabpanel" aria-labelledby="kt-slack">
+        <pre class="kit-text" id="kit-text"></pre>
+        <div class="kit-actions"><button type="button" class="btn btn-ghost" id="kit-copy">Copy</button><a class="btn btn-text" id="kit-print" href="card.html" target="_blank" rel="noopener" hidden>Open printable card</a><span class="tiny" id="kit-done" role="status"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
     <div class="sec-head reveal"><h2 id="faq-h">Questions you'll ask</h2></div>
     <div class="faq reveal">
       <details data-faq="nobody-uses-it"><summary>What if nobody uses it?</summary><p>Lull doesn't rely on a launch email: after a session, each person can put their own weekday reminder in their calendar or Slack, and you'll see how many did. If usage still stalls, you'll know by week 3, not at renewal. The targets (at least half the team tries it, at least 1 in 3 comes back within a week) are agreed with you before we start, we check the team totals together at week 3 and adjust anything that isn't working, and if the targets aren't met, the week 6 report will say so plainly.</p></details>
       <details data-faq="hr-see-typed"><summary>Can HR see what someone typed?</summary><p>No. You see totals, never a person: no names, no individual sessions, nothing anyone typed. Teams under 10 people are never shown. Who reported pain is never shared with anyone, and people can switch off the activity log at any time.</p></details>
       <details data-faq="is-it-therapy"><summary>Is this therapy or a mental-health service?</summary><p>No. Lull offers guided movement sessions of 2½ to 4 minutes: mobility, stretching and low-impact movement that works at a desk, in the browser, with nothing to install. It is not medical advice. If someone mentions pain, dizziness or injury, the session stops and points them to proper help.</p></details>
+      <details data-faq="work-time"><summary>Won't breaks cost us work time?</summary><p>Three minutes, at a time each person picks. In a review of 22 studies on breaks under 10 minutes, people felt more energetic and less tired, and the studies didn't find work suffered. Lull doesn't claim a productivity boost; it claims a short break people actually take.</p></details>
+      <details data-faq="insurance"><summary>We already have wellness through our insurance. Why this?</summary><p>Keep it. Insurance and counselling benefits cover the serious moments. Lull covers the ordinary Tuesday afternoon: a stiff neck after back-to-back calls. It works alongside them, with nothing to switch.</p></details>
+      <details data-faq="remote-shifts"><summary>Does it work for remote, field and shift teams?</summary><p>Yes, the same way for everyone: a link on any phone or laptop, at a time each person chooses, including night shifts. Office-only perks like gym tie-ups miss these teams; Lull doesn't.</p></details>
       <details data-faq="pilot-what-happens"><summary>What happens in the pilot?</summary><p>Week 0: pick one team of 10–50 people, a 15-minute kick-off, share a link. Weeks 1–3: people use it whenever they want. Week 3: a check-in on the team totals. Weeks 4–6: short interviews with up to 5 volunteers, then a plain written report: what worked, what didn't, and whether to continue.</p></details>
     </div>
   </div>
 </section>
 
-<section class="sec" aria-labelledby="builder-h">
+<section class="sec band" aria-labelledby="builder-h">
   <div class="wrap">
     <h2 class="sr" id="builder-h">From the builder</h2>
     <div class="builder reveal">
@@ -228,7 +288,7 @@
   </div>
 </section>
 
-<section class="sec close band" id="close" aria-labelledby="close-h">
+<section class="sec close" id="close" aria-labelledby="close-h">
   <div class="wrap reveal">
     <h2 id="close-h">We're looking for 3 pilot partners.</h2>
     <div class="cta-block">

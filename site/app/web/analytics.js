@@ -1,7 +1,7 @@
 // A private activity log for product insight. It lives in this browser only: nothing is
 // sent anywhere, it can be turned off, cleared or exported, and it never stores free text
 // except the requests Lull could not understand (so they can shape the backlog).
-import { sendPilot } from './pilot.js';
+import { sendPilot, noteUsual } from './pilot.js';
 const LOG = 'sw.events', ON = 'sw.analytics', DEVICE = 'sw.device', LIMIT = 3000;
 const store = {
     get(key) { try {
@@ -37,6 +37,8 @@ export const lastFinishReason = () => lastFinish;
 export function track(type, data) {
     if (type === 'session_finished')
         lastFinish = data?.reason;
+    if (type === 'session_loaded')
+        noteUsual(data?.title);
     // Team pilots count a few anonymous events separately from this private log (see pilot.ts).
     sendPilot(type, data);
     if (!logging.on)

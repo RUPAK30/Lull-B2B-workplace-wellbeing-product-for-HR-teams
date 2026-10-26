@@ -55,3 +55,30 @@ test('the local app still cannot send anything: its CSP only allows its own orig
   const server=await readFile('src/server/app.ts','utf8');
   assert.match(server,/connect-src 'self'/);
 });
+
+import {parseReset,teamResetInvite,resetFromTitle} from '../dist/shared/pilot.js';
+
+test('need categories: only the first broad category from a fixed list, never words or pain',()=>{
+  assert.equal(pilotEvent('need',{kinds:['some stiffness','not much time']}),'need-stiff');
+  assert.equal(pilotEvent('need',{kinds:['a lot of sitting']}),'need-sitting');
+  assert.equal(pilotEvent('need',{kinds:['wanting something calm']}),'need-calm');
+  assert.equal(pilotEvent('need',{kinds:['my back hurts']}),null,'free text never maps');
+  assert.equal(pilotEvent('need',{kinds:[]}),null);
+  assert.equal(pilotEvent('need',{}),null);
+});
+
+test('team reset links only open known sessions',()=>{
+  assert.deepEqual(parseReset('mobility-gentle'),{path:'mobility',intensity:'gentle'});
+  assert.deepEqual(parseReset('CARDIO-steady'),{path:'cardio',intensity:'steady'});
+  for(const bad of ['', 'mobility', 'yoga-gentle', 'mobility-hard', '/workout mobility gentle', null]) assert.equal(parseReset(bad),null,String(bad));
+  assert.equal(pilotEvent('team_reset'),'team-reset-joined');
+  assert.equal(pilotEvent('team_reset_shared'),null,'sharing an invite is not counted');
+  assert.match(teamResetInvite('https://x/app/?reset=mobility-gentle'),/^Last 3 minutes: Lull team reset\. .+https:\/\/x\/app\/\?reset=mobility-gentle$/);
+});
+
+test('a session title maps back to its one-tap reset code',()=>{
+  assert.equal(resetFromTitle('Gentle · Mobility reset'),'mobility-gentle');
+  assert.equal(resetFromTitle('Steady · Stretch and settle'),'stretching-steady');
+  assert.equal(resetFromTitle('Gentle · Low-impact cardio'),'cardio-gentle');
+  assert.equal(resetFromTitle('Something else'),null);
+});

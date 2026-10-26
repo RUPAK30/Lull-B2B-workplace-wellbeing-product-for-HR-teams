@@ -1,9 +1,9 @@
 // "Make it a habit": the person picks a time and puts a recurring reminder on their own calendar
 // or in Slack. Lull never schedules or sends reminders itself, so skipping a day costs nothing.
-import { reminderGoogle, reminderIcs, reminderSlack } from '../shared/pilot.js';
+import { reminderGoogle, reminderIcs, reminderSlack, teamResetInvite } from '../shared/pilot.js';
 import { el, button } from './dom.js';
 import { track } from './analytics.js';
-import { reminderLink } from './pilot.js';
+import { reminderLink, teamResetLink } from './pilot.js';
 
 const TIME = 'sw.reminder.time', SET = 'sw.reminder.set';
 const saved = () => { try { return localStorage.getItem(TIME) ?? '15:40'; } catch { return '15:40'; } };
@@ -39,6 +39,15 @@ export function reminderCard(compact = false) {
     else { done.textContent = text; set('slack', text); }
   });
   const actions = el('div', '', 'row reminder-actions'); actions.append(google, ics, slack);
-  n.append(row, actions, done);
+  // Team reset: the same 3 minutes together, as the last item of a recurring meeting.
+  const together = el('div', '', 'reminder-together');
+  together.append(el('p', 'Or do it together: paste this into a recurring meeting invite, and end it with a 3-minute reset.', 'micro'),
+    button('Copy team reset invite', () => {
+      const text = teamResetInvite(teamResetLink());
+      const copied = () => { done.textContent = 'Copied. Paste it into your stand-up or team meeting invite.'; track('team_reset_shared'); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(copied, () => { done.textContent = text; });
+      else done.textContent = text;
+    }));
+  n.append(row, actions, together, done);
   return n;
 }

@@ -9,7 +9,7 @@ import { redactValue } from '../shared/redact.js';
 import { renderComponent, type Context } from './components.js';
 import { byId,el,button } from './dom.js';
 import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js';
-import { pilotTeam, pilotCounting, sentLog, openedFromReminder } from './pilot.js';
+import { pilotTeam, pilotCounting, sentLog, openedFromReminder, teamReset, usualReset } from './pilot.js';
 import { reminderCard } from './reminder.js';
 import { renderInsights, teamExport, type Source } from './insights-view.js';
 import { sampleEvents } from '../shared/insights.js';
@@ -153,7 +153,7 @@ byId<HTMLSelectElement>('provider').addEventListener('change',event=>c.selectPro
 byId<HTMLInputElement>('consent').addEventListener('change',event=>{c.consent=(event.target as HTMLInputElement).checked;if(!c.consent)c.cancel();render();});
 byId('apply-patch').addEventListener('click',()=>{try{const raw=byId<HTMLTextAreaElement>('patch').value;c.document.apply(raw.includes('```')?raw:'```openui\n'+raw+'\n```');c.localEvent('Builder applied local OpenUI data: '+raw);byId('patch-status').textContent='Patch accepted. This is local fixture evidence, not a model run.';}catch{byId('patch-status').textContent='Invalid patch. Previous screen kept. Check names, arguments and catalog.';}});
 byId('export').addEventListener('click',()=>{const label=byId<HTMLSelectElement>('run-label').value;const payload={format:'lull-workout-run-v1',label,appVersion:APP_VERSION,schemaVersion:SCHEMA_VERSION,selectedProvider:c.provider,note:byId<HTMLTextAreaElement>('note').value,events:c.events,state:{ui_state:c.document.echo(),client_events:c.clientEvents},timers:timers.list()};const url=URL.createObjectURL(new Blob([JSON.stringify(redactValue(payload),null,2)],{type:'application/json'}));const link=el('a');link.href=url;link.download=label+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);byId('export-status').textContent=`Downloaded ${label}.json. Review and move it into runs/.`;});
-async function start(){render();try{const response=await fetch('/api/config');track('visit');for(const e of EXPERIMENTS)track('exposure',{exp:e.id,variant:variantOf(e.id)});noteReturn();if(!response.ok)throw new Error();config=await response.json();const select=byId<HTMLSelectElement>('provider');select.replaceChildren();for(const p of config!.providers){const option=el('option',p.label+(p.enabled?'':' · setup / blocked'));option.value=p.id;select.append(option);}select.value='mock';select.disabled=false;render();}catch{byId('status').textContent='Could not connect. Restart the local server and reload.';}}
+async function start(){render();try{const response=await fetch('/api/config');track('visit');for(const e of EXPERIMENTS)track('exposure',{exp:e.id,variant:variantOf(e.id)});noteReturn();if(!response.ok)throw new Error();config=await response.json();const select=byId<HTMLSelectElement>('provider');select.replaceChildren();for(const p of config!.providers){const option=el('option',p.label+(p.enabled?'':' · setup / blocked'));option.value=p.id;select.append(option);}select.value='mock';select.disabled=false;render();if(teamReset){track('team_reset');send(`/workout ${teamReset.path} ${teamReset.intensity}`,'team-reset');history.replaceState(null,'',location.pathname);}}catch{byId('status').textContent='Could not connect. Restart the local server and reload.';}}
 /** Jump to a movement from the session overview (never while safety holds the session). */
 function jumpTo(key:string){if(safetyHold()||nav.phase()!=='idle'||paused)return;const screens=c.document.screens,i=screens.findIndex(s=>s.key===key),from=screens.findIndex(s=>s.key===c.document.cursor);if(i<0||i===from)return;c.document.move(i);c.localEvent(i<from?activityClientEvents.wentBack(`step ${from+1}`,`step ${i+1}`):activityClientEvents.nowOnStep(`step ${i+1} of ${screens.length}`));}
 const QUICK=[{label:'Loosen up',detail:'Gentle mobility · 2:40',cmd:'/workout mobility gentle'},{label:'Stretch',detail:'Gentle stretching · 2:30',cmd:'/workout stretching gentle'},{label:'Get moving',detail:'Steady low-impact cardio · 4:00',cmd:'/workout cardio steady'}];
@@ -162,6 +162,9 @@ function renderHome(){
   const mem=loadMemory(),hour=new Date().getHours(),hello=hour<12?'Good morning':hour<18?'Good afternoon':'Good evening';
   const n=el('div','','home');n.append(el('p',`${hello}${mem.name?`, ${mem.name}`:''}`,'home-hello'),el('h2','A few good minutes of movement.','home-title'),el('p','Tell me what today needs in the box below, or pick something quick. I’ll shape the session and stay quiet while you move.','home-lede'));
   const begin=button('Start with Lull',()=>send('Start Lull','onboarding'),'primary home-start');begin.id='workout';
+  // Opened from their own reminder: their usual session is one tap away.
+  const usual=openedFromReminder?usualReset():null;
+  if(usual){const label=`${usual.intensity==='gentle'?'Gentle':'Steady'} ${usual.path==='cardio'?'low-impact cardio':usual.path}`;n.append(el('p','Your reset time. Same as usual?','home-label'));const one=button(`Start ${label}`,()=>send(`/workout ${usual.path} ${usual.intensity}`,'reminder'),'primary home-start');n.append(one);begin.className='home-start';begin.textContent='Something different';}
   const quick=el('div','','home-quick');
   if(mem.last){const again=button('',()=>send(`/workout ${mem.last!.path} ${mem.last!.intensity}`,'again'),'quick again');again.append(el('strong','Same as last time'),el('span',mem.last.title));quick.append(again);}
   for(const q of QUICK){if(variantOf('home-quick')==='B')break;const b=button('',()=>send(q.cmd,'quick'),'quick');b.append(el('strong',q.label),el('span',q.detail));quick.append(b);}
@@ -243,7 +246,7 @@ function pilotNote(){const p=el('p','','micro pilot-note');p.append(`Part of the
 function renderDeviceSends(){const box=byId('sent-box');box.replaceChildren();
   if(!pilotTeam){box.append(el('p','Nothing. This copy of Lull isn’t part of a team pilot, so nothing is sent anywhere.','micro'));return;}
   const toggle=el('label','','toggle'),input=el('input');input.type='checkbox';input.checked=pilotCounting.on;input.addEventListener('change',()=>{pilotCounting.on=input.checked;renderDeviceSends();renderKey='';render();});
-  const text=el('span');text.append(el('strong',`Count my sessions for the ${pilotTeam} team`),` Only these leave this device: session started or finished, a one-tap “How did that feel?”, setting a reminder, and coming back. No name, no device ID, nothing you type, and nothing about pain.`);
+  const text=el('span');text.append(el('strong',`Count my sessions for the ${pilotTeam} team`),` Only these leave this device: session started or finished, a one-tap “How did that feel?”, the broad kind of need Lull heard (like “stiffness” or “short on time”, never your words), setting a reminder, joining a team reset, and coming back. No name, no device ID, nothing you type, and nothing about pain.`);
   toggle.append(input,text);box.append(toggle);
   const log=sentLog().slice(-8).reverse();
   if(!log.length){box.append(el('p','Nothing sent yet.','micro'));return;}

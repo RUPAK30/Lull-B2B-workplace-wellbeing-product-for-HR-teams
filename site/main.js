@@ -48,19 +48,19 @@ document.addEventListener('DOMContentLoaded', function () {
   // HR figures come from the repo's sample company (src/shared/team.ts): a finished session moves
   // one team from one below to its week-6 active count.
   var INTENTS = {
-    urgent: ['chest pain', 'chest hurts', 'chest feels tight', 'cannot breathe', 'short of breath', 'trouble breathing', 'struggling to breathe', 'faint', 'fainted', 'fainting', 'blacked out', 'passed out', 'numb', 'numbness', 'severe pain', 'sudden pain'],
-    rehab: ['rehab', 'rehabilitation', 'recovering from', 'recovery from', 'post op', 'after surgery', 'surgery', 'physio', 'physiotherapy', 'physical therapy'],
-    pain: ['pain', 'painful', 'dizzy', 'dizziness', 'lightheaded', 'light headed', 'nauseous', 'nausea', 'feel sick', 'feeling sick', 'felt sick', 'cramp', 'something feels wrong', 'hurt', 'hurts', 'hurting', 'injury', 'injured', 'sprain', 'sprained', 'strain', 'strained', 'torn', 'broken', 'fracture', 'swollen', 'sore knee', 'bad back', 'pulled a muscle'],
+    urgent: ['chest pain', 'chest hurts', 'chest feels tight', 'cannot breathe', 'short of breath', 'trouble breathing', 'struggling to breathe', 'faint', 'fainted', 'fainting', 'blacked out', 'passed out', 'numb', 'numbness', 'severe pain', 'sudden pain', 'seene mein dard', 'seene me dard', 'chhati mein dard', 'chati me dard', 'saans nahi aa rahi', 'saans lene mein dikkat', 'saans phool rahi', 'behosh', 'sunn ho gaya', 'sunn pad gaya'],
+    rehab: ['rehab', 'rehabilitation', 'recovering from', 'recovery from', 'post op', 'after surgery', 'surgery', 'physio', 'physiotherapy', 'physical therapy', 'operation hua', 'operation ke baad'],
+    pain: ['pain', 'painful', 'dizzy', 'dizziness', 'lightheaded', 'light headed', 'nauseous', 'nausea', 'feel sick', 'feeling sick', 'felt sick', 'cramp', 'something feels wrong', 'hurt', 'hurts', 'hurting', 'injury', 'injured', 'sprain', 'sprained', 'strain', 'strained', 'torn', 'broken', 'fracture', 'swollen', 'sore knee', 'bad back', 'pulled a muscle', 'dard', 'dukh raha', 'dukh rahi', 'dukhta', 'dukhti', 'chot', 'moch', 'chakkar', 'ulti', 'matli', 'sujan', 'soojan'],
     outside: ['run', 'running', 'jog', 'jogging', 'weights', 'lift', 'lifting', 'dumbbell', 'dumbbells', 'barbell', 'swim', 'swimming', 'cycling', 'bike', 'hiit', 'jump', 'jumping', 'push ups', 'pushups', 'sit ups', 'situps', 'sprint', 'sprints'],
     fitness: ['lose weight', 'weight loss', 'losing weight', 'burn calories', 'burn fat', 'fat burning', 'calories', 'slim down', 'get fit', 'fit', 'fitness', 'fitter', 'get in shape', 'stamina', 'endurance', 'more active', 'tone up'],
-    sitting: ['sitting', 'sat', 'not moved', 'sedentary', 'couch', 'sofa', 'desk', 'computer', 'laptop', 'screen all day', 'office', 'commute', 'long drive', 'long flight'],
-    stiff: ['stiff', 'stiffness', 'tight', 'tightness', 'tense', 'achy', 'knots', 'hunched', 'locked up', 'loosen', 'creaky'],
-    legs: ['leg', 'legs', 'hamstring', 'hamstrings', 'calf', 'calves', 'thighs'],
-    time: ['quick', 'short on time', 'in a hurry', 'no time', 'not much time', 'busy', 'few minutes', 'couple of minutes', 'something short'],
-    low: ['tired', 'exhausted', 'drained', 'sluggish', 'sleepy', 'no energy', 'low energy', 'low on energy', 'worn out', 'wiped', 'burnt out', 'burned out', 'foggy', 'fried', 'knackered', 'meh', 'lethargic', 'unmotivated', 'heavy', 'bored', 'blah'],
-    restless: ['restless', 'fidgety', 'antsy', 'wired', 'pent up', 'cannot sit still', 'stir crazy', 'need to move', 'itching to move'],
+    sitting: ['sitting', 'sat', 'not moved', 'sedentary', 'couch', 'sofa', 'desk', 'computer', 'laptop', 'screen all day', 'office', 'commute', 'long drive', 'long flight', 'baithe baithe', 'baith baith ke', 'kursi pe', 'kursi par', 'screen pe'],
+    stiff: ['stiff', 'stiffness', 'tight', 'tightness', 'tense', 'achy', 'knots', 'hunched', 'locked up', 'loosen', 'creaky', 'akad', 'akadna', 'akdi', 'akda', 'jakad', 'jakdan', 'jakda', 'jakdi'],
+    legs: ['leg', 'legs', 'hamstring', 'hamstrings', 'calf', 'calves', 'thighs', 'pairon', 'taange', 'taangein', 'tange'],
+    time: ['quick', 'short on time', 'in a hurry', 'no time', 'not much time', 'busy', 'few minutes', 'couple of minutes', 'something short', 'jaldi', 'time nahi', 'time kam', 'thoda time', 'do minute', 'paanch minute'],
+    low: ['tired', 'exhausted', 'drained', 'sluggish', 'sleepy', 'no energy', 'low energy', 'low on energy', 'worn out', 'wiped', 'burnt out', 'burned out', 'foggy', 'fried', 'knackered', 'meh', 'lethargic', 'unmotivated', 'heavy', 'bored', 'blah', 'thak', 'thaka', 'thaki', 'thakan', 'thakaan', 'thakawat', 'sust', 'susti', 'aalas', 'neend aa rahi', 'energy nahi'],
+    restless: ['restless', 'fidgety', 'antsy', 'wired', 'pent up', 'cannot sit still', 'stir crazy', 'need to move', 'itching to move', 'bechain', 'bechaini', 'man nahi lag raha'],
     energetic: ['energetic', 'energised', 'energized', 'get moving', 'sweat', 'sweaty', 'harder', 'intense', 'heart rate', 'heart pumping', 'wake me up', 'pumped', 'motivated', 'challenge', 'push myself'],
-    calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'stressed out', 'stress', 'overwhelmed', 'quiet', 'uneasy', 'anxious', 'nervous', 'on edge', 'frazzled', 'wound up', 'overthinking', 'cannot focus', 'distracted', 'scattered', 'cannot switch off', 'switch off'],
+    calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'stressed out', 'stress', 'overwhelmed', 'quiet', 'uneasy', 'anxious', 'nervous', 'on edge', 'frazzled', 'wound up', 'overthinking', 'cannot focus', 'distracted', 'scattered', 'cannot switch off', 'switch off', 'tension', 'pareshan', 'dimaag thak', 'dimag thak', 'sukoon', 'shaanti chahiye', 'shanti chahiye'],
     unsure: ['do not know', 'not sure', 'no idea', 'whatever', 'anything', 'surprise me', 'you choose', 'you pick', 'you decide', 'up to you', 'get started', 'help me start', 'where to start', 'where to begin', 'feels right']
   };
   var PAT = {};
@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', function () {
     cardio: { gentle: [['Warm-up march', 45], ['Step-touch', 45], ['Recover', 30], ['Cool-down', 30]],
       steady: [['Warm-up march', 45], ['Interval 1', 60], ['Recover', 30], ['Interval 2', 60], ['Cool-down', 45]] }
   };
+  // The broad category HR may see, mirroring src/shared/pilot.ts. Never the words typed.
+  var NEED_LABEL = { sitting: 'a lot of sitting', stiff: 'stiffness', legs: 'tight legs', time: 'short on time', low: 'low energy', restless: 'restless', energetic: 'more energy', calm: 'something calm', unsure: 'not sure', fitness: 'general fitness' };
   var TEAM_FOR = { mobility: 'Engineering', stretching: 'Sales', cardio: 'Product & Design' };
   var clock = function (s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
   var total = function (path, lvl) { return PLANS[path][lvl].reduce(function (a, b) { return a + b[1]; }, 0); };
@@ -188,7 +190,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var row = rows.querySelector('.hr-row[data-team="' + team + '"]');
       row.querySelector('strong').textContent = full(team);
       row.classList.add('bump');
-      status.innerHTML = '<b>' + esc(team) + ' +1.</b> That’s all HR gets.';
+      var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
+      status.innerHTML = '<b>' + esc(team) + ' +1</b>' + esc(need) + '. That’s all HR gets.';
     }, start + lis.length * step);
     return r;
   }
@@ -244,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Download the slide as a PNG, drawn on a canvas so it looks the same everywhere.
   document.getElementById('dl-slide').addEventListener('click', function () {
     var go = function () {
-      var W = 1600, H = 900, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      var W = 1600, H = 1000, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
       var x = cv.getContext('2d'), INK = '#1F2933', MUTE = '#5B6670', ACC = '#2D5A45', LINE = '#E4DCCB', SERIF = 'Fraunces, Georgia, serif', SANS = 'Inter, system-ui, sans-serif';
       x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
       var L = 90, R = W - 90;
@@ -274,8 +277,12 @@ document.addEventListener('DOMContentLoaded', function () {
         x.font = (hid ? '500 20px ' : '600 24px ') + SANS; x.textAlign = 'right'; x.fillText(t[1], R, y); x.textAlign = 'left';
         x.fillStyle = LINE; x.fillRect(900, y + 18, R - 900, 1);
       });
-      x.fillStyle = INK; x.fillRect(L, 812, R - L, 3);
-      x.font = '500 28px ' + SERIF; x.fillText('HR saw team totals only. No names, no messages.', L, 858);
+      x.fillStyle = LINE; x.fillRect(L, 812, R - L, 2);
+      x.fillStyle = MUTE; x.font = '600 18px ' + SANS; x.fillText('ASKED FOR MOST', L, 846); x.fillText('COST PER FINISHED SESSION', 1110, 846);
+      x.fillStyle = INK; x.font = '500 22px ' + SANS; x.fillText('Engineering: not much time · Sales: not much time · Product & Design: a lot of sitting', L, 880);
+      x.fillStyle = ACC; x.font = '600 30px ' + SANS; x.fillText('₹26–53', 1110, 884);
+      x.fillStyle = INK; x.fillRect(L, 912, R - L, 3);
+      x.font = '500 28px ' + SERIF; x.fillText('HR saw team totals only. No names, no messages.', L, 958);
       var a = document.createElement('a'); a.download = 'lull-week6-sample-slide.png'; a.href = cv.toDataURL('image/png'); document.body.appendChild(a); a.click(); a.remove();
     };
     (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(go);
@@ -297,6 +304,63 @@ document.addEventListener('DOMContentLoaded', function () {
   usage.addEventListener('input', function () { usageRead(); if (!usageUsed) { usageUsed = true; track('usage-guess-used'); } });
   usage.addEventListener('change', function () { track('usage-guess-' + (+usage.value < 10 ? 'under10' : +usage.value <= 35 ? '10to35' : 'over35')); });
   usageRead();
+
+  var site = 'https://lull-hr.vercel.app/';
+  var slug = (company || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24);
+  var teamLink = site + 'app/?team=' + (slug || 'your-team');
+  var resetLink = site + 'app/?reset=mobility-gentle' + (slug ? '&team=' + slug : '');
+  var invite = 'Last 3 minutes: Lull team reset. Open this together and press Start: ' + resetLink;
+  var copyText = function (text, done, msg) {
+    var show = function () { done.textContent = msg; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(show, function () { done.textContent = text; });
+    else done.textContent = text;
+  };
+  document.getElementById('copy-reset').addEventListener('click', function () {
+    copyText(invite, document.getElementById('copy-reset-done'), 'Copied. Paste it at the bottom of any recurring meeting invite.');
+  });
+
+  // Launch kit: ready-to-send words, with her company name when the link has ?for=.
+  var org = company || 'our company';
+  var KIT = {
+    slack: 'Trying something small for the next 6 weeks: Lull, a 3-minute movement reset for days full of calls.\n\n'
+      + 'Type how you feel (Hinglish works too) and you get one short guided session: for a stiff neck, low energy after lunch, or a few spare minutes.\n\n'
+      + 'Private by design: ' + org + ' only sees team totals, never who used it or anything you type.\n\n'
+      + 'Try it now: ' + teamLink + '\nAt the end, you can set your own reminder in your calendar or Slack.',
+    email: 'Subject: A 3-minute reset for the days that are all calls\n\n'
+      + 'Hi all,\n\nFor the next 6 weeks we are piloting Lull: a short guided movement break you can take at your desk. '
+      + 'Type how you feel, in your own words or Hinglish, and it suggests one 2 to 4 minute session. If you mention pain, it stops and points you to proper help.\n\n'
+      + 'It is private by design. ' + org + ' sees team totals only: no names, no individual sessions, nothing you type. You can see exactly what is counted in Lull’s settings, and switch it off.\n\n'
+      + 'Open it here: ' + teamLink + '\n\nThere is nothing to install and no account to create. Questions? Just reply.',
+    managers: 'Thanks for helping with the Lull pilot. One small ask: end one recurring meeting a week with a 3-minute team reset.\n\n'
+      + 'Paste this at the bottom of the invite:\n' + invite + '\n\n'
+      + 'Join in yourself. People do what their team does. And you will never see who took part: HR only sees team totals.',
+    card: 'A printable desk card for meeting rooms and desks, with a QR code that opens Lull for your team.\n\n'
+      + '“Three minutes between calls. Type how you feel, even in Hinglish. Private: your company sees team totals only.”'
+  };
+  var kitKey = 'slack', kitText = document.getElementById('kit-text'), kitPrint = document.getElementById('kit-print');
+  kitPrint.href = 'card.html?' + (company ? 'for=' + encodeURIComponent(company) + '&' : '') + 'team=' + encodeURIComponent(slug || 'your-team');
+  var showKit = function () {
+    kitText.textContent = KIT[kitKey];
+    kitPrint.hidden = kitKey !== 'card';
+    document.getElementById('kit-copy').hidden = kitKey === 'card';
+    document.getElementById('kit-done').textContent = '';
+    document.querySelectorAll('.kit-tabs [role=tab]').forEach(function (t) {
+      var on = t.dataset.kit === kitKey; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
+      if (on) document.getElementById('kit-panel').setAttribute('aria-labelledby', t.id);
+    });
+  };
+  document.querySelector('.kit-tabs').addEventListener('click', function (e) {
+    var t = e.target.closest('[role=tab]'); if (!t) return; kitKey = t.dataset.kit; showKit(); track('launch-kit-' + kitKey);
+  });
+  document.querySelector('.kit-tabs').addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var tabs = Array.prototype.slice.call(this.querySelectorAll('[role=tab]')), i = tabs.findIndex(function (t) { return t.dataset.kit === kitKey; });
+    var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; kitKey = next.dataset.kit; showKit(); next.focus();
+  });
+  document.getElementById('kit-copy').addEventListener('click', function () {
+    copyText(KIT[kitKey], document.getElementById('kit-done'), 'Copied.'); track('launch-kit-copied-' + kitKey);
+  });
+  showKit();
 
   // Calculator: a pilot team first (what she can approve), the whole company on request.
   var size = document.getElementById('size');
