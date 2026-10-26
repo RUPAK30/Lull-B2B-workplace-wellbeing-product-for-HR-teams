@@ -439,4 +439,9 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
   .chips{display:grid;grid-template-columns:1fr 1fr;gap:6px}
   .chip{text-align:center;justify-content:center;padding:6px 8px;font-size:.8rem;line-height:1.2;border-radius:14px}
 }
-.split > .side{min-width:0;overflow-wrap:anywhere}
+.split > .side{min-width:0;overflow-wrap:break-word}
+/* keep team names and step timers intact in narrow columns */
+.hr-row{flex-wrap:wrap;row-gap:2px}
+.hr-row > span:first-child{word-break:keep-all;hyphens:none}
+.split .side *{word-break:normal}
+.split .side [class*="time"],.split .side .t{white-space:nowrap}
