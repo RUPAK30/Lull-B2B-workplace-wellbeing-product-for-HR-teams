@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lull · Show leadership it's working, without showing them anyone</title>
-<meta name="description" content="Three-minute guided movement breaks for teams who sit all day. HR sees team totals only, never a person. A 6-week pilot with targets agreed before day one.">
+<title>Lull · A 3-minute movement reset your team will use</title>
+<meta name="description" content="Lull gives your team a 3-minute guided movement reset, matched to how they say they feel. HR sees whether teams are using it, without ever seeing a person.">
 <meta name="theme-color" content="#F3EEE3">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lull">
-<meta property="og:title" content="Lull · Show leadership it's working, without showing them anyone">
-<meta property="og:description" content="Short guided movement breaks employees actually use. HR sees team totals only: teams under 10 hidden, no individual data. 6-week pilot.">
+<meta property="og:title" content="Lull · A 3-minute movement reset your team will use">
+<meta property="og:description" content="A guided movement reset matched to how people say they feel. HR sees team totals only, never a person. 6-week pilot.">
 <meta property="og:url" content="https://rupak30.github.io/Lull-B2B-workplace-wellbeing-product-for-HR-teams/">
 <meta property="og:image" content="https://rupak30.github.io/Lull-B2B-workplace-wellbeing-product-for-HR-teams/img/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Lull team view for HR, with sample data">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Lull · Show leadership it's working, without showing them anyone">
-<meta name="twitter:description" content="Short guided movement breaks employees actually use. HR sees team totals only. 6-week pilot.">
+<meta name="twitter:title" content="Lull · A 3-minute movement reset your team will use">
+<meta name="twitter:description" content="HR sees whether teams are using it, without ever seeing a person. 6-week pilot.">
 <meta name="twitter:image" content="https://rupak30.github.io/Lull-B2B-workplace-wellbeing-product-for-HR-teams/img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -31,10 +31,9 @@
   <div class="wrap">
     <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#why">Why Lull</a>
+      <a href="#report">Week 6 report</a>
       <a href="#pilot">Pilot &amp; cost</a>
       <a href="#faq">Questions</a>
-      <a class="btn btn-primary" data-cta="pilot" data-ev="cta-nav" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
     </nav>
   </div>
 </header>
@@ -42,24 +41,25 @@
 <main id="main">
 
 <section class="hero" id="hero">
-  <div class="wrap">
-    <p class="for-line" id="for-line" hidden></p>
-    <h1>Show leadership it's working. Without showing them anyone.</h1>
-    <p class="lede">Lull gives people who sit all day a three-minute guided movement break: they type how they feel, get one short session, and it adjusts or stops as they go. HR sees team totals only, never a person.</p>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="for-line" id="for-line" hidden></p>
+      <h1>3:40 pm. Fourth back-to-back call just wrapped. Shoulders up by your ears, and the next sync starts in two minutes.</h1>
+      <p class="lede">Lull gives your team a 3-minute guided movement reset, matched to how they say they feel.</p>
+      <p class="lede lede-2">HR sees whether teams are using it, without ever seeing a person.</p>
+    </div>
 
     <div class="try" id="try">
       <div class="try-head">
         <h2 id="try-h">How are you feeling right now?</h2>
-        <p class="tiny demo-note">Demo with preset answers; no AI running</p>
+        <p class="tiny demo-note">Demo with preset answers</p>
       </div>
       <div class="chips" role="group" aria-labelledby="try-h">
         <button type="button" class="chip" data-chip="stiff" aria-pressed="false">Stiff neck after back-to-back calls</button>
         <button type="button" class="chip" data-chip="switchoff" aria-pressed="false">Can't switch off</button>
         <button type="button" class="chip" data-chip="restless" aria-pressed="false">Restless after sitting all day</button>
       </div>
-      <p class="tiny try-hint" id="try-hint">Tap one to see both sides: what your employee gets, and what HR sees.</p>
-
-      <div class="split" id="split" hidden>
+      <div class="split" id="split">
         <div class="side emp" aria-live="polite">
           <p class="side-label"><i></i>What your employee sees</p>
           <p class="emp-ack" id="emp-ack"></p>
@@ -72,94 +72,88 @@
           <p class="side-label"><i></i>What HR sees</p>
           <ul class="hr-rows" id="hr-rows"></ul>
           <p class="hr-never"><strong>No names. No messages. No individual sessions.</strong>Teams under 10 people are hidden.</p>
-          <p class="hr-note">Sample data · a made-up company</p>
           <p class="sr" aria-live="polite" id="hr-live"></p>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="sec band" id="why" aria-labelledby="why-h">
-  <div class="wrap why">
-    <div>
-      <div class="sec-head reveal">
-        <p class="kicker">Why it's different</p>
-        <h2 id="why-h">Built for the three reasons wellbeing tools get cut.</h2>
+    <div class="cta-block hero-cta">
+      <div class="btns">
+        <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-hero" href="https://tally.so/r/peex9E?cta=sample">Get a sample report for your company</a>
+        <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-hero" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
+        <a class="btn btn-text" data-cta="feedback" data-ev="cta-feedback-hero" href="https://tally.so/r/peex9E?cta=feedback">Give 15-min feedback</a>
       </div>
-      <ul class="rows">
-        <li class="reveal"><p class="pain">Can't prove it works</p><p class="ans">Team-level adoption you can show leadership</p></li>
-        <li class="reveal"><p class="pain">Usage dies after week one</p><p class="ans">One short session at a time, no app to master</p></li>
-        <li class="reveal"><p class="pain">Tracking feels like surveillance</p><p class="ans">HR never sees an individual</p></li>
-      </ul>
+      <p class="cta-sub">Tell me your team size and I'll send you what week 6 could look like for you, free. (Delivered within 24 hours)</p>
+      <p class="cta-email">or email <a href="mailto:rupakr2g@gmail.com" data-ev="email-hero">rupakr2g@gmail.com</a></p>
     </div>
-    <figure class="reveal" style="margin:0">
-      <div class="frame">
-        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span class="tag">Sample data</span></div>
-        <picture><source media="(max-width:600px)" srcset="img/team-view-crop.webp" width="650" height="560"><img src="img/team-view.webp" alt="Lull team view: how many people tried it, sessions a week, and people active each week, as team totals" width="1280" height="800" loading="lazy"></picture>
-      </div>
-      <figcaption class="cap">The team view: weekly active people, who's still using it, and when breaks happen. Totals only.</figcaption>
-    </figure>
   </div>
 </section>
 
-<section class="sec" id="pilot" aria-labelledby="pilot-h">
+<section class="sec band" id="report" aria-labelledby="report-h">
   <div class="wrap">
     <div class="sec-head reveal">
-      <p class="kicker">The pilot and the cost</p>
-      <h2 id="pilot-h">6 weeks. Targets agreed before day one.</h2>
-      <p class="lede">One team of 10–50 people. If the targets aren't met, the week 6 report will say so plainly.</p>
+      <h2 id="report-h">The slide you'll show your CEO in week 6</h2>
     </div>
-    <div class="pilot-grid">
-      <div class="reveal">
-        <p class="sub">How the six weeks run</p>
-        <ol class="timeline">
-          <li><b>Week 0</b><span>Pick one team of 10–50 people. 15-minute kick-off. Share a link.</span></li>
-          <li><b>Weeks 1–3</b><span>People use it whenever they want, as often as they like.</span></li>
-          <li><b>Week 3</b><span>Check-in on the team totals. Adjust anything that isn't working.</span></li>
-          <li><b>Weeks 4–6</b><span>Short interviews with up to 5 volunteers. Final report in week 6.</span></li>
-        </ol>
-        <p class="sub">How we'll judge it <span class="tag" style="margin-left:6px">Proposed, agreed with you first</span></p>
-        <table class="targets">
-          <thead><tr><th>Question</th><th>Measure</th><th>Target</th></tr></thead>
-          <tbody>
-            <tr><td><b>Do people try it?</b></td><td>Share of the team who start at least one session in the first two weeks</td><td>At least half</td></tr>
-            <tr><td><b>Do they come back?</b></td><td>Of people who finish one session, how many use it again within a week</td><td>At least 1 in 3</td></tr>
-            <tr><td><b>Is it worth their time?</b></td><td>Answers to the optional "How did that feel?" question</td><td>More "Lighter" than "Not for me"</td></tr>
-            <tr><td><b>Is it safe?</b></td><td>Every report of pain or symptoms ends the session without offering more movement</td><td>Every time, no exceptions</td></tr>
-          </tbody>
-        </table>
-        <p class="sub" style="margin-top:28px">What we need from you</p>
-        <ul class="needs">
-          <li>One team and one contact person.</li>
-          <li>A 15-minute kick-off and a 30-minute check-in at week 3.</li>
-          <li>Help finding up to 5 volunteers for 20-minute interviews.</li>
-        </ul>
+    <article class="slide reveal" aria-label="Sample week 6 pilot review">
+      <header class="slide-head">
+        <p>Week 6 pilot review · sample company (64 people)</p>
+        <span class="slide-tag">Sample report</span>
+      </header>
+      <div class="slide-stats">
+        <div><p class="big">44 <span>of 64</span></p><p class="cap">tried it</p></div>
+        <div><p class="big">27 <span>of 44</span></p><p class="cap">still using it in weeks 5–6</p></div>
       </div>
+      <div class="slide-body">
+        <figure class="chart">
+          <figcaption>People active each week</figcaption>
+          <ol class="bars" id="bars" aria-label="People active each week: 33, 34, 29, 21, 23, 22"></ol>
+        </figure>
+        <div class="slide-teams">
+          <p class="slide-sub">Active in week 6, by team</p>
+          <ul>
+            <li><span>Engineering</span><b>8 <small>of 24</small></b></li>
+            <li><span>Sales</span><b>6 <small>of 14</small></b></li>
+            <li><span>Product &amp; Design</span><b>2 <small>of 11</small></b></li>
+            <li class="hid"><span>Customer support</span><b>Hidden · under 10</b></li>
+            <li class="hid"><span>People &amp; Ops</span><b>Hidden · under 10</b></li>
+          </ul>
+        </div>
+      </div>
+      <p class="slide-foot">HR saw team totals only. No names, no messages.</p>
+    </article>
+  </div>
+</section>
 
-      <aside class="calc reveal" aria-labelledby="calc-h">
-        <div class="calc-top"><label for="size" id="calc-h">Your team size</label><span class="tag">Indicative</span></div>
-        <input type="range" id="size" min="20" max="500" step="10" value="100" aria-describedby="cost">
-        <div class="range-ends" aria-hidden="true"><span>20</span><span>500</span></div>
-        <output id="cost" for="size" aria-live="polite">100 people: ₹6,000–12,000 / month</output>
-        <p class="per">At ₹60–120 per person per month, fixed in writing before the pilot starts.</p>
-        <ul>
-          <li>Pilot runs with one team of 10–50 first</li>
-          <li>Nothing to install, no accounts</li>
-          <li>Every movement and safety message reviewed by a physiotherapist before any paid pilot</li>
-        </ul>
-        <a class="btn btn-ghost" href="lull-pilot-proposal.pdf" download data-ev="proposal-download">Download the pilot proposal</a>
-      </aside>
+<section class="sec" id="why" aria-labelledby="why-h">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2 id="why-h">Why it's different</h2></div>
+    <ul class="cards">
+      <li class="reveal"><p class="pain">Wellness webinars nobody attends</p><p class="ans">A 3-minute reset at the desk, when it's needed</p></li>
+      <li class="reveal"><p class="pain">Tools that feel like surveillance</p><p class="ans">HR sees team totals only, never a person</p></li>
+      <li class="reveal"><p class="pain">Can't prove the spend worked</p><p class="ans">A week-6 report you can show leadership</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec band" id="pilot" aria-labelledby="pilot-h">
+  <div class="wrap pilot-grid">
+    <div class="reveal">
+      <h2 id="pilot-h">6-week pilot with one team.</h2>
+      <p class="pilot-lines">Targets agreed before day one.<br>₹60–120 per person per month, <em>indicative</em>.</p>
+      <p style="margin-top:22px"><a class="textlink" href="lull-pilot-proposal.pdf" download data-ev="proposal-download">Download the pilot proposal (PDF)</a></p>
+    </div>
+    <div class="calc reveal">
+      <label for="size">Your team size</label>
+      <input type="range" id="size" min="20" max="500" step="10" value="100" aria-describedby="cost">
+      <div class="range-ends" aria-hidden="true"><span>20</span><span>500</span></div>
+      <output id="cost" for="size" aria-live="polite">100 people: ₹6,000–12,000 / month</output>
     </div>
   </div>
 </section>
 
-<section class="sec band" id="faq" aria-labelledby="faq-h">
+<section class="sec" id="faq" aria-labelledby="faq-h">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="kicker">Questions you'll ask</p>
-      <h2 id="faq-h">Before you take it to your founder</h2>
-    </div>
+    <div class="sec-head reveal"><h2 id="faq-h">Questions you'll ask</h2></div>
     <div class="faq reveal">
       <details data-faq="nobody-uses-it"><summary>What if nobody uses it?</summary><p>Then you'll know by week 3, not at renewal. The targets (at least half the team tries it, at least 1 in 3 comes back within a week) are agreed with you before we start, we check the team totals together at week 3 and adjust anything that isn't working, and if the targets aren't met, the week 6 report will say so plainly.</p></details>
       <details data-faq="hr-see-typed"><summary>Can HR see what someone typed?</summary><p>No. You see totals, never a person: no names, no individual sessions, nothing anyone typed. Teams under 10 people are never shown. Who reported pain is never shared with anyone, and people can switch off the activity log at any time.</p></details>
@@ -169,32 +163,35 @@
   </div>
 </section>
 
-<section class="sec" aria-labelledby="builder-h">
+<section class="sec band" aria-labelledby="builder-h">
   <div class="wrap">
     <h2 class="sr" id="builder-h">From the builder</h2>
     <div class="builder reveal">
-      <div class="avatar" id="avatar" aria-hidden="true">RG</div>
+      <div class="avatar" aria-hidden="true">RG</div>
       <div>
         <blockquote>
           <p>I built Lull because people who sit all day know they should move more; what stops them is deciding what to do with five spare minutes. It's a working product at pilot stage, not a finished platform. I'm looking for 3 pilot partners to shape what it becomes, and to tell me plainly where it falls short.</p>
         </blockquote>
-        <p class="who">Rupak Ghanpathi, builder of Lull · <a href="https://github.com/RUPAK30">github.com/RUPAK30</a></p>
+        <p class="who">Rupak Ghanpathi, builder of Lull · <a href="https://www.linkedin.com/in/rupak-ghanpathi">LinkedIn</a></p>
         <div class="btns"><button type="button" class="btn btn-text" id="open-video">See the full app in 2 minutes</button></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec close band" id="close" aria-labelledby="close-h">
+<section class="sec close" id="close" aria-labelledby="close-h">
   <div class="wrap reveal">
     <h2 id="close-h">We're looking for 3 pilot partners.</h2>
-    <p class="lede">Next step is a 20-minute call to choose the team and agree the targets. Not ready for a pilot? Fifteen minutes of honest feedback helps just as much.</p>
-    <div class="btns">
-      <a class="btn btn-primary" data-cta="pilot" data-ev="cta-close-pilot" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
-      <a class="btn btn-ghost" data-cta="feedback" data-ev="cta-close-feedback" href="https://tally.so/r/peex9E?cta=feedback">Give 15-min feedback</a>
-      <a class="btn btn-text" id="share" href="#">Send this to my founder</a>
+    <div class="cta-block">
+      <div class="btns">
+        <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-close" href="https://tally.so/r/peex9E?cta=sample">Get a sample report for your company</a>
+        <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-close" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
+        <a class="btn btn-text" data-cta="feedback" data-ev="cta-feedback-close" href="https://tally.so/r/peex9E?cta=feedback">Give 15-min feedback</a>
+      </div>
+      <p class="cta-sub">Tell me your team size and I'll send you what week 6 could look like for you, free. (Delivered within 24 hours)</p>
+      <p class="cta-email">or email <a href="mailto:rupakr2g@gmail.com" data-ev="email-close">rupakr2g@gmail.com</a></p>
+      <p class="share-line"><a class="btn btn-text" id="share" href="#">Send this to my founder</a></p>
     </div>
-    <p class="email">or email <a href="mailto:rupakr2g@gmail.com" data-ev="cta-email">rupakr2g@gmail.com</a></p>
   </div>
 </section>
 
@@ -202,25 +199,22 @@
 
 <footer class="foot">
   <div class="wrap">
-    <div>
-      <p><strong style="color:var(--ink)">lull</strong> · A pilot-stage product, built by Rupak Ghanpathi.</p>
-      <p>Not a medical or mental-health service. All figures shown are sample data.</p>
-    </div>
+    <p>Lull is a pilot-stage product, not a medical or mental-health service. All figures shown are sample data.</p>
     <div class="foot-links">
       <a href="safety.html">Safety and limits</a>
       <a href="lull-pilot-proposal.pdf" download data-ev="proposal-download">Pilot proposal</a>
-      <a href="https://github.com/RUPAK30/Lull-B2B-workplace-wellbeing-product-for-HR-teams">GitHub</a>
     </div>
   </div>
 </footer>
 
 <div class="sticky" id="sticky">
-  <p>6-week pilot · targets agreed first</p>
-  <a class="btn btn-primary" data-cta="pilot" data-ev="cta-sticky" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
+  <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-sticky" href="https://tally.so/r/peex9E?cta=sample">Get a sample report</a>
+  <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-sticky" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
+  <a class="sticky-link" data-cta="feedback" data-ev="cta-feedback-sticky" href="https://tally.so/r/peex9E?cta=feedback">Give 15-min feedback</a>
 </div>
 
 <dialog class="vid" id="vid" aria-label="Lull walkthrough video">
-  <div class="vid-top"><span>Lull in 2 minutes · sample data</span><button type="button" class="vid-close" id="vid-close" aria-label="Close video">×</button></div>
+  <div class="vid-top"><span>Lull in 2 minutes</span><button type="button" class="vid-close" id="vid-close" aria-label="Close video">×</button></div>
   <video controls preload="none" playsinline poster="img/poster.jpg" width="1280" height="800">
     <source data-src="lull-walkthrough.webm" type="video/webm">
     <a href="lull-walkthrough.webm">Download the walkthrough</a>
