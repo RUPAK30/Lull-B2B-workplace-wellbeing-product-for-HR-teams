@@ -7,12 +7,12 @@ async function fresh(page, extra = {}) {
   await page.goto('/'); await ready(page);
 }
 async function quickSession(page) {
-  await send(page, 'my wrists ache from typing');
+  await send(page, 'something for my ears please');
   await send(page, 'I have been sitting all day');
-  await page.getByRole('button', { name: /^Gentle mobility/ }).click();
+  await page.getByRole('button', { name: /^Start standing/ }).click();
   for (let i = 0; i < 4; i++) {
     await page.getByRole('button', { name: 'Start', exact: true }).click(); await page.getByRole('button', { name: 'Finish now', exact: true }).click();
-    await page.getByRole('button', { name: /Next movement|Wind down/ }).click();
+    await page.getByRole('button', { name: /Next step|Back to your day/ }).click();
   }
 }
 const openInsights = async page => { await page.locator('#menu').click(); await page.getByRole('tab', { name: 'Developer' }).click(); await page.locator('#open-insights').click(); await expect(page.locator('#insights')).toBeVisible(); };
@@ -26,7 +26,7 @@ test('a real session shows up in Insights: funnel, need, route, feeling and the 
   await expect(page.locator('.ins-source')).toContainText('this device only');
   await expect(page.locator('.ins-tile').first()).toContainText('1');
   await expect(page.locator('.ins-card').first().locator('.bar-value')).toHaveText([/^1/, /^1/, /^1/, /^1/]);
-  await expect(page.locator('.ins-gaps')).toContainText('my wrists ache from typing');
+  await expect(page.locator('.ins-gaps')).toContainText('something for my ears please');
   await expect(page.locator('.ins-card', { hasText: 'What people asked for' })).toContainText('a lot of sitting');
   await expect(page.locator('.ins-card', { hasText: 'How it felt afterwards' })).toContainText('Lighter');
   await page.keyboard.press('Escape'); await expect(page.locator('#insights')).toBeHidden();
@@ -50,7 +50,7 @@ test('turning the activity log off removes the closing question and records noth
 });
 
 test('experiment override: variant B of the home test shows the guided start only', async ({ page }) => {
-  await fresh(page); await expect(page.locator('.quick')).toHaveCount(3);
+  await fresh(page); await expect(page.locator('.quick')).toHaveCount(5);
   await page.locator('#menu').click(); await page.getByRole('tab', { name: 'Developer' }).click();
   await page.locator('#exp-home-quick').selectOption('B'); await page.locator('#close-drawer').click();
   await expect(page.locator('.quick')).toHaveCount(0); await expect(page.locator('#workout')).toBeVisible();

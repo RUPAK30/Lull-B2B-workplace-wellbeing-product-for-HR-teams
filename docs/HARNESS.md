@@ -14,16 +14,16 @@ Files carrying the comment *"Adapted from a starter harness provided for a take-
 The product layer, its components and its behaviour were designed and built on top of that starter:
 - onboarding;
 - intent and safety handling;
-- sessions, the workout stage, adaptation and endings;
+- sessions, the reset stage, adaptation and endings;
 - the colour system;
-- the behaviour specification (`skills/workout.md`) and the tests for all of the above.
+- the behaviour specification (`skills/reset.md`) and the tests for all of the above.
 
 ## How a turn works
 
 1. The browser sends `messages` (a recent window; earlier replies as words only), the current screen as `ui_state`, and queued `client_events` such as timer changes or navigation.
 2. The server answers with a `reply`: conversation text plus complete ` ```openui ` fences.
    - In Mock, `src/server/mock.ts` routes the turn: onboarding steps, in-session requests, safety.
-   - With a live provider, a model produces the reply, guided by `prompts/` and `skills/workout.md`.
+   - With a live provider, a model produces the reply, guided by `prompts/` and `skills/reset.md`.
 3. The server validates the reply against the current screen. If a reply has words but an invalid screen update, the words are kept and the current screen stays.
 4. The browser applies the reply. Named statements persist; repeating a name replaces it. The document compacts superseded lines so long sessions stay within limits.
 
@@ -42,7 +42,7 @@ The base catalogue (Screens, Screen, Text, Keyword, List, ListItem, Alert, Timer
 | `TextInput(label?, placeholder?)` | Free-text field for needs and in-session requests. |
 | `Rail(intent, next?)` | The session's intention and the next movement, on every movement screen. |
 
-Any screen containing a Timer is composed by `renderWorkout()` in `src/web/app.ts` into one workout stage:
+Any screen containing a Timer is composed by `renderWorkout()` in `src/web/app.ts` into one reset stage:
 - a header with the session and progress;
 - the movement stage, with the dial timer;
 - the companion area;
@@ -51,7 +51,7 @@ Any screen containing a Timer is composed by `renderWorkout()` in `src/web/app.t
 
 ## Safety and honesty rules (enforced in code and tests)
 
-- Pain, injury, rehab or dizziness never route into a workout.
+- Pain, injury, rehab or dizziness never route into a reset.
 - A safety notice on a movement pauses its running timer and locks navigation until the user chooses.
-- Changes to intensity or activity are offered and applied only after confirmation.
-- Durations shown always equal the sum of the timers. Reaching the end is never reported as a completed workout.
+- Changes to posture or reset are offered and applied only after confirmation.
+- Durations shown always equal the sum of the timers. Reaching the end is never reported as a completed reset.

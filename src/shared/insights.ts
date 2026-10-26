@@ -85,7 +85,7 @@ export function sampleEvents(seed = 7): InsightEvent[] {
       t += (route === 'onboarding' ? 14000 : 6000) + Math.floor(rand() * 26000);
       if (rand() > (quick === 'A' ? 0.9 : 0.86)) continue;
       push('timer_started', {}, run);
-      if (rand() < 0.17) { push('offer', { ask: pick<string>([['harder', .45], ['easier', .35], ['switch', .12], ['stop', .08]]) }, run); if (rand() < 0.62) push('adjusted', { to: 'steady' }, run); }
+      if (rand() < 0.17) { push('offer', { ask: pick<string>([['harder', .45], ['easier', .35], ['switch', .12], ['stop', .08]]) }, run); if (rand() < 0.62) push('adjusted', { to: 'standing' }, run); }
       if (rand() < 0.012) { push('safety', { when: 'during', level: rand() < 0.15 ? 'urgent' : 'pain' }, run); push('session_finished', { reason: 'safety' }, run); continue; }
       if (rand() > (ready === 'A' ? 0.74 : 0.69)) { if (rand() < 0.3) push('session_finished', { reason: 'stopped' }, run); continue; }
       push('timer_done', { early: rand() < 0.2 }, run); push('session_finished', { reason: 'finished' }, run); finishedBefore = true;

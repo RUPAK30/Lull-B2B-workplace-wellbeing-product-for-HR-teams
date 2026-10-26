@@ -12,7 +12,7 @@ export const OPENUI_LIBRARY = {
   Cue: { args: ["text"], required: 1 },
   FollowUps: { args: ["prompts"], required: 1 },
   // Local additions: a visible "about you" chip and a live recap of the run's timers.
-  Profile: { args: ["name", "style"], required: 1 },
+  Profile: { args: ["name"], required: 1 },
   Recap: { args: ["title"], required: 0 },
   NameInput: { args: ["label", "placeholder"], required: 0 },
   TextInput: { args: ["label", "placeholder"], required: 0 },

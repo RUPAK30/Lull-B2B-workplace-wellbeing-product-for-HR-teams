@@ -2,7 +2,7 @@
 // Everything here stays in this browser; storage failures fall back to defaults.
 export type Theme = 'auto' | 'light' | 'dark';
 export type Prefs = { ready: boolean; readySet?: boolean; chime: boolean; remember: boolean; theme: Theme };
-export type Memory = { name?: string; style?: string; last?: { path: string; intensity: string; title: string }; words?: string[] };
+export type Memory = { name?: string; last?: { reset: string; posture: string; title: string } };
 const PREFS = 'sw.prefs', MEMORY = 'sw.memory';
 
 function read<T extends object>(key: string, fallback: T): T {

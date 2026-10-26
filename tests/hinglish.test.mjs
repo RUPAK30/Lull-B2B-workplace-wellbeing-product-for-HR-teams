@@ -15,19 +15,20 @@ test('Hinglish pain during a session pauses it for safety',()=>{
   assert.deepEqual(interpretSessionRequest('seene mein dard ho raha'),{kind:'safety',level:'urgent'});
 });
 
-test('everyday Hinglish needs map to the same sessions as English',()=>{
-  const pick=t=>{const r=interpretNeed(t);return [r.kind,r.path,r.intensity];};
-  assert.deepEqual(pick('gardan akad gayi hai'),['suggest','mobility',null]);
-  assert.deepEqual(pick('bahut thak gaya hoon'),['suggest','stretching','gentle']);
-  assert.deepEqual(pick('bahut stress hai'),['suggest','stretching','gentle']);
-  assert.deepEqual(pick('thoda time hai, jaldi kuch'),['suggest','mobility','gentle']);
-  assert.deepEqual(pick('bechaini ho rahi hai'),['suggest','cardio',null]);
+test('everyday Hinglish needs map to the same resets as English',()=>{
+  const pick=t=>{const r=interpretNeed(t);return [r.kind,r.reset,r.posture];};
+  assert.deepEqual(pick('gardan akad gayi hai'),['suggest','unknot',null]);
+  assert.deepEqual(pick('kamar akad gayi hai'),['suggest','unsit',null]);
+  assert.deepEqual(pick('bahut thak gaya hoon'),['suggest','energy',null]);
+  assert.deepEqual(pick('bahut stress hai'),['suggest','calm',null]);
+  assert.deepEqual(pick('aankhen thak gayi screen se'),['suggest','screen',null]);
+  assert.deepEqual(pick('bechaini ho rahi hai'),['suggest','energy',null]);
 });
 
-test('Hinglish session commands: stop, easier, harder',()=>{
+test('Hinglish session commands: stop, seated (less), standing (more)',()=>{
   assert.equal(interpretSessionRequest('bas karo').kind,'stop');
   assert.equal(interpretSessionRequest('ruko').kind,'stop');
-  assert.equal(interpretSessionRequest('zyada ho gaya').kind,'easier');
-  assert.equal(interpretSessionRequest('aaram se').kind,'easier');
-  assert.equal(interpretSessionRequest('thoda aur').kind,'harder');
+  assert.equal(interpretSessionRequest('zyada ho gaya').kind,'seated');
+  assert.equal(interpretSessionRequest('aaram se').kind,'seated');
+  assert.equal(interpretSessionRequest('thoda aur').kind,'standing');
 });

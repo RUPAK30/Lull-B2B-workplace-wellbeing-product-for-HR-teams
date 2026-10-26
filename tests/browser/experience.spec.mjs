@@ -8,13 +8,12 @@ test('home offers one clear way in, quick picks with real durations, and accepts
   await fresh(page);
   await expect(page.locator('.home-title')).toHaveText('Between calls? Take three minutes.');
   await expect(page.locator('#workout')).toHaveText('Start with Lull');
-  await expect(page.locator('.quick')).toHaveText([/After back-to-back calls.*2:40/, /Post-lunch slump.*2:30/, /Need to move.*4:00/]);
+  await expect(page.locator('.quick')).toHaveText([/After back-to-back calls.*Unknot neck & shoulders · 2:30/, /Stiff from sitting.*Undo the sitting · 2:40/, /Post-lunch slump.*Energy lift · 2:25/, /Stressed, can’t switch off.*Calm down · 2:30/, /Tired eyes and wrists.*Screen break · 2:30/]);
   await expect(page.locator('#pause')).toBeHidden();
-  await send(page, 'I only have five minutes');
-  await expect(page.locator('#screen')).toContainText('How about gentle mobility?');
-  await expect(page.locator('#caption')).toBeHidden(); // the screen already says it
-  await page.getByRole('button', { name: 'Gentle mobility · 2:40 (suggested)' }).click();
-  await expect(page.locator('.workout-count')).toHaveText('Movement 1 of 4');
+  await send(page, 'I only have five minutes before my next call');
+  await expect(page.locator('#screen')).toContainText('Try: Unknot neck & shoulders');
+  await page.getByRole('button', { name: 'Start seated · 2:30' }).click();
+  await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4');
 });
 
 test('menu drawer: tabs, Escape to close, and evening mode that persists', async ({ page }) => {
@@ -30,50 +29,47 @@ test('menu drawer: tabs, Escape to close, and evening mode that persists', async
 
 test('optional 3-2-1 get-ready: a countdown on the dial, cancellable, never auto-starting the next timer', async ({ page }) => {
   await page.clock.install(); await fresh(page, { ready: true });
-  await send(page, '/workout mobility gentle'); await page.locator('#next').click();
+  await send(page, '/reset unknot seated'); await page.locator('#next').click();
   await page.getByRole('button', { name: 'Start', exact: true }).click();
   await expect(page.locator('.dial-count')).toHaveText('3'); await expect(page.getByRole('button', { name: 'Cancel countdown' })).toBeVisible();
   await page.getByRole('button', { name: 'Cancel countdown' }).click(); await expect(page.locator('.timer-status')).toHaveText('stopped'); await expect(page.locator('.dial-count')).toBeEmpty();
   await page.getByRole('button', { name: 'Start', exact: true }).click(); await page.clock.fastForward(3200);
   await expect(page.locator('.timer-status')).toHaveText('running');
   await page.clock.fastForward(41000); await expect(page.locator('.timer-status')).toHaveText('done');
-  await page.getByRole('button', { name: 'Next movement →' }).click(); await expect(page.locator('.timer-status')).toHaveText('stopped');
+  await page.getByRole('button', { name: 'Next step →' }).click(); await expect(page.locator('.timer-status')).toHaveText('stopped');
 });
 
 test('keyboard: Space starts and pauses the timer, arrows move; focus mode quiets everything else', async ({ page }) => {
-  await fresh(page); await send(page, '/workout mobility gentle'); await page.locator('#next').click();
-  await expect(page.locator('.workout-count')).toHaveText('Movement 1 of 4'); await page.locator('#screen').focus();
+  await fresh(page); await send(page, '/reset unknot seated'); await page.locator('#next').click();
+  await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4'); await page.locator('#screen').focus();
   await page.keyboard.press('Space'); await expect(page.locator('.timer-status')).toHaveText('running');
   await expect(page.locator('body')).toHaveAttribute('data-phase', 'focus');
   await expect(page.locator('#composer')).toBeHidden(); // the stage's own "Tell Lull" is the way to talk here
   await page.keyboard.press('Space'); await expect(page.locator('.timer-status')).toHaveText('paused');
-  await page.keyboard.press('ArrowRight'); await expect(page.locator('.workout-count')).toHaveText('Movement 2 of 4');
-  await page.keyboard.press('ArrowLeft'); await expect(page.locator('.workout-count')).toHaveText('Movement 1 of 4');
+  await page.keyboard.press('ArrowRight'); await expect(page.locator('.workout-count')).toHaveText('Step 2 of 4');
+  await page.keyboard.press('ArrowLeft'); await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4');
 });
 
-test('breathing blocks pace the breath from the real timer; the overview lists and jumps between movements', async ({ page }) => {
-  await page.clock.install(); await fresh(page); await send(page, '/workout mobility gentle'); await page.locator('#next').click();
+test('breathing steps pace the breath from the real timer; the overview lists and jumps between steps', async ({ page }) => {
+  await page.clock.install(); await fresh(page); await send(page, '/reset unknot seated'); await page.locator('#next').click();
   await page.locator('.workout-progress').click(); await expect(page.locator('.workout-sheet')).toBeVisible();
-  await expect(page.locator('.sheet-item')).toHaveCount(4); await expect(page.locator('.sheet-item').nth(2)).toContainText('Downshift');
-  await page.locator('.sheet-item').nth(2).click(); await expect(page.locator('.workout-count')).toHaveText('Movement 3 of 4');
+  await expect(page.locator('.sheet-item')).toHaveCount(4); await expect(page.locator('.sheet-item').nth(3)).toContainText('Long exhale');
+  await page.locator('.sheet-item').nth(3).click(); await expect(page.locator('.workout-count')).toHaveText('Step 4 of 4');
   await page.getByRole('button', { name: 'Start', exact: true }).click(); await page.clock.fastForward(1000);
   await expect(page.locator('.dial-breath')).toHaveText('Breathe in'); await page.clock.fastForward(4000);
   await expect(page.locator('.dial-breath')).toHaveText('Breathe out');
 });
 
-test('remember me is opt-in, greets you on return, offers the last session, and forgets on request', async ({ page }) => {
+test('remember me is opt-in, offers the last reset on return, and forgets on request', async ({ page }) => {
   await fresh(page);
-  await expect(page.locator('.home-hello')).not.toContainText('Maya');
+  await expect(page.locator('.quick.again')).toHaveCount(0);
   await page.locator('#menu').click(); await page.getByRole('tab', { name: 'Settings' }).click(); await page.locator('label.toggle', { hasText: 'Remember me here' }).click(); await page.locator('#close-drawer').click();
-  await page.locator('#workout').click();
-  await page.getByLabel('Your first name').fill('Maya'); await page.getByLabel('Your first name').press('Enter');
-  await page.getByRole('button', { name: 'Stretching' }).click(); await page.getByRole('button', { name: 'Gentle stretching' }).click();
-  await expect(page.locator('.workout-count')).toHaveText('Movement 1 of 4');
+  await page.locator('.quick', { hasText: 'Post-lunch slump' }).click();
+  await expect(page.locator('#screen')).toContainText('Energy lift · Standing');
   await page.reload(); await ready(page);
-  await expect(page.locator('.home-hello')).toContainText('Maya');
-  await expect(page.locator('.quick.again')).toContainText('Gentle stretch and settle');
+  await expect(page.locator('.quick.again')).toContainText('Energy lift · Standing');
   await page.locator('#menu').click(); await page.getByRole('tab', { name: 'Settings' }).click(); await page.locator('#forget').click(); await page.locator('#close-drawer').click();
-  await expect(page.locator('.home-hello')).not.toContainText('Maya'); await expect(page.locator('.quick.again')).toHaveCount(0);
+  await expect(page.locator('.quick.again')).toHaveCount(0);
 });
 
 test('installable: manifest, icons and a service worker allowed to control the app', async ({ page, request }) => {

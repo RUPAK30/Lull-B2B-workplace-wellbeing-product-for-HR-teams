@@ -36,7 +36,7 @@ All usage figures shown anywhere are sample data from a made-up 64-person compan
 2. **What leaves an employee's device**, and nothing else (enforced by `src/shared/pilot.ts`, tested in `tests/pilot.test.mjs`): `session-started`, `session-finished`, `felt-lighter` / `felt-same` / `felt-not-for-me`, `need-<category>` (the first broad category Lull heard, e.g. `need-stiff`, from a fixed list), `reminder-set` (once per device), `came-back`, `opened-from-reminder`, `team-reset-joined`. No name, device ID, typed text or anything about pain or safety is ever sent. Each person sees the exact list under **Settings → What leaves this device** and can switch counting off.
 3. **Reminders belong to the employee.** After a session, "Make it a habit" adds a weekday reminder to their own Google, Outlook or Apple calendar, or copies a Slack `/remind` command. Lull never sends reminders itself.
 4. **Reading the numbers:** in GoatCounter (`lull.goatcounter.com`), events appear as `pilot/<team>/<event>`. GoatCounter counts events, not people; use them for the week-3 check-in and the week-6 report, and never show a team under 10.
-5. **Team resets:** `https://lull-hr.vercel.app/app/?reset=mobility-gentle&team=sales` opens that session straight away for everyone in a meeting. Only `mobility|stretching|cardio` × `gentle|steady` are accepted.
+5. **Team resets:** `https://lull-hr.vercel.app/app/?reset=unknot-seated&team=sales` opens that reset straight away for everyone in a meeting. Only `unknot|unsit|energy|calm|screen` × `seated|standing` are accepted.
 6. **Launch kit:** the HR page has ready Slack, email and manager messages, and a printable desk card with a QR code (`card.html?for=Company&team=sales`).
 7. **Understands Hinglish:** everyday words like "gardan akad gayi" or "thak gaya hoon" are understood, and Hinglish pain words ("kamar mein dard", "seene mein dard") stop a session exactly like English ones (`tests/hinglish.test.mjs`).
 8. **Leading indicator for week 3:** the share of the team with `reminder-set`. If few people set a reminder, return rates will fall like every other tool, and that is the thing to fix first.
@@ -62,7 +62,6 @@ Open http://127.0.0.1:5103 and stop with Ctrl+C. The port is set in the local `.
 
 For buyers there are two more things in `docs/`:
 - **`Lull - Pilot Proposal.pdf`** is a one-page proposal for a six-week pilot, with targets agreed up front, privacy in plain English and an indicative price. The landing page offers it as a download. Its source is `docs/pilot/pilot-proposal.html`, printed to A4 with Chrome.
-- **`concepts/chat-nudge.html`** is a design concept for opt-in reminders in team chat, shown on the landing page. It is labelled as not built, because it isn't.
 
 ## How Lull understands people
 
@@ -75,41 +74,42 @@ People type how they feel, in their own words. **Claude reads that; Lull's own c
 
 ## Two-minute tour
 
-1. Click **Start Lull** and enter your first name, or skip it. That's the only question before the real one.
-2. On "What are you in the mood for today?", tap a choice or type what today needs, for example *"I've been sitting all day"* or *"I only have five minutes"*. Lull says what it heard, suggests a session and its real duration, and waits for you to confirm.
-3. In the workout:
-   - **Start** the dial timer.
-   - Type *"too easy"* in the companion area and confirm **Switch to steady**. You keep your place.
-   - Try *"my shoulder hurts"* to see the safety hold. With Claude on, try *"ooh that pinched"* or *"my wrists are tired"* (you get a small change to the current movement).
-4. Continue to the end for a calm, session-specific close, with an honest record of what the timers did.
+1. Click **Start with Lull**. One question: *"How are you feeling right now?"* Tap a work moment (After back-to-back calls, Stiff from sitting, Post-lunch slump, Stressed, can't switch off, Tired eyes and wrists) or type it in your own words, even in Hinglish: *"gardan akad gayi"*, *"neck is stiff and I'm on a call in 5"*.
+2. Lull says what it heard and suggests **one** reset with its reason and real length. Start it **seated** (works on a call, camera off) or **standing** (beside your desk), or pick something else.
+3. In the reset:
+   - **Start** the dial timer. Four short steps, about three minutes in total.
+   - Type *"too easy"* and confirm **Switch to standing**, or *"joining a call"* and confirm **Switch to seated**. You keep your place.
+   - Try *"my shoulder hurts"* or *"kamar mein dard"* to see the safety hold.
+4. The end says **"Back to your day."**, with an honest record of what the timers did, the optional "How did that feel?", and **Make it a habit**: a weekday reminder on your own calendar or Slack, or a team reset for a meeting.
 
 Other entry points:
-- `/workout [mobility|stretching|cardio] [gentle|steady]` loads a session directly.
+- `/reset [unknot|unsit|energy|calm|screen] [seated|standing]` loads a reset directly.
 - `/demo` loads a generic component sample.
 
 ## What it does
 
 | Area | Behaviour |
 | --- | --- |
-| Onboarding | Two questions: an optional, validated first name, then what today needs. Revealed one at a time, so Next can't skip one. |
-| Intent | Buttons or free text. With Claude on, Claude reads the need; otherwise a small deterministic layer normalises phrasing and maps needs (sitting, stiffness, time, energy, restlessness, calm, uncertainty, general fitness) onto existing sessions. It asks one question when unclear and is honest about what it can't guide. |
-| Safety | Pain, injury, rehab or dizziness replaces the session choices with a safety notice. Mid-session, it pauses the timer and holds navigation until the user decides. Urgent symptoms get an urgent-care message and no route into exercise. |
-| Sessions | Mobility, stretching and low-impact cardio, each at Gentle (4 blocks) or Steady (5 blocks, longer timers). Every duration shown is computed from the timers. |
-| Session stage | Movement name and instruction, a dial timer showing the real remaining time, movement-only progress, an Up next card, and a companion area for guidance, offers and "Tell Lull". |
-| Adaptation | "Too easy", "make it gentler", "switch", "stop", or (with Claude) a small change to the current movement such as "my wrists are tired": an option is offered and applied only after confirmation, in place, keeping the user's context. |
-| Ending | Session-specific closure that reconnects to the stated need, one word for something the session contained ("You met this in *Hip hinge reach*"), an optional breath, and a pressure-free suggestion for another day. The timer record (ran, ended early, reset, paused for safety, not started) is folded underneath. Nothing is claimed as physically completed. |
+| First screen | One question, "How are you feeling right now?", with five work moments or free text. No name, no profile questions. |
+| Understanding | Buttons or free text, in English or Hinglish. With Claude on, Claude reads the need; otherwise a deterministic layer maps it onto a reset (neck and shoulders, back and hips, energy, calm, eyes and wrists) and reads context such as "on a call" to suggest seated. It asks one question when unclear and is honest about what it can't do. |
+| Safety | Pain, injury, rehab or dizziness, in English or Hinglish, replaces the choices with a safety notice. During a reset, it pauses the timer and holds navigation until the person decides. Urgent symptoms get an urgent-care message and no route into movement. |
+| Resets | Unknot neck & shoulders, Undo the sitting, Energy lift, Calm down, Screen break. Each has the same four steps seated or standing, about three minutes. Office-safe: work clothes, nothing on the floor, no sweat. Every duration shown is computed from the timers. |
+| Reset stage | Step name and instruction, a dial timer showing the real remaining time, step progress, an Up next card, and an area for guidance, offers and "Tell Lull". |
+| Adaptation | "Too much", "on a call" or "can I sit?" offer the seated version; "too easy" offers standing; "something calmer" offers another reset; "stop" ends early. Each is offered and applied only after confirmation, keeping your place. |
+| Ending | "Back to your day.": one line on what the reset made room for, an optional breath, another reset to try another time, and the timer record folded underneath. Nothing is claimed as physically completed. |
 
 ### The app experience
 
-- **Home.** A greeting, one clear way in ("Start with Lull"), quick picks with their real durations, and a "Tell Lull what today needs" bar that works straight from home.
-- **Focus mode.** While a timer runs, everything except the movement and the dial quietly steps back.
+- **Home.** "Between calls? Take three minutes." One clear way in, the five work moments with their real lengths, and a "Tell Lull" bar that works straight from home.
+- **Focus mode.** While a timer runs, everything except the step and the dial quietly steps back.
 - **Keyboard.** <kbd>Space</kbd> starts or pauses the timer, <kbd>←</kbd>/<kbd>→</kbd> move between steps, and <kbd>Esc</kbd> closes the menu.
 - **3-2-1 get-ready.** An optional countdown on the dial before a timer starts. It can be cancelled, and timers never start by themselves.
-- **Breathing pacer.** On breathing blocks, the dial gently expands and settles in time with the real timer: 4 seconds in, 6 out.
-- **Session overview.** Tap "Movement 2 of 5" to see every movement, its length and its state, and to jump to one.
-- **Menu drawer.** Conversation history, settings and developer tools sit out of the way.
+- **Breathing pacer.** On breathing steps, the dial gently expands and settles in time with the real timer: 4 seconds in, 6 out.
+- **Reset overview.** Tap "Step 2 of 4" to see every step, its length and its state, and to jump to one.
+- **Make it a habit.** After a reset, a weekday reminder on the person's own calendar or Slack, a team reset invite for meetings, and one tap to "your usual" when a reminder opens Lull.
+- **Menu drawer.** Conversation history, settings ("What leaves this device", your reset time) and developer tools sit out of the way.
 - **Evening mode.** Automatic, Day or Evening, built on the same colour tokens. Every text pair meets WCAG AA contrast.
-- **Remember me (opt-in).** Your name, last session and the words you've picked up, stored only in this browser, with "Same as last time" on home. "Forget me" removes it.
+- **Remember me (opt-in).** Your last reset, stored only in this browser, with "Same as last time" on home. "Forget me" removes it.
 - **Optional soft chime** when a timer runs out. It's off by default.
 - **Installable.** A web app manifest, icons and a service worker let you add Lull to your desktop or home screen.
 - **Accessibility.** A skip link, polite screen-reader announcements for timer changes, focus that follows each step, and reduced-motion support throughout.
@@ -118,10 +118,10 @@ Other entry points:
 
 Lull can show how it is being used, without sending anything anywhere.
 
-- **Private activity log.** It counts product moments such as "chose a session", "started the first movement", "asked for an easier version" and "safety stop". The log is kept only in this browser. You can switch it off or clear it in Settings → Insights.
+- **Private activity log.** It counts product moments such as "chose a reset", "started the first step", "asked for the seated version" and "safety stop". The log is kept only in this browser. You can switch it off or clear it in Settings → Insights.
 - **Insights screen** (Menu → Developer → Open product insights). It shows headline numbers, where people drop off, what they asked for, how they started, how it felt, requests Lull couldn't understand, and safety stops. Every chart has a table view. You can switch to a **synthetic sample** of 160 made-up people to see how the screen reads. The sample is clearly labelled and is not real usage.
 - **Team view** (Insights → Team (sample)). This is what an employer would see in a pilot: people active each week, how many are still using it, totals by team, and when breaks happen. It never shows names, individual sessions, typed text or who reported pain. Teams under 10 people are hidden. If only one team is that small, one more is hidden too, so the small team can't be worked out by subtraction. The data is a made-up 64-person company, and it is labelled as such.
-- **One-tap feeling question** at the end of a session: Lighter, About the same, Not for me, or Skip.
+- **One-tap feeling question** at the end of a reset: Lighter, About the same, Not for me, or Skip.
 - **Two A/B experiments** (quick picks on home; countdown on by default). Each has its hypothesis next to it and an override for demos. The readout gives the gap with a 95% range and won't name a winner below 30 visits per variant.
 
 The reasoning behind all of this (personas, metrics, backlog, business model, risks and a validation plan) is in **`docs/Lull - Product & Business Analysis.docx`**.
@@ -132,17 +132,17 @@ The reasoning behind all of this (personas, metrics, backlog, business model, ri
 
 - **Declarative UI.** Every screen is OpenUI data: named statements, a validated component catalogue, and trusted local renderers. There's no generated code and no HTML injection.
 - **Server** (`src/server/`):
-  - `lull.ts`: onboarding, tones, sessions, intent, safety and endings.
-  - `mock.ts`: routing for onboarding and in-session turns.
+  - `lull.ts`: the five resets (seated and standing), the first screens, need understanding, safety and endings.
+  - `mock.ts`: routing for the first screens and in-reset turns.
   - `guide.ts`: the Claude understanding layer (API or Claude plan CLI), the safety floor and the fallback. Its instructions are in `skills/guide.md`.
-  - `vocabulary.ts`: the curated terms used for each session's word.
   - Optional full-screen OpenAI and Claude CLI adapters, which are off by default.
 - **Browser** (`src/web/`):
-  - `app.ts`: the session stage, transitions and safety hold.
+  - `app.ts`: the reset stage, transitions and safety hold.
   - `components.ts`: renderers for the custom components (Profile, Recap, NameInput, TextInput, Rail).
+  - `pilot.ts` and `reminder.ts`: anonymous team-pilot counts and the opt-in reminders.
   - `styles.css`: a single colour-token system.
-- **Shared** (`src/shared/`): the conversation controller, plus the document, timer ledger and recap wording.
-- **Live models.** `skills/guide.md` drives Claude (guided). `skills/workout.md` is a principle-based brief for the full-screen adapters.
+- **Shared** (`src/shared/`): the reset catalogue (`resets.ts`), the pilot privacy contract (`pilot.ts`), the conversation controller, plus the document, timer ledger and recap wording.
+- **Live models.** `skills/guide.md` drives Claude (guided). `skills/reset.md` is a principle-based brief for the full-screen adapters.
 
 See [docs/HARNESS.md](docs/HARNESS.md) for the architecture and the origin of the underlying harness.
 

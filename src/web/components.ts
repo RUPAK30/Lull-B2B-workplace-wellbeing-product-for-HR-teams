@@ -7,7 +7,6 @@ export type Context = { send: (text:string)=>void; timers: TimerLedger; timerAct
 const afterBlock=['Done. Take whatever pause you need.','That one is done. No rush into the next.','Good. Shake it out if you like, then carry on.'];
 // Drafts and focus survive re-renders, so a reply arriving mid-sentence never wipes what someone is typing.
 const drafts=new Map<string,string>();let typingIn='';
-const styleLabels: Record<string,string> = { beginner:'Beginner tone', regular:'Regular tone', challenge:'Challenge-seeker tone', exploring:'Exploring tone' };
 // Trusted DOM ports of the source component signatures; no model-generated code.
 export const renderers: Record<string,(node:StatementNode,context:Context)=>HTMLElement> = {
   Text: ({props:p}) => el(p.variant==='title'?'h3':p.variant==='subtitle'?'h4':'p',String(p.text),'block block-'+String(p.variant??'body')),
@@ -27,7 +26,7 @@ export const renderers: Record<string,(node:StatementNode,context:Context)=>HTML
     const update=()=>{const entry=c.timers.list().find(t=>t.id===key);if(!entry)return;const seconds=Math.ceil(entry.remaining);value.textContent=`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;status.textContent=entry.status;n.dataset.status=entry.status;
       fill.style.width=`${Math.min(100,Math.max(0,100*(1-entry.remaining/entry.seconds)))}%`;
       const counting=entry.status==='stopped'?c.countdown(key):0;n.dataset.countdown=counting?String(counting):'';start.hidden=entry.status==='running'||entry.status==='paused';start.textContent=counting?'Cancel countdown':entry.status==='done'?'Restart':'Start';start.className=entry.status==='done'||counting?'':'primary';pause.hidden=entry.status==='stopped'||entry.status==='done';pause.textContent=entry.status==='paused'?'Resume timer':'Pause timer';finish.hidden=entry.status==='done';
-      const upNext=c.upNext(key),position=c.timers.list().findIndex(t=>t.id===key);done.hidden=entry.status!=='done';doneText.textContent=c.earlyFinish.has(key)?'Marked done without timing.':upNext?.closing?'That was the last block.':afterBlock[Math.max(0,position)%afterBlock.length];next.hidden=!upNext;next.textContent=!upNext?'':upNext.closing?'Wind down →':'Next movement →';next.title=upNext?.closing?'':upNext?`Up next: ${upNext.label}`:'';if(upNext&&!upNext.closing&&!c.earlyFinish.has(key))doneText.textContent+=` Up next: ${upNext.label}.`;
+      const upNext=c.upNext(key),position=c.timers.list().findIndex(t=>t.id===key);done.hidden=entry.status!=='done';doneText.textContent=c.earlyFinish.has(key)?'Marked done without timing.':upNext?.closing?'That was the last step.':afterBlock[Math.max(0,position)%afterBlock.length];next.hidden=!upNext;next.textContent=!upNext?'':upNext.closing?'Back to your day →':'Next step →';next.title=upNext?.closing?'':upNext?`Up next: ${upNext.label}`:'';if(upNext&&!upNext.closing&&!c.earlyFinish.has(key))doneText.textContent+=` Up next: ${upNext.label}.`;
       for(const b of [start,pause,reset,finish,next])b.disabled=c.paused;};
     c.updates.push(update);update();return n;
   },
@@ -56,7 +55,7 @@ export const renderers: Record<string,(node:StatementNode,context:Context)=>HTML
     if(window.matchMedia('(pointer: fine)').matches)setTimeout(()=>{if(input.isConnected&&!input.disabled)input.focus({preventScroll:true});},0);
     return form;
   },
-  Profile: ({props:p}) => {if(!p.name&&!p.style){const none=el('span');none.hidden=true;return none;}const n=el('p','','profile-chip');n.append(el('span','THIS RUN ONLY','eyebrow'),el('span',[String(p.name)||'Name not shared',...(typeof p.style==='string'?[styleLabels[p.style]]:[])].join(' · ')));return n;},
+  Profile: ({props:p}) => {if(!p.name){const none=el('span');none.hidden=true;return none;}const n=el('p','','profile-chip');n.append(el('span','THIS RUN ONLY','eyebrow'),el('span',String(p.name)));return n;},
   Recap: ({props:p},c) => {
     const n=el('details','','recap'),head=el('summary');head.append(el('span',typeof p.title==='string'?p.title:'What the timers recorded','recap-title'));
     const summary=el('span','','recap-summary'),rows=el('ul','','block recap-list');head.append(summary);n.append(head,rows,el('p','Timers run on this page only: they measure time on this page, not movement.','micro'));

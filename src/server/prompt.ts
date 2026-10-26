@@ -12,11 +12,11 @@ export function parseFrontmatter(raw: string) {
   return {name,description,body:rest.slice(fence+4).replace(/^\n+/,'')};
 }
 export async function loadPrompt(root: string) {
-  const [system,context,skill]=await Promise.all(['prompts/system.md','prompts/context.md','skills/workout.md'].map(path=>readFile(join(root,path),'utf8')));
+  const [system,context,skill]=await Promise.all(['prompts/system.md','prompts/context.md','skills/reset.md'].map(path=>readFile(join(root,path),'utf8')));
   if(skill.length>20000 || system.length>20000 || context.length>10000)throw new Error('Prompt too large.');
   const catalog=Object.entries(OPENUI_LIBRARY).map(([name,spec])=>`${name}(${spec.args.map((arg,i)=>arg+(i>=spec.required?'?':'')).join(', ')})`).join('\n');
   const body=parseFrontmatter(skill).body;
   const protocol=system.replace('{{catalog}}',catalog)+'\n\n'+context;
   const hash=(s:string)=>createHash('sha256').update(s).digest('hex');
-  return {instructions:protocol+`\n\n## Skills preloaded for this turn\n<skill name='workout'>\n${body}\n</skill>`,skillHash:hash(skill),protocolHash:hash(protocol)};
+  return {instructions:protocol+`\n\n## Skills preloaded for this turn\n<skill name='reset'>\n${body}\n</skill>`,skillHash:hash(skill),protocolHash:hash(protocol)};
 }

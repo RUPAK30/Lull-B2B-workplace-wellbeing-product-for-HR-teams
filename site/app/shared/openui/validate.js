@@ -17,7 +17,7 @@ export const propValidators = {
     Timer: p => text(p.label) && Number.isInteger(p.seconds) && Number(p.seconds) > 0 && Number(p.seconds) <= 3600 && (p.image === undefined || p.image === null),
     Cue: p => text(p.text),
     FollowUps: p => Array.isArray(p.prompts) && p.prompts.length <= 6 && p.prompts.every(text),
-    Profile: p => typeof p.name === 'string' && p.name.length <= 40 && optional(p.style, v => oneOf(v, ['beginner', 'regular', 'challenge', 'exploring'])),
+    Profile: p => typeof p.name === 'string' && p.name.length <= 40,
     Recap: p => optional(p.title, v => typeof v === 'string' && v.length <= 120),
     Rail: p => text(p.intent) && String(p.intent).length <= 120 && optional(p.next, v => typeof v === 'string' && v.length <= 80),
     TextInput: p => optional(p.label, v => typeof v === 'string' && v.length <= 80) && optional(p.placeholder, v => typeof v === 'string' && v.length <= 80),

@@ -12,7 +12,7 @@ table{width:100%;border-collapse:collapse;font-size:8.6pt;margin:1mm 0 2mm}th,td
 .foot{margin-top:3mm;border-top:1px solid #DCD3C2;padding-top:1.8mm;font-size:7.6pt;color:#5B6670}
 a{color:#2D5A45}.pb{page-break-before:always}
 </style></head><body>
-<div class="top"><div><h1>Business Requirements Document: Lull</h1><p class="lede">Final product scope for the pilot release.</p></div><p class="meta">BRD · Version 2.0 · Rupak Ghanpathi</p></div>
+<div class="top"><div><h1>Business Requirements Document: Lull</h1><p class="lede">Final product scope for the pilot release.</p></div><p class="meta">BRD · Version 2.1 · Rupak Ghanpathi</p></div>
 <h2>1. Purpose and scope</h2><p>Lull gives desk-heavy teams a 3-minute guided movement reset and gives HR team-level evidence of use, without identifying individuals. This BRD covers the employee app, the HR site and the pilot programme for Indian companies of 50–500 people.</p>
 <h2>2. Business problem</h2><div class="stats"><div><b>~30%</b><span>of employees take part in company wellness programmes (Plum, 3,500+ Indian orgs, 2023)</span></div>
 <div><b>~3%</b><span>of wellbeing-app users still active after 30 days (JMIR 2019, 93 apps)</span></div>
@@ -22,8 +22,8 @@ a{color:#2D5A45}.pb{page-break-before:always}
 <tr><td>Adoption</td><td>≥ 50% of the pilot team start a session in the first two weeks</td></tr><tr><td>Return use</td><td>≥ 1 in 3 who finish one session use it again within a week; reminder set rate as leading indicator</td></tr>
 <tr><td>Value to employees</td><td>More "Lighter" than "Not for me" answers</td></tr><tr><td>Safety</td><td>Every pain or symptom report ends the session, no exceptions</td></tr><tr><td>Commercial</td><td>3 pilot partners; qualified conversations per 10 outreach sends</td></tr></table>
 <h2 class="pb">5. Functional requirements</h2><table><tr><th>ID</th><th>Requirement</th></tr>
-<tr><td>FR-1</td><td>Employees describe their need in free text (English or Hinglish) or pick a quick option; Lull suggests one session with its reason and real length.</td></tr>
-<tr><td>FR-2</td><td>Sessions are guided step by step with timers; "too easy" / "too much" adapts the next movement.</td></tr>
+<tr><td>FR-1</td><td>Employees answer one question, "How are you feeling right now?", by tapping a work moment or typing in English or Hinglish; Lull suggests one of five three-minute desk resets (neck and shoulders, back and hips, energy, calm, eyes and wrists) with its reason and real length.</td></tr>
+<tr><td>FR-2</td><td>Every reset is office-safe (work clothes, nothing on the floor, no sweat) and works seated or standing; resets are guided step by step with timers, and "too much" / "on a call" or "too easy" switches posture without losing the person’s place.</td></tr>
 <tr><td>FR-3</td><td>Pain, injury, rehab or urgent symptoms, in English or Hinglish, stop or prevent a session and point to proper help; urgent symptoms point to emergency care.</td></tr>
 <tr><td>FR-4</td><td>After a session, employees can add a weekday reminder to their own Google, Outlook or Apple calendar, or copy a Slack /remind command.</td></tr>
 <tr><td>FR-5</td><td>A reminder opens Lull with the employee's usual session one tap away.</td></tr>
@@ -35,7 +35,7 @@ a{color:#2D5A45}.pb{page-break-before:always}
 <h2>6. Non-functional requirements</h2><ul><li><b>Privacy:</b> no names, device IDs, typed text or safety data leave the device; the local app's CSP blocks all external requests.</li>
 <li><b>Safety:</b> fixed rules cannot be overridden by any model; physiotherapist review required before a paid pilot.</li>
 <li><b>Accessibility:</b> WCAG 2.2 AA target, keyboard use, reduced motion, 44px touch targets, works at 360px.</li>
-<li><b>Simplicity:</b> nothing to install, no accounts, runs in the browser; no AI by default.</li><li><b>Quality:</b> automated tests for the privacy contract, Hinglish safety and core flows (104 tests).</li></ul>
+<li><b>Simplicity:</b> nothing to install, no accounts, runs in the browser; no AI by default.</li><li><b>Quality:</b> automated tests for the privacy contract, Hinglish safety and core flows (84 unit and 33 browser tests).</li></ul>
 <h2>7. Assumptions and constraints</h2><ul><li>Pilots run with one team of 10–50; pricing ₹60–120 per person per month is indicative until agreed in writing.</li><li>Counts are events, not people; weekly active people are approximate by design.</li><li>English and romanised Hinglish only; Devanagari script not yet supported.</li></ul>
-<h2>8. Out of scope (this release)</h2><ul><li>Slack/Teams bots, calendar access, mood or stress scoring, streaks or leaderboards, seated-only mode, medical advice.</li></ul>
+<h2>8. Out of scope (this release)</h2><ul><li>Slack/Teams bots, calendar access, mood or stress scoring, streaks or leaderboards, medical advice.</li></ul>
 <h2>9. Risks and mitigations</h2><table><tr><th>Risk</th><th>Mitigation</th></tr><tr><td>Low reminder opt-in leads to falling use</td><td>Week-3 check-in on reminder rate; team resets via managers</td></tr><tr><td>Budget goes to insurance first</td><td>Position alongside insurance; small pilot; no annual contract</td></tr><tr><td>Missed safety wording</td><td>Fixed rules plus tests; physio and native-speaker review</td></tr><tr><td>Small benefit size</td><td>Claim "used and liked", never productivity or health outcomes</td></tr></table><p class="foot">Pilot-stage product by Rupak Ghanpathi. All usage figures are sample data from a made-up 64-person company. Not a medical or mental-health service. Live: lull-hr.vercel.app · App: lull-hr.vercel.app/app · Code: github.com/RUPAK30/Lull-B2B-workplace-wellbeing-product-for-HR-teams</p></body></html>

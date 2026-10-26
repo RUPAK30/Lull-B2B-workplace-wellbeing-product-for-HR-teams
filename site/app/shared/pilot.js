@@ -3,12 +3,13 @@
 // allow-list below is the only thing that can be sent, and it never includes who, what was typed,
 // or anything about pain or safety. It also builds the opt-in reminder the employee sets for
 // themselves, so coming back is their choice, on their own calendar or Slack.
+import { RESETS, fromTitle } from './resets.js';
 /** Team codes are short, lower-case and plain, so they can't carry anything personal. */
 export function cleanTeam(raw) {
     const team = (raw ?? '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 24);
     return team || null;
 }
-const NEED_FROM_HEARD = { 'a lot of sitting': 'sitting', 'some stiffness': 'stiff', 'tight legs': 'legs', 'not much time': 'time', 'low energy': 'low', 'restless energy': 'restless', 'wanting more energy': 'energetic', 'wanting something calm': 'calm', 'not sure where to start': 'unsure', 'general fitness': 'fitness' };
+const NEED_FROM_HEARD = { 'neck and shoulders': 'neck', 'a stiff back': 'back', 'tired eyes or wrists': 'eyes', 'a lot of sitting': 'sitting', 'some stiffness': 'stiff', 'tight legs': 'legs', 'not much time': 'time', 'low energy': 'low', 'restless energy': 'restless', 'wanting more energy': 'energetic', 'wanting something calm': 'calm', 'not sure where to start': 'unsure', 'general fitness': 'fitness' };
 const FELT = { lighter: 'felt-lighter', same: 'felt-same', 'not-for-me': 'felt-not-for-me' };
 /**
  * Maps a local activity event to the anonymous pilot event it may be sent as, or null.
@@ -77,14 +78,13 @@ export function reminderSlack(time, link) {
     return `/remind me "Take a 3-minute Lull reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
 }
 export function parseReset(raw) {
-    const match = /^(mobility|stretching|cardio)-(gentle|steady)$/.exec((raw ?? '').trim().toLowerCase());
-    return match ? { path: match[1], intensity: match[2] } : null;
+    const match = new RegExp(`^(${RESETS.join('|')})-(seated|standing)$`).exec((raw ?? '').trim().toLowerCase());
+    return match ? { reset: match[1], posture: match[2] } : null;
 }
 /** The text a manager pastes into a recurring meeting invite. */
 export const teamResetInvite = (link) => `Last 3 minutes: Lull team reset. Open this together and press Start: ${link}`;
-/** Reads the session's own title (e.g. "Gentle · Mobility reset") back into a reset code, or null. */
+/** Reads a session's own title (e.g. "Calm down · Seated") back into a reset code, or null. */
 export function resetFromTitle(title) {
-    const t = title.toLowerCase(), intensity = t.startsWith('steady') ? 'steady' : t.startsWith('gentle') ? 'gentle' : null;
-    const path = t.includes('mobility') ? 'mobility' : t.includes('stretch') ? 'stretching' : t.includes('cardio') ? 'cardio' : null;
-    return intensity && path ? `${path}-${intensity}` : null;
+    const found = fromTitle(title);
+    return found ? `${found.reset}-${found.posture}` : null;
 }

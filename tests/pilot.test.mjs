@@ -67,18 +67,25 @@ test('need categories: only the first broad category from a fixed list, never wo
   assert.equal(pilotEvent('need',{}),null);
 });
 
-test('team reset links only open known sessions',()=>{
-  assert.deepEqual(parseReset('mobility-gentle'),{path:'mobility',intensity:'gentle'});
-  assert.deepEqual(parseReset('CARDIO-steady'),{path:'cardio',intensity:'steady'});
-  for(const bad of ['', 'mobility', 'yoga-gentle', 'mobility-hard', '/workout mobility gentle', null]) assert.equal(parseReset(bad),null,String(bad));
+test('team reset links only open known resets',()=>{
+  assert.deepEqual(parseReset('unknot-seated'),{reset:'unknot',posture:'seated'});
+  assert.deepEqual(parseReset('CALM-standing'),{reset:'calm',posture:'standing'});
+  for(const bad of ['', 'unknot', 'yoga-seated', 'unknot-hard', 'mobility-gentle', '/reset unknot seated', null]) assert.equal(parseReset(bad),null,String(bad));
   assert.equal(pilotEvent('team_reset'),'team-reset-joined');
   assert.equal(pilotEvent('team_reset_shared'),null,'sharing an invite is not counted');
-  assert.match(teamResetInvite('https://x/app/?reset=mobility-gentle'),/^Last 3 minutes: Lull team reset\. .+https:\/\/x\/app\/\?reset=mobility-gentle$/);
+  assert.match(teamResetInvite('https://x/app/?reset=unknot-seated'),/^Last 3 minutes: Lull team reset\. .+https:\/\/x\/app\/\?reset=unknot-seated$/);
 });
 
-test('a session title maps back to its one-tap reset code',()=>{
-  assert.equal(resetFromTitle('Gentle · Mobility reset'),'mobility-gentle');
-  assert.equal(resetFromTitle('Steady · Stretch and settle'),'stretching-steady');
-  assert.equal(resetFromTitle('Gentle · Low-impact cardio'),'cardio-gentle');
+test('a reset title maps back to its one-tap reset code',()=>{
+  assert.equal(resetFromTitle('Unknot neck & shoulders · Seated'),'unknot-seated');
+  assert.equal(resetFromTitle('Calm down · Standing'),'calm-standing');
+  assert.equal(resetFromTitle('Screen break · Seated'),'screen-seated');
+  assert.equal(resetFromTitle('Gentle · Mobility reset'),null,'old titles no longer map');
   assert.equal(resetFromTitle('Something else'),null);
+});
+
+test('new need categories (neck, back, eyes) can be counted; free text never',()=>{
+  assert.equal(pilotEvent('need',{kinds:['neck and shoulders']}),'need-neck');
+  assert.equal(pilotEvent('need',{kinds:['a stiff back']}),'need-back');
+  assert.equal(pilotEvent('need',{kinds:['tired eyes or wrists']}),'need-eyes');
 });

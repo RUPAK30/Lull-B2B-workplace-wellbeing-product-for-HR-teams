@@ -65,7 +65,7 @@ export async function packageSource(root) {
   const hashes = Object.fromEntries(files.filter(f => f.path !== '.starter-baseline.json').map(f => [f.path, f.sha256]));
   const changes = [...new Set([...Object.keys(baseline), ...Object.keys(hashes)])].filter(path => baseline[path] !== hashes[path]).map(path => ({ path, status: !hashes[path] ? 'deleted' : !baseline[path] ? 'added' : 'modified' }));
   const manifest = { format: 'workout-source-v1', appVersion: pkg.version, baselinePresent: Object.keys(baseline).length > 0,
-    changedFiles: changes, skillHash: hashes['skills/workout.md'], files: hashes,
+    changedFiles: changes, skillHash: hashes['skills/reset.md'], files: hashes,
     runFiles: files.filter(f => f.path.startsWith('runs/') && f.path.endsWith('.json')).map(f => f.path),
     note: 'Credentials, .env, dependencies, build caches and repository history are excluded. Inspect this archive before sharing. Run model/config versions are in runs/*.json.' };
   files.push({ path: 'submission-manifest.json', bytes: Buffer.from(JSON.stringify(manifest, null, 2)) });

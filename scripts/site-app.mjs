@@ -13,7 +13,7 @@ const web = (await readdir(join(dist, 'web'))).filter(f => (f.endsWith('.js') &&
 for (const f of web) await cp(join(dist, 'web', f), join(out, 'web', f));
 await cp(join(dist, 'shared'), join(out, 'shared'), { recursive: true });
 await mkdir(join(out, 'server'), { recursive: true });
-for (const f of ['mock.js', 'lull.js', 'vocabulary.js']) await cp(join(dist, 'server', f), join(out, 'server', f));
+for (const f of ['mock.js', 'lull.js']) await cp(join(dist, 'server', f), join(out, 'server', f));
 await mkdir(join(out, 'examples'), { recursive: true });
 await cp(join(root, 'examples/wiring.openui'), join(out, 'examples/wiring.openui'));
 

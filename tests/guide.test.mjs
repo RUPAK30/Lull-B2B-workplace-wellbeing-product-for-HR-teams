@@ -1,31 +1,32 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {createApp,readConfig} from '../dist/server/app.js';
 import {needFrom,sessionFrom,cleanLine} from '../dist/server/guide.js';
-const base={safety:'none',reply:'',path:'none',intensity:'none',heard:[],outside_scope:false,request:'none',switch_to:'none',tip:''};
+const base={safety:'none',reply:'',reset:'none',posture:'none',heard:[],outside_scope:false,request:'none',switch_to:'none',tip:''};
 const u=over=>({...base,...over});
 test('model can raise safety above the keyword layer but never lower it',()=>{
   assert.equal(needFrom('my knee is being weird',u({safety:'pain'})).kind,'care');
-  const kept=needFrom('my chest hurts',u({safety:'none',path:'cardio',reply:'Let’s move.'}));
+  const kept=needFrom('my chest hurts',u({safety:'none',reset:'energy',reply:'Let’s move.'}));
   assert.equal(kept.kind,'care');assert.equal(kept.level,'urgent');
   assert.equal(needFrom('my back hurts',u({safety:'urgent'})).level,'urgent');
   assert.equal(sessionFrom('felt a bit off on that one',u({safety:'pain'})).kind,'safety');
-  assert.equal(sessionFrom('my shoulder hurts',u({request:'harder'})).kind,'safety');
+  assert.equal(sessionFrom('my shoulder hurts',u({request:'standing'})).kind,'safety');
 });
 test('care copy is fixed wording, never the model’s text',()=>{
   const need=needFrom('knee weird',u({safety:'pain',reply:'Just push through it.'}));
   assert(!need.ack.includes('push through'));
 });
 test('model suggestion keeps real timer durations and rejects invented ones',()=>{
-  const ok=needFrom('been hunched at a laptop since 8',u({path:'mobility',intensity:'gentle',heard:['sitting'],reply:'A long laptop day wants slow movement.'}));
-  assert.equal(ok.kind,'suggest');assert(ok.ack.includes('(2:40)'));
+  const ok=needFrom('been hunched at a laptop since 8',u({reset:'unknot',posture:'seated',heard:['neck'],reply:'A long laptop day wants slow movement.'}));
+  assert.equal(ok.kind,'suggest');assert.equal(ok.reset,'unknot');assert.equal(ok.posture,'seated');assert(ok.ack.includes('(2:30)'));
   assert.equal(cleanLine('This takes 5 minutes.'),null);assert.equal(cleanLine('Let’s go!'),null);
-  const fallback=needFrom('i have been sitting all day',u({path:'mobility',intensity:'gentle',reply:'Only 10 mins, promise.'}));
+  const fallback=needFrom('i have been sitting all day',u({reset:'unsit',posture:'standing',reply:'Only 10 mins, promise.'}));
   assert(!fallback.ack.includes('10 mins'));
 });
-test('tips are offered for the current movement; empty or unsafe tips fall back',()=>{
-  const tip=sessionFrom('my wrists are tired',u({request:'tip',tip:'Come onto your forearms instead, or make the movement smaller.'}));
-  assert.deepEqual(tip,{kind:'tip',text:'Come onto your forearms instead, or make the movement smaller.'});
-  assert.equal(sessionFrom('too easy',u({request:'tip',tip:''})).kind,'harder');
+test('tips are offered for the current step; empty or unsafe tips fall back',()=>{
+  const tip=sessionFrom('a colleague is right next to me',u({request:'tip',tip:'Keep it small and slow; nobody needs to notice.'}));
+  assert.deepEqual(tip,{kind:'tip',text:'Keep it small and slow; nobody needs to notice.'});
+  assert.equal(sessionFrom('too easy',u({request:'tip',tip:''})).kind,'standing');
+  assert.equal(sessionFrom('joining a call now',u({request:'seated'})).kind,'seated');
 });
 const config=readConfig({ALLOW_CLAUDE_API:'true',ANTHROPIC_API_KEY:'fake-test'},process.cwd());
 async function app(understand){const server=createApp(config,fetch,undefined,undefined,understand);await new Promise(r=>server.listen(0,'127.0.0.1',r));const url='http://127.0.0.1:'+server.address().port;const cfg=await (await fetch(url+'/api/config')).json();return {url,cfg,close:()=>new Promise(r=>server.close(r))};}

@@ -5,7 +5,6 @@ const afterBlock = ['Done. Take whatever pause you need.', 'That one is done. No
 // Drafts and focus survive re-renders, so a reply arriving mid-sentence never wipes what someone is typing.
 const drafts = new Map();
 let typingIn = '';
-const styleLabels = { beginner: 'Beginner tone', regular: 'Regular tone', challenge: 'Challenge-seeker tone', exploring: 'Exploring tone' };
 // Trusted DOM ports of the source component signatures; no model-generated code.
 export const renderers = {
     Text: ({ props: p }) => el(p.variant === 'title' ? 'h3' : p.variant === 'subtitle' ? 'h4' : 'p', String(p.text), 'block block-' + String(p.variant ?? 'body')),
@@ -49,9 +48,9 @@ export const renderers = {
             finish.hidden = entry.status === 'done';
             const upNext = c.upNext(key), position = c.timers.list().findIndex(t => t.id === key);
             done.hidden = entry.status !== 'done';
-            doneText.textContent = c.earlyFinish.has(key) ? 'Marked done without timing.' : upNext?.closing ? 'That was the last block.' : afterBlock[Math.max(0, position) % afterBlock.length];
+            doneText.textContent = c.earlyFinish.has(key) ? 'Marked done without timing.' : upNext?.closing ? 'That was the last step.' : afterBlock[Math.max(0, position) % afterBlock.length];
             next.hidden = !upNext;
-            next.textContent = !upNext ? '' : upNext.closing ? 'Wind down →' : 'Next movement →';
+            next.textContent = !upNext ? '' : upNext.closing ? 'Back to your day →' : 'Next step →';
             next.title = upNext?.closing ? '' : upNext ? `Up next: ${upNext.label}` : '';
             if (upNext && !upNext.closing && !c.earlyFinish.has(key))
                 doneText.textContent += ` Up next: ${upNext.label}.`;
@@ -154,11 +153,11 @@ export const renderers = {
                 input.focus({ preventScroll: true }); }, 0);
         return form;
     },
-    Profile: ({ props: p }) => { if (!p.name && !p.style) {
+    Profile: ({ props: p }) => { if (!p.name) {
         const none = el('span');
         none.hidden = true;
         return none;
-    } const n = el('p', '', 'profile-chip'); n.append(el('span', 'THIS RUN ONLY', 'eyebrow'), el('span', [String(p.name) || 'Name not shared', ...(typeof p.style === 'string' ? [styleLabels[p.style]] : [])].join(' · '))); return n; },
+    } const n = el('p', '', 'profile-chip'); n.append(el('span', 'THIS RUN ONLY', 'eyebrow'), el('span', String(p.name))); return n; },
     Recap: ({ props: p }, c) => {
         const n = el('details', '', 'recap'), head = el('summary');
         head.append(el('span', typeof p.title === 'string' ? p.title : 'What the timers recorded', 'recap-title'));

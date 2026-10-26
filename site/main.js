@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var site = 'https://lull-hr.vercel.app/';
   var slug = (company || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24);
   var teamLink = site + 'app/?team=' + (slug || 'your-team');
-  var resetLink = site + 'app/?reset=mobility-gentle' + (slug ? '&team=' + slug : '');
+  var resetLink = site + 'app/?reset=unknot-seated' + (slug ? '&team=' + slug : '');
   var invite = 'Last 3 minutes: Lull team reset. Open this together and press Start: ' + resetLink;
   var copyText = function (text, done, msg) {
     var show = function () { done.textContent = msg; };
@@ -75,91 +75,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (document.getElementById('split')) {
 
-  // Two-sided demo. Needs are read with a copy of the app's own rules (src/server/lull.ts,
-  // interpretNeed): fixed word lists, safety first, no AI. Plans and wording come from the same file.
-  // HR figures come from the repo's sample company (src/shared/team.ts): a finished session moves
+  // Two-sided demo. It runs Lull's real engine, the same file the app uses (app/server/lull.js):
+  // the same need matching (English and Hinglish), safety rules and five desk resets. No AI.
+  // HR figures come from the repo's sample company (src/shared/team.ts): a finished reset moves
   // one team from one below to its week-6 active count.
-  var INTENTS = {
-    urgent: ['chest pain', 'chest hurts', 'chest feels tight', 'cannot breathe', 'short of breath', 'trouble breathing', 'struggling to breathe', 'faint', 'fainted', 'fainting', 'blacked out', 'passed out', 'numb', 'numbness', 'severe pain', 'sudden pain', 'seene mein dard', 'seene me dard', 'chhati mein dard', 'chati me dard', 'saans nahi aa rahi', 'saans lene mein dikkat', 'saans phool rahi', 'behosh', 'sunn ho gaya', 'sunn pad gaya'],
-    rehab: ['rehab', 'rehabilitation', 'recovering from', 'recovery from', 'post op', 'after surgery', 'surgery', 'physio', 'physiotherapy', 'physical therapy', 'operation hua', 'operation ke baad'],
-    pain: ['pain', 'painful', 'dizzy', 'dizziness', 'lightheaded', 'light headed', 'nauseous', 'nausea', 'feel sick', 'feeling sick', 'felt sick', 'cramp', 'something feels wrong', 'hurt', 'hurts', 'hurting', 'injury', 'injured', 'sprain', 'sprained', 'strain', 'strained', 'torn', 'broken', 'fracture', 'swollen', 'sore knee', 'bad back', 'pulled a muscle', 'dard', 'dukh raha', 'dukh rahi', 'dukhta', 'dukhti', 'chot', 'moch', 'chakkar', 'ulti', 'matli', 'sujan', 'soojan'],
-    outside: ['run', 'running', 'jog', 'jogging', 'weights', 'lift', 'lifting', 'dumbbell', 'dumbbells', 'barbell', 'swim', 'swimming', 'cycling', 'bike', 'hiit', 'jump', 'jumping', 'push ups', 'pushups', 'sit ups', 'situps', 'sprint', 'sprints'],
-    fitness: ['lose weight', 'weight loss', 'losing weight', 'burn calories', 'burn fat', 'fat burning', 'calories', 'slim down', 'get fit', 'fit', 'fitness', 'fitter', 'get in shape', 'stamina', 'endurance', 'more active', 'tone up'],
-    sitting: ['sitting', 'sat', 'not moved', 'sedentary', 'couch', 'sofa', 'desk', 'computer', 'laptop', 'screen all day', 'office', 'commute', 'long drive', 'long flight', 'baithe baithe', 'baith baith ke', 'kursi pe', 'kursi par', 'screen pe'],
-    stiff: ['stiff', 'stiffness', 'tight', 'tightness', 'tense', 'achy', 'knots', 'hunched', 'locked up', 'loosen', 'creaky', 'akad', 'akadna', 'akdi', 'akda', 'jakad', 'jakdan', 'jakda', 'jakdi'],
-    legs: ['leg', 'legs', 'hamstring', 'hamstrings', 'calf', 'calves', 'thighs', 'pairon', 'taange', 'taangein', 'tange'],
-    time: ['quick', 'short on time', 'in a hurry', 'no time', 'not much time', 'busy', 'few minutes', 'couple of minutes', 'something short', 'jaldi', 'time nahi', 'time kam', 'thoda time', 'do minute', 'paanch minute'],
-    low: ['tired', 'exhausted', 'drained', 'sluggish', 'sleepy', 'no energy', 'low energy', 'low on energy', 'worn out', 'wiped', 'burnt out', 'burned out', 'foggy', 'fried', 'knackered', 'meh', 'lethargic', 'unmotivated', 'heavy', 'bored', 'blah', 'thak', 'thaka', 'thaki', 'thakan', 'thakaan', 'thakawat', 'sust', 'susti', 'aalas', 'neend aa rahi', 'energy nahi'],
-    restless: ['restless', 'fidgety', 'antsy', 'wired', 'pent up', 'cannot sit still', 'stir crazy', 'need to move', 'itching to move', 'bechain', 'bechaini', 'man nahi lag raha'],
-    energetic: ['energetic', 'energised', 'energized', 'get moving', 'sweat', 'sweaty', 'harder', 'intense', 'heart rate', 'heart pumping', 'wake me up', 'pumped', 'motivated', 'challenge', 'push myself'],
-    calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'stressed out', 'stress', 'overwhelmed', 'quiet', 'uneasy', 'anxious', 'nervous', 'on edge', 'frazzled', 'wound up', 'overthinking', 'cannot focus', 'distracted', 'scattered', 'cannot switch off', 'switch off', 'tension', 'pareshan', 'dimaag thak', 'dimag thak', 'sukoon', 'shaanti chahiye', 'shanti chahiye'],
-    unsure: ['do not know', 'not sure', 'no idea', 'whatever', 'anything', 'surprise me', 'you choose', 'you pick', 'you decide', 'up to you', 'get started', 'help me start', 'where to start', 'where to begin', 'feels right']
-  };
-  var PAT = {};
-  Object.keys(INTENTS).forEach(function (k) { PAT[k] = new RegExp('(?:^| )(?:' + INTENTS[k].join('|') + ')(?= |$)'); });
-  var ORDER = ['fitness', 'legs', 'sitting', 'stiff', 'time', 'low', 'restless', 'energetic', 'calm', 'unsure'];
-  var HEARD = { sitting: 'a lot of sitting', stiff: 'some stiffness', legs: 'tight legs', time: 'not much time', low: 'low energy', restless: 'restless energy', energetic: 'wanting more energy', calm: 'wanting something calm', unsure: 'not sure where to start', fitness: 'general fitness' };
-  var NEED_ACK = {
-    fitness: 'I can help with general movement and fitness. A few minutes here isn’t a weight-loss plan, but movement you enjoy is a good thing to build on.',
-    legs: 'Tight legs: a calm stretch for the backs of the legs fits.',
-    sitting: 'After a lot of sitting, slow movement for the back and hips is a good fit.',
-    stiff: 'For stiffness, slow and controlled range fits well.',
-    time: 'Short on time is fine; every gentle session here is under three minutes on the timers.',
-    low: 'Low on energy, so let’s keep it light.',
-    restless: 'Restless energy does well with a bit of rhythm.',
-    energetic: 'Something with more rhythm, then.',
-    calm: 'Something quieter, then.',
-    unsure: 'No need to know. Let’s start somewhere easy.'
-  };
-  var CARE = {
-    urgent: { title: 'Please get help first.', alert: 'That sounds like it needs urgent medical attention, not exercise. Please stop and contact your local emergency number or urgent care now.', text: 'This isn’t something I can help with, and it isn’t a time to exercise.' },
-    pain: { title: 'Let’s not work around pain.', alert: 'I can’t assess pain or injuries, so I won’t pick a session around it. Getting advice from a doctor or physiotherapist before exercising that area is the safe call.', text: 'If you’d still like to move today, choose something that leaves that area alone, and stop if anything hurts.' },
-    rehab: { title: 'Let’s not work around pain.', alert: 'If you’re recovering, your clinician’s advice and restrictions come first. These sessions aren’t a rehab plan.', text: 'If you’d still like to move today, choose something that leaves that area alone, and stop if anything hurts.' }
-  };
-  var PATH_REPLY = { mobility: 'Mobility: slow, controlled range. No forcing.', stretching: 'Stretching: mild tension, held calmly.', cardio: 'Low-impact cardio: rhythm, not jumps. One foot always stays down.' };
-  var ANOTHER_DAY = { mobility: 'a mobility reset', stretching: 'some stretching', cardio: 'a little low-impact cardio' };
-  var LABEL = { mobility: 'mobility', stretching: 'stretching', cardio: 'low-impact cardio' };
-  var PLANS = {
-    mobility: { gentle: [['Wake the spine', 40], ['Shoulders and neck', 45], ['Downshift', 30], ['Hip hinge reach', 45]],
-      steady: [['Spine CARs', 50], ['Shoulder control', 55], ['Squat-to-reach flow', 45], ['Reset the pace', 35], ['Hip hinge reach', 55]] },
-    stretching: { gentle: [['Neck side stretch', 40], ['Chest opener', 40], ['Settle', 30], ['Back of the legs', 40]],
-      steady: [['Dynamic warm-up', 45], ['Neck and upper back', 50], ['Front of the hips', 50], ['Settle', 30], ['Back of the legs', 50]] },
-    cardio: { gentle: [['Warm-up march', 45], ['Step-touch', 45], ['Recover', 30], ['Cool-down', 30]],
-      steady: [['Warm-up march', 45], ['Interval 1', 60], ['Recover', 30], ['Interval 2', 60], ['Cool-down', 45]] }
-  };
-  // The broad category HR may see, mirroring src/shared/pilot.ts. Never the words typed.
-  var NEED_LABEL = { sitting: 'a lot of sitting', stiff: 'stiffness', legs: 'tight legs', time: 'short on time', low: 'low energy', restless: 'restless', energetic: 'more energy', calm: 'something calm', unsure: 'not sure', fitness: 'general fitness' };
-  var TEAM_FOR = { mobility: 'Engineering', stretching: 'Sales', cardio: 'Product & Design' };
-  var clock = function (s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
-  var total = function (path, lvl) { return PLANS[path][lvl].reduce(function (a, b) { return a + b[1]; }, 0); };
-  var single = function (t, pats) { var hits = Object.keys(pats).filter(function (k) { return pats[k].test(t); }); return hits.length === 1 ? hits[0] : null; };
-  function normalise(raw) {
-    return raw.toLowerCase().replace(/[’‘`]/g, "'").replace(/\bcan't\b/g, 'cannot').replace(/\bwon't\b/g, 'will not').replace(/n't\b/g, ' not')
-      .replace(/\bi'm\b/g, 'i am').replace(/\bi've\b/g, 'i have').replace(/'s\b/g, ' is').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
-  }
-  function interpret(raw) {
-    var t = normalise(raw).replace(/ ?\b(a |such a |what a )?pain in the (neck|backside|butt|bum|arse|ass)\b/g, ' ').trim();
-    var on = function (k) { return PAT[k].test(t); };
-    var explicit = single(t, { mobility: /\bmobility\b|\bjoints?\b|\bstiff/, stretching: /\bstretch/, cardio: /\bcardio\b|\bheart rate\b|\bget moving\b|\bmarch/ });
-    if (on('urgent')) return { kind: 'care', level: 'urgent' };
-    if (on('rehab')) return { kind: 'care', level: 'rehab' };
-    if (on('pain')) return { kind: 'care', level: 'pain' };
-    var heard = ORDER.filter(function (k) { return k === 'time' ? on('time') || /\b\d+ ?(min|mins|minute|minutes)\b|\b(one|two|three|four|five|ten) (min|mins|minute|minutes)\b/.test(t) : on(k); });
-    var has = function (k) { return heard.indexOf(k) > -1; }, outside = on('outside') && !explicit;
-    if (has('low') && (has('energetic') || has('restless'))) return { kind: 'clarify', ack: 'Low on energy but wanting something lively? Which matters more today: easy, or a bit more energetic?', opts: [['Keep it easy', 'tired, something easy'], ['A bit more energetic', 'get moving']] };
-    var path = explicit || (outside || has('energetic') || has('fitness') || has('restless') ? 'cardio' : has('legs') && (has('stiff') || has('sitting')) ? 'stretching' : has('sitting') || has('stiff') ? 'mobility' : has('calm') || has('low') ? 'stretching' : has('unsure') || has('time') ? 'mobility' : null);
-    if (!path) return { kind: 'clarify', ack: 'Tell me a little more: loosen up, stretch out, or get moving a bit?', opts: [['Loosen up', 'feeling stiff'], ['Stretch out', 'stretch'], ['Get moving', 'get moving']] };
-    var intensity = has('time') || has('low') || has('unsure') || has('calm') ? 'gentle' : has('energetic') || outside ? 'steady'
-      : single(t, { gentle: /\bgentle\b|\beasy\b|\blight\b|\bshort(er)?\b|\bcalm\b/, steady: /\bsteady\b|\bharder\b|\blonger\b|\bmore\b/ });
-    var kinds = heard.filter(function (k) { return k !== 'legs' || has('stiff') || has('sitting'); });
-    var lines = (outside ? ['Running, weights and jumping are outside what I can guide here; these sessions are short and equipment-free.'] : []).concat(kinds.map(function (k) { return NEED_ACK[k]; }));
-    var lvl = intensity || 'gentle';
-    var pick = intensity ? intensity + ' ' + LABEL[path] + ' (' + clock(total(path, lvl)) + ')' : ANOTHER_DAY[path];
-    return { kind: 'suggest', path: path, intensity: intensity, lvl: lvl, heard: kinds,
-      ack: lines.length ? lines.slice(0, 2).join(' ') + ' I’d suggest ' + (outside ? 'the closest fit, ' : '') + pick + '.' : PATH_REPLY[path] };
-  }
-
   var TEAMS = [['Engineering', 8], ['Sales', 6], ['Product & Design', 2], ['Customer support', null], ['People & Ops', null]];
+  var TEAM_FOR = { unknot: 'Engineering', unsit: 'Product & Design', energy: 'Product & Design', calm: 'Sales', screen: 'Engineering' };
+  // The broad category HR may see, mirroring src/shared/pilot.ts. Never the words typed.
+  var NEED_LABEL = { neck: 'neck and shoulders', back: 'a stiff back', sitting: 'a lot of sitting', stiff: 'stiffness', legs: 'tight legs', eyes: 'eyes and wrists', time: 'short on time', low: 'low energy', restless: 'restless', energetic: 'more energy', calm: 'something calm', unsure: 'not sure', fitness: 'general fitness' };
+  var CARE = {
+    urgent: { title: 'Please get help first.', text: 'This isn’t something Lull can help with, and it isn’t a time to move.' },
+    pain: { title: 'Let’s not work around pain.', text: 'If you’d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.' },
+    rehab: { title: 'Let’s not work around pain.', text: 'If you’d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.' }
+  };
   var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
   var full = function (team) { return TEAMS.filter(function (t) { return t[0] === team; })[0][1]; };
   var rows = document.getElementById('hr-rows'), emp = document.getElementById('emp'), status = document.getElementById('hr-status');
@@ -179,76 +107,78 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     status.className = 'hr-status';
   }
-  function run(raw, source) {
-    timers.forEach(clearTimeout); timers = [];
-    var r = interpret(raw);
-    chips.forEach(function (c) { c.setAttribute('aria-pressed', source === c.dataset.chip); });
-    if (source !== 'auto') { split.classList.remove('swap'); void split.offsetWidth; split.classList.add('swap'); }
-    if (r.kind === 'care') {
-      var c = CARE[r.level];
-      emp.innerHTML = '<h3>' + c.title + '</h3><p class="care-alert' + (r.level === 'urgent' ? ' urgent' : '') + '">' + c.alert + '</p><p class="emp-text">' + c.text + '</p><p class="emp-run">No session offered.</p>';
-      resetHr(null);
-      status.className = 'hr-status care';
-      status.innerHTML = '<b>Nothing changed.</b> Pain reports are never shared with anyone.';
-      return r;
-    }
-    if (r.kind === 'clarify') {
-      emp.innerHTML = '<h3 class="clarify">' + esc(r.ack) + '</h3><p class="emp-text">Lull asks rather than guesses.</p><div class="clarify-opts">' +
-        (r.opts || []).map(function (o) { return '<button type="button" class="chip clarify-opt" data-say="' + esc(o[1]) + '">' + esc(o[0]) + '</button>'; }).join('') + '</div>';
-      resetHr(null);
-      status.innerHTML = '<b>Nothing changed.</b> No session, nothing counted.';
-      return r;
-    }
-    var plan = PLANS[r.path][r.lvl], team = TEAM_FOR[r.path], secs = total(r.path, r.lvl);
-    var heard = r.heard.length ? '<p class="emp-heard">Heard: ' + r.heard.map(function (k) { return HEARD[k]; }).join(' · ') + '</p>' : '';
-    var other = r.intensity ? '' : ' · ' + (r.lvl === 'gentle' ? 'steady ' + clock(total(r.path, 'steady')) : 'gentle ' + clock(total(r.path, 'gentle'))) + ' also offered';
-    emp.innerHTML = heard + '<p class="emp-ack">' + esc(r.ack) + '</p><h3>' + r.lvl.charAt(0).toUpperCase() + r.lvl.slice(1) + ' ' + LABEL[r.path] + '</h3>' +
-      '<p class="emp-meta">' + clock(secs) + ' on the timers' + other + '</p><ol class="blocks">' +
-      plan.map(function (b) { return '<li><b>' + b[0] + '</b><span>' + clock(b[1]) + '</span></li>'; }).join('') + '</ol><p class="emp-run" id="emp-run"></p>';
-    resetHr(team);
-    status.textContent = 'Updates when a session finishes.';
-    var lis = emp.querySelectorAll('.blocks li'), runEl = document.getElementById('emp-run');
-    var step = 700, start = source === 'auto' ? 500 : 250;
-    lis.forEach(function (li, i) {
+  import('./app/server/lull.js').then(function (L) {
+    function run(raw, source) {
+      timers.forEach(clearTimeout); timers = [];
+      var r = L.interpretNeed(raw);
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', source === c.dataset.chip); });
+      if (source !== 'auto') { split.classList.remove('swap'); void split.offsetWidth; split.classList.add('swap'); }
+      if (r.kind === 'care') {
+        var c = CARE[r.level];
+        emp.innerHTML = '<h3>' + c.title + '</h3><p class="care-alert' + (r.level === 'urgent' ? ' urgent' : '') + '">' + esc(L.CARE_ACK[r.level]) + '</p><p class="emp-text">' + c.text + '</p><p class="emp-run">No reset offered.</p>';
+        resetHr(null);
+        status.className = 'hr-status care';
+        status.innerHTML = '<b>Nothing changed.</b> Pain reports are never shared with anyone.';
+        return r;
+      }
+      if (r.kind === 'clarify') {
+        emp.innerHTML = '<h3 class="clarify">' + esc(r.ack) + '</h3><p class="emp-text">Lull asks rather than guesses.</p><div class="clarify-opts">' +
+          L.RESETS.map(function (k) { return '<button type="button" class="chip clarify-opt" data-say="' + esc(L.RESET_MOMENTS[k]) + '">' + esc(L.RESET_MOMENTS[k]) + '</button>'; }).join('') + '</div>';
+        resetHr(null);
+        status.innerHTML = '<b>Nothing changed.</b> No reset, nothing counted.';
+        return r;
+      }
+      var posture = r.posture || L.DEFAULT_POSTURE[r.reset], plan = L.planOf(r.reset, posture), team = TEAM_FOR[r.reset];
+      var other = posture === 'seated' ? 'standing' : 'seated';
+      var heard = r.heard.length ? '<p class="emp-heard">Heard: ' + r.heard.map(function (k) { return L.HEARD[k]; }).join(' · ') + '</p>' : '';
+      emp.innerHTML = heard + '<p class="emp-ack">' + esc(r.ack) + '</p><h3>' + esc(L.RESET_NAMES[r.reset]) + '</h3>' +
+        '<p class="emp-meta">' + posture.charAt(0).toUpperCase() + posture.slice(1) + ' · ' + L.clock(plan.total) + ' · ' + other + ' also offered</p><ol class="blocks">' +
+        plan.blocks.map(function (b) { return '<li><b>' + esc(b.title) + '</b><span>' + L.clock(b.seconds) + '</span></li>'; }).join('') + '</ol><p class="emp-run" id="emp-run"></p>';
+      resetHr(team);
+      status.textContent = 'Updates when a reset finishes.';
+      var lis = emp.querySelectorAll('.blocks li'), runEl = document.getElementById('emp-run');
+      var step = 700, start = source === 'auto' ? 500 : 250;
+      lis.forEach(function (li, i) {
+        later(function () {
+          if (i) lis[i - 1].className = 'done';
+          li.className = 'on';
+          runEl.textContent = 'Step ' + (i + 1) + ' of ' + lis.length + ' · ' + li.querySelector('b').textContent;
+        }, start + i * step);
+      });
       later(function () {
-        if (i) lis[i - 1].className = 'done';
-        li.className = 'on';
-        runEl.textContent = 'Step ' + (i + 1) + ' of ' + lis.length + ' · ' + li.querySelector('b').textContent;
-      }, start + i * step);
+        lis.forEach(function (li) { li.className = 'done'; });
+        runEl.innerHTML = '<b>Back to your day</b> · ' + L.clock(plan.total);
+        var row = rows.querySelector('.hr-row[data-team="' + team + '"]');
+        row.querySelector('strong').textContent = full(team);
+        row.classList.add('bump');
+        var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
+        status.innerHTML = '<b>' + esc(team) + ' +1</b>' + esc(need) + '. That’s all HR gets.';
+      }, start + lis.length * step);
+      return r;
+    }
+    var CHIP_TEXT = {};
+    chips.forEach(function (chip) {
+      CHIP_TEXT[chip.dataset.chip] = chip.textContent;
+      chip.addEventListener('click', function () { input.value = chip.textContent; run(chip.textContent, chip.dataset.chip); track('chip-' + chip.dataset.chip); });
     });
-    later(function () {
-      lis.forEach(function (li) { li.className = 'done'; });
-      runEl.innerHTML = '<b>Finished</b> · ' + clock(secs) + ' on the timers';
-      var row = rows.querySelector('.hr-row[data-team="' + team + '"]');
-      row.querySelector('strong').textContent = full(team);
-      row.classList.add('bump');
-      var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
-      status.innerHTML = '<b>' + esc(team) + ' +1</b>' + esc(need) + '. That’s all HR gets.';
-    }, start + lis.length * step);
-    return r;
-  }
-  var CHIP_TEXT = {};
-  chips.forEach(function (chip) {
-    CHIP_TEXT[chip.dataset.chip] = chip.textContent;
-    chip.addEventListener('click', function () { input.value = chip.textContent; run(chip.textContent, chip.dataset.chip); track('chip-' + chip.dataset.chip); });
-  });
-  document.getElementById('say').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var v = input.value.trim(); if (!v) { input.focus(); return; }
-    var r = run(v, 'typed');
-    try { localStorage.setItem('lull-last-feeling', v); } catch (err) { /* private mode: nothing to remember */ }
-    input.blur();
-    track('typed-' + (r.kind === 'suggest' ? r.path : r.kind === 'care' ? 'care-' + r.level : 'clarify'));
-  });
-  emp.addEventListener('click', function (e) {
-    var b = e.target.closest('.clarify-opt'); if (!b) return;
-    run(b.dataset.say, 'typed'); track('clarify-' + b.textContent.trim().toLowerCase().replace(/\s+/g, '-'));
-  });
-  // A returning visitor sees her own last answer again; everyone else starts on the first feeling.
-  var last = null;
-  try { last = localStorage.getItem('lull-last-feeling'); } catch (err) { last = null; }
-  if (last) { input.value = last; run(last, 'auto'); }
-  else { run(CHIP_TEXT.stiff, 'auto'); chips[0].setAttribute('aria-pressed', 'true'); }
+    document.getElementById('say').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = input.value.trim(); if (!v) { input.focus(); return; }
+      var r = run(v, 'typed');
+      try { localStorage.setItem('lull-last-feeling', v); } catch (err) { /* private mode: nothing to remember */ }
+      input.blur();
+      track('typed-' + (r.kind === 'suggest' ? r.reset : r.kind === 'care' ? 'care-' + r.level : 'clarify'));
+    });
+    emp.addEventListener('click', function (e) {
+      var b = e.target.closest('.clarify-opt'); if (!b) return;
+      run(b.dataset.say, 'typed'); track('clarify-' + b.textContent.trim().toLowerCase().replace(/[^a-z]+/g, '-'));
+    });
+    // A returning visitor sees her own last answer again; everyone else starts on the first moment.
+    var last = null;
+    try { last = localStorage.getItem('lull-last-feeling'); } catch (err) { last = null; }
+    if (last) { input.value = last; run(last, 'auto'); }
+    else { run(CHIP_TEXT.calls, 'auto'); chips[0].setAttribute('aria-pressed', 'true'); }
+  }).catch(function () { emp.textContent = 'The demo could not load. Try the app instead.'; });
 
   // CEO slide chart: the sample's weekly active people.
   var WEEKLY = [33, 34, 29, 21, 23, 22], max = 34;
@@ -348,12 +278,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var org = company || 'our company';
   var KIT = {
     slack: 'Trying something small for the next 6 weeks: Lull, a 3-minute movement reset for days full of calls.\n\n'
-      + 'Type how you feel (Hinglish works too) and you get one short guided session: for a stiff neck, low energy after lunch, or a few spare minutes.\n\n'
+      + 'Type how you feel (Hinglish works too) and you get one three-minute desk reset: for a stiff neck after calls, a post-lunch slump, or a busy mind.\n\n'
       + 'Private by design: ' + org + ' only sees team totals, never who used it or anything you type.\n\n'
       + 'Try it now: ' + teamLink + '\nAt the end, you can set your own reminder in your calendar or Slack.',
     email: 'Subject: A 3-minute reset for the days that are all calls\n\n'
       + 'Hi all,\n\nFor the next 6 weeks we are piloting Lull: a short guided movement break you can take at your desk. '
-      + 'Type how you feel, in your own words or Hinglish, and it suggests one 2 to 4 minute session. If you mention pain, it stops and points you to proper help.\n\n'
+      + 'Type how you feel, in your own words or Hinglish, and it suggests one three-minute desk reset, seated or standing. If you mention pain, it stops and points you to proper help.\n\n'
       + 'It is private by design. ' + org + ' sees team totals only: no names, no individual sessions, nothing you type. You can see exactly what is counted in Lull’s settings, and switch it off.\n\n'
       + 'Open it here: ' + teamLink + '\n\nThere is nothing to install and no account to create. Questions? Just reply.',
     managers: 'Thanks for helping with the Lull pilot. One small ask: end one recurring meeting a week with a 3-minute team reset.\n\n'

@@ -72,10 +72,10 @@ else
     store.del('sw.exp.' + experiment); }
 /** Reads what Lull just did from its reply, so the log reflects product moments, not clicks. */
 export function observeTurn(said, reply) {
-    const heard = reply.match(/intensity_need = Text\("Heard: ([^"]+)"/);
+    const heard = reply.match(/pick_need = Text\("Heard: ([^"]+)"/);
     if (heard)
         track('need', { kinds: heard[1].split(' · ') });
-    if (/mood_text = Text\("(Tell me a little more|Low on energy but)/.test(reply) || reply.startsWith('I didn’t catch a change'))
+    if (/feel_text = Text\("(Tell me a little more|Low on energy but)/.test(reply) || reply.startsWith('I didn’t catch a change'))
         track('unmatched', { text: said.slice(0, 120), where: reply.startsWith('I didn’t') ? 'during' : 'before' });
     const safety = reply.match(/(care|safety)_alert = Alert\("(warning|danger)"/);
     if (safety)
@@ -89,7 +89,7 @@ export function observeTurn(said, reply) {
         track('adjusted', { to: said.slice(10).toLowerCase() });
     if (reply.includes('finish_title = Text("Let’s leave it there.'))
         track('session_finished', { reason: 'safety' });
-    else if (reply.includes('finish_title = Text("That’s enough for today.'))
+    else if (reply.includes('finish_title = Text("That’s enough for now.'))
         track('session_finished', { reason: 'stopped' });
 }
 function classifyAsk(said) { const t = said.toLowerCase(); return /easy|harder|more/.test(t) ? 'harder' : /gentl|easier|intense|less|slow/.test(t) ? 'easier' : /stop|done|end/.test(t) ? 'stop' : 'switch'; }

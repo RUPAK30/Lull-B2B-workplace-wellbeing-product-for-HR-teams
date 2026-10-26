@@ -11,6 +11,7 @@ import { byId,el,button } from './dom.js';
 import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js';
 import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, usualReset } from './pilot.js';
 import { reminderCard } from './reminder.js';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle, type Reset, type Posture } from '../shared/resets.js';
 import { renderInsights, teamExport, type Source } from './insights-view.js';
 import { sampleEvents } from '../shared/insights.js';
 import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce, type Theme } from './prefs.js';
@@ -46,14 +47,14 @@ function renderWorkout(current:StatementNode,ctx:Context){
   const head=el('div','','workout-head'),mark=el('p','','workout-mark'),progress=button('',()=>toggleSheet(),'workout-progress'),track=el('div','','workout-track');
   mark.append(el('span','','sw-dot'),el('span','Lull','sw-name'),el('span',intent||'Session','workout-intent'));
   track.setAttribute('aria-hidden','true');const dots=moves.map(()=>{const d=el('span');track.append(d);return d;});
-  progress.setAttribute('aria-expanded','false');progress.setAttribute('aria-label',`Movement ${pos+1} of ${moves.length}. Show all movements`);
-  progress.append(el('span',`Movement ${pos+1} of ${moves.length}`,'workout-count'),track);head.append(mark,progress);
+  progress.setAttribute('aria-expanded','false');progress.setAttribute('aria-label',`Step ${pos+1} of ${moves.length}. Show all steps`);
+  progress.append(el('span',`Step ${pos+1} of ${moves.length}`,'workout-count'),track);head.append(mark,progress);
   // Session overview: every movement, its timer and its real state; jumping is allowed unless safety holds the session.
   const sheet=el('div','','workout-sheet');sheet.hidden=true;const items=el('ol','','sheet-list'),marks:HTMLElement[]=[];
   moves.forEach((s,i)=>{const sk=s.props.children as StatementNode[],tt=sk.find(n=>n.name==='Text'&&n.props.variant==='title'),tm=sk.find(n=>n.name==='Timer')!;
     const li=el('li'),go=button('',()=>jumpTo(s.key),'sheet-item'+(i===pos?' current':'')),st=el('span','','sheet-status');marks.push(st);
     go.append(el('span',String(i+1),'sheet-n'),el('strong',String(tt?.props.text??'').replace(/^\d+ of \d+ · /,'')),el('span',clock(Number(tm.props.seconds)),'sheet-time'),st);go.disabled=i===pos||safetyHold();li.append(go);items.append(li);});
-  sheet.append(el('p','This session','sheet-title'),items);
+  sheet.append(el('p','This reset','sheet-title'),items);
   const toggleSheet=(open=sheet.hidden)=>{sheet.hidden=!open;progress.setAttribute('aria-expanded',String(open));};
   // Movement stage: the one thing to focus on.
   const hero=el('div','','workout-hero'),words=el('div','','workout-words');
@@ -72,14 +73,14 @@ function renderWorkout(current:StatementNode,ctx:Context){
   const lower=el('div','','workout-lower'),next=el('div','','workout-next'),companion=el('div','','workout-companion'),offer=el('div','','workout-offer');
   const after=screens[screens.findIndex(s=>s.key===current.key)+1],afterKids=(after?.props.children as StatementNode[]|undefined)??[];
   const afterTimer=afterKids.find(n=>n.name==='Timer'),afterTitle=afterKids.find(n=>n.name==='Text'&&n.props.variant==='title');
-  next.append(el('span','Up next','workout-next-label'),el('strong',afterTimer?String(afterTitle?.props.text??'').replace(/^\d+ of \d+ · /,''):'Wind down','workout-next-title'),el('span',afterTimer?`${Math.floor(Number(afterTimer.props.seconds)/60)}:${String(Number(afterTimer.props.seconds)%60).padStart(2,'0')} on the timer`:'A calm close to the session','workout-next-meta'));
+  next.append(el('span','Up next','workout-next-label'),el('strong',afterTimer?String(afterTitle?.props.text??'').replace(/^\d+ of \d+ · /,''):'Back to your day','workout-next-title'),el('span',afterTimer?`${Math.floor(Number(afterTimer.props.seconds)/60)}:${String(Number(afterTimer.props.seconds)%60).padStart(2,'0')} on the timer`:'A calm close, then back to work','workout-next-meta'));
   const cue=of('Cue'),say=el('p','','workout-say');say.append(el('span','','sw-dot'),el('span',cue?String(cue.props.text):'','workout-say-text'));
   for(const node of kids)if(node.name==='Alert'||node.name==='FollowUps')offer.append(renderComponent(node,ctx));
   if(offer.childNodes.length){offer.prepend(el('span','Lull suggests','workout-offer-label'));stage.classList.add('has-offer');}
   companion.append(offer.childNodes.length?offer:say);const ask=of('TextInput');if(ask)companion.append(renderComponent(ask,ctx));
   lower.append(companion,next);
   // A confirmed change to the session (same run, new intensity or activity) is marked on the stage.
-  const runKey=`${c.document.clearVersion}|${intent}`;if(lastIntent&&intent&&lastIntent.split('|')[0]===String(c.document.clearVersion)&&lastIntent!==runKey){stage.classList.add('adjusted');mark.append(el('span',`Adjusted · now ${intent.split(' · ')[0].toLowerCase()}`,'workout-adjusted'));}if(intent)lastIntent=runKey;
+  const runKey=`${c.document.clearVersion}|${intent}`;if(lastIntent&&intent&&lastIntent.split('|')[0]===String(c.document.clearVersion)&&lastIntent!==runKey){stage.classList.add('adjusted');mark.append(el('span',`Adjusted · now ${intent.split(' · ').slice(0,2).join(', ').toLowerCase()}`,'workout-adjusted'));}if(intent)lastIntent=runKey;
   // Session navigation lives in the stage during a workout (same buttons and handlers).
   const navSlot=el('div','','workout-nav');navSlot.append(byId('navigation'));
   stage.append(head,sheet,hero,lower,navSlot);
@@ -129,7 +130,7 @@ function applyTimerAction(id:string,action:'start'|'pause'|'reset'|'finish'){
 function render(){let moveFocus=false;
   if(config){const selected=config.providers.find(p=>p.id===c.provider)!;byId('mode').textContent=c.provider==='mock'?'MOCK · NO MODEL CALLS':selected.enabled?'LIVE WHEN SENT':'SETUP / BLOCKED';byId('provider-description').textContent=selected.message;byId('consent-wrap').hidden=c.provider==='mock'||!selected.enabled;byId('consent-label').textContent=c.provider==='claude-cli'?'Use my subscription quota on Send/Retry; I reviewed the host-policy limits.':'Use my API budget on Send/Retry.';byId<HTMLInputElement>('consent').checked=c.consent;byId<HTMLButtonElement>('send').disabled=!selected.enabled||(c.provider!=='mock'&&!c.consent)||paused;byId('mock-controls').hidden=c.provider!=='mock';byId('sample').hidden=c.provider!=='mock';}
   byId('send').textContent=c.pending?'Update':'Send';byId('cancel').hidden=!c.pending;byId<HTMLButtonElement>('cancel').disabled=!c.pending;byId('pending').hidden=!c.pending;byId('status').textContent=c.pending?'Thinking… type an update to interrupt':c.error?'Needs attention':'Ready when you are';byId('error').hidden=!c.error;byId('error-message').textContent=c.error;
-  const transcript=byId('transcript');transcript.replaceChildren();if(!c.events.length)transcript.append(el('p','Start the scripted Lull demo, type /workout (optionally /workout cardio steady) for a session, or load the wiring sample. Mock makes no model calls.','micro'));
+  const transcript=byId('transcript');transcript.replaceChildren();if(!c.events.length)transcript.append(el('p','Start the scripted Lull flow, type /reset (optionally /reset calm seated) for a reset, or load the wiring sample. Mock makes no model calls.','micro'));
   for(const event of c.events){if(event.kind==='input'||event.kind==='response'){const n=el('div','','message '+(event.kind==='input'?'user':'assistant'));n.append(el('span',event.kind==='input'?'You':'Lull','who'),el('p',event.text??splitReply(event.result!.turn.reply).prose??''));transcript.append(n);}else if(event.text)transcript.append(el('p',event.text,'event'));else if(event.kind==='interrupted'||event.kind==='cancelled')transcript.append(el('p',event.kind==='interrupted'?'Previous reply interrupted. Your messages are kept.':'Reply cancelled.','event'));}
   transcript.scrollTop=transcript.scrollHeight;syncTimers();
   holdForSafety();const screens=c.document.screens,index=screens.findIndex(s=>s.key===c.document.cursor),key=c.document.echo()+String(paused);
@@ -153,10 +154,13 @@ byId<HTMLSelectElement>('provider').addEventListener('change',event=>c.selectPro
 byId<HTMLInputElement>('consent').addEventListener('change',event=>{c.consent=(event.target as HTMLInputElement).checked;if(!c.consent)c.cancel();render();});
 byId('apply-patch').addEventListener('click',()=>{try{const raw=byId<HTMLTextAreaElement>('patch').value;c.document.apply(raw.includes('```')?raw:'```openui\n'+raw+'\n```');c.localEvent('Builder applied local OpenUI data: '+raw);byId('patch-status').textContent='Patch accepted. This is local fixture evidence, not a model run.';}catch{byId('patch-status').textContent='Invalid patch. Previous screen kept. Check names, arguments and catalog.';}});
 byId('export').addEventListener('click',()=>{const label=byId<HTMLSelectElement>('run-label').value;const payload={format:'lull-workout-run-v1',label,appVersion:APP_VERSION,schemaVersion:SCHEMA_VERSION,selectedProvider:c.provider,note:byId<HTMLTextAreaElement>('note').value,events:c.events,state:{ui_state:c.document.echo(),client_events:c.clientEvents},timers:timers.list()};const url=URL.createObjectURL(new Blob([JSON.stringify(redactValue(payload),null,2)],{type:'application/json'}));const link=el('a');link.href=url;link.download=label+'.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);byId('export-status').textContent=`Downloaded ${label}.json. Review and move it into runs/.`;});
-async function start(){render();try{const response=await fetch('/api/config');track('visit');for(const e of EXPERIMENTS)track('exposure',{exp:e.id,variant:variantOf(e.id)});noteReturn();if(!response.ok)throw new Error();config=await response.json();const select=byId<HTMLSelectElement>('provider');select.replaceChildren();for(const p of config!.providers){const option=el('option',p.label+(p.enabled?'':' · setup / blocked'));option.value=p.id;select.append(option);}select.value='mock';select.disabled=false;render();if(teamReset){track('team_reset');send(`/workout ${teamReset.path} ${teamReset.intensity}`,'team-reset');history.replaceState(null,'',location.pathname);}}catch{byId('status').textContent='Could not connect. Restart the local server and reload.';}}
+async function start(){render();try{const response=await fetch('/api/config');track('visit');for(const e of EXPERIMENTS)track('exposure',{exp:e.id,variant:variantOf(e.id)});noteReturn();if(!response.ok)throw new Error();config=await response.json();const select=byId<HTMLSelectElement>('provider');select.replaceChildren();for(const p of config!.providers){const option=el('option',p.label+(p.enabled?'':' · setup / blocked'));option.value=p.id;select.append(option);}select.value='mock';select.disabled=false;render();if(teamReset){track('team_reset');send(`/reset ${teamReset.reset} ${teamReset.posture}`,'team-reset');history.replaceState(null,'',location.pathname);}}catch{byId('status').textContent='Could not connect. Restart the local server and reload.';}}
 /** Jump to a movement from the session overview (never while safety holds the session). */
 function jumpTo(key:string){if(safetyHold()||nav.phase()!=='idle'||paused)return;const screens=c.document.screens,i=screens.findIndex(s=>s.key===key),from=screens.findIndex(s=>s.key===c.document.cursor);if(i<0||i===from)return;c.document.move(i);c.localEvent(i<from?activityClientEvents.wentBack(`step ${from+1}`,`step ${i+1}`):activityClientEvents.nowOnStep(`step ${i+1} of ${screens.length}`));}
-const QUICK=[{label:'After back-to-back calls',detail:'Gentle mobility · 2:40',cmd:'/workout mobility gentle'},{label:'Post-lunch slump',detail:'Gentle stretching · 2:30',cmd:'/workout stretching gentle'},{label:'Need to move',detail:'Steady low-impact cardio · 4:00',cmd:'/workout cardio steady'}];
+// The work moments, each one tap from its reset (in the posture that suits it best).
+const SECONDS:Record<Reset,string>={unknot:'2:30',unsit:'2:40',energy:'2:25',calm:'2:30',screen:'2:30'};
+const QUICK=RESETS.map(r=>({label:RESET_MOMENTS[r],detail:`${RESET_NAMES[r]} · ${SECONDS[r]}`,cmd:`/reset ${r} ${DEFAULT_POSTURE[r]}`}));
+const describe=(reset:Reset,posture:Posture)=>`${RESET_NAMES[reset]}, ${posture}`;
 /** Home: a greeting, one clear way in, quick picks, and (if remembered) the last session. */
 function renderHome(){
   const mem=loadMemory(),hour=new Date().getHours(),hello=hour<12?'Good morning':hour<18?'Good afternoon':'Good evening';
@@ -164,23 +168,20 @@ function renderHome(){
   const begin=button('Start with Lull',()=>send('Start Lull','onboarding'),'primary home-start');begin.id='workout';
   // Opened from their own reminder: their usual session is one tap away.
   const usual=openedFromReminder?usualReset():null;
-  if(usual){const label=`${usual.intensity==='gentle'?'Gentle':'Steady'} ${usual.path==='cardio'?'low-impact cardio':usual.path}`;n.append(el('p','Your reset time. Same as usual?','home-label'));const one=button(`Start ${label}`,()=>send(`/workout ${usual.path} ${usual.intensity}`,'reminder'),'primary home-start');n.append(one);begin.className='home-start';begin.textContent='Something different';}
+  if(usual){n.append(el('p','Your reset time. Same as usual?','home-label'));const one=button(`Start ${describe(usual.reset,usual.posture).toLowerCase().replace(/^./,ch=>ch.toUpperCase())}`,()=>send(`/reset ${usual.reset} ${usual.posture}`,'reminder'),'primary home-start');n.append(one);begin.className='home-start';begin.textContent='Something different';}
   const quick=el('div','','home-quick');
-  if(mem.last){const again=button('',()=>send(`/workout ${mem.last!.path} ${mem.last!.intensity}`,'again'),'quick again');again.append(el('strong','Same as last time'),el('span',mem.last.title));quick.append(again);}
+  const last=mem.last&&RESETS.includes(mem.last.reset as Reset)?mem.last:null;
+  if(last){const again=button('',()=>send(`/reset ${last.reset} ${last.posture}`,'again'),'quick again');again.append(el('strong','Same as last time'),el('span',last.title));quick.append(again);}
   for(const q of QUICK){if(variantOf('home-quick')==='B')break;const b=button('',()=>send(q.cmd,'quick'),'quick');b.append(el('strong',q.label),el('span',q.detail));quick.append(b);}
-  const shelf=mem.words?.length?[el('p',`Words you’ve picked up · ${mem.words.length}`,'home-label'),(()=>{const row=el('div','','home-words');for(const w of mem.words!)row.append(el('span',w,'word-chip'));return row;})()]:[];
-  n.append(begin,...(quick.childNodes.length?[el('p',mem.last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick your moment','home-label'),quick]:[]),...shelf,el('p','Text only: Lull can’t see you. Stop anything that doesn’t feel right.','micro home-note'),...(pilotTeam?[pilotNote()]:[]));
+  n.append(begin,...(quick.childNodes.length?[el('p',last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick your moment','home-label'),quick]:[]),el('p','Text only: Lull can’t see you. Stop anything that doesn’t feel right.','micro home-note'),...(pilotTeam?[pilotNote()]:[]));
   return n;
 }
 /** Lull's latest words, shown as a caption outside the workout (where the stage speaks for itself). */
 function renderCaption(){const reply=[...c.events].reverse().find(e=>e.kind==='response'),prose=reply?.result?splitReply(reply.result.turn.reply).prose:'';const kids=c.document.current?.props.children as StatementNode[]|undefined;const quiet=isWorkout(c.document.current)||(kids??[]).some(n=>n.name==='Recap')||c.pending;const cap=byId('caption');if(cap.textContent!==prose)cap.textContent=prose;const onScreen=(kids??[]).some(n=>typeof n.props.text==='string'&&prose.includes(String(n.props.text)));cap.hidden=quiet||!prose||onScreen;}
-const PATH_OF:Record<string,string>={'Mobility reset':'mobility','Stretch and settle':'stretching','Low-impact cardio':'cardio'};
-/** Opt-in memory: name, style and last session, kept in this browser only. */
-function rememberSession(){if(!prefs.remember)return;const nodes=c.document.screens.flatMap(s=>s.props.children as StatementNode[]),you=[...nodes].reverse().find(n=>n.name==='Profile'),title=nodes.find(n=>n.key==='intro_title');
-  const update:Parameters<typeof saveMemory>[0]={};if(typeof you?.props.name==='string'&&you.props.name)update.name=you.props.name;if(typeof you?.props.style==='string')update.style=you.props.style;
-  if(title){const [level,name]=String(title.props.text).split(' · ');const path=PATH_OF[name??''];if(path&&level)update.last={path,intensity:level.toLowerCase(),title:`${level} ${name.toLowerCase()}`};}
-  // The word from today joins the shelf only once the session's ending is reached.
-  const word=nodes.find(n=>n.key==='finish_word');if(word&&c.document.cursor==='finish'&&typeof word.props.text==='string'){const words=loadMemory().words??[];if(!words.includes(word.props.text))update.words=[...words,word.props.text].slice(-30);}
+/** Opt-in memory: the last reset, kept in this browser only. */
+function rememberSession(){if(!prefs.remember)return;const nodes=c.document.screens.flatMap(s=>s.props.children as StatementNode[]),title=nodes.find(n=>n.key==='intro_title');
+  const update:Parameters<typeof saveMemory>[0]={};
+  const found=title?fromTitle(String(title.props.text)):null;if(found)update.last={reset:found.reset,posture:found.posture,title:`${RESET_NAMES[found.reset]} · ${POSTURE_LABELS[found.posture]}`};
   if(Object.keys(update).length)saveMemory(update);}
 function focusSession(){const a=document.activeElement as HTMLElement|null;if(a&&a.closest('.talk,#drawer')&&a!==document.body)return;byId('screen').focus({preventScroll:true});}
 // Drawer: conversation history, settings and developer tools.

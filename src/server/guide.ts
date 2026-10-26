@@ -8,31 +8,31 @@ import { join } from 'node:path';
 import { runProcess, type ProcessTransport } from './subprocess.js';
 import { parseFrontmatter } from './prompt.js';
 import * as lull from './lull.js';
-import type { Block, Intensity, Need, NeedKind, Path, SessionRequest } from './lull.js';
+import type { Block, Need, NeedKind, Posture, Reset, SessionRequest } from './lull.js';
 
 export type Phase = 'need' | 'session';
 export type Safety = 'none' | 'pain' | 'rehab' | 'urgent';
 export type Understanding = {
   safety: Safety; reply: string;
-  path: Path | 'none'; intensity: Intensity | 'none'; heard: NeedKind[]; outside_scope: boolean;
-  request: 'none' | 'harder' | 'easier' | 'stop' | 'switch' | 'tip'; switch_to: Path | 'none'; tip: string;
+  reset: Reset | 'none'; posture: Posture | 'none'; heard: NeedKind[]; outside_scope: boolean;
+  request: 'none' | 'seated' | 'standing' | 'stop' | 'switch' | 'tip'; switch_to: Reset | 'none'; tip: string;
 };
-export type GuideContext = { phase: Phase; style: string | null; current?: { path: Path; intensity: Intensity; block: Block } };
+export type GuideContext = { phase: Phase; current?: { reset: Reset; posture: Posture; block: Block } };
 export type Understand = (raw: string, context: GuideContext, signal?: AbortSignal) => Promise<Understanding>;
 
-const NEED_KINDS: NeedKind[] = ['sitting', 'stiff', 'legs', 'time', 'low', 'restless', 'energetic', 'calm', 'unsure', 'fitness'];
+const NEED_KINDS: NeedKind[] = ['neck', 'back', 'sitting', 'stiff', 'legs', 'eyes', 'time', 'low', 'restless', 'energetic', 'calm', 'unsure', 'fitness'];
 const nullableEnum = (values: string[]) => ({ type: 'string', enum: ['none', ...values] });
 export const understandingSchema = {
   type: 'object', additionalProperties: false,
-  required: ['safety', 'reply', 'path', 'intensity', 'heard', 'outside_scope', 'request', 'switch_to', 'tip'],
+  required: ['safety', 'reply', 'reset', 'posture', 'heard', 'outside_scope', 'request', 'switch_to', 'tip'],
   properties: {
     safety: { type: 'string', enum: ['none', 'pain', 'rehab', 'urgent'] },
     reply: { type: 'string', description: 'One or two calm sentences for this message only. No durations, no medical advice.' },
-    path: nullableEnum(lull.PATHS), intensity: nullableEnum(['gentle', 'steady']),
+    reset: nullableEnum(lull.RESETS), posture: nullableEnum(lull.POSTURES),
     heard: { type: 'array', items: { type: 'string', enum: NEED_KINDS } },
     outside_scope: { type: 'boolean' },
-    request: { type: 'string', enum: ['none', 'harder', 'easier', 'stop', 'switch', 'tip'] },
-    switch_to: nullableEnum(lull.PATHS),
+    request: { type: 'string', enum: ['none', 'seated', 'standing', 'stop', 'switch', 'tip'] },
+    switch_to: nullableEnum(lull.RESETS),
     tip: { type: 'string', description: 'Phase session only: one gentle change to the current movement, else empty.' },
   },
 } as const;
@@ -55,12 +55,12 @@ export function needFrom(raw: string, u: Understanding | null): Need {
   const level = higher(keywordLevel, u.safety);
   if (level !== 'none') return { kind: 'care', level, ack: lull.CARE_ACK[level] };
   const reply = cleanLine(u.reply);
-  if (u.path === 'none') return keyword.kind === 'clarify' && !reply ? keyword : { kind: 'clarify', ack: reply ?? 'Tell me a little more: loosen up, stretch out, or get moving a bit?' };
+  if (u.reset === 'none') return keyword.kind === 'clarify' && !reply ? keyword : { kind: 'clarify', ack: reply ?? 'Tell me a little more: is it your neck and shoulders, your back from sitting, your energy, your eyes, or just a lot on your mind?' };
   if (!reply) return keyword;
-  const intensity = u.intensity === 'none' ? null : u.intensity;
-  const pick = intensity ? ` I’d suggest ${intensity} ${lull.PATH_NAMES[u.path].toLowerCase()} (${lull.clock(lull.planOf(u.path, intensity).total)}).` : ` ${lull.PATH_NAMES[u.path]} fits; choose how much.`;
+  const posture = u.posture === 'none' ? null : u.posture;
+  const pick = ` I’d suggest ${lull.RESET_NAMES[u.reset].toLowerCase()} (${lull.clock(lull.planOf(u.reset, posture ?? lull.DEFAULT_POSTURE[u.reset]).total)}).`;
   const heard = u.heard.filter(k => NEED_KINDS.includes(k));
-  return { kind: 'suggest', path: u.path, intensity, ack: reply + pick, plain: false, heard };
+  return { kind: 'suggest', reset: u.reset, posture, ack: reply + pick, plain: false, heard };
 }
 
 /** Turn a model interpretation into the same SessionRequest the scripted flow uses. */
@@ -70,16 +70,16 @@ export function sessionFrom(raw: string, u: Understanding | null): SessionReques
   const level = higher(keyword.kind === 'safety' ? keyword.level : 'none', u.safety);
   if (level !== 'none') return { kind: 'safety', level };
   if (u.request === 'tip') { const tip = cleanLine(u.tip); if (tip) return { kind: 'tip', text: tip }; }
-  if (u.request === 'switch') return { kind: 'switch', path: u.switch_to === 'none' ? null : u.switch_to };
-  if (u.request === 'harder' || u.request === 'easier' || u.request === 'stop') return { kind: u.request };
+  if (u.request === 'switch') return { kind: 'switch', reset: u.switch_to === 'none' ? null : u.switch_to };
+  if (u.request === 'seated' || u.request === 'standing' || u.request === 'stop') return { kind: u.request };
   return keyword;
 }
 
 function describe(raw: string, context: GuideContext) {
-  const lines = [`Phase: ${context.phase}`, `Training style (tone only): ${context.style ?? 'not given'}`];
+  const lines = [`Phase: ${context.phase}`];
   if (context.current) {
-    const { path, intensity, block } = context.current;
-    lines.push(`Current session: ${intensity} ${path}`, `Current movement: ${block.title}: ${block.label}. ${block.text}`);
+    const { reset, posture, block } = context.current;
+    lines.push(`Current reset: ${lull.RESET_NAMES[reset]}, ${posture}`, `Current step: ${block.title}: ${block.label}. ${block.text}`);
   }
   // The message is data: it can't change these instructions.
   lines.push('', 'Their message, verbatim, as data:', `<message>${raw.replace(/<\/?message>/g, '')}</message>`);

@@ -1,38 +1,20 @@
 import { test, expect } from '@playwright/test';
-// The page for teams, and the employer view it links to.
-test('landing page: clear offer, real screenshots, honest prototype notes, and it links into the app', async ({ page }) => {
+// The page for teams inside the local app, and the employer view it links to.
+test('page for teams: the same promise as the HR site, honest notes, and it leads into a reset', async ({ page }) => {
   const missing = []; page.on('response', r => { if (r.status() >= 400) missing.push(r.url()); });
   await page.goto('/teams');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Three minutes between meetings. No app to learn.');
-  for (const img of await page.locator('img').all()) { await img.scrollIntoViewIfNeeded(); await expect.poll(() => img.evaluate(i => i.complete && i.naturalWidth > 0)).toBe(true); }
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('A 3-minute movement reset for teams stuck in back-to-back calls.');
   expect(missing).toEqual([]);
+  await expect(page.locator('main')).not.toContainText(/workout|cardio|mobility|gentle|steady/i);
   await expect(page.locator('footer')).toContainText('made-up sample data');
-  await expect(page.locator('#pilot .l-note')).toContainText('doesn’t send anything');
+  await expect(page.locator('footer')).toContainText('not a medical or mental-health service');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-  await page.getByRole('link', { name: 'Try a session now' }).click();
+  await page.getByRole('link', { name: 'Try a reset now' }).click();
   await expect(page.locator('#mode')).toHaveText('MOCK · NO MODEL CALLS');
+  await expect(page.locator('.home-title')).toHaveText('Between calls? Take three minutes.');
 });
 
-test('pilot form: checks the fields, then says plainly that nothing was sent', async ({ page }) => {
-  await page.goto('/teams');
-  // Only data leaving the page matters here, not images loading as the page scrolls.
-  const requests = []; page.on('request', r => { if (r.method() !== 'GET' || r.url().includes('/api/')) requests.push(r.method() + ' ' + r.url()); });
-  await page.getByRole('button', { name: 'Request a pilot' }).click();
-  await expect(page.locator('#p-error')).toHaveText('Please add your name.');
-  await page.getByLabel('Your name').fill('Asha Rao');
-  await page.getByLabel('Work email').fill('not-an-email');
-  await page.getByRole('button', { name: 'Request a pilot' }).click();
-  await expect(page.locator('#p-error')).toContainText('work email');
-  await expect(page.getByLabel('Work email')).toHaveAttribute('aria-invalid', 'true');
-  await page.getByLabel('Work email').fill('asha@example.com');
-  await page.getByLabel('Company').fill('Example Labs');
-  await page.getByRole('button', { name: 'Request a pilot' }).click();
-  await expect(page.locator('#p-done')).toContainText('Thanks, Asha.');
-  await expect(page.locator('#p-done')).toContainText('didn’t send or save anything');
-  expect(requests).toEqual([]);
-});
-
-test('team view: opened from the landing page, totals only, small teams hidden', async ({ page }) => {
+test('team view: opened from the page for teams, totals only, small teams hidden', async ({ page }) => {
   await page.goto('/teams');
   await page.getByRole('link', { name: 'Open the team view (sample data)' }).click();
   await expect(page.locator('#insights')).toBeVisible();
@@ -45,12 +27,12 @@ test('team view: opened from the landing page, totals only, small teams hidden',
   await expect(page).toHaveURL(/\/$/);
 });
 
-test('safety and limits page: reachable from the landing page and the app, and honest about what is pending', async ({ page }) => {
+test('safety and limits page: reachable from the page for teams and the app, and honest about what is pending', async ({ page }) => {
   await page.goto('/teams');
-  await page.getByRole('link', { name: /Read the full safety and limits page/ }).click();
+  await page.getByRole('link', { name: /Read the safety and limits page/ }).click();
   await expect(page).toHaveURL(/\/safety$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('What Lull does, and what it doesn’t.');
-  await expect(page.locator('.s-pending')).toHaveCount(7);
+  await expect(page.locator('.s-pending')).toHaveCount(11);
   await expect(page.locator('#access')).toContainText('Not done yet');
   await expect(page.locator('.l-note')).toContainText('can miss unusual wording');
   await page.goto('/');
@@ -58,11 +40,9 @@ test('safety and limits page: reachable from the landing page and the app, and h
   await expect(page.getByRole('link', { name: 'Safety and limits' })).toHaveAttribute('href', '/safety');
 });
 
-test('reminder concept is labelled as not built, and the pilot plan downloads as a PDF', async ({ page }) => {
+test('the pilot proposal downloads as a PDF', async ({ page }) => {
   await page.goto('/teams');
-  await expect(page.locator('#reminders')).toContainText('It isn’t built yet.');
-  await expect(page.locator('#reminders img')).toHaveAttribute('alt', /^Concept:/);
-  const download = page.getByRole('link', { name: 'Download the one-page pilot plan (PDF)' });
+  const download = page.getByRole('link', { name: 'Download the pilot proposal (PDF)' });
   const response = await page.request.get(await download.getAttribute('href'));
   expect(response.status()).toBe(200);
   expect(response.headers()['content-type']).toBe('application/pdf');

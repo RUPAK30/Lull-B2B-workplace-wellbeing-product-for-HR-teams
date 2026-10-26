@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { interpretNeed, planOf, clock } from '../dist/server/lull.js';
+import { interpretNeed, planOf, clock, RESETS, RESET_NAMES } from '../dist/server/lull.js';
 
 // The public safety page makes promises about the product. These tests keep them true.
 const page = await readFile(new URL('../src/web/safety.html', import.meta.url), 'utf8');
@@ -20,11 +20,11 @@ test('safety page: the example phrases it lists trigger the level they are liste
   assert.equal(interpretNeed('I want a stretch but my knee hurts').kind, 'care', 'safety wins over a request in the same message');
 });
 
-test('safety page: session lengths in the review table are the real timer totals', () => {
-  const names = { mobility: 'Mobility', stretching: 'Stretching', cardio: 'Low-impact cardio' };
-  for (const [path, label] of Object.entries(names)) for (const intensity of ['gentle', 'steady']) {
-    const seconds = planOf(path, intensity).total;
-    assert.match(page, new RegExp(`${label}, ${intensity}</span><span role="cell">${clock(seconds)}<`), `${label}, ${intensity} should show ${clock(seconds)}`);
+test('safety page: reset lengths in the review table are the real timer totals', () => {
+  for (const reset of RESETS) for (const posture of ['seated', 'standing']) {
+    const seconds = planOf(reset, posture).total;
+    assert.match(page, new RegExp(`${RESET_NAMES[reset]}, ${posture}</span><span role="cell">${clock(seconds)}<`), `${RESET_NAMES[reset]}, ${posture} should show ${clock(seconds)}`);
   }
+  assert.doesNotMatch(page, /Mobility, gentle|cardio/i, 'no sessions from the old app remain');
   assert.match(page, /not yet<\/strong> been reviewed by a physiotherapist/, 'the page says plainly that review is pending');
 });

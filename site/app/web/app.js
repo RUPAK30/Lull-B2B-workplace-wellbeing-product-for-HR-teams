@@ -10,6 +10,7 @@ import { byId, el, button } from './dom.js';
 import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js';
 import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, usualReset } from './pilot.js';
 import { reminderCard } from './reminder.js';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js';
 import { renderInsights, teamExport } from './insights-view.js';
 import { sampleEvents } from '../shared/insights.js';
 import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js';
@@ -71,8 +72,8 @@ function renderWorkout(current, ctx) {
     track.setAttribute('aria-hidden', 'true');
     const dots = moves.map(() => { const d = el('span'); track.append(d); return d; });
     progress.setAttribute('aria-expanded', 'false');
-    progress.setAttribute('aria-label', `Movement ${pos + 1} of ${moves.length}. Show all movements`);
-    progress.append(el('span', `Movement ${pos + 1} of ${moves.length}`, 'workout-count'), track);
+    progress.setAttribute('aria-label', `Step ${pos + 1} of ${moves.length}. Show all steps`);
+    progress.append(el('span', `Step ${pos + 1} of ${moves.length}`, 'workout-count'), track);
     head.append(mark, progress);
     // Session overview: every movement, its timer and its real state; jumping is allowed unless safety holds the session.
     const sheet = el('div', '', 'workout-sheet');
@@ -87,7 +88,7 @@ function renderWorkout(current, ctx) {
         li.append(go);
         items.append(li);
     });
-    sheet.append(el('p', 'This session', 'sheet-title'), items);
+    sheet.append(el('p', 'This reset', 'sheet-title'), items);
     const toggleSheet = (open = sheet.hidden) => { sheet.hidden = !open; progress.setAttribute('aria-expanded', String(open)); };
     // Movement stage: the one thing to focus on.
     const hero = el('div', '', 'workout-hero'), words = el('div', '', 'workout-words');
@@ -129,7 +130,7 @@ function renderWorkout(current, ctx) {
     const lower = el('div', '', 'workout-lower'), next = el('div', '', 'workout-next'), companion = el('div', '', 'workout-companion'), offer = el('div', '', 'workout-offer');
     const after = screens[screens.findIndex(s => s.key === current.key) + 1], afterKids = after?.props.children ?? [];
     const afterTimer = afterKids.find(n => n.name === 'Timer'), afterTitle = afterKids.find(n => n.name === 'Text' && n.props.variant === 'title');
-    next.append(el('span', 'Up next', 'workout-next-label'), el('strong', afterTimer ? String(afterTitle?.props.text ?? '').replace(/^\d+ of \d+ · /, '') : 'Wind down', 'workout-next-title'), el('span', afterTimer ? `${Math.floor(Number(afterTimer.props.seconds) / 60)}:${String(Number(afterTimer.props.seconds) % 60).padStart(2, '0')} on the timer` : 'A calm close to the session', 'workout-next-meta'));
+    next.append(el('span', 'Up next', 'workout-next-label'), el('strong', afterTimer ? String(afterTitle?.props.text ?? '').replace(/^\d+ of \d+ · /, '') : 'Back to your day', 'workout-next-title'), el('span', afterTimer ? `${Math.floor(Number(afterTimer.props.seconds) / 60)}:${String(Number(afterTimer.props.seconds) % 60).padStart(2, '0')} on the timer` : 'A calm close, then back to work', 'workout-next-meta'));
     const cue = of('Cue'), say = el('p', '', 'workout-say');
     say.append(el('span', '', 'sw-dot'), el('span', cue ? String(cue.props.text) : '', 'workout-say-text'));
     for (const node of kids)
@@ -148,7 +149,7 @@ function renderWorkout(current, ctx) {
     const runKey = `${c.document.clearVersion}|${intent}`;
     if (lastIntent && intent && lastIntent.split('|')[0] === String(c.document.clearVersion) && lastIntent !== runKey) {
         stage.classList.add('adjusted');
-        mark.append(el('span', `Adjusted · now ${intent.split(' · ')[0].toLowerCase()}`, 'workout-adjusted'));
+        mark.append(el('span', `Adjusted · now ${intent.split(' · ').slice(0, 2).join(', ').toLowerCase()}`, 'workout-adjusted'));
     }
     if (intent)
         lastIntent = runKey;
@@ -359,7 +360,7 @@ function render() {
     const transcript = byId('transcript');
     transcript.replaceChildren();
     if (!c.events.length)
-        transcript.append(el('p', 'Start the scripted Lull demo, type /workout (optionally /workout cardio steady) for a session, or load the wiring sample. Mock makes no model calls.', 'micro'));
+        transcript.append(el('p', 'Start the scripted Lull flow, type /reset (optionally /reset calm seated) for a reset, or load the wiring sample. Mock makes no model calls.', 'micro'));
     for (const event of c.events) {
         if (event.kind === 'input' || event.kind === 'response') {
             const n = el('div', '', 'message ' + (event.kind === 'input' ? 'user' : 'assistant'));
@@ -499,7 +500,7 @@ async function start() { render(); try {
     render();
     if (teamReset) {
         track('team_reset');
-        send(`/workout ${teamReset.path} ${teamReset.intensity}`, 'team-reset');
+        send(`/reset ${teamReset.reset} ${teamReset.posture}`, 'team-reset');
         history.replaceState(null, '', location.pathname);
     }
 }
@@ -510,7 +511,10 @@ catch {
 function jumpTo(key) { if (safetyHold() || nav.phase() !== 'idle' || paused)
     return; const screens = c.document.screens, i = screens.findIndex(s => s.key === key), from = screens.findIndex(s => s.key === c.document.cursor); if (i < 0 || i === from)
     return; c.document.move(i); c.localEvent(i < from ? activityClientEvents.wentBack(`step ${from + 1}`, `step ${i + 1}`) : activityClientEvents.nowOnStep(`step ${i + 1} of ${screens.length}`)); }
-const QUICK = [{ label: 'After back-to-back calls', detail: 'Gentle mobility · 2:40', cmd: '/workout mobility gentle' }, { label: 'Post-lunch slump', detail: 'Gentle stretching · 2:30', cmd: '/workout stretching gentle' }, { label: 'Need to move', detail: 'Steady low-impact cardio · 4:00', cmd: '/workout cardio steady' }];
+// The work moments, each one tap from its reset (in the posture that suits it best).
+const SECONDS = { unknot: '2:30', unsit: '2:40', energy: '2:25', calm: '2:30', screen: '2:30' };
+const QUICK = RESETS.map(r => ({ label: RESET_MOMENTS[r], detail: `${RESET_NAMES[r]} · ${SECONDS[r]}`, cmd: `/reset ${r} ${DEFAULT_POSTURE[r]}` }));
+const describe = (reset, posture) => `${RESET_NAMES[reset]}, ${posture}`;
 /** Home: a greeting, one clear way in, quick picks, and (if remembered) the last session. */
 function renderHome() {
     const mem = loadMemory(), hour = new Date().getHours(), hello = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
@@ -521,17 +525,17 @@ function renderHome() {
     // Opened from their own reminder: their usual session is one tap away.
     const usual = openedFromReminder ? usualReset() : null;
     if (usual) {
-        const label = `${usual.intensity === 'gentle' ? 'Gentle' : 'Steady'} ${usual.path === 'cardio' ? 'low-impact cardio' : usual.path}`;
         n.append(el('p', 'Your reset time. Same as usual?', 'home-label'));
-        const one = button(`Start ${label}`, () => send(`/workout ${usual.path} ${usual.intensity}`, 'reminder'), 'primary home-start');
+        const one = button(`Start ${describe(usual.reset, usual.posture).toLowerCase().replace(/^./, ch => ch.toUpperCase())}`, () => send(`/reset ${usual.reset} ${usual.posture}`, 'reminder'), 'primary home-start');
         n.append(one);
         begin.className = 'home-start';
         begin.textContent = 'Something different';
     }
     const quick = el('div', '', 'home-quick');
-    if (mem.last) {
-        const again = button('', () => send(`/workout ${mem.last.path} ${mem.last.intensity}`, 'again'), 'quick again');
-        again.append(el('strong', 'Same as last time'), el('span', mem.last.title));
+    const last = mem.last && RESETS.includes(mem.last.reset) ? mem.last : null;
+    if (last) {
+        const again = button('', () => send(`/reset ${last.reset} ${last.posture}`, 'again'), 'quick again');
+        again.append(el('strong', 'Same as last time'), el('span', last.title));
         quick.append(again);
     }
     for (const q of QUICK) {
@@ -541,38 +545,21 @@ function renderHome() {
         b.append(el('strong', q.label), el('span', q.detail));
         quick.append(b);
     }
-    const shelf = mem.words?.length ? [el('p', `Words you’ve picked up · ${mem.words.length}`, 'home-label'), (() => { const row = el('div', '', 'home-words'); for (const w of mem.words)
-            row.append(el('span', w, 'word-chip')); return row; })()] : [];
-    n.append(begin, ...(quick.childNodes.length ? [el('p', mem.last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), ...shelf, el('p', 'Text only: Lull can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
+    n.append(begin, ...(quick.childNodes.length ? [el('p', last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), el('p', 'Text only: Lull can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
     return n;
 }
 /** Lull's latest words, shown as a caption outside the workout (where the stage speaks for itself). */
 function renderCaption() { const reply = [...c.events].reverse().find(e => e.kind === 'response'), prose = reply?.result ? splitReply(reply.result.turn.reply).prose : ''; const kids = c.document.current?.props.children; const quiet = isWorkout(c.document.current) || (kids ?? []).some(n => n.name === 'Recap') || c.pending; const cap = byId('caption'); if (cap.textContent !== prose)
     cap.textContent = prose; const onScreen = (kids ?? []).some(n => typeof n.props.text === 'string' && prose.includes(String(n.props.text))); cap.hidden = quiet || !prose || onScreen; }
-const PATH_OF = { 'Mobility reset': 'mobility', 'Stretch and settle': 'stretching', 'Low-impact cardio': 'cardio' };
-/** Opt-in memory: name, style and last session, kept in this browser only. */
+/** Opt-in memory: the last reset, kept in this browser only. */
 function rememberSession() {
     if (!prefs.remember)
         return;
-    const nodes = c.document.screens.flatMap(s => s.props.children), you = [...nodes].reverse().find(n => n.name === 'Profile'), title = nodes.find(n => n.key === 'intro_title');
+    const nodes = c.document.screens.flatMap(s => s.props.children), title = nodes.find(n => n.key === 'intro_title');
     const update = {};
-    if (typeof you?.props.name === 'string' && you.props.name)
-        update.name = you.props.name;
-    if (typeof you?.props.style === 'string')
-        update.style = you.props.style;
-    if (title) {
-        const [level, name] = String(title.props.text).split(' · ');
-        const path = PATH_OF[name ?? ''];
-        if (path && level)
-            update.last = { path, intensity: level.toLowerCase(), title: `${level} ${name.toLowerCase()}` };
-    }
-    // The word from today joins the shelf only once the session's ending is reached.
-    const word = nodes.find(n => n.key === 'finish_word');
-    if (word && c.document.cursor === 'finish' && typeof word.props.text === 'string') {
-        const words = loadMemory().words ?? [];
-        if (!words.includes(word.props.text))
-            update.words = [...words, word.props.text].slice(-30);
-    }
+    const found = title ? fromTitle(String(title.props.text)) : null;
+    if (found)
+        update.last = { reset: found.reset, posture: found.posture, title: `${RESET_NAMES[found.reset]} · ${POSTURE_LABELS[found.posture]}` };
     if (Object.keys(update).length)
         saveMemory(update);
 }

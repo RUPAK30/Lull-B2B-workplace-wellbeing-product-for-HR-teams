@@ -51,9 +51,9 @@ export function setOverride(experiment: string, value: string) { if (value === '
 
 /** Reads what Lull just did from its reply, so the log reflects product moments, not clicks. */
 export function observeTurn(said: string, reply: string) {
-  const heard = reply.match(/intensity_need = Text\("Heard: ([^"]+)"/);
+  const heard = reply.match(/pick_need = Text\("Heard: ([^"]+)"/);
   if (heard) track('need', { kinds: heard[1].split(' · ') });
-  if (/mood_text = Text\("(Tell me a little more|Low on energy but)/.test(reply) || reply.startsWith('I didn’t catch a change')) track('unmatched', { text: said.slice(0, 120), where: reply.startsWith('I didn’t') ? 'during' : 'before' });
+  if (/feel_text = Text\("(Tell me a little more|Low on energy but)/.test(reply) || reply.startsWith('I didn’t catch a change')) track('unmatched', { text: said.slice(0, 120), where: reply.startsWith('I didn’t') ? 'during' : 'before' });
   const safety = reply.match(/(care|safety)_alert = Alert\("(warning|danger)"/);
   if (safety) track('safety', { when: safety[1] === 'care' ? 'before' : 'during', level: safety[2] === 'danger' ? 'urgent' : 'pain' });
   const title = reply.match(/intro_title = Text\("([^"]+)"/);
@@ -61,7 +61,7 @@ export function observeTurn(said: string, reply: string) {
   if (reply.includes('offer_note = Alert(')) track('offer', { ask: classifyAsk(said) });
   if (/^switch to /i.test(said) && reply.startsWith('Done:')) track('adjusted', { to: said.slice(10).toLowerCase() });
   if (reply.includes('finish_title = Text("Let’s leave it there.')) track('session_finished', { reason: 'safety' });
-  else if (reply.includes('finish_title = Text("That’s enough for today.')) track('session_finished', { reason: 'stopped' });
+  else if (reply.includes('finish_title = Text("That’s enough for now.')) track('session_finished', { reason: 'stopped' });
 }
 function classifyAsk(said: string) { const t = said.toLowerCase(); return /easy|harder|more/.test(t) ? 'harder' : /gentl|easier|intense|less|slow/.test(t) ? 'easier' : /stop|done|end/.test(t) ? 'stop' : 'switch'; }
 

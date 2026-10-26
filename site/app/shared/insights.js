@@ -111,7 +111,7 @@ export function sampleEvents(seed = 7) {
             if (rand() < 0.17) {
                 push('offer', { ask: pick([['harder', .45], ['easier', .35], ['switch', .12], ['stop', .08]]) }, run);
                 if (rand() < 0.62)
-                    push('adjusted', { to: 'steady' }, run);
+                    push('adjusted', { to: 'standing' }, run);
             }
             if (rand() < 0.012) {
                 push('safety', { when: 'during', level: rand() < 0.15 ? 'urgent' : 'pain' }, run);

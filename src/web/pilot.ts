@@ -50,7 +50,7 @@ export function reminderLink() {
 }
 
 /** A team reset link for a meeting invite: one known session, the team kept, nothing else. */
-export function teamResetLink(reset = 'mobility-gentle') {
+export function teamResetLink(reset = 'unknot-seated') {
   const url = new URL(location.pathname, location.origin);
   url.searchParams.set('reset', reset);
   if (pilotTeam) url.searchParams.set('team', pilotTeam);
