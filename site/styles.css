@@ -445,3 +445,6 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
 .hr-row > span:first-child{word-break:keep-all;hyphens:none}
 .split .side *{word-break:normal}
 .split .side [class*="time"],.split .side .t{white-space:nowrap}
+
+.clarify-opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.clarify-opt{font-size:.9rem}

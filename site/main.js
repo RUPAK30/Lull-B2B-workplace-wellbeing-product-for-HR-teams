@@ -50,10 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
     stiff: ['stiff', 'stiffness', 'tight', 'tightness', 'tense', 'achy', 'knots', 'hunched', 'locked up', 'loosen', 'creaky'],
     legs: ['leg', 'legs', 'hamstring', 'hamstrings', 'calf', 'calves', 'thighs'],
     time: ['quick', 'short on time', 'in a hurry', 'no time', 'not much time', 'busy', 'few minutes', 'couple of minutes', 'something short'],
-    low: ['tired', 'exhausted', 'drained', 'sluggish', 'sleepy', 'no energy', 'low energy', 'low on energy', 'worn out', 'wiped', 'burnt out', 'burned out', 'foggy', 'fried', 'knackered'],
+    low: ['tired', 'exhausted', 'drained', 'sluggish', 'sleepy', 'no energy', 'low energy', 'low on energy', 'worn out', 'wiped', 'burnt out', 'burned out', 'foggy', 'fried', 'knackered', 'meh', 'lethargic', 'unmotivated', 'heavy', 'bored', 'blah'],
     restless: ['restless', 'fidgety', 'antsy', 'wired', 'pent up', 'cannot sit still', 'stir crazy', 'need to move', 'itching to move'],
     energetic: ['energetic', 'energised', 'energized', 'get moving', 'sweat', 'sweaty', 'harder', 'intense', 'heart rate', 'heart pumping', 'wake me up', 'pumped', 'motivated', 'challenge', 'push myself'],
-    calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'overwhelmed', 'quiet'],
+    calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'stressed out', 'stress', 'overwhelmed', 'quiet', 'uneasy', 'anxious', 'nervous', 'on edge', 'frazzled', 'wound up', 'overthinking', 'cannot focus', 'distracted', 'scattered', 'cannot switch off', 'switch off'],
     unsure: ['do not know', 'not sure', 'no idea', 'whatever', 'anything', 'surprise me', 'you choose', 'you pick', 'you decide', 'up to you', 'get started', 'help me start', 'where to start', 'where to begin', 'feels right']
   };
   var PAT = {};
@@ -105,9 +105,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (on('pain')) return { kind: 'care', level: 'pain' };
     var heard = ORDER.filter(function (k) { return k === 'time' ? on('time') || /\b\d+ ?(min|mins|minute|minutes)\b|\b(one|two|three|four|five|ten) (min|mins|minute|minutes)\b/.test(t) : on(k); });
     var has = function (k) { return heard.indexOf(k) > -1; }, outside = on('outside') && !explicit;
-    if (has('low') && (has('energetic') || has('restless'))) return { kind: 'clarify', ack: 'Low on energy but wanting something lively? Which matters more today: easy, or a bit more energetic?' };
+    if (has('low') && (has('energetic') || has('restless'))) return { kind: 'clarify', ack: 'Low on energy but wanting something lively? Which matters more today: easy, or a bit more energetic?', opts: [['Keep it easy', 'tired, something easy'], ['A bit more energetic', 'get moving']] };
     var path = explicit || (outside || has('energetic') || has('fitness') || has('restless') ? 'cardio' : has('legs') && (has('stiff') || has('sitting')) ? 'stretching' : has('sitting') || has('stiff') ? 'mobility' : has('calm') || has('low') ? 'stretching' : has('unsure') || has('time') ? 'mobility' : null);
-    if (!path) return { kind: 'clarify', ack: 'Tell me a little more: loosen up, stretch out, or get moving a bit?' };
+    if (!path) return { kind: 'clarify', ack: 'Tell me a little more: loosen up, stretch out, or get moving a bit?', opts: [['Loosen up', 'feeling stiff'], ['Stretch out', 'stretch'], ['Get moving', 'get moving']] };
     var intensity = has('time') || has('low') || has('unsure') || has('calm') ? 'gentle' : has('energetic') || outside ? 'steady'
       : single(t, { gentle: /\bgentle\b|\beasy\b|\blight\b|\bshort(er)?\b|\bcalm\b/, steady: /\bsteady\b|\bharder\b|\blonger\b|\bmore\b/ });
     var kinds = heard.filter(function (k) { return k !== 'legs' || has('stiff') || has('sitting'); });
@@ -152,7 +152,8 @@ document.addEventListener('DOMContentLoaded', function () {
       return r;
     }
     if (r.kind === 'clarify') {
-      emp.innerHTML = '<h3 class="clarify">' + esc(r.ack) + '</h3><p class="emp-text">Lull asks rather than guesses. Try words like “stiff”, “tired” or “ten minutes”.</p>';
+      emp.innerHTML = '<h3 class="clarify">' + esc(r.ack) + '</h3><p class="emp-text">Lull asks rather than guesses.</p><div class="clarify-opts">' +
+        (r.opts || []).map(function (o) { return '<button type="button" class="chip clarify-opt" data-say="' + esc(o[1]) + '">' + esc(o[0]) + '</button>'; }).join('') + '</div>';
       resetHr(null);
       status.innerHTML = '<b>Nothing changed.</b> No session, nothing counted.';
       return r;
@@ -195,6 +196,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var r = run(v, 'typed');
     input.blur();
     track('typed-' + (r.kind === 'suggest' ? r.path : r.kind === 'care' ? 'care-' + r.level : 'clarify'));
+  });
+  emp.addEventListener('click', function (e) {
+    var b = e.target.closest('.clarify-opt'); if (!b) return;
+    run(b.dataset.say, 'typed'); track('clarify-' + b.textContent.trim().toLowerCase().replace(/\s+/g, '-'));
   });
   run(CHIP_TEXT.stiff, 'auto');
   chips[0].setAttribute('aria-pressed', 'true');
