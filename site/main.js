@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Send this to my founder: WhatsApp on phones, email on desktop.
   var share = document.getElementById('share');
-  var url = location.origin + location.pathname + (company ? '?for=' + encodeURIComponent(company) : '');
+  var url = 'https://lull-hr.vercel.app/' + (company ? '?for=' + encodeURIComponent(company) : '');
   var text = 'Worth a look: Lull, a 3-minute guided movement reset for our team, where HR sees team totals only (never individuals). 6-week pilot with targets agreed up front. ' + url;
   var phone = matchMedia('(max-width:760px), (pointer:coarse)').matches;
   share.href = phone

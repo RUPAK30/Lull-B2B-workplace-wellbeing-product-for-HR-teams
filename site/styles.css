@@ -6,6 +6,7 @@
   --w:1120px;--gut:clamp(16px,4.5vw,40px);
 }
 *{box-sizing:border-box}
+[hidden]{display:none !important}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--sans);overflow-x:hidden}
 img,video{max-width:100%;height:auto;display:block}

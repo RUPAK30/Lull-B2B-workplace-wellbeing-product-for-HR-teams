@@ -1,6 +1,6 @@
 # Lull
 
-**Live site:** https://rupak30.github.io/Lull-B2B-workplace-wellbeing-product-for-HR-teams/
+**Live site:** https://lull-hr.vercel.app/
 
 Three-minute guided movement breaks for teams who sit all day. Someone types how they feel, gets one short session, and Lull adjusts or stops as they go. Employers see team totals only, never a person.
 
