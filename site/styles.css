@@ -369,3 +369,6 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
   .hr-row.hidden .n{font-size:.7rem}
   .hr-never{margin-top:8px;padding-top:8px;font-size:.7rem;line-height:1.35}
 }
+.scene{font:italic 400 clamp(.95rem,1.3vw,1.08rem)/1.45 var(--serif);color:var(--ink-3);margin-bottom:10px;max-width:34em}
+.hero h1{font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1.12}
+@media (max-width:639px){.scene{font-size:.86rem;margin-bottom:8px}.hero h1{font-size:1.5rem}}
