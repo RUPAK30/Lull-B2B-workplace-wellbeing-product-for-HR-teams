@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lull · Week 6 sample report</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Open as report.html?for=Company&size=40, then print or save as PDF (A4 landscape). */
+  @page{size:A4 landscape;margin:0}
+  body{background:#fff}
+  .rep{width:297mm;min-height:210mm;margin:0 auto;padding:14mm 16mm 10mm;display:flex;flex-direction:column;gap:7mm;background:#fff}
+  .rep-head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--ink);padding-bottom:4mm}
+  .rep-brand{display:flex;align-items:center;gap:8px;font:500 1.3rem/1 var(--serif)}
+  .rep-brand img{width:24px;height:24px}
+  .rep-head h1{font-size:1.55rem;line-height:1.2;margin-top:3mm}
+  .rep-meta{text-align:right;font-size:.8rem;color:var(--ink-3)}
+  .rep-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:10mm;flex:1}
+  .rep h2{font:600 .72rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4mm}
+  .goal{border:1px solid var(--line);border-radius:12px;padding:4mm 5mm;margin-bottom:3mm}
+  .goal p{font-size:.85rem;color:var(--ink-2)}
+  .goal strong{display:block;font:500 1.6rem/1.1 var(--serif);color:var(--accent);margin:1mm 0}
+  .note{font-size:.78rem;color:var(--ink-3);margin-top:2mm}
+  .sample{background:var(--bg);border-radius:12px;padding:5mm 6mm}
+  .sample .slide-stats{padding:3mm 0 4mm}
+  .sample .big{font-size:2.6rem}
+  .sample .bars{height:110px}
+  .sample .slide-body{grid-template-columns:1fr 1fr;gap:8mm;padding:4mm 0 0}
+  .sample .slide-teams li{padding:5px 0;font-size:.85rem}
+  .rep-foot{display:flex;justify-content:space-between;gap:8mm;border-top:2px solid var(--ink);padding-top:3mm;font-size:.8rem;color:var(--ink-2)}
+  .rep-foot b{font:500 .95rem var(--serif);color:var(--ink)}
+  .rep{height:210mm;overflow:hidden;gap:5mm;padding:12mm 16mm 9mm}
+  .rep-head h1{font-size:1.45rem}
+  .rep h2{line-height:1.3}
+  .goal{padding:3mm 4.5mm;margin-bottom:2.5mm}
+  .goal strong{font-size:1.45rem}
+  .sample .big{font:500 2.5rem/1 var(--serif);color:var(--accent);letter-spacing:-.02em}
+  .sample .big span{font:400 1rem var(--sans);color:var(--ink-3)}
+  .sample .cap{margin-top:4px;font-size:.88rem;font-weight:500;color:var(--ink)}
+  .sample .slide-stats{grid-template-columns:1fr 1fr}
+  .sample .slide-teams li span{white-space:nowrap}
+  .rep .note{margin-top:1mm;padding:3mm 4mm;font-size:.75rem}
+  .tools{max-width:297mm;margin:12px auto;padding:0 16mm;font:400 .85rem var(--sans);color:var(--ink-3)}
+  @media print{.tools{display:none}}
+</style>
+</head>
+<body>
+<p class="tools">Internal: open as <code>report.html?for=Company&amp;size=40</code>, check the names, then print and save as PDF (landscape, no margins).</p>
+<article class="rep">
+  <header class="rep-head">
+    <div>
+      <p class="rep-brand"><img src="favicon.svg" alt="">lull</p>
+      <h1 id="r-title">What week 6 could look like</h1>
+    </div>
+    <p class="rep-meta" id="r-meta">Sample report<br>lull-hr.vercel.app</p>
+  </header>
+
+  <div class="rep-grid">
+    <section>
+      <h2 id="r-goals-h">Targets we'd agree before day one</h2>
+      <div class="goal"><p>Tried it in the first two weeks</p><strong id="g-tried">At least half</strong><p id="g-tried-sub">At least half the team starts one session.</p></div>
+      <div class="goal"><p>Came back within a week</p><strong id="g-back">At least 1 in 3</strong><p>Of people who finish one session, how many use it again within a week.</p></div>
+      <div class="goal"><p>Safe, every time</p><strong>No exceptions</strong><p>Every report of pain or symptoms ends the session without offering more movement.</p></div>
+      <p class="note" id="r-size-note">Proposed targets from the pilot proposal. Final targets are agreed with you in writing.</p>
+    </section>
+
+    <section class="sample">
+      <h2>What the week 6 view looks like · sample company (64 people)</h2>
+      <div class="slide-stats">
+        <div><p class="big">44 <span>of 64</span></p><p class="cap">tried it</p></div>
+        <div><p class="big">27 <span>of 44</span></p><p class="cap">still using it in weeks 5–6</p></div>
+      </div>
+      <div class="slide-body">
+        <figure class="chart">
+          <figcaption>People active each week</figcaption>
+          <ol class="bars" id="bars"></ol>
+        </figure>
+        <div class="slide-teams">
+          <p class="slide-sub">Active in week 6, by team</p>
+          <ul>
+            <li><span>Engineering</span><b>8 <small>of 24</small></b></li>
+            <li><span>Sales</span><b>6 <small>of 14</small></b></li>
+            <li><span>Product &amp; Design</span><b>2 <small>of 11</small></b></li>
+            <li class="hid"><span>Customer support</span><b>Hidden · under 10</b></li>
+            <li class="hid"><span>People &amp; Ops</span><b>Hidden · under 10</b></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="rep-foot">
+    <p><b>HR sees team totals only. No names, no messages, no individual sessions. Teams under 10 are hidden.</b></p>
+    <p>Sample figures are from a made-up company. Lull is a pilot-stage product, not a medical or mental-health service.</p>
+  </footer>
+</article>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var company = (q.get('for') || '').replace(/[^\p{L}\p{N} &.,'()-]/gu, '').replace(/\s+/g, ' ').trim().slice(0, 40);
+  var size = Math.round(+q.get('size'));
+  if (company) {
+    document.getElementById('r-title').textContent = 'What week 6 could look like for ' + company;
+    document.getElementById('r-meta').innerHTML = 'Prepared for the People team at ' + company.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '<br>Sample report · lull-hr.vercel.app';
+    document.title = 'Lull · Week 6 sample report · ' + company;
+  }
+  if (size >= 10) {
+    var team = Math.min(size, 50), tried = Math.ceil(team / 2);
+    document.getElementById('r-goals-h').textContent = 'Targets for a pilot team of ' + team + ', agreed before day one';
+    document.getElementById('g-tried').textContent = 'At least ' + tried + ' of ' + team;
+    document.getElementById('g-tried-sub').textContent = 'At least half the pilot team starts one session.';
+    if (size > 50) document.getElementById('r-size-note').textContent = 'Pilots start with one team of 10–50 people, so these targets assume a team of 50 out of your ' + size + '. Proposed targets; final targets are agreed with you in writing.';
+  }
+  var W = [33, 34, 29, 21, 23, 22];
+  document.getElementById('bars').innerHTML = W.map(function (n, i) {
+    return '<li style="--h:' + (n / 34 * 100).toFixed(1) + '%"><span class="v">' + n + '</span><span class="b"></span><span class="w">W' + (i + 1) + '</span></li>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

@@ -32,6 +32,7 @@
   <div class="wrap">
     <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
     <nav class="nav-links" aria-label="Sections">
+      <a href="app/" data-ev="app-opened-nav">Try Lull</a>
       <a href="#report">Week 6 report</a>
       <a href="#pilot">Pilot &amp; cost</a>
       <a href="#faq">Questions</a>
@@ -69,16 +70,19 @@
       </form>
       <div class="split" id="split">
         <div class="side emp" aria-live="polite">
+          <p class="chrome phone" aria-hidden="true"><span class="notch"></span><span class="app-name">lull</span></p>
           <p class="side-label"><i></i>What your employee sees</p>
           <div id="emp"></div>
         </div>
         <div class="side hr">
-          <p class="side-label"><i></i>What HR sees</p>
+          <p class="chrome browser" aria-hidden="true"><i></i><i></i><i></i><span id="hr-chrome">lull · team view</span></p>
+          <p class="side-label"><i></i><span id="hr-label">What HR sees</span></p>
           <ul class="hr-rows" id="hr-rows"></ul>
           <p class="hr-status" id="hr-status" aria-live="polite"></p>
           <p class="hr-never"><strong>No names. No messages. No individual sessions.</strong>Teams under 10 people are hidden.</p>
         </div>
       </div>
+      <p class="try-app"><a href="app/" data-ev="app-opened">Open the real Lull app →</a><span>Runs in your browser, no sign-up. Nothing is sent anywhere.</span></p>
     </div>
 
     <div class="cta-block hero-cta">
@@ -105,7 +109,7 @@
     </div>
     <article class="slide reveal" id="slide" aria-label="Sample week 6 pilot review">
       <header class="slide-head">
-        <p>Week 6 pilot review · sample company (64 people)</p>
+        <p id="slide-title">Week 6 pilot review · sample company (64 people)</p>
         <span class="slide-tag">Sample report</span>
       </header>
       <div class="slide-stats">

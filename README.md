@@ -1,6 +1,8 @@
 # Lull
 
-**Live site:** https://lull-hr.vercel.app/
+**Live site:** https://lull-hr.vercel.app/  
+**Try the app (offline mode, runs in the browser):** https://lull-hr.vercel.app/app/  
+The hosted app is the real Lull in Mock mode, copied into `site/app` by `npm run site:app`. The browser answers its two API calls with the same `mockTurn` the local server uses, so no server, account or model is involved.
 
 Three-minute guided movement breaks for teams who sit all day. Someone types how they feel, gets one short session, and Lull adjusts or stops as they go. Employers see team totals only, never a person.
 

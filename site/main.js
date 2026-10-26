@@ -17,7 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Personal opening.
   var forLine = document.getElementById('for-line');
-  if (company) { forLine.textContent = 'A 2-minute look at Lull, prepared for the People team at ' + company; forLine.hidden = false; }
+  if (company && forLine) {
+    forLine.textContent = 'A 2-minute look at Lull, prepared for the People team at ' + company; forLine.hidden = false;
+    // Her company's name on the sample views, still labelled as sample data.
+    var set = function (id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+    set('hr-label', 'What HR at ' + company + ' sees');
+    set('hr-chrome', company + ' · team view (sample data)');
+    set('slide-title', 'Week 6 pilot review · ' + company + ' · sample data (64 people)');
+  }
 
   // Every Tally link already has ?cta=, so ref joins with &.
   if (ref) document.querySelectorAll('a[data-cta]').forEach(function (a) { a.href += '&ref=' + encodeURIComponent(ref); });
@@ -194,6 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
     e.preventDefault();
     var v = input.value.trim(); if (!v) { input.focus(); return; }
     var r = run(v, 'typed');
+    try { localStorage.setItem('lull-last-feeling', v); } catch (err) { /* private mode: nothing to remember */ }
     input.blur();
     track('typed-' + (r.kind === 'suggest' ? r.path : r.kind === 'care' ? 'care-' + r.level : 'clarify'));
   });
@@ -201,8 +209,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var b = e.target.closest('.clarify-opt'); if (!b) return;
     run(b.dataset.say, 'typed'); track('clarify-' + b.textContent.trim().toLowerCase().replace(/\s+/g, '-'));
   });
-  run(CHIP_TEXT.stiff, 'auto');
-  chips[0].setAttribute('aria-pressed', 'true');
+  // A returning visitor sees her own last answer again; everyone else starts on the first feeling.
+  var last = null;
+  try { last = localStorage.getItem('lull-last-feeling'); } catch (err) { last = null; }
+  if (last) { input.value = last; run(last, 'auto'); }
+  else { run(CHIP_TEXT.stiff, 'auto'); chips[0].setAttribute('aria-pressed', 'true'); }
 
   // CEO slide chart: the sample's weekly active people.
   var WEEKLY = [33, 34, 29, 21, 23, 22], max = 34;
@@ -237,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var x = cv.getContext('2d'), INK = '#1F2933', MUTE = '#5B6670', ACC = '#2D5A45', LINE = '#E4DCCB', SERIF = 'Fraunces, Georgia, serif', SANS = 'Inter, system-ui, sans-serif';
       x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
       var L = 90, R = W - 90;
-      x.fillStyle = INK; x.font = '600 26px ' + SANS; x.fillText('Week 6 pilot review · sample company (64 people)', L, 100);
+      x.fillStyle = INK; x.font = '600 26px ' + SANS; x.fillText(document.getElementById('slide-title').textContent, L, 100);
       x.fillStyle = MUTE; x.font = '500 18px ' + SANS; x.textAlign = 'right'; x.fillText('SAMPLE REPORT', R, 100); x.textAlign = 'left';
       x.fillStyle = INK; x.fillRect(L, 124, R - L, 3);
       var stat = function (big, of, cap, k, sx) {

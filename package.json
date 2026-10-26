@@ -16,7 +16,8 @@
     "test:ui": "playwright test",
     "check": "npm run typecheck && npm run lint && npm test",
     "package": "node scripts/package.mjs",
-    "eval": "npm run build && node --env-file-if-exists=.env scripts/eval.mjs"
+    "eval": "npm run build && node --env-file-if-exists=.env scripts/eval.mjs",
+    "site:app": "npm run build && node scripts/site-app.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.56.0",
