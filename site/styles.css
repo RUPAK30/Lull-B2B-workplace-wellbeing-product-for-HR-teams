@@ -620,3 +620,20 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
   .close .avatar{width:56px;height:56px}
 }
 .close .builder .btns{justify-content:flex-start}
+
+/* ===== Overview + pilot page ===== */
+.summary{padding:0 0 clamp(28px,4vw,44px)}
+.tldr{display:grid;gap:10px;margin:0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+@media (min-width:760px){.tldr{grid-template-columns:repeat(3,1fr);gap:24px;padding:20px 24px}}
+.tldr dt{font:600 .72rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);margin-bottom:6px}
+.tldr dd{margin:0;font-size:.95rem;color:var(--ink);line-height:1.45}
+.jumps{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.jumps a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none;font-weight:500;font-size:.9rem}
+.jumps a:hover{border-color:var(--accent-2)}
+@media (max-width:639px){.jumps{display:grid;grid-template-columns:1fr 1fr;gap:6px}.jumps a{justify-content:center;text-align:center;padding:6px 8px;font-size:.84rem;line-height:1.2}}
+#return{margin-top:clamp(36px,5vw,56px)}
+.more-line{margin-top:14px;font-size:.92rem}
+.more-line a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.page-intro{padding:clamp(28px,5vw,56px) 0 0}
+.page-intro h1{font-size:clamp(1.9rem,4.5vw,3rem);max-width:18em}
+.page-intro .lede{margin-top:12px}

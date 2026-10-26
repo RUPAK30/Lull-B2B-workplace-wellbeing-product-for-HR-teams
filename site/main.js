@@ -26,6 +26,12 @@ document.addEventListener('DOMContentLoaded', function () {
     set('slide-title', 'Week 6 pilot review · ' + company + ' · sample data (64 people)');
   }
 
+  // Links between the overview and the pilot page keep ?for= and ?ref=.
+  if (location.search) document.querySelectorAll('a[href^="pilot.html"], a[href="./"], a[href^="./#"]').forEach(function (a) {
+    var h = a.getAttribute('href'), k = h.indexOf('#');
+    a.setAttribute('href', (k < 0 ? h : h.slice(0, k)) + location.search + (k < 0 ? '' : h.slice(k)));
+  });
+
   // Every Tally link already has ?cta=, so ref joins with &.
   if (ref) document.querySelectorAll('a[data-cta]').forEach(function (a) { a.href += '&ref=' + encodeURIComponent(ref); });
 
@@ -48,7 +54,26 @@ document.addEventListener('DOMContentLoaded', function () {
     d.addEventListener('toggle', function () { if (d.open && !wide.matches) track('fold-' + (d.className.split(' ')[1] || 'details')); });
   });
 
-  if (!document.getElementById('split')) return;
+  var site = 'https://lull-hr.vercel.app/';
+  var slug = (company || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24);
+  var teamLink = site + 'app/?team=' + (slug || 'your-team');
+  var resetLink = site + 'app/?reset=mobility-gentle' + (slug ? '&team=' + slug : '');
+  var invite = 'Last 3 minutes: Lull team reset. Open this together and press Start: ' + resetLink;
+  var copyText = function (text, done, msg) {
+    var show = function () { done.textContent = msg; };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(show, function () { done.textContent = text; });
+    else done.textContent = text;
+  };
+
+  // Section reached: where busy readers stop, counted once per visit (no time or scroll tracking).
+  if (io) {
+    var seen = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { track('seen-' + e.target.id); seen.unobserve(e.target); } });
+    }, { threshold: 0.35 });
+    document.querySelectorAll('main section[id]').forEach(function (el) { seen.observe(el); });
+  }
+
+  if (document.getElementById('split')) {
 
   // Two-sided demo. Needs are read with a copy of the app's own rules (src/server/lull.ts,
   // interpretNeed): fixed word lists, safety first, no AI. Plans and wording come from the same file.
@@ -312,20 +337,13 @@ document.addEventListener('DOMContentLoaded', function () {
   usage.addEventListener('change', function () { track('usage-guess-' + (+usage.value < 10 ? 'under10' : +usage.value <= 35 ? '10to35' : 'over35')); });
   usageRead();
 
-  var site = 'https://lull-hr.vercel.app/';
-  var slug = (company || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24);
-  var teamLink = site + 'app/?team=' + (slug || 'your-team');
-  var resetLink = site + 'app/?reset=mobility-gentle' + (slug ? '&team=' + slug : '');
-  var invite = 'Last 3 minutes: Lull team reset. Open this together and press Start: ' + resetLink;
-  var copyText = function (text, done, msg) {
-    var show = function () { done.textContent = msg; };
-    if (navigator.clipboard) navigator.clipboard.writeText(text).then(show, function () { done.textContent = text; });
-    else done.textContent = text;
-  };
   document.getElementById('copy-reset').addEventListener('click', function () {
     copyText(invite, document.getElementById('copy-reset-done'), 'Copied. Paste it at the bottom of any recurring meeting invite.');
   });
 
+  }
+
+  if (document.getElementById('kit-text')) {
   // Launch kit: ready-to-send words, with her company name when the link has ?for=.
   var org = company || 'our company';
   var KIT = {
@@ -369,6 +387,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   showKit();
 
+  }
+
+  if (document.getElementById('size')) {
   // Calculator: a pilot team first (what she can approve), the whole company on request.
   var size = document.getElementById('size');
   var fmt = function (n) { return n.toLocaleString('en-IN'); };
@@ -393,11 +414,14 @@ document.addEventListener('DOMContentLoaded', function () {
   size.addEventListener('input', function () { calc(); if (!used) { used = true; track('calculator-used'); } });
   calc();
 
+  }
+
   // FAQ.
   document.querySelectorAll('details[data-faq]').forEach(function (d) {
     d.addEventListener('toggle', function () { if (d.open) track('faq-' + d.dataset.faq); });
   });
 
+  if (document.getElementById('vid')) {
   // Video modal: the file only loads when opened.
   var dlg = document.getElementById('vid'), video = dlg.querySelector('video');
   document.getElementById('open-video').addEventListener('click', function () {
@@ -412,6 +436,9 @@ document.addEventListener('DOMContentLoaded', function () {
   dlg.addEventListener('click', function (e) { if (e.target === dlg) shut(); });
   dlg.addEventListener('close', function () { video.pause(); });
 
+  }
+
+  if (document.getElementById('share')) {
   // Send this to my founder: WhatsApp on phones, email on desktop.
   var share = document.getElementById('share');
   var url = 'https://lull-hr.vercel.app/' + (company ? '?for=' + encodeURIComponent(company) : '');
@@ -423,6 +450,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if (phone) { share.target = '_blank'; share.rel = 'noopener'; }
   share.addEventListener('click', function () { track('share-founder-' + (phone ? 'whatsapp' : 'email')); });
 
+  }
+
+  if (document.getElementById('sticky') && document.querySelector('.hero-cta')) {
   // Sticky mobile bar: body padding tracks its real height, so it never covers content.
   var sticky = document.getElementById('sticky');
   var pad = function () { document.documentElement.style.setProperty('--bar-h', sticky.offsetHeight + 'px'); };
@@ -434,4 +464,5 @@ document.addEventListener('DOMContentLoaded', function () {
     sticky.classList.toggle('show', past && !atClose);
   };
   addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
+  }
 });
