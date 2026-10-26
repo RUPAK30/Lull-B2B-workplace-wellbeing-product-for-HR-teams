@@ -1,14 +1,34 @@
-# Lull
+# Lull: 3-minute movement resets, with proof HR can share
 
-**Live site:** https://lull-hr.vercel.app/  
-**Try the app (offline mode, runs in the browser):** https://lull-hr.vercel.app/app/  
-The hosted app is the real Lull in Mock mode, copied into `site/app` by `npm run site:app`. The browser answers its two API calls with the same `mockTurn` the local server uses, so no server, account or model is involved.
+**Live:** [Overview for HR](https://lull-hr.vercel.app/) · [Pilot details](https://lull-hr.vercel.app/pilot.html) · [Try the app](https://lull-hr.vercel.app/app/) · [Safety and limits](https://lull-hr.vercel.app/safety.html)
 
-Three-minute guided movement breaks for teams who sit all day. Someone types how they feel, gets one short session, and Lull adjusts or stops as they go. Employers see team totals only, never a person.
+Lull is a pilot-stage workplace wellbeing product for HR teams at 50–500 person companies. Employees type how they feel, in English or Hinglish, and get one short guided movement break. HR sees whether teams are using it, without ever seeing a person.
 
-Lull is a working prototype designed to support a first pilot, pending clinical, privacy and technical readiness checks. It includes the app, a page for HR and wellbeing buyers, a team view, a public safety page and a one-page pilot proposal. It runs entirely on your machine in a deterministic **Mock** mode: no account, no API key, no data leaves the page. All usage figures shown are made-up sample data, and labelled as such.
+## The problem it answers
+Research behind the product (sources in the HR page's notes):
+- Wellbeing benefits are widely offered but rarely used: about 30% of employees take part in programmes, and wellbeing apps keep about 3% of users after 30 days.
+- HR can't prove the spend worked, and employees distrust tools that can see individuals.
+- Budgets are tight, and the founder usually approves.
 
-![Lull: the active movement stage](docs/images/02-stage-running.png)
+## What's in the product
+| For | What it does |
+|---|---|
+| Employees | Free-text need matching (English and Hinglish), short guided sessions that adapt, a safety stop for pain or urgent symptoms (before or during a session), opt-in reminders on their own calendar or Slack, one-tap "your usual" from a reminder, team resets for meetings |
+| HR | Team totals only; teams under 10 hidden; broad need categories per team; a week-6 report with targets agreed up front, cost per finished session and a downloadable slide |
+| Privacy | One allow-list of anonymous counts (`src/shared/pilot.ts`), shown live to each employee under "What leaves this device", with a switch to turn counting off |
+| Buying | Two-sided demo, personalised links (`?for=Company&ref=…`), pilot calculator, launch kit (Slack, email, manager note, QR desk card), sample report generator |
+
+## Repo map
+| Path | What |
+|---|---|
+| `src/` | The app: TypeScript, local server, Mock mode with no AI by default |
+| `site/` | The public site (deployed on Vercel): `index.html` overview, `pilot.html`, `safety.html`, `thanks.html`, `report.html`, `card.html`, `404.html` |
+| `site/app/` | The real app running fully in the browser, built with `npm run site:app` |
+| `tests/` | `npm test`: 104 tests, including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
+| `docs/` | Business requirements, product and business analysis, pilot proposal |
+| `eval/` | Safety evaluation of the pain-detection rules |
+
+All usage figures shown anywhere are sample data from a made-up 64-person company (`src/shared/team.ts`). Lull is not a medical or mental-health service.
 
 ## Running a team pilot
 
@@ -22,6 +42,8 @@ Lull is a working prototype designed to support a first pilot, pending clinical,
 8. **Leading indicator for week 3:** the share of the team with `reminder-set`. If few people set a reminder, return rates will fall like every other tool, and that is the thing to fix first.
 
 The local app (`npm start`) never sends pilot counts: its Content Security Policy only allows its own origin.
+
+## Run it
 
 
 Requires **Node.js 22.18 or later** and npm.
