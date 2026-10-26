@@ -121,7 +121,7 @@ test('each session ends with a word for something it contained, rotating across 
 });
 test('recap wording separates full timers, simulated finishes, open and unstarted timers',()=>{
  const e=(status,early=false,remaining=0)=>({label:'L',seconds:45,remaining,status,early});
- assert.equal(recapLine(e('done')),'ran the full 0:45');assert.equal(recapLine(e('done',true)),'marked finished with Simulate finish, not timed');assert.equal(recapLine(e('paused',false,12.2)),'paused with 0:13 left');assert.equal(recapLine(e('stopped',false,45)),'not started');
+ assert.equal(recapLine(e('done')),'ran the full 0:45');assert.equal(recapLine(e('done',true)),'marked finished early with Finish now, not timed');assert.equal(recapLine(e('paused',false,12.2)),'paused with 0:13 left');assert.equal(recapLine(e('stopped',false,45)),'not started');
  assert.equal(recapLine({...e('stopped',false,45),reset:true}),'reset, not run again');assert.equal(recapSummary([e('done'),{...e('stopped'),reset:true},e('stopped')]),'1 of 3 timers ran to zero · 1 reset · 1 not started.');
  assert.equal(recapSummary([e('done'),e('done',true),e('running',false,5),e('stopped')]),'1 of 4 timers ran to zero · 1 marked finished early · 1 still open · 1 not started.');assert.equal(recapSummary([]),'No timers in this run.');
 });

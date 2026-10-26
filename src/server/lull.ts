@@ -28,8 +28,8 @@ export type OnboardingStep = typeof ONBOARDING[number];
 type Tone = { ack: string; hint: string; opener: string; nudge: string; picked: Record<Intensity, string>; closing: string; again: string };
 const TONES: Record<Style | 'neutral', Tone> = {
   beginner: { ack: 'Beginner it is. Plain words, small steps, and I’ll say what each screen is for.', hint: 'Not sure? Gentle is a comfortable first pick, but it’s your call.', opener: 'We will take this one block at a time. Each timer waits for you, and Back is always there.', nudge: 'There’s no wrong pace here.', picked: { gentle: 'A calm first pass. Good choice for finding your feet.', steady: 'Steady it is. Every step stays clear, and Back is always there.' }, closing: 'First sessions are mostly about finding your way around, and you did. Nothing here needed to be perfect.', again: 'Whenever you feel like it, we can repeat this one or try {other}. It gets more familiar every time.' },
-  regular: { ack: 'Regular, got it. I’ll keep it brief and the cues useful.', hint: 'Pick what fits how today feels, not your usual routine.', opener: 'Here is the plan. Start each timer when you’re set.', nudge: 'Smooth reps, steady breath.', picked: { gentle: 'A lighter day. Those count too.', steady: 'Steady. Clean reps, steady breath.' }, closing: 'Short and to the point. A fair use of a few minutes.', again: 'Next time, {other} would balance today out. Or come back to this one; both work.' },
-  challenge: { ack: 'Challenge seeker, noted. I’ll bring precision, not hype, and you still choose the session.', hint: 'Being a challenge seeker doesn’t lock you into Steady. Gentle is a valid choice today.', opener: 'The challenge today is control, not speed.', nudge: 'Make each rep a little cleaner than the last.', picked: { gentle: 'Gentle is a smart call. Precision is the challenge today.', steady: 'Steady. Control over speed, every block.' }, closing: 'You chose control over speed today. That’s the harder thing to practise.', again: 'Another day, try {other} with the same focus on control.' },
+  regular: { ack: 'Regular, got it. I’ll keep it brief and the cues useful.', hint: 'Pick what fits how today feels, not your usual routine.', opener: 'Here is the plan. Start each timer when you’re set.', nudge: 'Smooth moves, steady breath.', picked: { gentle: 'A lighter day. Those count too.', steady: 'Steady. Clean moves, steady breath.' }, closing: 'Short and to the point. A fair use of a few minutes.', again: 'Next time, {other} would balance today out. Or come back to this one; both work.' },
+  challenge: { ack: 'Challenge seeker, noted. I’ll bring precision, not hype, and you still choose the session.', hint: 'Being a challenge seeker doesn’t lock you into Steady. Gentle is a valid choice today.', opener: 'The challenge today is control, not speed.', nudge: 'Make each move a little cleaner than the last.', picked: { gentle: 'Gentle is a smart call. Precision is the challenge today.', steady: 'Steady. Control over speed, every block.' }, closing: 'You chose control over speed today. That’s the harder thing to practise.', again: 'Another day, try {other} with the same focus on control.' },
   exploring: { ack: 'Just exploring, perfect. No commitment needed; we’ll see what feels interesting.', hint: 'Either is a fine way to explore. Gentle is shorter; Steady shows a little more.', opener: 'Treat this as a tour. Notice which block you would want again.', nudge: 'Notice what this one feels like for you.', picked: { gentle: 'The short tour. Notice what you like.', steady: 'The longer tour, with one extra block to explore.' }, closing: 'Now you know what this one is like. That was the whole point.', again: 'Curious next time? Try {other}; it shows a different side.' },
   neutral: { ack: 'Let’s find something that fits today.', hint: 'Choose whichever suits today.', opener: 'Start each timer when you’re ready. Back is always available.', nudge: 'Move in a range that feels comfortable.', picked: { gentle: 'Ready when you are.', steady: 'Ready when you are.' }, closing: 'That’s the session.', again: 'Another day, {other} makes a nice counterpart. No rush.' },
 };
@@ -118,11 +118,11 @@ export function heyProgram() {
   return [revealRoot('hey'), screen('hey', ['hey_word', 'hey_title', 'hey_text', 'name_field', 'name_note', 'name_actions', 'hey_cue']),
     statement('hey_word', 'Keyword', ['HEY', 'Lull is here']),
     statement('hey_title', 'Text', ['I’m Lull. What should I call you?', 'title']),
-    statement('hey_text', 'Text', ['A few easy minutes, shaped around what today needs. One question after this, then we move.', 'description']),
+    statement('hey_text', 'Text', ['Three minutes between calls, shaped around how you feel. One question after this, then we move.', 'description']),
     statement('name_field', 'NameInput', ['Your first name', 'e.g. Sam']),
     statement('name_note', 'Text', [NAME_HINT, 'body']),
     statement('name_actions', 'FollowUps', [['Skip the name']]),
-    statement('hey_cue', 'Cue', ['Hey. No pressure, no performance. Just a few good minutes.']),
+    statement('hey_cue', 'Cue', ['Hey. Three minutes, then back to your day.']),
   ].join('\n');
 }
 // Each session teaches one word for something it actually contains, shown at the end.
@@ -146,11 +146,11 @@ export function moodStatements(ctx: LullContext, note = 'Tap one, or tell me wha
   return [screen('mood', ['mood_ack', 'mood_you', 'mood_title', 'mood_text', 'mood_actions', 'mood_ask', 'mood_cue']),
     statement('mood_ack', 'Text', [ctx.name ? `Good to meet you, ${ctx.name}.` : tone(ctx).ack, 'body']),
     profile('mood_you', ctx),
-    statement('mood_title', 'Text', ['What are you in the mood for today?', 'title']),
+    statement('mood_title', 'Text', ['What would help right now?', 'title']),
     statement('mood_text', 'Text', [note, 'description']),
     statement('mood_actions', 'FollowUps', [PATHS.map(path => PATH_LABELS[path])]),
-    statement('mood_ask', 'TextInput', ['Or in your own words', 'e.g. I’ve been sitting all day']),
-    statement('mood_cue', 'Cue', ['Choose what you actually want today, not what you think you should do.']),
+    statement('mood_ask', 'TextInput', ['Or in your own words', 'e.g. stiff neck after back-to-back calls']),
+    statement('mood_cue', 'Cue', ['Pick what would help right now. Three minutes, then back to your day.']),
   ];
 }
 export type NeedContext = { heard: NeedKind[]; ack: string; intensity: Intensity | null };
@@ -178,7 +178,7 @@ export function sessionProgram(path: Path, intensity: Intensity, ctx: LullContex
   if (ctx.name || ctx.style) lines.push(profile('intro_you', ctx));
   lines.push(statement('intro_text', 'Text', [`${ctx.need && NEED_INTRO[ctx.need as NeedKind] ? NEED_INTRO[ctx.need as NeedKind] + ' ' : ''}${n} blocks · ${clock(total)} on the timers. Rest between blocks as long as you like.`, 'description']),
     ...list('intro_plan', blocks.map(b => `${b.title} · ${clock(b.seconds)}`)),
-    statement('intro_note', 'Alert', ['info', 'Simulated session: Lull cannot see you. Do only what feels comfortable.']),
+    statement('intro_note', 'Alert', ['info', 'Lull can’t see you. Do only what feels comfortable.']),
     statement('intro_cue', 'Cue', [named(ctx, t.opener)]));
   const lastActive = blocks.map(b => !b.transition).lastIndexOf(true);
   // The rail keeps the session's intention in view on every movement, in a few words.

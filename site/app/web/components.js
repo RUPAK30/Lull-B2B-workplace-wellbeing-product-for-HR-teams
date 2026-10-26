@@ -20,12 +20,12 @@ export const renderers = {
     Timer: ({ key, props: p }, c) => {
         const n = el('section', '', 'timer');
         n.setAttribute('aria-label', String(p.label));
-        n.append(el('p', 'TIMER · SIMULATED', 'eyebrow'), el('h3', String(p.label)));
+        n.append(el('p', 'TIMER', 'eyebrow'), el('h3', String(p.label)));
         const value = el('strong', '', 'timer-clock'), status = el('span', '', 'micro timer-status'), face = el('div', '', 'timer-face'), bar = el('div', '', 'timer-bar'), fill = el('span');
         bar.append(fill);
         face.append(value, status);
         const row = el('div', '', 'row timer-controls'), done = el('div', '', 'timer-done'), doneText = el('p', '', '');
-        const start = button('Start simulation', () => c.timerAction(key, 'start'), 'primary'), pause = button('Pause timer', () => c.timerAction(key, 'pause')), reset = button('Reset timer', () => c.timerAction(key, 'reset'), 'quiet'), finish = button('Simulate finish', () => c.timerAction(key, 'finish'), 'quiet');
+        const start = button('Start', () => c.timerAction(key, 'start'), 'primary'), pause = button('Pause timer', () => c.timerAction(key, 'pause')), reset = button('Reset timer', () => c.timerAction(key, 'reset'), 'quiet'), finish = button('Finish now', () => c.timerAction(key, 'finish'), 'quiet');
         const next = button('', () => { next.disabled = true; c.advance(key); }, 'primary');
         done.append(doneText, next);
         row.append(start, pause, reset, finish);
@@ -42,7 +42,7 @@ export const renderers = {
             const counting = entry.status === 'stopped' ? c.countdown(key) : 0;
             n.dataset.countdown = counting ? String(counting) : '';
             start.hidden = entry.status === 'running' || entry.status === 'paused';
-            start.textContent = counting ? 'Cancel countdown' : entry.status === 'done' ? 'Restart simulation' : 'Start simulation';
+            start.textContent = counting ? 'Cancel countdown' : entry.status === 'done' ? 'Restart' : 'Start';
             start.className = entry.status === 'done' || counting ? '' : 'primary';
             pause.hidden = entry.status === 'stopped' || entry.status === 'done';
             pause.textContent = entry.status === 'paused' ? 'Resume timer' : 'Pause timer';
@@ -164,7 +164,7 @@ export const renderers = {
         head.append(el('span', typeof p.title === 'string' ? p.title : 'What the timers recorded', 'recap-title'));
         const summary = el('span', '', 'recap-summary'), rows = el('ul', '', 'block recap-list');
         head.append(summary);
-        n.append(head, rows, el('p', 'Simulated, local timers: they measure time on this page, not movement.', 'micro'));
+        n.append(head, rows, el('p', 'Timers run on this page only: they measure time on this page, not movement.', 'micro'));
         const update = () => { const entries = c.timers.list().map(t => ({ ...t, early: c.earlyFinish.has(t.id), reset: c.wasReset.has(t.id), safety: c.safetyPaused.has(t.id) && t.status === 'paused' })); summary.textContent = recapSummary(entries); rows.replaceChildren(...entries.map(t => { const li = el('li'); li.dataset.status = t.status === 'done' && t.early ? 'early' : t.reset && t.status === 'stopped' ? 'reset' : t.status; li.append(el('strong', t.label), el('span', ' · ' + recapLine(t))); return li; })); };
         c.updates.push(update);
         update();

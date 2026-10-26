@@ -1,7 +1,7 @@
 const clock = (seconds) => { const s = Math.max(0, Math.ceil(seconds)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
 export function recapLine(entry) {
     if (entry.status === 'done')
-        return entry.early ? 'marked finished with Simulate finish, not timed' : `ran the full ${clock(entry.seconds)}`;
+        return entry.early ? 'marked finished early with Finish now, not timed' : `ran the full ${clock(entry.seconds)}`;
     if (entry.status === 'running')
         return `still running, ${clock(entry.remaining)} left`;
     if (entry.status === 'paused')

@@ -95,7 +95,7 @@ Other entry points:
 | Intent | Buttons or free text. With Claude on, Claude reads the need; otherwise a small deterministic layer normalises phrasing and maps needs (sitting, stiffness, time, energy, restlessness, calm, uncertainty, general fitness) onto existing sessions. It asks one question when unclear and is honest about what it can't guide. |
 | Safety | Pain, injury, rehab or dizziness replaces the session choices with a safety notice. Mid-session, it pauses the timer and holds navigation until the user decides. Urgent symptoms get an urgent-care message and no route into exercise. |
 | Sessions | Mobility, stretching and low-impact cardio, each at Gentle (4 blocks) or Steady (5 blocks, longer timers). Every duration shown is computed from the timers. |
-| Workout stage | Movement name and instruction, a dial timer showing the real remaining time, movement-only progress, an Up next card, and a companion area for guidance, offers and "Tell Lull". |
+| Session stage | Movement name and instruction, a dial timer showing the real remaining time, movement-only progress, an Up next card, and a companion area for guidance, offers and "Tell Lull". |
 | Adaptation | "Too easy", "make it gentler", "switch", "stop", or (with Claude) a small change to the current movement such as "my wrists are tired": an option is offered and applied only after confirmation, in place, keeping the user's context. |
 | Ending | Session-specific closure that reconnects to the stated need, one word for something the session contained ("You met this in *Hip hinge reach*"), an optional breath, and a pressure-free suggestion for another day. The timer record (ran, ended early, reset, paused for safety, not started) is folded underneath. Nothing is claimed as physically completed. |
 
@@ -138,7 +138,7 @@ The reasoning behind all of this (personas, metrics, backlog, business model, ri
   - `vocabulary.ts`: the curated terms used for each session's word.
   - Optional full-screen OpenAI and Claude CLI adapters, which are off by default.
 - **Browser** (`src/web/`):
-  - `app.ts`: the workout stage, transitions and safety hold.
+  - `app.ts`: the session stage, transitions and safety hold.
   - `components.ts`: renderers for the custom components (Profile, Recap, NameInput, TextInput, Rail).
   - `styles.css`: a single colour-token system.
 - **Shared** (`src/shared/`): the conversation controller, plus the document, timer ledger and recap wording.

@@ -11,7 +11,7 @@ async function startOver(page){if(await page.locator('#drawer').isHidden())await
 // The optional 3-2-1 countdown is covered by its own test; elsewhere timers start on click.
 test.beforeEach(async({page})=>{await page.addInitScript(()=>{if(!localStorage.getItem('sw.prefs'))localStorage.setItem('sw.prefs',JSON.stringify({ready:false,readySet:true}));localStorage.setItem('sw.exp.home-quick','A');});await page.goto('/');await expect(page.locator('#mode')).toHaveText('MOCK · NO MODEL CALLS');});
 test('Lull onboarding: two questions, Next waits for replies, name from a sentence, intent picks the session',async({page})=>{
- await page.setViewportSize({width:1440,height:1000});await page.locator('#workout').click();await expect(page.locator('[data-statement="hey_word"]')).toContainText('HEY');await expect(page.locator('#spoken')).toContainText('No pressure');
+ await page.setViewportSize({width:1440,height:1000});await page.locator('#workout').click();await expect(page.locator('[data-statement="hey_word"]')).toContainText('HEY');await expect(page.locator('#spoken')).toContainText('Three minutes, then back');
  await expect(page.locator('#next')).toBeDisabled();await expect(page.locator('#next')).toHaveText('Answer above');await expect(page.locator('#position')).toHaveText('1 / 1');
  await expect(page.locator('#screen')).toContainText('What should I call you');
  await send(page,'Next');await expect(page.locator('#screen')).toContainText('Is “Next” your name?');await expect(page.locator('#position')).toHaveText('1 / 1');
@@ -25,13 +25,13 @@ test('session recap separates a full timer, a simulated finish, an open timer an
  await page.clock.install();await page.reload();await expect(page.locator('#mode')).toHaveText('MOCK · NO MODEL CALLS');await page.setViewportSize({width:1440,height:1000});
  await send(page,'/workout');await expect(page.locator('#screen')).toContainText('Gentle · Mobility reset');await expect(page.locator('#screen')).toContainText('2:40 on the timers');
  const timer=page.locator('.timer-status');
- await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Wake the spine');await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.getByRole('button',{name:'Simulate finish',exact:true}).click();await expect(timer).toHaveText('done');
- await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Shoulders and neck');await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.getByRole('button',{name:'Pause timer',exact:true}).click();await expect(timer).toHaveText('paused');
- await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Downshift');await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.clock.fastForward(31_000);await expect(timer).toHaveText('done');
+ await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Wake the spine');await page.getByRole('button',{name:'Start',exact:true}).click();await page.getByRole('button',{name:'Finish now',exact:true}).click();await expect(timer).toHaveText('done');
+ await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Shoulders and neck');await page.getByRole('button',{name:'Start',exact:true}).click();await page.getByRole('button',{name:'Pause timer',exact:true}).click();await expect(timer).toHaveText('paused');
+ await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Downshift');await page.getByRole('button',{name:'Start',exact:true}).click();await page.clock.fastForward(31_000);await expect(timer).toHaveText('done');
  await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Hip hinge reach');await page.locator('#next').click();
  await expect(page.locator('#position')).toHaveText('6 / 6');await expect(page.locator('#next')).toHaveText('Finish');await expect(page.locator('#screen')).toContainText('Let that settle.');await expect(page.locator('.recap-summary')).toBeVisible();
  await expect(page.locator('.recap-summary')).toHaveText('1 of 4 timers ran to zero · 1 marked finished early · 1 still open · 1 not started.');
- await expect(page.locator('.recap')).toContainText('Easy breathing reset · ran the full 0:30');await expect(page.locator('.recap')).toContainText('marked finished with Simulate finish, not timed');await expect(page.locator('.recap')).toContainText('Hip hinge reach · not started');
+ await expect(page.locator('.recap')).toContainText('Easy breathing reset · ran the full 0:30');await expect(page.locator('.recap')).toContainText('marked finished early with Finish now, not timed');await expect(page.locator('.recap')).toContainText('Hip hinge reach · not started');
 });
 async function toNameScreen(page){await page.locator('#workout').click();await expect(page.locator('#screen')).toContainText('What should I call you');}
 test('name field: validation, Enter and Continue submit, and the name appears immediately',async({page})=>{
@@ -49,16 +49,16 @@ test('name field: a failed send can be resent with the same name',async({page})=
 test('Skip keeps working and a finished timer offers the next block',async({page})=>{
  await toNameScreen(page);await page.getByRole('button',{name:'Skip the name'}).click();await expect(page.locator('.profile-chip')).toHaveCount(0);
  await send(page,'/workout cardio gentle');await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Warm-up march');
- await expect(page.locator('.timer-done')).toBeHidden();await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.getByRole('button',{name:'Simulate finish',exact:true}).click();
+ await expect(page.locator('.timer-done')).toBeHidden();await page.getByRole('button',{name:'Start',exact:true}).click();await page.getByRole('button',{name:'Finish now',exact:true}).click();
  await expect(page.locator('.timer-done')).toContainText('Marked done without timing.');await page.getByRole('button',{name:'Next movement →'}).click();await expect(page.locator('#screen')).toContainText('Step-touch');await expect(page.locator('#position')).toHaveText('3 / 6');
 });
 test('transitions vary between blocks and the ending is a calm close the reader can simply finish',async({page})=>{
  await page.setViewportSize({width:1440,height:1000});await toNameScreen(page);
  await page.getByLabel('Your first name').fill('Maya');await page.getByLabel('Your first name').press('Enter');await page.getByRole('button',{name:'Stretching'}).click();await page.getByRole('button',{name:'Gentle stretching'}).click();
  await expect(page.locator('.message.assistant').last()).toContainText('Maya');await expect(page.locator('#screen')).toContainText('Neck side stretch');
- const finishTimer=async()=>{await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.getByRole('button',{name:'Simulate finish',exact:true}).click();};
- await page.clock.install();await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.clock.fastForward(41_000);const first=await page.locator('.timer-done p').textContent();
- await page.getByRole('button',{name:'Next movement →'}).click();await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.clock.fastForward(41_000);const second=await page.locator('.timer-done p').textContent();
+ const finishTimer=async()=>{await page.getByRole('button',{name:'Start',exact:true}).click();await page.getByRole('button',{name:'Finish now',exact:true}).click();};
+ await page.clock.install();await page.getByRole('button',{name:'Start',exact:true}).click();await page.clock.fastForward(41_000);const first=await page.locator('.timer-done p').textContent();
+ await page.getByRole('button',{name:'Next movement →'}).click();await page.getByRole('button',{name:'Start',exact:true}).click();await page.clock.fastForward(41_000);const second=await page.locator('.timer-done p').textContent();
  expect(first).not.toEqual(second);for(const line of [first,second])expect(line).not.toMatch(/great|proud|tired|well done/i);
  await page.getByRole('button',{name:'Next movement →'}).click();await page.locator('#next').click();await finishTimer();
  await expect(page.locator('.timer-done')).toContainText('Marked done without timing.');await page.getByRole('button',{name:'Wind down →'}).click();
@@ -72,11 +72,11 @@ test('presence follows the activity; a timer that runs out offers one Next movem
  const phase=()=>page.locator('.preview').getAttribute('data-phase');await page.clock.install();await page.reload();await expect(page.locator('#mode')).toHaveText('MOCK · NO MODEL CALLS');
  await expect(page.locator('.preview')).toHaveAttribute('data-phase','idle');await page.locator('#workout').click();await expect(page.locator('.preview')).toHaveAttribute('data-phase','arrival');
  await send(page,'/workout cardio gentle');await expect(page.locator('.preview')).toHaveAttribute('data-phase','arrival');await page.locator('#next').click();await expect(page.locator('.preview')).toHaveAttribute('data-phase','ready');
- await page.getByRole('button',{name:'Start simulation',exact:true}).click();await expect(page.locator('.preview')).toHaveAttribute('data-phase','focus');await expect(page.locator('.timer-done')).toBeHidden();
+ await page.getByRole('button',{name:'Start',exact:true}).click();await expect(page.locator('.preview')).toHaveAttribute('data-phase','focus');await expect(page.locator('.timer-done')).toBeHidden();
  await page.clock.fastForward(46_000);await expect(page.locator('.timer-status')).toHaveText('done');await expect(page.locator('.preview')).toHaveAttribute('data-phase','rest');
  await expect(page.locator('.timer-done')).toContainText('Up next: Step-touch.');await expect(page.locator('.event',{hasText:'The timer for Easy march in place finished.'})).toHaveCount(1);
  await page.getByRole('button',{name:'Next movement →'}).dblclick();await expect(page.locator('#screen')).toContainText('Step-touch');await page.clock.fastForward(500);await expect(page.locator('#position')).toHaveText('3 / 6');
- await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.clock.fastForward(5_000);await page.getByRole('button',{name:'Reset timer',exact:true}).click();await expect(page.locator('.timer-status')).toHaveText('stopped');
+ await page.getByRole('button',{name:'Start',exact:true}).click();await page.clock.fastForward(5_000);await page.getByRole('button',{name:'Reset timer',exact:true}).click();await expect(page.locator('.timer-status')).toHaveText('stopped');
  for(let i=0;i<3;i++)await page.locator('#next').click();await expect(page.locator('.preview')).toHaveAttribute('data-phase','closing');
  await expect(page.locator('.recap-summary')).toHaveText('1 of 4 timers ran to zero · 1 reset · 2 not started.');await expect(page.locator('.recap')).toContainText('Side step-touch · reset, not run again');
  await page.locator('#next').click();await expect(page.locator('.preview')).toHaveAttribute('data-phase','closed');expect(await phase()).toBe('closed');
@@ -99,7 +99,7 @@ test('in session: a safety report pauses the running timer and holds; an easier/
  await page.setViewportSize({width:1440,height:1000});await send(page,'/workout mobility gentle');await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Wake the spine');
  const ask=page.getByLabel('Something changed? Tell Lull');await ask.fill('this is too easy');await ask.press('Enter');await expect(page.locator('#screen .alert')).toContainText('Steady adds');
  await page.getByRole('button',{name:'Switch to steady'}).click();await expect(page.locator('#screen')).toContainText('Spine CARs');await expect(page.locator('#position')).toHaveText('2 / 7');
- await page.getByRole('button',{name:'Start simulation',exact:true}).click();await expect(page.locator('.timer-status')).toHaveText('running');
+ await page.getByRole('button',{name:'Start',exact:true}).click();await expect(page.locator('.timer-status')).toHaveText('running');
  await page.getByLabel('Something changed? Tell Lull').fill('ouch, my shoulder hurts');await page.getByLabel('Something changed? Tell Lull').press('Enter');
  await expect(page.locator('#screen .alert-warning')).toContainText('I’ve paused the timer');await expect(page.locator('.preview')).toHaveAttribute('data-phase','care');
  await expect(page.locator('.timer')).toBeHidden();await expect(page.locator('#next')).toBeDisabled();await expect(page.locator('#back')).toBeDisabled();await expect(page.locator('.event',{hasText:'for safety'})).toHaveCount(0);
@@ -110,14 +110,14 @@ test('the active workout is one stage: movement, live timer, progress, next step
  const f=page.getByLabel('Or in your own words');await f.fill('something more energetic');await f.press('Enter');await page.getByRole('button',{name:'Steady cardio · 4:00 (suggested)'}).click();
  const stage=page.locator('.workout');await expect(stage).toBeVisible();await expect(stage.locator('.workout-count')).toHaveText('Movement 1 of 5');await expect(stage.locator('.workout-intent')).toContainText('Steady cardio · with more rhythm');await expect(stage.locator('.workout-next-title')).toHaveText('Interval 1');
  await expect(stage.locator('.workout-title')).toHaveText('Warm-up march');await expect(stage.locator('.stage-timer')).toBeVisible();await expect(stage.locator('.workout-say')).toBeVisible();await expect(page.locator('.spoken')).toBeHidden();await expect(page.locator('#next')).toHaveText('Skip →');
- await page.getByRole('button',{name:'Start simulation',exact:true}).click();await expect(stage.locator('.workout-say')).toHaveCSS('opacity','0.35');await expect(stage.locator('.workout-track span').first()).toHaveClass(/open/);
- await page.getByRole('button',{name:'Simulate finish',exact:true}).click();await expect(page.locator('#next')).toHaveText('Next →');await expect(stage.locator('.workout-track span').first()).toHaveClass(/early/);
+ await page.getByRole('button',{name:'Start',exact:true}).click();await expect(stage.locator('.workout-say')).toHaveCSS('opacity','0.35');await expect(stage.locator('.workout-track span').first()).toHaveClass(/open/);
+ await page.getByRole('button',{name:'Finish now',exact:true}).click();await expect(page.locator('#next')).toHaveText('Next →');await expect(stage.locator('.workout-track span').first()).toHaveClass(/early/);
  await page.getByRole('button',{name:'Next movement →'}).click();await expect(stage.locator('.workout-count')).toHaveText('Movement 2 of 5');await expect(stage.locator('.workout-title')).toHaveText('Interval 1');await expect(page.locator('#screen')).toHaveClass(/enter-soft/);
  await expect(stage.locator('.workout-track span').nth(1)).toHaveClass(/current/);await expect(stage.locator('.workout-track span').first()).toHaveClass(/early/);
 });
 test('feedback during a workout adapts the stage without errors, even with an unanswered offer',async({page})=>{
  await page.setViewportSize({width:1440,height:1000});await send(page,'/workout cardio gentle');await page.locator('#next').click();
- await page.getByRole('button',{name:'Start simulation',exact:true}).click();await page.getByRole('button',{name:'Simulate finish',exact:true}).click();
+ await page.getByRole('button',{name:'Start',exact:true}).click();await page.getByRole('button',{name:'Finish now',exact:true}).click();
  const ask=async t=>{const f=page.getByLabel('Something changed? Tell Lull');await f.fill(t);await f.press('Enter');await expect(page.locator('#pending')).toBeHidden();};
  await ask('too easy');await expect(page.locator('.workout-offer')).toContainText('Lull suggests');await page.locator('#next').click();await expect(page.locator('.workout-count')).toHaveText('Movement 2 of 4');
  await ask('make it gentler');await expect(page.locator('#error')).toBeHidden();await expect(page.locator('.workout-offer')).toContainText('already the gentlest');
@@ -127,14 +127,14 @@ test('feedback during a workout adapts the stage without errors, even with an un
 });
 test('source stepper, text cues, value patch and local timer continuity',async({page})=>{
  const errors=[];page.on('pageerror',e=>errors.push(e.message));await mkdir(shots,{recursive:true});await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:shots+'/01-start.png',fullPage:true});await demo(page);
- await expect(page.locator('#spoken')).toContainText('current screen');await send(page,'next');await expect(page.locator('#position')).toHaveText('2 / 4');await page.getByRole('button',{name:'Start simulation',exact:true}).click();
+ await expect(page.locator('#spoken')).toContainText('current screen');await send(page,'next');await expect(page.locator('#position')).toHaveText('2 / 4');await page.getByRole('button',{name:'Start',exact:true}).click();
  await page.locator('#next').click();await expect(page.locator('#position')).toHaveText('3 / 4');await page.locator('#back').click();await expect(page.locator('.timer-status')).toHaveText('running');
  await page.locator('#pause').click();await expect(page.locator('.timer-status')).toHaveText('paused');await expect(page.locator('#next')).toBeDisabled();await page.locator('#pause').click();await expect(page.locator('.timer-status')).toHaveText('running');
- await page.getByRole('button',{name:'Simulate finish',exact:true}).click();await expect(page.locator('.timer-status')).toHaveText('done');await expect(page.locator('#position')).toHaveText('2 / 4');
+ await page.getByRole('button',{name:'Finish now',exact:true}).click();await expect(page.locator('.timer-status')).toHaveText('done');await expect(page.locator('#position')).toHaveText('2 / 4');
  await send(page,'change value to 6');await expect(page.locator('#position')).toHaveText('2 / 4');await send(page,'next');await expect(page.locator('[data-statement="count2"]')).toContainText('6');await page.screenshot({path:shots+'/02-workout-state.png',fullPage:true});expect(errors).toEqual([]);
 });
 test('repeated sends, interruption, reset while pending and post-reset navigation',async({page})=>{
- await openDev(page);await page.locator('#fault').selectOption('slow');await page.locator('#message').fill('/demo');await page.locator('#send').click();await page.locator('#message').fill('/demo');await page.locator('#send').click();await expect(page.locator('.message.user')).toHaveCount(1);await startOver(page);await page.waitForTimeout(2500);await expect(page.locator('#screen')).toContainText('A few good minutes of movement.');await demo(page);await page.locator('#next').click();await startOver(page);await demo(page);await page.locator('#next').click();await expect(page.locator('#position')).toHaveText('2 / 4');
+ await openDev(page);await page.locator('#fault').selectOption('slow');await page.locator('#message').fill('/demo');await page.locator('#send').click();await page.locator('#message').fill('/demo');await page.locator('#send').click();await expect(page.locator('.message.user')).toHaveCount(1);await startOver(page);await page.waitForTimeout(2500);await expect(page.locator('#screen')).toContainText('Between calls? Take three minutes.');await demo(page);await page.locator('#next').click();await startOver(page);await demo(page);await page.locator('#next').click();await expect(page.locator('#position')).toHaveText('2 / 4');
  await openDev(page);await page.locator('#fault').selectOption('slow');await page.locator('#message').fill('next');await page.locator('#send').click();await send(page,'back');await expect(page.locator('#position')).toHaveText('1 / 4');
 });
 for(const fault of ['schema','request'])test(`${fault} failure preserves screen and retry recovers`,async({page})=>{await demo(page);await openDev(page);await page.locator('#fault').selectOption(fault);await send(page,'next');await expect(page.locator('#error')).toBeVisible();await expect(page.locator('[data-statement="count1"]')).toContainText('8');await page.locator('#retry').click();await expect(page.locator('#position')).toHaveText('2 / 4');await expect(page.locator('#error')).toBeHidden();});

@@ -6,9 +6,9 @@ async function fresh(page, prefs = { ready: false }) { await page.addInitScript(
 
 test('home offers one clear way in, quick picks with real durations, and accepts a typed need', async ({ page }) => {
   await fresh(page);
-  await expect(page.locator('.home-title')).toHaveText('A few good minutes of movement.');
+  await expect(page.locator('.home-title')).toHaveText('Between calls? Take three minutes.');
   await expect(page.locator('#workout')).toHaveText('Start with Lull');
-  await expect(page.locator('.quick')).toHaveText([/Loosen up.*2:40/, /Stretch.*2:30/, /Get moving.*4:00/]);
+  await expect(page.locator('.quick')).toHaveText([/After back-to-back calls.*2:40/, /Post-lunch slump.*2:30/, /Need to move.*4:00/]);
   await expect(page.locator('#pause')).toBeHidden();
   await send(page, 'I only have five minutes');
   await expect(page.locator('#screen')).toContainText('How about gentle mobility?');
@@ -31,10 +31,10 @@ test('menu drawer: tabs, Escape to close, and evening mode that persists', async
 test('optional 3-2-1 get-ready: a countdown on the dial, cancellable, never auto-starting the next timer', async ({ page }) => {
   await page.clock.install(); await fresh(page, { ready: true });
   await send(page, '/workout mobility gentle'); await page.locator('#next').click();
-  await page.getByRole('button', { name: 'Start simulation', exact: true }).click();
+  await page.getByRole('button', { name: 'Start', exact: true }).click();
   await expect(page.locator('.dial-count')).toHaveText('3'); await expect(page.getByRole('button', { name: 'Cancel countdown' })).toBeVisible();
   await page.getByRole('button', { name: 'Cancel countdown' }).click(); await expect(page.locator('.timer-status')).toHaveText('stopped'); await expect(page.locator('.dial-count')).toBeEmpty();
-  await page.getByRole('button', { name: 'Start simulation', exact: true }).click(); await page.clock.fastForward(3200);
+  await page.getByRole('button', { name: 'Start', exact: true }).click(); await page.clock.fastForward(3200);
   await expect(page.locator('.timer-status')).toHaveText('running');
   await page.clock.fastForward(41000); await expect(page.locator('.timer-status')).toHaveText('done');
   await page.getByRole('button', { name: 'Next movement →' }).click(); await expect(page.locator('.timer-status')).toHaveText('stopped');
@@ -56,7 +56,7 @@ test('breathing blocks pace the breath from the real timer; the overview lists a
   await page.locator('.workout-progress').click(); await expect(page.locator('.workout-sheet')).toBeVisible();
   await expect(page.locator('.sheet-item')).toHaveCount(4); await expect(page.locator('.sheet-item').nth(2)).toContainText('Downshift');
   await page.locator('.sheet-item').nth(2).click(); await expect(page.locator('.workout-count')).toHaveText('Movement 3 of 4');
-  await page.getByRole('button', { name: 'Start simulation', exact: true }).click(); await page.clock.fastForward(1000);
+  await page.getByRole('button', { name: 'Start', exact: true }).click(); await page.clock.fastForward(1000);
   await expect(page.locator('.dial-breath')).toHaveText('Breathe in'); await page.clock.fastForward(4000);
   await expect(page.locator('.dial-breath')).toHaveText('Breathe out');
 });

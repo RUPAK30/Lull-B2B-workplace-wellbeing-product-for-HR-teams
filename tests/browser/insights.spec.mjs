@@ -11,7 +11,7 @@ async function quickSession(page) {
   await send(page, 'I have been sitting all day');
   await page.getByRole('button', { name: /^Gentle mobility/ }).click();
   for (let i = 0; i < 4; i++) {
-    await page.getByRole('button', { name: 'Start simulation', exact: true }).click(); await page.getByRole('button', { name: 'Simulate finish', exact: true }).click();
+    await page.getByRole('button', { name: 'Start', exact: true }).click(); await page.getByRole('button', { name: 'Finish now', exact: true }).click();
     await page.getByRole('button', { name: /Next movement|Wind down/ }).click();
   }
 }

@@ -156,11 +156,11 @@ byId('export').addEventListener('click',()=>{const label=byId<HTMLSelectElement>
 async function start(){render();try{const response=await fetch('/api/config');track('visit');for(const e of EXPERIMENTS)track('exposure',{exp:e.id,variant:variantOf(e.id)});noteReturn();if(!response.ok)throw new Error();config=await response.json();const select=byId<HTMLSelectElement>('provider');select.replaceChildren();for(const p of config!.providers){const option=el('option',p.label+(p.enabled?'':' · setup / blocked'));option.value=p.id;select.append(option);}select.value='mock';select.disabled=false;render();if(teamReset){track('team_reset');send(`/workout ${teamReset.path} ${teamReset.intensity}`,'team-reset');history.replaceState(null,'',location.pathname);}}catch{byId('status').textContent='Could not connect. Restart the local server and reload.';}}
 /** Jump to a movement from the session overview (never while safety holds the session). */
 function jumpTo(key:string){if(safetyHold()||nav.phase()!=='idle'||paused)return;const screens=c.document.screens,i=screens.findIndex(s=>s.key===key),from=screens.findIndex(s=>s.key===c.document.cursor);if(i<0||i===from)return;c.document.move(i);c.localEvent(i<from?activityClientEvents.wentBack(`step ${from+1}`,`step ${i+1}`):activityClientEvents.nowOnStep(`step ${i+1} of ${screens.length}`));}
-const QUICK=[{label:'Loosen up',detail:'Gentle mobility · 2:40',cmd:'/workout mobility gentle'},{label:'Stretch',detail:'Gentle stretching · 2:30',cmd:'/workout stretching gentle'},{label:'Get moving',detail:'Steady low-impact cardio · 4:00',cmd:'/workout cardio steady'}];
+const QUICK=[{label:'After back-to-back calls',detail:'Gentle mobility · 2:40',cmd:'/workout mobility gentle'},{label:'Post-lunch slump',detail:'Gentle stretching · 2:30',cmd:'/workout stretching gentle'},{label:'Need to move',detail:'Steady low-impact cardio · 4:00',cmd:'/workout cardio steady'}];
 /** Home: a greeting, one clear way in, quick picks, and (if remembered) the last session. */
 function renderHome(){
   const mem=loadMemory(),hour=new Date().getHours(),hello=hour<12?'Good morning':hour<18?'Good afternoon':'Good evening';
-  const n=el('div','','home');n.append(el('p',`${hello}${mem.name?`, ${mem.name}`:''}`,'home-hello'),el('h2','A few good minutes of movement.','home-title'),el('p','Tell me what today needs in the box below, or pick something quick. I’ll shape the session and stay quiet while you move.','home-lede'));
+  const n=el('div','','home');n.append(el('p',`${hello}${mem.name?`, ${mem.name}`:''}`,'home-hello'),el('h2','Between calls? Take three minutes.','home-title'),el('p','Tell me how you feel, even in Hinglish, or pick a moment below. I’ll suggest one short reset and stay quiet while you move.','home-lede'));
   const begin=button('Start with Lull',()=>send('Start Lull','onboarding'),'primary home-start');begin.id='workout';
   // Opened from their own reminder: their usual session is one tap away.
   const usual=openedFromReminder?usualReset():null;
@@ -169,7 +169,7 @@ function renderHome(){
   if(mem.last){const again=button('',()=>send(`/workout ${mem.last!.path} ${mem.last!.intensity}`,'again'),'quick again');again.append(el('strong','Same as last time'),el('span',mem.last.title));quick.append(again);}
   for(const q of QUICK){if(variantOf('home-quick')==='B')break;const b=button('',()=>send(q.cmd,'quick'),'quick');b.append(el('strong',q.label),el('span',q.detail));quick.append(b);}
   const shelf=mem.words?.length?[el('p',`Words you’ve picked up · ${mem.words.length}`,'home-label'),(()=>{const row=el('div','','home-words');for(const w of mem.words!)row.append(el('span',w,'word-chip'));return row;})()]:[];
-  n.append(begin,...(quick.childNodes.length?[el('p',mem.last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick something quick','home-label'),quick]:[]),...shelf,el('p','Simulated and text-only: Lull can’t see you. Stop anything that doesn’t feel right.','micro home-note'),...(pilotTeam?[pilotNote()]:[]));
+  n.append(begin,...(quick.childNodes.length?[el('p',mem.last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick your moment','home-label'),quick]:[]),...shelf,el('p','Text only: Lull can’t see you. Stop anything that doesn’t feel right.','micro home-note'),...(pilotTeam?[pilotNote()]:[]));
   return n;
 }
 /** Lull's latest words, shown as a caption outside the workout (where the stage speaks for itself). */
