@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Lull · Case study</title><style>
+@page{size:A4;margin:12mm 14mm}
+*{box-sizing:border-box}body{margin:0;font:9.2pt/1.42 "Segoe UI",Arial,sans-serif;color:#1F2933}
+h1{font:600 19pt/1.15 Georgia,serif;margin:0 0 1.5mm;color:#1F2933}h2{font:600 10.5pt/1.2 "Segoe UI",Arial;color:#2D5A45;margin:4.2mm 0 1.4mm;text-transform:uppercase;letter-spacing:.04em}
+h3{font-size:9.4pt;margin:2mm 0 .8mm}p{margin:0 0 1.6mm}ul{margin:0 0 1.6mm;padding-left:4.5mm}li{margin:0 0 .7mm}
+.top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #2D5A45;padding-bottom:2.5mm;margin-bottom:3mm}
+.meta{font-size:8pt;color:#5B6670;text-align:right}.lede{font-size:10pt;color:#3E4A55}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:3mm 7mm}.box{background:#F3EEE3;border-radius:2.5mm;padding:2.5mm 3.5mm}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;margin:1mm 0 2mm}.stats div{background:#F3EEE3;border-radius:2.5mm;padding:2.2mm 3mm}
+.stats b{display:block;font:600 15pt Georgia,serif;color:#2D5A45}.stats span{font-size:8pt;color:#3E4A55}
+table{width:100%;border-collapse:collapse;font-size:8.6pt;margin:1mm 0 2mm}th,td{text-align:left;vertical-align:top;padding:1.2mm 1.8mm;border-bottom:1px solid #DCD3C2}th{background:#ECE5D6;font-weight:600}
+.foot{margin-top:3mm;border-top:1px solid #DCD3C2;padding-top:1.8mm;font-size:7.6pt;color:#5B6670}
+a{color:#2D5A45}.pb{page-break-before:always}
+</style></head><body>
+<div class="top"><div><h1>Case study: designing wellbeing that HR can prove</h1><p class="lede">From a movement-break prototype to a pilot-ready B2B product, using research to close the gaps that make wellbeing tools fail.</p></div><p class="meta">Case study · Rupak Ghanpathi<br>Product · Business analysis</p></div>
+<div class="grid"><div><h2>Context</h2><p>Indian companies of 50–500 people offer wellbeing benefits, but the HR lead can't show they're used, and the founder approves spend. The prototype offered short guided movement sessions; the question was what would make HR buy and employees keep using it.</p></div>
+<div><h2>My role</h2><p>Problem framing, research, requirements, product decisions, the HR-facing site and the pilot design, built and tested end to end.</p></div></div>
+<h2>What the research showed</h2><div class="stats"><div><b>~30%</b><span>of employees take part in company wellness programmes (Plum, 3,500+ Indian orgs, 2023)</span></div>
+<div><b>~3%</b><span>of wellbeing-app users still active after 30 days (JMIR 2019, 93 apps)</span></div>
+<div><b>64%</b><span>of employees fear employer health data could affect pay or promotion (Aetna survey)</span></div></div><p>Three people, three jobs: the employee wants a reset that isn't homework; HR wants proof without surveillance; the founder wants a small, honest trial.</p>
+<h2>Key decisions, and why</h2><table><tr><th>Decision</th><th>Rationale</th></tr>
+<tr><td>Hide teams under 10, and a second team if subtraction could reveal one</td><td>Privacy as a product rule, not a policy; answers the distrust finding.</td></tr>
+<tr><td>Fixed safety rules the AI can't override, in English and Hinglish</td><td>Eval: the word list alone missed 10 of 16 body concerns; adding the model missed none. Rules stay the floor.</td></tr>
+<tr><td>Opt-in reminders on the employee's own calendar or Slack</td><td>Usage collapses without a trigger (~3% at day 30). No server, no tracking, "not today" costs nothing.</td></tr>
+<tr><td>Team resets at the end of meetings</td><td>Participation follows teams and managers; turns a private act into a team norm.</td></tr>
+<tr><td>Targets agreed before day one, "Not met" shown openly</td><td>HR can't trust vendor ROI claims; an honest, falsifiable pilot is the differentiator.</td></tr>
+<tr><td>Free sample report as the first ask; pilot sized to one team</td><td>Budget is the top concern; the smallest yes starts the conversation.</td></tr></table>
+<div class="grid"><div><h2>What I built</h2><ul><li>Two-sided demo (employee session beside the HR view) running the app's real rules.</li><li>CEO slide with targets, need categories and cost per finished session; PNG export.</li><li>Hosted app, launch kit, sample report, personalised links; 104 tests.</li></ul></div>
+<div><h2>How success is measured</h2><ul><li>Outreach: qualified conversations per 10 sends; section reached; demo use.</li><li>Pilot: tried, came back within a week, reminders set (leading indicator), "Lighter" answers.</li><li>Status: pilot-stage; no customer results yet, by design reported plainly.</li></ul></div></div><p class="foot">Pilot-stage product by Rupak Ghanpathi. All usage figures are sample data from a made-up 64-person company. Not a medical or mental-health service. Live: lull-hr.vercel.app · App: lull-hr.vercel.app/app · Code: github.com/RUPAK30/Lull-B2B-workplace-wellbeing-product-for-HR-teams</p></body></html>

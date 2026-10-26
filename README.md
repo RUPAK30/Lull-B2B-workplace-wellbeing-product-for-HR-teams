@@ -25,7 +25,7 @@ Research behind the product (sources in the HR page's notes):
 | `site/` | The public site (deployed on Vercel): `index.html` overview, `pilot.html`, `safety.html`, `thanks.html`, `report.html`, `card.html`, `404.html` |
 | `site/app/` | The real app running fully in the browser, built with `npm run site:app` |
 | `tests/` | `npm test`: 104 tests, including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
-| `docs/` | Business requirements, product and business analysis, pilot proposal |
+| `docs/` | **BRD, one-page case study and one pager** (`Lull - BRD.pdf`, `Lull - Case Study.pdf`, `Lull - One Pager.pdf`, editable sources in `docs/product/`), product and business analysis, pilot proposal |
 | `eval/` | Safety evaluation of the pain-detection rules |
 
 All usage figures shown anywhere are sample data from a made-up 64-person company (`src/shared/team.ts`). Lull is not a medical or mental-health service.
