@@ -556,3 +556,67 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
   .kit-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px}
   .kit-tabs [role=tab]{padding:0 8px;font-size:.82rem}
 }
+
+/* ===== Shorter page: layered and side by side, nothing removed ===== */
+@media (max-width:859px){
+  .sec{padding:44px 0}
+  .sec-head{margin-bottom:22px}
+  h2{font-size:clamp(1.55rem,6.4vw,2rem)}
+}
+.fold > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;font-size:.9rem;color:var(--accent)}
+.fold > summary::-webkit-details-marker{display:none}
+.fold > summary::after{content:"+";font-weight:400;font-size:1.2rem;line-height:1}
+.fold[open] > summary::after{content:"–"}
+@media (min-width:860px){.fold[data-desktop-open] > summary{display:none}}
+.slide-more{border-top:1px solid var(--line);margin-top:4px}
+.slide-more > summary{margin:8px 0}
+.slide-more .why-hidden{margin:0 0 6px}
+.invite-fold > summary{margin-top:2px}
+@media (max-width:859px){
+  /* Why people come back: swipe the three steps instead of scrolling past them. */
+  .loop{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 calc(-1 * var(--gut));padding:0 var(--gut) 6px;scrollbar-width:none}
+  .loop::-webkit-scrollbar{display:none}
+  .loop li{flex:0 0 84%;scroll-snap-align:start}
+  .loop-hint{display:block}
+  .together{margin-top:14px;padding:16px}
+  .together .btn{margin-top:10px}
+  /* Targets: label and choices on one line. */
+  .targets-set{gap:8px;margin-bottom:16px}
+  .seg-row{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .seg-label{flex:1;font-size:.78rem}
+  .seg button{min-width:52px;padding:0 10px;font-size:.82rem}
+  .kit-text{max-height:220px}
+  .usage-card{padding:16px}
+  .bench{gap:7px;margin-top:12px}
+  .usage-verdict{min-height:0}
+}
+.loop-hint{display:none;margin:6px 0 0;font-size:.78rem;color:var(--ink-3)}
+/* The builder note now opens the closing section. */
+.close .builder{margin:0 auto clamp(32px,5vw,48px);text-align:left;background:var(--card)}
+/* Desktop: side by side instead of stacked. */
+@media (min-width:860px){
+  .sec{padding:clamp(56px,6vw,80px) 0}
+  .side-by-side{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:start}
+  .side-by-side .sec-head{margin-bottom:0;position:sticky;top:90px}
+  .report-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-bottom:22px}
+  .report-top .sec-head{margin-bottom:0}
+  .report-top .targets-set{margin-bottom:0;grid-template-columns:1fr;gap:10px}
+  .faq{max-width:none;display:grid;grid-template-columns:1fr 1fr;column-gap:40px;align-items:start}
+  .faq details:last-child{border-bottom:0}
+  .faq details{border-bottom:1px solid var(--line);border-top:0}
+  .close-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;text-align:left}
+  .close .close-grid .builder{margin:0}
+  .close-cta h2{margin:0 0 22px;max-width:none}
+  .close-cta .btns{justify-content:flex-start}
+  .close-cta .cta-sub,.close-cta .cta-email{margin-left:0;margin-right:0}
+}
+@media (max-width:859px){
+  .sec{padding:38px 0}
+  .bars{height:120px}
+  .slide{padding:18px}
+  .slide-stats{padding:16px 0}
+  .slide-body{padding:16px 0;gap:20px}
+  .close .builder{padding:18px;gap:14px}
+  .close .avatar{width:56px;height:56px}
+}
+.close .builder .btns{justify-content:flex-start}

@@ -137,6 +137,7 @@
       <li class="reveal"><span class="loop-n">3</span><h3>You see the team total move</h3><p>Only anonymous counts leave the device: started, finished, how it felt, reminder set. Each person can see exactly what was sent, and switch it off.</p>
         <div class="mini mini-hr" aria-hidden="true"><span>Sales · reminders set</span><b>+1</b></div></li>
     </ol>
+    <p class="loop-hint" aria-hidden="true">Swipe for all three steps →</p>
     <div class="together reveal">
       <div>
         <h3>Or make it a team habit</h3>
@@ -144,11 +145,14 @@
         <button type="button" class="btn btn-ghost" id="copy-reset" data-ev="team-reset-copied">Copy a team reset invite</button>
         <p class="tiny" id="copy-reset-done" role="status"></p>
       </div>
+      <details class="fold invite-fold" data-desktop-open>
+        <summary>See the meeting invite</summary>
       <div class="invite" aria-hidden="true">
         <p class="invite-title">Weekly stand-up</p>
         <p class="invite-time">Tue · 10:00–10:30</p>
         <p class="invite-body">Agenda: updates, blockers.<br><b>Last 3 minutes: Lull team reset.</b> Open together and press Start: <span>lull-hr.vercel.app/app/?reset=mobility-gentle</span></p>
       </div>
+      </details>
     </div>
     <p class="loop-try reveal"><a href="app/" data-ev="app-opened-loop">Try it: finish a session in the app and set your own reminder →</a></p>
   </div>
@@ -156,6 +160,7 @@
 
 <section class="sec band" id="report" aria-labelledby="report-h">
   <div class="wrap">
+    <div class="report-top">
     <div class="sec-head reveal">
       <h2 id="report-h">The slide you'll show your CEO in week 6</h2>
       <p class="lede">Set the targets you'd agree on day one. The sample results are checked against them, honestly.</p>
@@ -163,6 +168,7 @@
     <div class="targets-set reveal" role="group" aria-label="Your week 6 targets">
       <div class="seg-row"><span class="seg-label">Tried it, at least</span><div class="seg" data-target="tried"><button type="button" data-v="0.5" aria-pressed="true">50%</button><button type="button" data-v="0.6" aria-pressed="false">60%</button><button type="button" data-v="0.75" aria-pressed="false">75%</button></div></div>
       <div class="seg-row"><span class="seg-label">Still using in weeks 5–6, at least</span><div class="seg" data-target="stayed"><button type="button" data-v="0.3334" aria-pressed="true">1 in 3</button><button type="button" data-v="0.5" aria-pressed="false">1 in 2</button><button type="button" data-v="0.6667" aria-pressed="false">2 in 3</button></div></div>
+    </div>
     </div>
     <article class="slide reveal" id="slide" aria-label="Sample week 6 pilot review">
       <header class="slide-head">
@@ -187,9 +193,11 @@
             <li class="hid"><span>Customer support</span><b>Hidden · under 10</b></li>
             <li class="hid"><span>People &amp; Ops</span><b>Hidden · under 10</b></li>
           </ul>
-          <details class="why-hidden"><summary>Why are two teams hidden?</summary><p>Both have fewer than 10 people, so neither is shown. If only one team were that small, Lull would hide the next-smallest team too. Otherwise anyone could subtract the visible teams from the company total and work out the small one.</p></details>
+
         </div>
       </div>
+      <details class="fold slide-more" data-desktop-open>
+        <summary>More from this report: team needs, cost per session</summary>
       <div class="slide-extra">
         <div>
           <p class="slide-sub">What each team asked for most</p>
@@ -205,6 +213,8 @@
           <p class="cost-sub">219 finished sessions in 6 weeks, at the indicative price</p>
         </div>
       </div>
+      <details class="why-hidden"><summary>Why are two teams hidden?</summary><p>Both have fewer than 10 people, so neither is shown. If only one team were that small, Lull would hide the next-smallest team too. Otherwise anyone could subtract the visible teams from the company total and work out the small one.</p></details>
+      </details>
       <p class="slide-foot">HR saw team totals only. No names, no messages.</p>
     </article>
     <p class="slide-actions reveal"><button type="button" class="btn btn-ghost" id="dl-slide">Download this slide (PNG)</button><span class="tiny">Forward it to your founder as-is.</span></p>
@@ -236,7 +246,7 @@
 </section>
 
 <section class="sec band" id="launch" aria-labelledby="launch-h">
-  <div class="wrap">
+  <div class="wrap side-by-side">
     <div class="sec-head reveal">
       <p class="kicker">Launch kit</p>
       <h2 id="launch-h">Ready to launch in 10 minutes. The words are already written.</h2>
@@ -272,10 +282,12 @@
   </div>
 </section>
 
-<section class="sec band" aria-labelledby="builder-h">
-  <div class="wrap">
+
+<section class="sec close band" id="close" aria-labelledby="close-h">
+  <div class="wrap reveal">
     <h2 class="sr" id="builder-h">From the builder</h2>
-    <div class="builder reveal">
+    <div class="close-grid">
+    <div class="builder">
       <img class="avatar" src="img/rupak.jpg" alt="Rupak Ghanpathi" width="72" height="72" loading="lazy">
       <div>
         <blockquote>
@@ -285,11 +297,8 @@
         <div class="btns"><button type="button" class="btn btn-text" id="open-video">See the full app in 2 minutes</button></div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="sec close" id="close" aria-labelledby="close-h">
-  <div class="wrap reveal">
+    <div class="close-cta">
     <h2 id="close-h">We're looking for 3 pilot partners.</h2>
     <div class="cta-block">
       <div class="btns">
@@ -300,6 +309,8 @@
       <p class="cta-sub">Tell me your team size and I'll send you what week 6 could look like for you, free. (Delivered within 24 hours)</p>
       <p class="cta-email">or email <a href="mailto:rupakr2g@gmail.com" data-ev="email-close">rupakr2g@gmail.com</a></p>
       <p class="share-line"><a class="btn btn-text" id="share" href="#">Send this to my founder</a></p>
+    </div>
+    </div>
     </div>
   </div>
 </section>

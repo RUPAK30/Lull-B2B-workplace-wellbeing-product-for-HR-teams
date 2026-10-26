@@ -41,6 +41,13 @@ document.addEventListener('DOMContentLoaded', function () {
     reveals.forEach(function (el) { ro.observe(el); });
   } else reveals.forEach(function (el) { el.classList.add('in'); });
 
+  // Layered sections: open on wide screens, one tap away on phones.
+  var wide = matchMedia('(min-width:860px)');
+  document.querySelectorAll('details[data-desktop-open]').forEach(function (d) {
+    if (wide.matches) d.open = true;
+    d.addEventListener('toggle', function () { if (d.open && !wide.matches) track('fold-' + (d.className.split(' ')[1] || 'details')); });
+  });
+
   if (!document.getElementById('split')) return;
 
   // Two-sided demo. Needs are read with a copy of the app's own rules (src/server/lull.ts,
