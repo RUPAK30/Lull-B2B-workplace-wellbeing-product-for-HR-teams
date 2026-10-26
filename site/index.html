@@ -54,27 +54,29 @@
     <div class="try" id="try">
       <div class="try-head">
         <h2 id="try-h">How are you feeling right now?</h2>
-        <p class="tiny demo-note">Demo with preset answers</p>
+        <p class="tiny demo-note">Demo · Lull's built-in rules, no AI</p>
       </div>
       <div class="chips" role="group" aria-labelledby="try-h">
-        <button type="button" class="chip" data-chip="stiff" aria-pressed="false">Stiff neck after back-to-back calls</button>
-        <button type="button" class="chip" data-chip="switchoff" aria-pressed="false">Can't switch off</button>
-        <button type="button" class="chip" data-chip="restless" aria-pressed="false">Restless after sitting all day</button>
+        <button type="button" class="chip" data-chip="stiff" aria-pressed="false">Stiff neck after calls</button>
+        <button type="button" class="chip" data-chip="switchoff" aria-pressed="false">Stressed, can't switch off</button>
+        <button type="button" class="chip" data-chip="restless" aria-pressed="false">Restless after sitting</button>
+        <button type="button" class="chip chip-care" data-chip="pain" aria-pressed="false">My lower back hurts</button>
       </div>
+      <form class="say" id="say" autocomplete="off">
+        <label class="sr" for="say-input">Or say it in your own words</label>
+        <input id="say-input" name="say" maxlength="120" placeholder="Or type how you feel…" enterkeyhint="go">
+        <button type="submit" class="say-go">Try</button>
+      </form>
       <div class="split" id="split">
         <div class="side emp" aria-live="polite">
           <p class="side-label"><i></i>What your employee sees</p>
-          <p class="emp-ack" id="emp-ack"></p>
-          <h3 id="emp-title"></h3>
-          <p class="emp-meta" id="emp-meta"></p>
-          <ol class="blocks" id="emp-blocks"></ol>
-          <p class="emp-foot">"Too easy" or "too much" changes the next movement. Mention pain and it stops.</p>
+          <div id="emp"></div>
         </div>
         <div class="side hr">
           <p class="side-label"><i></i>What HR sees</p>
           <ul class="hr-rows" id="hr-rows"></ul>
+          <p class="hr-status" id="hr-status" aria-live="polite"></p>
           <p class="hr-never"><strong>No names. No messages. No individual sessions.</strong>Teams under 10 people are hidden.</p>
-          <p class="sr" aria-live="polite" id="hr-live"></p>
         </div>
       </div>
     </div>
@@ -95,15 +97,20 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <h2 id="report-h">The slide you'll show your CEO in week 6</h2>
+      <p class="lede">Set the targets you'd agree on day one. The sample results are checked against them, honestly.</p>
     </div>
-    <article class="slide reveal" aria-label="Sample week 6 pilot review">
+    <div class="targets-set reveal" role="group" aria-label="Your week 6 targets">
+      <div class="seg-row"><span class="seg-label">Tried it, at least</span><div class="seg" data-target="tried"><button type="button" data-v="0.5" aria-pressed="true">50%</button><button type="button" data-v="0.6" aria-pressed="false">60%</button><button type="button" data-v="0.75" aria-pressed="false">75%</button></div></div>
+      <div class="seg-row"><span class="seg-label">Still using in weeks 5–6, at least</span><div class="seg" data-target="stayed"><button type="button" data-v="0.3334" aria-pressed="true">1 in 3</button><button type="button" data-v="0.5" aria-pressed="false">1 in 2</button><button type="button" data-v="0.6667" aria-pressed="false">2 in 3</button></div></div>
+    </div>
+    <article class="slide reveal" id="slide" aria-label="Sample week 6 pilot review">
       <header class="slide-head">
         <p>Week 6 pilot review · sample company (64 people)</p>
         <span class="slide-tag">Sample report</span>
       </header>
       <div class="slide-stats">
-        <div><p class="big">44 <span>of 64</span></p><p class="cap">tried it</p></div>
-        <div><p class="big">27 <span>of 44</span></p><p class="cap">still using it in weeks 5–6</p></div>
+        <div><p class="big">44 <span>of 64</span></p><p class="cap">tried it</p><p class="verdict" id="v-tried"></p></div>
+        <div><p class="big">27 <span>of 44</span></p><p class="cap">still using it in weeks 5–6</p><p class="verdict" id="v-stayed"></p></div>
       </div>
       <div class="slide-body">
         <figure class="chart">
@@ -119,10 +126,12 @@
             <li class="hid"><span>Customer support</span><b>Hidden · under 10</b></li>
             <li class="hid"><span>People &amp; Ops</span><b>Hidden · under 10</b></li>
           </ul>
+          <details class="why-hidden"><summary>Why are two teams hidden?</summary><p>Both have fewer than 10 people, so neither is shown. If only one team were that small, Lull would hide the next-smallest team too. Otherwise anyone could subtract the visible teams from the company total and work out the small one.</p></details>
         </div>
       </div>
       <p class="slide-foot">HR saw team totals only. No names, no messages.</p>
     </article>
+    <p class="slide-actions reveal"><button type="button" class="btn btn-ghost" id="dl-slide">Download this slide (PNG)</button><span class="tiny">Forward it to your founder as-is.</span></p>
   </div>
 </section>
 
