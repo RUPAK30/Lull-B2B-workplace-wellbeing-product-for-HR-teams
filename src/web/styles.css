@@ -535,3 +535,4 @@ button.link:hover:not(:disabled){background:none}
 .pilot-note{margin-top:8px}
 .sent-list{margin:4px 0 0;padding-left:18px;font-size:13px;color:var(--soft-ink)}
 .drawer-panel a{color:var(--accent)}
+.clear-done{min-height:1.2em;margin:6px 0 0;color:var(--accent)}

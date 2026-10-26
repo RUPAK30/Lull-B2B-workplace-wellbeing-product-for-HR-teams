@@ -28,6 +28,8 @@ export const pilotCounting = {
 
 export type Sent = { t: number; team: string; event: PilotEvent };
 export function sentLog(): Sent[] { try { return JSON.parse(store.get(SENT) ?? '[]') as Sent[]; } catch { return []; } }
+/** Forgets this device's record of what was sent (the counts already sent can't be recalled). */
+export function clearSent() { store.del(SENT); }
 
 /** Sends one anonymous count if this event is on the allow-list. No cookies, no device id. */
 export function sendPilot(type: string, data?: Record<string, unknown>) {

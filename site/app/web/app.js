@@ -8,7 +8,7 @@ import { redactValue } from '../shared/redact.js';
 import { renderComponent } from './components.js';
 import { byId, el, button } from './dom.js';
 import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js';
-import { pilotTeam, pilotCounting, sentLog, openedFromReminder, teamReset, usualReset } from './pilot.js';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, usualReset } from './pilot.js';
 import { reminderCard } from './reminder.js';
 import { renderInsights, teamExport } from './insights-view.js';
 import { sampleEvents } from '../shared/insights.js';
@@ -698,7 +698,8 @@ function renderExperiments() {
 }
 byId('pref-log').checked = logging.on;
 byId('pref-log').addEventListener('change', e => { logging.on = e.target.checked; renderKey = ''; render(); });
-byId('clear-log').addEventListener('click', () => { clearEvents(); announce('Activity log cleared on this device.'); });
+// Clears the private log and the list of what was sent, and says so on screen, not only to screen readers.
+byId('clear-log').addEventListener('click', () => { clearEvents(); clearSent(); renderDeviceSends(); const done = byId('clear-log-done'); done.textContent = 'Cleared on this device.'; setTimeout(() => { done.textContent = ''; }, 4000); announce('Activity log cleared on this device.'); });
 if (!prefs.readySet)
     prefs.ready = variantOf('ready-default') === 'A';
 renderExperiments();

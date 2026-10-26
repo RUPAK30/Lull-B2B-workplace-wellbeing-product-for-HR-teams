@@ -45,6 +45,8 @@ export function sentLog() { try {
 catch {
     return [];
 } }
+/** Forgets this device's record of what was sent (the counts already sent can't be recalled). */
+export function clearSent() { store.del(SENT); }
 /** Sends one anonymous count if this event is on the allow-list. No cookies, no device id. */
 export function sendPilot(type, data) {
     if (!pilotTeam || !pilotCounting.on)
