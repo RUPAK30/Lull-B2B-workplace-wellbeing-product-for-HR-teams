@@ -24,7 +24,7 @@ Research behind the product (sources in the HR page's notes):
 | `src/` | The app: TypeScript, local server, Mock mode with no AI by default |
 | `site/` | The public site (deployed on Vercel): `index.html` overview, `pilot.html`, `safety.html`, `thanks.html`, `report.html`, `card.html`, `404.html` |
 | `site/app/` | The real app running fully in the browser, built with `npm run site:app` |
-| `tests/` | `npm test`: 104 tests, including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
+| `tests/` | `npm test`: 108 tests, including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
 | `docs/` | **BRD, one-page case study and one pager** (`Lull - BRD.pdf`, `Lull - Case Study.pdf`, `Lull - One Pager.pdf`, editable sources in `docs/product/`), product and business analysis, pilot proposal |
 | `eval/` | Safety evaluation of the pain-detection rules |
 
