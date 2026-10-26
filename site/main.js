@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Video modal: the file only loads when opened.
   var dlg = document.getElementById('vid'), video = dlg.querySelector('video');
   document.getElementById('open-video').addEventListener('click', function () {
-    var src = video.querySelector('source');
-    if (!src.getAttribute('src')) { src.src = src.dataset.src; video.load(); }
+    var srcs = video.querySelectorAll('source');
+    if (srcs.length && !srcs[0].getAttribute('src')) { srcs.forEach(function (s) { s.src = s.dataset.src; }); video.load(); }
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
     video.play().catch(function () {});
     track('video-opened');
