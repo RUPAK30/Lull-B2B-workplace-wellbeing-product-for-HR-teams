@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proof without surveillance: building a wellbeing product HR can measure</title>
+<meta name="description" content="HR can't prove a wellbeing benefit is used; employees distrust tools that can see individuals. 6-week pilot.">
+<meta name="theme-color" content="#F3EEE3">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lull">
+<meta property="og:title" content="Proof without surveillance: building a wellbeing product HR can measure">
+<meta property="og:description" content="HR can't prove a wellbeing benefit is used; employees distrust tools that can see individuals. 6-week pilot.">
+<meta property="og:url" content="https://lull-hr.vercel.app/product.html">
+<meta property="og:image" content="https://lull-hr.vercel.app/img/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lull product proof">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://lull-hr.vercel.app/product.html">
+<meta name="twitter:title" content="Proof without surveillance: building a wellbeing product HR can measure">
+<meta name="twitter:description" content="HR can't prove a wellbeing benefit is used; employees distrust tools that can see individuals. 6-week pilot.">
+<meta name="twitter:image" content="https://lull-hr.vercel.app/img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script data-goatcounter="https://lull.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="./">Overview</a>
+      <a href="pilot.html">Pilot & cost</a>
+      <a href="./product.html">For product people</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="sec" id="problem" aria-labelledby="problem-h">
+  <div class="wrap">
+    <h2 id="problem-h">The problem</h2>
+    <p>HR can't prove a wellbeing benefit is used; employees distrust tools that can see individuals. Without visible usage data, budgets shrink and founders override. Employees avoid tools that feel like surveillance.</p>
+  </div>
+</section>
+
+<section class="sec" id="alternatives" aria-labelledby="alternatives-h">
+  <div class="wrap">
+    <h2 id="alternatives-h">What I tried / alternatives</h2>
+    <ol>
+      <li>Do nothing — the status quo; no proof, no risk, no cost, but no benefit either.</li>
+      <li>Gym benefit — on-site or discounted gym membership. High usage among the already-active; low reach for desk-heavy teams.</li>
+      <li>EAP / counselling — employee assistance programme. Reactive, focused on crisis; stigma prevents uptake.</li>
+      <li>Generic wellbeing app — another app to download, another login. Retention collapses: median 3.3% at 30 days (JMIR 2019, 93 apps).</li>
+      <li>Calendar reminder / YouTube stretch — free, but no tracking, no community, no data for HR.</li>
+      <li>Lull — between calls, 3 minutes, no install, no account, manager ritual. The wedge.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="wedge" aria-labelledby="wedge-h">
+  <div class="wrap">
+    <h2 id="wedge-h">The wedge</h2>
+    <p>Between calls, 3 minutes, no install, no account, manager ritual. Lull fits in the gap left by bigger, scarier tools.</p>
+  </div>
+</section>
+
+<section class="sec" id="decisions" aria-labelledby="decisions-h">
+  <div class="wrap">
+    <h2 id="decisions-h">Three hard decisions</h2>
+    <dl>
+      <div><dt>Privacy</dt><dd>Allow-listed anonymous counts only: session-started/finished, feeling, broad need category, reminder set, came-back, opened-from-reminder, team-reset-joined. Teams under 10 hidden, and a second team hidden if subtraction could reveal one. No typed text leaves the device.</dd></div>
+      <div><dt>Safety</dt><dd>Fixed rules above the model. The model can add caution, never remove it. Hinglish pain words trigger the same stop as English. eval evidence: word list alone missed 10 of 14 body concerns; list plus Claude missed none.</dd></div>
+      <div><dt>Distribution</dt><dd>Calendar/Slack reminders and team resets instead of another app. People do what their team does; this is often what makes it stick.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec" id="what-built" aria-labelledby="what-built-h">
+  <div class="wrap">
+    <h2 id="what-built-h">What I built</h2>
+    <ul>
+      <li>App with real engine (need matching, safety rules, five desk resets), no AI by default.</li>
+      <li>Site with HR/TA decision path, PM case study, data handbook, pilot pack.</li>
+      <li>Tests: privacy contract, Hinglish safety, core flows (measured output, not hand-maintained numbers).</li>
+      <li>Eval: 44 realistic messages, keyword layer vs Claude on safety.</li>
+      <li>Pilot kit: launch kit, sample report, target picker, week-6 readout template.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="how-measure" aria-labelledby="how-measure-h">
+  <div class="wrap">
+    <h2 id="how-measure-h">How I measure it</h2>
+    <p>Adoption, return within a week, reminder opt-in, team reach, cost per participating employee, safety stops, zero data incidents. No health/productivity/ROI claims. The 64-person company is synthetic; there are no customer results yet.</p>
+  </div>
+</section>
+
+<section class="sec" id="stop" aria-labelledby="stop-h">
+  <div class="wrap">
+    <h2 id="stop-h">What would make me stop</h2>
+    <p><strong>Proposed kill criteria (clearly labelled):</strong></p>
+    <ul>
+      <li>Under 30% try by week 2.</li>
+      <li>Under 1 in 5 return within a week.</li>
+      <li>Under 25% set a reminder.</li>
+      <li>Any unresolved safety issue.</li>
+      <li>HR cannot name a decision they would make differently.</li>
+    </ul>
+    <p>These are proposed criteria, not customer guarantees.</p>
+  </div>
+</section>
+
+<section class="sec" id="wrong" aria-labelledby="wrong-h">
+  <div class="wrap">
+    <h2 id="wrong-h">What I got wrong</h2>
+    <ul>
+      <li>Workflow companion rebuild — over-engineered, wrong persona onboarding.</li>
+      <li>Name / persona onboarding cut — added friction, not reduced.</li>
+      <li>Safety floor added — after eval showed keyword list missed body concerns.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="open" aria-labelledby="open-h">
+  <div class="wrap">
+    <h2 id="open-h">Open questions and what I'd do next</h2>
+    <ul>
+      <li>Can Hinglish understanding be improved without Claude?</li>
+      <li>What other between-calls moments are underserved?</li>
+      <li>How can HR teams be involved in co-design without extra workload?</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="evidence" aria-labelledby="evidence-h">
+  <div class="wrap">
+    <h2 id="evidence-h">Evidence</h2>
+    <p>Links to the privacy contract tests, Hinglish tests, eval results and repo:</p>
+    <ul>
+      <li><a href="https://github.com/RUPAK30/Lull-B2B-workplace-wellbeing-product-for-HR-teams">Repo on GitHub</a></li>
+      <li><a href="#">Privacy contract tests (pilot.test.mjs)</a></li>
+      <li><a href="#">Hinglish safety tests (hinglish.test.mjs)</a></li>
+      <li><a href="#">Eval results (eval/RESULTS.md)</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="cta" aria-labelledby="cta-h">
+  <div class="wrap">
+    <h2 id="cta-h">CTA</h2>
+    <p>If you've worked on privacy-preserving analytics or workplace products, I'd like to compare notes.</p>
+    <p>Email: <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a></p>
+    <p>Not a demo form. No obligation.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Lull is a pilot-stage product, not a medical or mental-health service. All figures shown are sample data. The 64-person company is synthetic; there are no customer results yet.</p>
+    <div class="foot-links">
+      <a href="./">Overview</a>
+      <a href="pilot.html">Pilot & cost</a>
+      <a href="data.html">Data & terms</a>
+      <a href="safety.html">Safety and limits</a>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-sticky" href="https://tally.so/r/peex9E?cta=sample">Get a sample report</a>
+  <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-sticky" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
+</div>
+
+<div class="vid" id="vid" aria-label="Lull walkthrough video">
+  <div class="vid-top"><span>Lull in 2 minutes</span><button type="button" class="vid-close" id="vid-close" aria-label="Close video">×</button></div>
+  <video controls preload="none" playsinline poster="img/poster.jpg" width="1280" height="800">
+    <source data-src="lull-walkthrough.mp4" type="video/mp4">
+    <source data-src="lull-walkthrough.webm" type="video/webm">
+    <a href="lull-walkthrough.mp4">Download the walkthrough</a>
+  </video>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

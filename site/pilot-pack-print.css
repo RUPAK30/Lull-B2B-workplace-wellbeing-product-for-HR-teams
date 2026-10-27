@@ -1,0 +1,37 @@
+@page {
+  size: A4;
+  margin: 14mm 18mm;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: #1F2933;
+  background: #fff;
+  line-height: 1.4;
+}
+
+a { color: #2D5A45; }
+
+.wrap { max-width: none; padding: 0; }
+
+h1 { font: 500 24pt/1.1 "Fraunces", Georgia, serif; color: #1F2933; margin: 0 0 16px; }
+h2 { font: 500 16pt/1.2 "Fraunces", Georgia, serif; color: #1F2933; margin: 24px 0 8px; }
+h3 { font: 600 12pt/1.3 "Fraunces", Georgia, serif; color: #1F2933; margin: 16px 0 4px; }
+
+p { margin: 0 0 12px; }
+ul { margin: 0; padding-left: 20px; }
+ol { margin: 0; padding-left: 20px; }
+li { margin: 0 0 8px; }
+
+.section { margin-bottom: 40px; }
+
+.offer h2 { color: #2D5A45; }
+.employees ul, .hr ul { font-size: 13px; }
+.what-you-need ol, .targets ol, .next-step ol { font-size: 13px; }
+
+.privacy ul { font-size: 13px; margin-top: 8px; }
+.targets p { font-size: 13px; margin-top: 4px; }
+.next-step { margin-top: 24px; }
+
+.foot { margin-top: 30px; border-top: 1px solid #DCD3C2; padding-top: 12px; font-size: 10pt; color: #5B6670; }
+.foot-links a { margin-right: 16px; }

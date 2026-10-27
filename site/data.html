@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Data & terms · Lull</title>
+<meta name="description" content="Plain-language data handling and pilot terms for Lull">
+<meta name="theme-color" content="#F3EEE3">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lull">
+<meta property="og:title" content="Data & terms · Lull">
+<meta property="og:description" content="Plain-language data handling and pilot terms">
+<meta property="og:url" content="https://lull-hr.vercel.app/data.html">
+<meta property="og:image" content="https://lull-hr.vercel.app/img/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lull data handling">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://lull-hr.vercel.app/data.html">
+<meta name="twitter:title" content="Data & terms · Lull">
+<meta name="twitter:description" content="Plain-language data handling and pilot terms">
+<meta name="twitter:image" content="https://lull-hr.vercel.app/img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script data-goatcounter="https://lull.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="./">Overview</a>
+      <a href="pilot.html">Pilot & cost</a>
+      <a href="./data.html">Data & terms</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="sec" id="data" aria-labelledby="data-h">
+  <div class="wrap">
+    <h2 id="data-h">Data handling and pilot terms</h2>
+    <p>The following table summarises what data is collected, why, where it goes, and who can see it. All figures are from the made-up 64-person company in <code>src/shared/team.ts</code> and are labelled as sample data.</p>
+
+    <table>
+      <thead>
+        <tr><th>What is collected</th><th>Why</th><th>Where it goes</th><th>Who sees it</th><th>Retention</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>session-started</td><td>Count a pilot session start for the team</td><td>GoatCounter (as <code>pilot/<team>/session-started</code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+        <tr><td>session-finished (reason=finished)</td><td>Count a completed session</td><td>GoatCounter (as <code>pilot/<team>/session-finished</code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+        <tr><td>felt-lighter</td><td>Indicates the person felt better after the reset</td><td>GoatCounter (as <code>pilot/<team>/felt-lighter</code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+        <tr><td>felt-same</td><td>Indicates the person felt the same</td><td>GoatCounter (as <code>pilot/<team>/felt-same</code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+        <tr><td>felt-not-for-me</td><td>Indicates the person wouldn't use it again</td><td>GoatCounter (as <code>pilot/<team>/felt-not-for-me</code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+        <tr><td>need-<category></td><td>Broad need category (neck, back, sitting, stiff, legs, eyes, time, low, restless, energetic, calm, unsure, fitness)</td><td>GoatCounter (as <code>pilot/<team>/need-<category></code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+        <tr><td>reminder-set</td><td>Employee set an opt-in weekday reminder</td><td>GoatCounter + employee's own calendar/Slack</td><td>Employee: own calendar/Slack; HR: team totals only</td><td>Opt-in, can be cleared</td></tr>
+        <tr><td>came-back</td><td>Person returned for another session</td><td>GoatCounter (as <code>pilot/<team>/came-back</code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+        <tr><td>opened-from-reminder</td><td>Reminder opened Lull</td><td>GoatCounter (as <code>pilot/<team>/opened-from-reminder</code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+        <tr><td>team-reset-joined</td><td>Person joined a team reset in a meeting</td><td>GoatCounter (as <code>pilot/<team>/team-reset-joined</code>)</td><td>HR: team totals only</td><td>Until week-6 report</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Key principles</h3>
+    <ul>
+      <li><strong>No names, device IDs, typed text or pain/safety data leave the device.</strong> The only events that may leave a device are the allow-listed anonymous counts above.</li>
+      <li><strong>GoatCounter counts events, not people.</strong> It counts how many times an event happened, not who performed it.</li>
+      <li><strong>The local activity log stays in the browser.</strong> Unmatched messages up to 120 characters can be stored locally and can be turned off or cleared in Settings.</li>
+      <li><strong>The demo without a team link sends nothing.</strong> Without a <code>?team=sales</code> link, no pilot counts are sent anywhere.</li>
+      <li><strong>Optional Claude mode.</strong> If agreed in writing, typed messages may be sent to Anthropic. The default pilot mode is Mock: nothing is sent.</li>
+      <li><strong>Data deletion on request.</strong> Anyone can request deletion of their data; there is no sale, no ads, and no model training.</li>
+    </ul>
+
+    <h3>Pilot terms (plain language)</h3>
+    <table>
+      <thead><tr><th>Term</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>Scope</td><td>One team of 10–50 people at a 50–500 person company. Employees type how they feel in English or romanised Hinglish.</td></tr>
+        <tr><td>Duration</td><td>6 weeks, with a check-in at week 3 and a written readout at week 6.</td></tr>
+        <tr><td>Price</td><td>₹60–120 per person per month, indicative. No annual contract. Pilot ends or continues by mutual agreement.</td></tr>
+        <tr><td>Termination</td><td>Either party can stop the pilot at any time. Pilot data is deleted on request.</td></tr>
+        <tr><td>Data deletion</td><td>On request, all personal data is deleted. Aggregated team totals in HR view are anonymised.</td></tr>
+        <tr><td>Safety escalation</td><td>Pain, dizziness or injury reports stop the reset and point to proper help. Urgent symptoms point to emergency care.</td></tr>
+      </tbody>
+    </table>
+
+    <p><em>Not legal advice.</em></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>Lull is a pilot-stage product, not a medical or mental-health service. All figures shown are sample data.</p>
+    <div class="foot-links">
+      <a href="pilot.html">Pilot & cost</a>
+      <a href="safety.html">Safety and limits</a>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-sticky" href="https://tally.so/r/peex9E?cta=sample">Get a sample report</a>
+  <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-sticky" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
