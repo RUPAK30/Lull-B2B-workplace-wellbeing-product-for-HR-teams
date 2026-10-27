@@ -26,12 +26,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Links between the overview and the pilot page keep ?for= and ?ref=.
-  if (location.search) {
-    document.querySelectorAll('a[href^="pilot.html"], a[href="./"], a[href^="./#"]').forEach(function (a) {
-      var h = a.getAttribute('href'), k = h.indexOf('#');
-      a.setAttribute('href', (k < 0 ? h : h.slice(0, k)) + location.search + (k < 0 ? '' : h.slice(k)));
-    });
-  }
+  if (location.search) document.querySelectorAll('a[href^="pilot.html"], a[href="./"], a[href^="./#"]').forEach(function (a) {
+    var h = a.getAttribute('href'), k = h.indexOf('#');
+    a.setAttribute('href', (k < 0 ? h : h.slice(0, k)) + location.search + (k < 0 ? '' : h.slice(k)));
+  });
 
   // Tally links already have ?cta=, so ref joins with &.
   if (ref) document.querySelectorAll('a[data-cta]').forEach(function (a) { a.href += '&ref=' + encodeURIComponent(ref); });
@@ -68,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var show = function () { done.textContent = msg; };
     if (navigator.clipboard) navigator.clipboard.writeText(text).then(show, function () { done.textContent = text; });
     else done.textContent = text;
-  };
+  }
 
   // Section reached: where busy readers stop, counted once per visit (no time or scroll tracking).
   if (io) {
@@ -218,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
         try { last = localStorage.getItem('lull-last-feeling'); } catch (err) { last = null; }
         if (last) { input.value = last; run(last, 'auto'); }
         else { if (CHIP_TEXT) run(CHIP_TEXT.calls, 'auto'); if (chips) chips[0].setAttribute('aria-pressed', 'true'); }
-      }).catch(function () { if (emp) emp.textContent = 'The demo could not load. Try the app instead.'; });
+      }).catch(function () { if (emp) emp.textContent = 'The demo could not load. Try the app instead.; });
     }
   }
 
@@ -337,13 +335,16 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.getElementById('vid')) {
     var dlg = document.getElementById('vid'), video = dlg.querySelector('video');
     if (video) {
-      document.getElementById('open-video').addEventListener('click', function () {
-        var srcs = video.querySelectorAll('source');
-        if (srcs.length && !srcs[0].getAttribute('src')) { srcs.forEach(function (s) { s.src = s.dataset.src; }); video.load(); }
-        if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
-        video.play().catch(function () {});
-        track('video-opened');
-      });
+      var openBtn = document.getElementById('open-video');
+      if (openBtn) {
+        openBtn.addEventListener('click', function () {
+          var srcs = video.querySelectorAll('source');
+          if (srcs.length && !srcs[0].getAttribute('src')) { srcs.forEach(function (s) { s.src = s.dataset.src; }); video.load(); }
+          if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+          video.play().catch(function () {});
+          track('video-opened');
+        });
+      }
       var shut = function () { video.pause(); dlg.close ? dlg.close() : dlg.removeAttribute('open'); };
       document.getElementById('vid-close').addEventListener('click', shut);
       dlg.addEventListener('click', function (e) { if (e.target === dlg) shut(); });
