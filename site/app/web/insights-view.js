@@ -7,7 +7,7 @@ import { teamReport, teamSample } from '../shared/team.js';
 const P = (x) => `${Math.round(x * 100)}%`;
 const ROUTES = { quick: 'Quick pick on home', typed: 'Typed a need on home', onboarding: 'Full welcome', again: 'Same as last time' };
 const FEELINGS = { lighter: 'Lighter', same: 'About the same', 'not-for-me': 'Not for me' };
-const WHEN = { before: 'Before a session', during: 'During a session' };
+const WHEN = { before: 'Before a reset', during: 'During a reset' };
 const label = (map) => (c) => ({ ...c, label: map[c.label] ?? c.label });
 function card(title, note, wide = false) {
     const n = el('section', '', 'ins-card' + (wide ? ' wide' : ''));
@@ -87,9 +87,9 @@ export function renderInsights(root, o) {
     }
     const s = summarize(o.events);
     if (s.visits < 2 && o.source === 'device')
-        body.append(empty('Not much here yet. Use Lull for a few sessions, or switch to the sample to see how this screen reads.'));
+        body.append(empty('Not much here yet. Use Lull for a few resets, or switch to the sample to see how this screen reads.'));
     const tiles = el('div', '', 'ins-tiles');
-    tiles.append(tile(String(s.visits), 'Visits', `${s.sessions} ${s.sessions === 1 ? 'session' : 'sessions'} chosen`), tile(P(s.finishRate), 'Reach the end', 'of visits where a session was chosen'), tile(s.medianFirstMove === null ? '–' : `${Math.round(s.medianFirstMove)} s`, 'To first movement', 'median, from session shown to first timer'), tile(P(s.returnRate), 'Come back', `${s.returners} of ${s.finishers} who finished came back another day`), tile(P(s.askedRate), 'Ask for a change', `${P(s.adjustedShare)} of those accepted the offer`), tile(String(s.safety.reduce((a, c) => a + c.n, 0)), 'Safety stops', 'pain, injury or dizziness reported'));
+    tiles.append(tile(String(s.visits), 'Visits', `${s.sessions} ${s.sessions === 1 ? 'reset' : 'resets'} chosen`), tile(P(s.finishRate), 'Reach the end', 'of visits where a reset was chosen'), tile(s.medianFirstMove === null ? '–' : `${Math.round(s.medianFirstMove)} s`, 'To first step', 'median, from reset shown to first timer'), tile(P(s.returnRate), 'Come back', `${s.returners} of ${s.finishers} who finished came back another day`), tile(P(s.askedRate), 'Ask for a change', `${P(s.adjustedShare)} of those accepted the offer`), tile(String(s.safety.reduce((a, c) => a + c.n, 0)), 'Safety stops', 'pain, injury or dizziness reported'));
     body.append(tiles);
     const grid = el('div', '', 'ins-grid');
     const funnel = card('Where people drop off', 'Each step counts visits. The note shows how many carried on from the step before.', true);
@@ -133,7 +133,7 @@ export function renderInsights(root, o) {
         ], 1), el('p', `Difference: ${result.diff >= 0 ? '+' : ''}${Math.round(result.diff * 100)} points (95% range ${Math.round(result.low * 100)} to ${Math.round(result.high * 100)}). ${result.verdict}`, 'ins-verdict'), table(['Variant', 'Visits', 'Hits', 'Rate'], [['A · ' + exp.variants.A, result.a.n, result.a.hits, P(result.a.rate)], ['B · ' + exp.variants.B, result.b.n, result.b.hits, P(result.b.rate)]]));
         grid.append(c);
     }
-    body.append(grid, el('p', 'Definitions: a visit is one time the app is opened; a session is one plan shown; “reach the end” means pressing Finish on the closing screen. Timers measure time on the page, not exercise.', 'ins-foot'));
+    body.append(grid, el('p', 'Definitions: a visit is one time the app is opened; a reset is one plan shown; “reach the end” means pressing Finish on the closing screen. Timers measure time on the page, not exercise.', 'ins-foot'));
 }
 /** What an employer sees: company and team totals only, with small groups hidden. */
 export const teamExport = () => { const t = teamSample(); return teamReport(t.events, t.people, t.start, t.weeks); };
@@ -147,10 +147,10 @@ function renderTeam(body) {
     rule.append(el('h3', 'What this view never shows'), el('p', `Names, individual sessions, anything people typed, or who reported pain. Teams with fewer than ${r.minGroup} people are hidden. When only one team is small, one more is hidden too, so the small one can’t be worked out by subtraction.`));
     body.append(rule);
     const tiles = el('div', '', 'ins-tiles');
-    tiles.append(tile(`${r.everActive} of ${r.headcount}`, 'Have tried it', `${P(r.activeShare)} of the team, at least one movement`), tile(r.perWeek.toFixed(1), 'Sessions a week', 'finished, per person active that week'), tile(`${Math.round(r.minutes / 60)} h`, 'Guided time', 'timer time on finished sessions, not proof of exercise'), tile(`${r.stayed} of ${r.triedEarly}`, 'Still using it', 'tried it in weeks 1–3 and used it again in weeks 5–6'), tile(P(r.lighterShare), 'Felt lighter', `of ${r.feelingAnswers} optional answers after a session`));
+    tiles.append(tile(`${r.everActive} of ${r.headcount}`, 'Have tried it', `${P(r.activeShare)} of the team, at least one reset`), tile(r.perWeek.toFixed(1), 'Sessions a week', 'finished, per person active that week'), tile(`${Math.round(r.minutes / 60)} h`, 'Guided time', 'timer time on finished sessions, not proof of exercise'), tile(`${r.stayed} of ${r.triedEarly}`, 'Still using it', 'tried it in weeks 1–3 and used it again in weeks 5–6'), tile(P(r.lighterShare), 'Felt lighter', `of ${r.feelingAnswers} optional answers after a session`));
     body.append(tiles);
     const grid = el('div', '', 'ins-grid');
-    const weekly = card('People active each week', 'Someone counts as active if they started at least one movement that week. Expect it to settle lower once the novelty wears off.', true);
+    const weekly = card('People active each week', 'Someone counts as active if they started at least one step that week. Expect it to settle lower once the novelty wears off.', true);
     weekly.append(bars(r.weekly), table(['Week', 'Active people'], r.weekly.map(w => [w.label, w.n])));
     const teams = card('By team', `Totals for teams of ${r.minGroup} or more people.`, true);
     const list = el('div', '', 'team-rows');
@@ -166,7 +166,7 @@ function renderTeam(body) {
         list.append(row);
     }
     teams.append(list);
-    const when = card('When people take a break', 'Finished sessions by time of day. Useful for deciding when a gentle reminder would help most.');
+    const when = card('When people take a break', 'Finished resets by time of day. Useful for deciding when a gentle reminder would help most.');
     when.append(bars(r.when), table(['Time', 'Sessions'], r.when.map(w => [w.label, w.n])));
     const needs = card('What people asked for', 'Company-wide totals of the needs Lull recognised. What people actually typed is never shown here.');
     needs.append(bars(r.needs), table(['Need', 'Times'], r.needs.map(n => [n.label, n.n])));

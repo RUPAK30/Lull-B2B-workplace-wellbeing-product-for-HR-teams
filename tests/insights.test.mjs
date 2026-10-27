@@ -14,7 +14,7 @@ const log = [
   ev(8, 'visit', 'u3', 'v4'), ev(9000, 'session_loaded', 'u3', 'v4', 'r2'), ev(39000, 'timer_started', 'u3', 'v4', 'r2'), ev(40000, 'safety', 'u3', 'v4', 'r2', { when: 'during', level: 'pain' }), ev(41000, 'session_finished', 'u3', 'v4', 'r2', { reason: 'safety' }),
 ];
 
-test('insight definitions: funnel by visit, finish rate, first movement, return and change rates', () => {
+test('insight definitions: funnel by visit, finish rate, first step, return and change rates', () => {
   const s = summarize(log);
   assert.equal(s.visits, 4);
   assert.deepEqual(s.funnel.map(f => f.n), [4, 2, 2, 1], 'opened → chose → started → reached the end (a safety stop is not "the end")');

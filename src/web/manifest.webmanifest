@@ -1,7 +1,7 @@
 {
-  "name": "Lull: a calm workout companion",
+  "name": "Lull: a 3-minute reset between calls",
   "short_name": "Lull",
-  "description": "A calm, text-only workout companion that shapes a short session around what you need today.",
+  "description": "Three-minute guided desk resets between calls, matched to how you feel. Seated or standing, nothing to install.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

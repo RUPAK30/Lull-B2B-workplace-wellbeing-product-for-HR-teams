@@ -202,7 +202,7 @@ const INTENTS = {
   urgent: ['chest pain', 'chest hurts', 'chest feels tight', 'cannot breathe', 'short of breath', 'trouble breathing', 'struggling to breathe', 'faint', 'fainted', 'fainting', 'blacked out', 'passed out', 'numb', 'numbness', 'severe pain', 'sudden pain', 'seene mein dard', 'seene me dard', 'chhati mein dard', 'chati me dard', 'saans nahi aa rahi', 'saans lene mein dikkat', 'saans phool rahi', 'behosh', 'sunn ho gaya', 'sunn pad gaya'],
   rehab: ['rehab', 'rehabilitation', 'recovering from', 'recovery from', 'post op', 'after surgery', 'surgery', 'physio', 'physiotherapy', 'physical therapy', 'operation hua', 'operation ke baad'],
   pain: ['pain', 'painful', 'dizzy', 'dizziness', 'lightheaded', 'light headed', 'nauseous', 'nausea', 'feel sick', 'feeling sick', 'felt sick', 'cramp', 'something feels wrong', 'hurt', 'hurts', 'hurting', 'injury', 'injured', 'sprain', 'sprained', 'strain', 'strained', 'torn', 'broken', 'fracture', 'swollen', 'sore knee', 'bad back', 'pulled a muscle', 'dard', 'dukh raha', 'dukh rahi', 'dukhta', 'dukhti', 'chot', 'moch', 'chakkar', 'ulti', 'matli', 'sujan', 'soojan'],
-  outside: ['run', 'running', 'jog', 'jogging', 'weights', 'lift', 'lifting', 'dumbbell', 'dumbbells', 'barbell', 'swim', 'swimming', 'cycling', 'bike', 'hiit', 'jump', 'jumping', 'push ups', 'pushups', 'sit ups', 'situps', 'sprint', 'sprints'],
+  outside: ['run', 'running', 'jog', 'jogging', 'weights', 'lift', 'lifting', 'dumbbell', 'dumbbells', 'barbell', 'swim', 'swimming', 'cycling', 'bike', 'hiit', 'jump', 'jumping', 'push ups', 'pushups', 'sit ups', 'situps', 'sprint', 'sprints', 'jumps', 'box jumps', 'burpee', 'burpees', 'skipping', 'gym'],
   fitness: ['lose weight', 'weight loss', 'losing weight', 'burn calories', 'burn fat', 'fat burning', 'calories', 'slim down', 'get fit', 'fit', 'fitness', 'fitter', 'get in shape', 'stamina', 'endurance', 'more active', 'tone up'],
   sitting: ['sitting', 'sat', 'not moved', 'sedentary', 'couch', 'sofa', 'desk', 'computer', 'laptop', 'screen all day', 'office', 'commute', 'long drive', 'long flight', 'baithe baithe', 'baith baith ke', 'kursi pe', 'kursi par', 'screen pe'],
   stiff: ['stiff', 'stiffness', 'tight', 'tightness', 'tense', 'achy', 'knots', 'hunched', 'locked up', 'loosen', 'creaky', 'akad', 'akadna', 'akdi', 'akda', 'jakad', 'jakdan', 'jakda', 'jakdi'],
@@ -211,10 +211,11 @@ const INTENTS = {
   low: ['tired', 'exhausted', 'drained', 'sluggish', 'sleepy', 'no energy', 'low energy', 'low on energy', 'worn out', 'wiped', 'burnt out', 'burned out', 'foggy', 'fried', 'knackered', 'thak', 'thaka', 'thaki', 'thakan', 'thakaan', 'thakawat', 'sust', 'susti', 'aalas', 'neend aa rahi', 'energy nahi', 'slump', 'post lunch', 'after lunch', 'lunch', 'sleepy after lunch', 'heavy'],
   restless: ['restless', 'fidgety', 'antsy', 'wired', 'pent up', 'cannot sit still', 'stir crazy', 'need to move', 'itching to move', 'bechain', 'bechaini', 'man nahi lag raha', 'move', 'want to move', 'stand up and move', 'get up and move'],
   energetic: ['energetic', 'energised', 'energized', 'get moving', 'sweat', 'sweaty', 'harder', 'intense', 'heart rate', 'heart pumping', 'wake me up', 'pumped', 'motivated', 'challenge', 'push myself'],
-  calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'overwhelmed', 'quiet', 'stress', 'tension', 'pareshan', 'dimaag thak', 'dimag thak', 'sukoon', 'shaanti chahiye', 'shanti chahiye'],
+  calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'overwhelmed', 'quiet', 'stress', 'tension', 'pareshan', 'dimaag thak', 'dimag thak', 'sukoon', 'shaanti chahiye', 'shanti chahiye', 'anxious', 'anxiety', 'nervous', 'on edge', 'racing', 'mind is racing'],
   unsure: ['do not know', 'not sure', 'no idea', 'whatever', 'anything', 'surprise me', 'you choose', 'you pick', 'you decide', 'up to you', 'get started', 'help me start', 'where to start', 'where to begin', 'feels right'],
-  neck: ['neck', 'gardan', 'shoulder', 'shoulders', 'kandha', 'kandhe', 'calls', 'call', 'meeting', 'meetings', 'zoom', 'on calls', 'hunched', 'hunching', 'slouch', 'slouching', 'slouched'],
+  neck: ['neck', 'gardan', 'shoulder', 'shoulders', 'kandha', 'kandhe', 'hunched', 'hunching', 'slouch', 'slouching', 'slouched'],
   back: ['my back', 'lower back', 'upper back', 'stiff back', 'back is stiff', 'back feels', 'back stiff', 'hips', 'hip', 'kamar'],
+  calls: ['calls', 'call', 'meeting', 'meetings', 'zoom', 'on calls', 'teams call'],
   eyes: ['eyes', 'eye', 'eye strain', 'screen', 'screens', 'staring', 'wrist', 'wrists', 'typing', 'mouse', 'keyboard', 'aankh', 'aankhen', 'aankhon'],
 } as const;
 type Intent = keyof typeof INTENTS;
@@ -261,7 +262,8 @@ export function interpretNeed(raw: string): Need {
   if (on('pain')) return { kind: 'care', level: 'pain', ack: CARE_ACK.pain };
   // The work moments map straight to their reset.
   const moment = RESETS.find(r => normalise(RESET_MOMENTS[r]) === t), named = detectReset(t);
-  const heard = ORDER.filter(k => k === 'time' ? on('time') || /\b\d+ ?(min|mins|minute|minutes)\b|\b(one|two|three|four|five|ten) (min|mins|minute|minutes)\b/.test(t) : on(k));
+  // Calls and meetings say "neck and shoulders" only when nothing more specific is named.
+  const heard = ORDER.filter(k => k === 'time' ? on('time') || /\b\d+ ?(min|mins|minute|minutes)\b|\b(one|two|three|four|five|ten) (min|mins|minute|minutes)\b/.test(t) : k === 'neck' ? on('neck') || (on('calls') && !['eyes', 'back', 'legs', 'sitting'].some(b => on(b as Intent))) : on(k));
   const has = (k: NeedKind) => heard.includes(k), outside = on('outside');
   if (has('low') && (has('energetic') || has('restless'))) return { kind: 'clarify', ack: 'Low on energy but wanting something lively? Which matters more right now: something quiet, or a quick lift?' };
   const reset: Reset | null = moment ?? named ?? (has('eyes') ? 'screen' : has('neck') ? 'unknot' : has('calm') ? 'calm'

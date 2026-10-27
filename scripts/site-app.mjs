@@ -18,7 +18,6 @@ await mkdir(join(out, 'examples'), { recursive: true });
 await cp(join(root, 'examples/wiring.openui'), join(out, 'examples/wiring.openui'));
 
 const html = (await readFile(join(root, 'src/web/index.html'), 'utf8'))
-  .replace('<title>Lull · A calm workout companion</title>', '<title>Lull · Try a 3-minute reset</title>')
   .replace(/<link rel="manifest"[^>]*>/, '')
   .replaceAll('"/web/', '"./web/')
   // Developer tools (provider switch, patch builder, run capture) stay in the local app only.

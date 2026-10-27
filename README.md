@@ -2,7 +2,7 @@
 
 **Live:** [Overview for HR](https://lull-hr.vercel.app/) · [Pilot details](https://lull-hr.vercel.app/pilot.html) · [Try the app](https://lull-hr.vercel.app/app/) · [Safety and limits](https://lull-hr.vercel.app/safety.html)
 
-Lull is a pilot-stage workplace wellbeing product for HR teams at 50–500 person companies. Employees type how they feel, in English or Hinglish, and get one short guided movement break. HR sees whether teams are using it, without ever seeing a person.
+Lull is a pilot-stage workplace wellbeing product for HR teams at 50–500 person companies. Employees type how they feel, in English or Hinglish, and get one three-minute desk reset, seated or standing. HR sees whether teams are using it, without ever seeing a person.
 
 ## The problem it answers
 Research behind the product (sources in the HR page's notes):
@@ -13,7 +13,7 @@ Research behind the product (sources in the HR page's notes):
 ## What's in the product
 | For | What it does |
 |---|---|
-| Employees | Free-text need matching (English and Hinglish), short guided sessions that adapt, a safety stop for pain or urgent symptoms (before or during a session), opt-in reminders on their own calendar or Slack, one-tap "your usual" from a reminder, team resets for meetings |
+| Employees | Free-text need matching (English and Hinglish), five office-safe three-minute desk resets (seated or standing), a safety stop for pain or urgent symptoms (before or during a session), opt-in reminders on their own calendar or Slack, one-tap "your usual" from a reminder, team resets for meetings |
 | HR | Team totals only; teams under 10 hidden; broad need categories per team; a week-6 report with targets agreed up front, cost per finished session and a downloadable slide |
 | Privacy | One allow-list of anonymous counts (`src/shared/pilot.ts`), shown live to each employee under "What leaves this device", with a switch to turn counting off |
 | Buying | Two-sided demo, personalised links (`?for=Company&ref=…`), pilot calculator, launch kit (Slack, email, manager note, QR desk card), sample report generator |
@@ -24,7 +24,7 @@ Research behind the product (sources in the HR page's notes):
 | `src/` | The app: TypeScript, local server, Mock mode with no AI by default |
 | `site/` | The public site (deployed on Vercel): `index.html` overview, `pilot.html`, `safety.html`, `thanks.html`, `report.html`, `card.html`, `404.html` |
 | `site/app/` | The real app running fully in the browser, built with `npm run site:app` |
-| `tests/` | `npm test`: 108 tests, including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
+| `tests/` | `npm test`: 84 unit tests (plus 33 browser tests with `npm run test:ui`), including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
 | `docs/` | **BRD, one-page case study and one pager** (`Lull - BRD.pdf`, `Lull - Case Study.pdf`, `Lull - One Pager.pdf`, editable sources in `docs/product/`), product and business analysis, pilot proposal |
 | `eval/` | Safety evaluation of the pain-detection rules |
 
@@ -45,7 +45,6 @@ The local app (`npm start`) never sends pilot counts: its Content Security Polic
 
 ## Run it
 
-
 Requires **Node.js 22.18 or later** and npm.
 
 ```sh
@@ -53,22 +52,22 @@ npm ci --ignore-scripts
 npm start
 ```
 
-Open http://127.0.0.1:5103 and stop with Ctrl+C. The port is set in the local `.env` file; change `PORT` there if 5103 is taken.
+Open http://127.0.0.1:4319 and stop with Ctrl+C. To use another port, copy `.env.example` to `.env` and change `PORT`.
 
-- **The app:** http://127.0.0.1:5103/
-- **The page for teams:** http://127.0.0.1:5103/teams. This is a landing page for HR and wellbeing leads, with a pilot request form. The form is a prototype: it checks the fields, then says plainly that nothing was sent or saved.
-- **The team view:** http://127.0.0.1:5103/#team-view shows what an employer would see, on sample data.
-- **Safety and limits:** http://127.0.0.1:5103/safety covers how pain and symptoms are handled, what Lull never claims, the content review status (physiotherapist review is still pending for every session), and an accessibility statement with what hasn't been done yet. Tests check that the page's example phrases really trigger the safety response, and that its session lengths match the real timers.
+- **The app:** http://127.0.0.1:4319/
+- **The page for teams:** http://127.0.0.1:4319/teams. A short page with the same promise as the HR site, linking to a reset, the sample team view, safety and the pilot proposal. The full HR site is in `site/` and live at https://lull-hr.vercel.app/.
+- **The team view:** http://127.0.0.1:4319/#team-view shows what an employer would see, on sample data.
+- **Safety and limits:** http://127.0.0.1:4319/safety covers how pain and symptoms are handled, what Lull never claims, the content review status (physiotherapist review is still pending for every reset), and an accessibility statement with what hasn't been done yet. Tests check that the page's example phrases really trigger the safety response, and that its reset lengths match the real timers.
 
-For buyers there are two more things in `docs/`:
-- **`Lull - Pilot Proposal.pdf`** is a one-page proposal for a six-week pilot, with targets agreed up front, privacy in plain English and an indicative price. The landing page offers it as a download. Its source is `docs/pilot/pilot-proposal.html`, printed to A4 with Chrome.
+For buyers, `docs/` also has:
+- **`Lull - Pilot Proposal.pdf`** is a one-page proposal for a six-week pilot, with targets agreed up front, privacy in plain English and an indicative price. The HR site and the `/teams` page offer it as a download. Its source is `docs/pilot/pilot-proposal.html`, printed to A4.
 
 ## How Lull understands people
 
 People type how they feel, in their own words. **Claude reads that; Lull's own code draws every screen.** Claude returns a checked interpretation (structured output), so it can't invent a movement, a duration or medical wording.
 
 - **Safety has a floor.** A fixed list of words and phrases always runs. Claude can add caution ("my knee feels weird" → stop), never remove it. If Claude is unavailable, the list answers and Lull says so.
-- **Tested.** `npm run eval` runs 44 realistic messages. Verified live on 2026-10-11 through the Claude plan route: see [eval/RESULTS.md](eval/RESULTS.md).
+- **Tested.** `npm run eval` runs 44 realistic messages. On the safety side, the word list alone misses 10 of 14 body concerns and the list plus Claude missed none (live run, 2026-10-11; the safety word list has since only been extended, with Hinglish words). Routing to the five resets was re-scored on the keyword layer after the rebuild; a fresh live Claude run is still to do. See [eval/RESULTS.md](eval/RESULTS.md) and the archived [live run](eval/LIVE-RUN-2026-10-11.md).
 - **Two ways to run it.** `ALLOW_CLAUDE_PLAN=true` uses a Claude Pro or Max login through the official `claude` CLI. `ALLOW_CLAUDE_API=true` with `ANTHROPIC_API_KEY` uses the API. See [docs/RUNTIMES.md](docs/RUNTIMES.md).
 - **For employers:** with Claude on, typed messages go to Anthropic to be read. The team view never shows typed text. The private on-device activity log keeps only messages Lull couldn't understand (up to 120 characters), and it can be turned off or cleared. Mock mode sends nothing.
 
@@ -159,10 +158,9 @@ To use an installed Chrome for the browser tests, set `PLAYWRIGHT_CHROME_PATH`. 
 
 ## Honest limits
 
-- In Mock, free-text understanding is a small keyword layer. Claude (guided) closes most of that gap, but the 44-message eval was written alongside the skill, so it shows the design works, not that it generalises.
+- In Mock, free-text understanding is a small keyword layer (18 of 44 eval messages). Claude (guided) closes most of that gap, but the 44-message eval was written alongside the skill, so it shows the design works, not that it generalises.
 - Claude adds a few seconds per typed message on the plan route.
 - No voice, music or sensing. Memory is opt-in and stays in this browser.
 - Insights numbers from the built-in sample are synthetic. Real numbers only come from your own use on your own device.
 - Timers measure time on a page, not movement.
 - Claude (guided) was verified live through the Claude plan route. The full-screen OpenAI and Claude CLI adapters have not been verified with real credentials.
-- The landing-page screenshots predate the two-question onboarding.

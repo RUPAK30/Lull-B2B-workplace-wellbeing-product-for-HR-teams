@@ -73,6 +73,11 @@ test('free text is read for the body part and the moment, and context sets the p
   // Punctuation is dropped before matching: "stiff, back-to-back" must not become "stiff back".
   const calls=interpretNeed('neck is stiff, back to back calls');assert.equal(calls.reset,'unknot');assert(!calls.heard.includes('back'),'back-to-back is about calls, not a back');
   assert.equal(interpretNeed('my back is stiff').reset,'unsit');
+  // Calls and meetings are context: a named body part wins over them.
+  assert.equal(interpretNeed('my legs are dead from sitting in meetings').reset,'unsit');
+  assert.equal(interpretNeed('eyes tired after zoom calls').reset,'screen');
+  assert.equal(interpretNeed('got about 3 mins before my next call').reset,'unknot');
+  assert.equal(interpretNeed('anxious before a big presentation').reset,'calm');
 });
 
 test('safety first: pain or symptoms replace the choices, before or during a reset',()=>{

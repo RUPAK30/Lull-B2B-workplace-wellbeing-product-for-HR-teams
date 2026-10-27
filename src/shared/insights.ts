@@ -29,8 +29,8 @@ export function summarize(events: InsightEvent[]) {
   const finished = visitList.filter(v => has(v, 'session_finished', e => e.data?.reason === 'finished'));
   const funnel: Count[] = [
     { label: 'Opened Lull', n: visitList.length },
-    { label: 'Chose a session', n: chose.length },
-    { label: 'Started the first movement', n: started.length },
+    { label: 'Chose a reset', n: chose.length },
+    { label: 'Started the first step', n: started.length },
     { label: 'Reached the end', n: finished.length },
   ];
   // Time from a session appearing to its first timer starting.

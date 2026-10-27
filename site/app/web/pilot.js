@@ -32,7 +32,7 @@ if (params.has('team')) {
 /** The pilot team this device belongs to, or null outside a pilot. */
 export const pilotTeam = cleanTeam(store.get(TEAM));
 export const openedFromReminder = params.get('from') === 'reminder';
-/** A team reset link (?reset=mobility-gentle) starts that session straight away. */
+/** A team reset link (?reset=unknot-seated) starts that reset straight away. */
 export const teamReset = parseReset(params.get('reset'));
 /** The person can stop their sessions being counted at any time. */
 export const pilotCounting = {

@@ -57,9 +57,9 @@ function advance(key) { const holds = (c.document.current?.props.children ?? [])
     return; nav.next(); }
 /** Lull's ambient presence follows the activity: present at arrival, receding during movement, calm at the close. */
 const hasTimer = (s) => s.props.children.some(n => n.name === 'Timer');
-/** A movement screen: it has a timer and no safety notice. These render as one continuous workout stage. */
+/** A movement screen: it has a timer and no safety notice. These render as one continuous reset stage. */
 function isWorkout(s) { const kids = s?.props.children; return !!kids && hasTimer(s) && !kids.some(n => n.name === 'Alert' && (n.props.tone === 'warning' || n.props.tone === 'danger')); }
-/** The active workout, composed as one guided session:
+/** The active reset, composed as one guided stage:
  *  header (Lull, session, progress) → movement stage (name, instruction, dial timer, controls, cues)
  *  → up next + Lull companion (guidance, offers, "Tell Lull") → session navigation. */
 function renderWorkout(current, ctx) {
@@ -153,7 +153,7 @@ function renderWorkout(current, ctx) {
     }
     if (intent)
         lastIntent = runKey;
-    // Session navigation lives in the stage during a workout (same buttons and handlers).
+    // Session navigation lives in the stage during a reset (same buttons and handlers).
     const navSlot = el('div', '', 'workout-nav');
     navSlot.append(byId('navigation'));
     stage.append(head, sheet, hero, lower, navSlot);
@@ -548,7 +548,7 @@ function renderHome() {
     n.append(begin, ...(quick.childNodes.length ? [el('p', last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), el('p', 'Text only: Lull can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
     return n;
 }
-/** Lull's latest words, shown as a caption outside the workout (where the stage speaks for itself). */
+/** Lull's latest words, shown as a caption outside the reset (where the stage speaks for itself). */
 function renderCaption() { const reply = [...c.events].reverse().find(e => e.kind === 'response'), prose = reply?.result ? splitReply(reply.result.turn.reply).prose : ''; const kids = c.document.current?.props.children; const quiet = isWorkout(c.document.current) || (kids ?? []).some(n => n.name === 'Recap') || c.pending; const cap = byId('caption'); if (cap.textContent !== prose)
     cap.textContent = prose; const onScreen = (kids ?? []).some(n => typeof n.props.text === 'string' && prose.includes(String(n.props.text))); cap.hidden = quiet || !prose || onScreen; }
 /** Opt-in memory: the last reset, kept in this browser only. */

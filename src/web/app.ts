@@ -34,9 +34,9 @@ function upNext(key:string){const screens=c.document.screens,i=screens.findIndex
 function advance(key:string){const holds=(c.document.current?.props.children as StatementNode[]??[]).some(n=>n.key===key);if(!holds||nav.phase()!=='idle'||paused)return;nav.next();}
 /** Lull's ambient presence follows the activity: present at arrival, receding during movement, calm at the close. */
 const hasTimer=(s:StatementNode)=>(s.props.children as StatementNode[]).some(n=>n.name==='Timer');
-/** A movement screen: it has a timer and no safety notice. These render as one continuous workout stage. */
+/** A movement screen: it has a timer and no safety notice. These render as one continuous reset stage. */
 function isWorkout(s:StatementNode|undefined){const kids=s?.props.children as StatementNode[]|undefined;return !!kids&&hasTimer(s!)&&!kids.some(n=>n.name==='Alert'&&(n.props.tone==='warning'||n.props.tone==='danger'));}
-/** The active workout, composed as one guided session:
+/** The active reset, composed as one guided stage:
  *  header (Lull, session, progress) → movement stage (name, instruction, dial timer, controls, cues)
  *  → up next + Lull companion (guidance, offers, "Tell Lull") → session navigation. */
 function renderWorkout(current:StatementNode,ctx:Context){
@@ -81,7 +81,7 @@ function renderWorkout(current:StatementNode,ctx:Context){
   lower.append(companion,next);
   // A confirmed change to the session (same run, new intensity or activity) is marked on the stage.
   const runKey=`${c.document.clearVersion}|${intent}`;if(lastIntent&&intent&&lastIntent.split('|')[0]===String(c.document.clearVersion)&&lastIntent!==runKey){stage.classList.add('adjusted');mark.append(el('span',`Adjusted · now ${intent.split(' · ').slice(0,2).join(', ').toLowerCase()}`,'workout-adjusted'));}if(intent)lastIntent=runKey;
-  // Session navigation lives in the stage during a workout (same buttons and handlers).
+  // Session navigation lives in the stage during a reset (same buttons and handlers).
   const navSlot=el('div','','workout-nav');navSlot.append(byId('navigation'));
   stage.append(head,sheet,hero,lower,navSlot);
   // Live state from the real timer ledger: progress dots and the dial.
@@ -176,7 +176,7 @@ function renderHome(){
   n.append(begin,...(quick.childNodes.length?[el('p',last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick your moment','home-label'),quick]:[]),el('p','Text only: Lull can’t see you. Stop anything that doesn’t feel right.','micro home-note'),...(pilotTeam?[pilotNote()]:[]));
   return n;
 }
-/** Lull's latest words, shown as a caption outside the workout (where the stage speaks for itself). */
+/** Lull's latest words, shown as a caption outside the reset (where the stage speaks for itself). */
 function renderCaption(){const reply=[...c.events].reverse().find(e=>e.kind==='response'),prose=reply?.result?splitReply(reply.result.turn.reply).prose:'';const kids=c.document.current?.props.children as StatementNode[]|undefined;const quiet=isWorkout(c.document.current)||(kids??[]).some(n=>n.name==='Recap')||c.pending;const cap=byId('caption');if(cap.textContent!==prose)cap.textContent=prose;const onScreen=(kids??[]).some(n=>typeof n.props.text==='string'&&prose.includes(String(n.props.text)));cap.hidden=quiet||!prose||onScreen;}
 /** Opt-in memory: the last reset, kept in this browser only. */
 function rememberSession(){if(!prefs.remember)return;const nodes=c.document.screens.flatMap(s=>s.props.children as StatementNode[]),title=nodes.find(n=>n.key==='intro_title');

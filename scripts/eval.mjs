@@ -13,7 +13,7 @@ const guided = readConfig(process.env, root).guided;
 const live = !process.argv.includes('--keyword-only') && guided.enabled;
 const model = (guided.model || 'claude plan default') + (guided.via === 'plan' ? ' via Claude plan CLI' : ' via API');
 const understand = !live ? null : guided.via === 'api' ? createClaudeUnderstand({ root, model: guided.model }) : createCliUnderstand({ root, binary: guided.binary, model: guided.model });
-const current = { path: 'mobility', intensity: 'gentle', block: planOf('mobility', 'gentle').blocks[0] };
+const current = { reset: 'unknot', posture: 'seated', block: planOf('unknot', 'seated').blocks[0] };
 
 const safetyOf = r => r.kind === 'care' ? r.level : r.kind === 'safety' ? r.level : 'none';
 function grade(c, r) {
@@ -26,15 +26,14 @@ function grade(c, r) {
     if (c.phase === 'need') {
       if (r.kind !== 'suggest') problems.push('no suggestion');
       else {
-        if (c.path && !c.path.includes(r.path)) problems.push(`path ${r.path}`);
-        if (c.intensity && r.intensity && r.intensity !== c.intensity) problems.push(`intensity ${r.intensity}`);
+        if (c.reset && !c.reset.includes(r.reset)) problems.push(`reset ${r.reset}`);
       }
     } else {
       if (c.request && !c.request.includes(r.kind)) problems.push(`request ${r.kind}`);
-      if (c.switch_to && r.kind === 'switch' && r.path !== c.switch_to) problems.push(`switch to ${r.path}`);
+      if (c.switch_to && r.kind === 'switch' && r.reset && r.reset !== c.switch_to) problems.push(`switch to ${r.reset}`);
     }
   }
-  return { pass: problems.length === 0, problems, safety, kind: r.kind, detail: r.path ?? r.text ?? null, line: r.ack ?? r.text ?? null };
+  return { pass: problems.length === 0, problems, safety, kind: r.kind, detail: r.reset ?? r.text ?? null, line: r.ack ?? r.text ?? null };
 }
 
 const rows = [];
@@ -44,7 +43,7 @@ for (const c of cases) {
   if (understand) {
     const started = Date.now();
     try {
-      const u = await understand(c.text, { phase: c.phase, style: null, current: c.phase === 'session' ? current : undefined });
+      const u = await understand(c.text, { phase: c.phase, current: c.phase === 'session' ? current : undefined });
       claude = { ...grade(c, c.phase === 'need' ? needFrom(c.text, u) : sessionFrom(c.text, u)), raw: u, ms: Date.now() - started };
     } catch (error) { claude = { pass: false, problems: [`error: ${error.message}`], ms: Date.now() - started }; }
     process.stdout.write(claude.pass ? '.' : 'x');
@@ -60,12 +59,12 @@ const summary = { date: new Date().toISOString(), model: live ? model : null, ca
   claude: live ? { pass: score('claude'), missedSafety: missed('claude'), falseAlarms: alarms('claude'), medianMs: rows.map(r => r.claude.ms).sort((a, b) => a - b)[Math.floor(rows.length / 2)] } : null };
 await writeFile(new URL('../eval/results.json', import.meta.url), JSON.stringify({ summary, rows }, null, 2));
 const cell = g => !g ? '–' : g.pass ? 'pass' : `**${g.problems.join('; ')}**`;
-const md = [`# Understanding eval`, '', `Run ${summary.date.slice(0, 10)}. ${rows.length} realistic phrasings: ${safetyRows.length} body concerns, ${figurative.length} figures of speech, and ordinary needs and mid-session requests.`, '',
+const md = [`# Understanding eval`, '', `Run ${summary.date.slice(0, 10)}. ${rows.length} realistic phrasings: ${safetyRows.length} body concerns, ${figurative.length} figures of speech, and ordinary needs and requests during a reset.`, '',
   '| | Pass | Missed body concern | False alarm |', '|---|---|---|---|',
   `| Keyword layer | ${summary.keyword.pass}/${rows.length} | ${summary.keyword.missedSafety}/${safetyRows.length} | ${summary.keyword.falseAlarms} |`,
-  ...(live ? [`| Claude (${model}) + keyword floor | ${summary.claude.pass}/${rows.length} | ${summary.claude.missedSafety}/${safetyRows.length} | ${summary.claude.falseAlarms} |`] : ['| Claude | not run (no key) | | |']), '',
+  ...(live ? [`| Claude (${model}) + keyword floor | ${summary.claude.pass}/${rows.length} | ${summary.claude.missedSafety}/${safetyRows.length} | ${summary.claude.falseAlarms} |`] : ['| Claude | not part of this run | | |', '', 'The last live run with Claude (2026-10-11, before the rebuild to desk resets) is archived in [LIVE-RUN-2026-10-11.md](LIVE-RUN-2026-10-11.md). Its safety result still holds; its routing scores do not.']), '',
   ...(live ? [`Median latency per message: ${summary.claude.medianMs} ms.`, ''] : []),
   '| Case | Message | Expected | Keyword | Claude |', '|---|---|---|---|---|',
-  ...rows.map(r => `| ${r.id} | ${r.text} | ${r.safety !== 'none' ? r.safety : (r.path ?? r.request ?? []).join('/')} | ${cell(r.keyword)} | ${cell(r.claude)} |`)].join('\n');
+  ...rows.map(r => `| ${r.id} | ${r.text} | ${r.safety !== 'none' ? r.safety : (r.reset ?? r.request ?? []).join('/')} | ${cell(r.keyword)} | ${cell(r.claude)} |`)].join('\n');
 await writeFile(new URL('../eval/RESULTS.md', import.meta.url), md + '\n');
 console.log('\n' + JSON.stringify(summary, null, 2));

@@ -1,5 +1,5 @@
 import { list, obj, str, valid } from './schema.js';
-export const APP_VERSION = '2.0.0';
+export const APP_VERSION = '3.0.0';
 export const SCHEMA_VERSION = '3';
 export const providers = ['mock', 'claude-guided', 'openai-api', 'claude-cli', 'codex-cli'] as const;
 export type Provider = typeof providers[number];
