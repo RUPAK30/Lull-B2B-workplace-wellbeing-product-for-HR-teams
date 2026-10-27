@@ -35,7 +35,7 @@
     <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
     <nav class="nav-links" aria-label="Sections">
       <a href="app/" data-ev="app-opened-nav">Try Lull</a>
-      <a href="#report">Week 6 report</a>
+      <a href="pilot.html#report">Week 6 report</a>
       <a href="pilot.html">Pilot & cost</a>
       <a href="pilot.html#faq">Questions</a>
     </nav>
@@ -44,25 +44,23 @@
 
 <main id="main">
 
-<!-- Block 1: Hero -->
+<!-- 1. Why -->
 <section class="hero" id="hero">
   <div class="wrap hero-grid">
     <div class="hero-text">
       <p class="eyebrow">3:40 pm. Between calls.</p>
+      <p class="for-line" id="for-line" hidden></p>
       <h1>Most employees don't use the wellbeing benefit you pay for.</h1>
       <p class="subhead">Lull is a 3-minute movement reset built for the workday, with team-level proof and no individual data.</p>
-      <div class="cta-block">
-        <div class="btns">
-          <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-hero" href="https://tally.so/r/peex9E?cta=sample">Get a sample report for your company</a>
-          <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-hero" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
-        </div>
-        <p class="cta-sub">Tell me your team size and I'll send you what week 6 could look like for you, free. (Delivered within 24 hours)</p>
-        <p class="cta-email">or email <a href="mailto:rupakr2g@gmail.com" data-ev="email-hero">rupakr2g@gmail.com</a></p>
-      </div>
       <ul class="chips pills" aria-label="At a glance"><li>3 minutes</li><li>No install</li><li>Team totals only</li></ul>
-      <p class="source-line"><a href="#source" data-ev="source-link">See the source: Plum 2023 ~30% participation</a></p>
+      <div class="cta-block hero-cta">
+        <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-hero" href="https://tally.so/r/peex9E?cta=sample">Get a sample report for your company</a>
+        <p class="cta-sub">Free. Tell me your team size; I'll send what week 6 could look like.</p>
+      </div>
+      <p class="source-line">Source: Plum, Health Report of Corporate India 2023 (3,500+ organisations): about 30% of employees take part in company wellness programmes.</p>
     </div>
 
+<!-- 2. How: the two-sided demo -->
     <div class="try" id="try">
       <div class="try-head">
         <h2 id="try-h">How are you feeling right now?</h2>
@@ -99,95 +97,82 @@
   </div>
 </section>
 
-<!-- Block 2: 30-second summary -->
-<section class="summary" id="summary" aria-labelledby="summary-h">
+<!-- 3. How it works -->
+<section class="sec hp" id="how" aria-labelledby="how-h">
   <div class="wrap">
-    <h2 class="sr" id="summary-h">Lull in 30 seconds</h2>
-    <dl class="tldr">
-      <div><dt>Employees get</dt><dd>One 3-minute reset between calls, in English or Hinglish.</dd></div>
-      <div><dt>HR gets</dt><dd>Team totals and return rates. No names, no messages. Under-10 teams hidden.</dd></div>
-      <div><dt>You need</dt><dd>15 minutes to launch. One team of 10–50. Two check-ins.</dd></div>
-    </dl>
-    <p class="privacy-under">The demo sends nothing. A pilot link sends only the anonymous counts listed in Settings.</p>
-    <nav class="jumps" aria-label="Jump to your question">
-      <a href="#try" data-ev="jump-private">Is it private?</a>
-      <a href="#usage-sec" data-ev="jump-use">Will people use it?</a>
-      <a href="pilot.html" data-ev="jump-cost">What does it cost?</a>
-      <a href="pilot.html#report" data-ev="jump-report">Sample week-6 readout</a>
-    </nav>
-  </div>
-</section>
-
-<!-- Block 3: How a pilot runs -->
-<section class="pilot-steps" id="pilot-steps">
-  <div class="wrap">
-    <h2 class="sr">How a pilot runs</h2>
-    <ol class="steps">
-      <li><span class="step-n">Week 0</span> "Pick one team. Agree targets. Share a link."</li>
-      <li><span class="step-n">Week 3</span> "Review team totals. Adjust what isn't working."</li>
-      <li><span class="step-n">Week 6</span> "Written readout. Continue or stop."</li>
-    </ol>
-    <p><a href="pilot.html#report" data-ev="pilot-report-link">See the sample week-6 readout →</a> <span class="label">Illustrative sample, not customer data.</span></p>
-  </div>
-</section>
-
-<!-- Block 4: Founding pilot -->
-<section class="founding-pilot" id="founding-pilot">
-  <div class="wrap">
-    <h2 class="sr">3 founding pilot slots</h2>
-    <dl class="terms">
-      <div><dt>What they get</dt><dd>Launch kit, week-3 check-in, week-6 written readout.</dd></div>
-      <div><dt>What you need</dt><dd>15-minute kickoff, one team contact, two check-ins.</dd></div>
-      <div><dt>Price</dt><dd>₹60–120 per person per month, indicative. No annual contract.</dd></div>
-    </dl>
-    <div class="btns">
-      <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-founding" href="https://tally.so/r/peex9E?cta=sample">Apply for a founding pilot</a>
-      <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-founding" href="https://tally.so/r/peex9E?cta=pilot">Email Rupak</a>
-    </div>
-    <p class="next-step">What happens next: 15-minute call → choose team and targets → launch in a week.</p>
-  </div>
-</section>
-
-<!-- Block 5: Source reference (collapsible) -->
-<details class="fold" id="source" aria-label="See research source">
-  <summary>See the source: Plum 2023 ~30% participation</summary>
-  <p>Plum, Health Report of Corporate India 2023 (3,500+ organisations). About 30% of employees take part in company wellness programmes. Lull's pilot target of ≥50% is higher than typical uptake, to test whether a between-calls reset can beat the baseline.</p>
-</details>
-
-<section class="sec" id="usage-sec" aria-labelledby="usage-h">
-<div class="wrap">
-<details class="fold usage-fold"><summary>How does your current benefit compare? <span>Try it</span></summary>
-
-  <div class="wrap usage-grid">
-    <div class="sec-head reveal">
-      <p class="kicker">Start with your own number</p>
-      <h2 id="usage-h">How many people used your current wellbeing benefit last month?</h2>
-      <p class="lede">A rough guess is fine. Drag to compare it with what most companies see.</p>
-    </div>
-    <div class="usage-card reveal">
-      <label for="usage" class="usage-label">Your guess</label>
-      <output id="usage-out" for="usage">20%</output>
-      <input type="range" id="usage" min="0" max="100" step="5" value="20" aria-describedby="usage-verdict">
-      <div class="range-ends" aria-hidden="true"><span>Nobody</span><span>Everyone</span></div>
-      <ul class="bench">
-        <li class="you"><span>Your guess</span><i id="usage-bar" style="--w:20%"></i><b id="usage-you">20%</b></li>
-        <li><span>Indian company wellness programmes</span><i style="--w:30%"></i><b>~30%</b></li>
-        <li><span>Mental-health apps, still used after 30 days</span><i style="--w:3.3%"></i><b>~3%</b></li>
-        <li class="target"><span>Lull pilot target: tried it</span><i style="--w:50%"></i><b>≥50%</b></li>
-      </ul>
-      <p class="usage-verdict" id="usage-verdict" aria-live="polite"></p>
-      <p class="cite">Plum, Health Report of Corporate India 2023 (3,500+ organisations). JMIR 2019: median day-30 retention across 93 mental-health apps. Lull's figure is a pilot target, not a result.</p>
+    <h2 id="how-h">How it works</h2>
+    <div class="hp-card">
+      <dl class="hp-rows">
+        <div><dt>Employees get</dt><dd>One 3-minute reset between calls, seated or standing, in English or Hinglish.</dd></div>
+        <div><dt>HR sees</dt><dd>Team totals and return rates, a week-3 check-in and a week-6 readout.</dd></div>
+        <div><dt>You do</dt><dd>Pick one team of 10–50, share a link, join two check-ins.</dd></div>
+      </dl>
+      <p class="promise">Team totals only. Teams under 10 hidden. No individual data shown to HR.</p>
     </div>
   </div>
-
-</details>
-</div>
 </section>
 
-<section class="sec report-link" id="report-link">
-<div class="wrap">
-<a class="report-card" href="pilot.html#report" data-ev="report-link"><span class="kicker">Week 6</span><strong>See the slide you'd show your CEO</strong><span class="tiny">Illustrative sample, not customer data &rarr;</span></a>
-</div>
+<!-- 4. When it fits -->
+<section class="sec hp" id="when" aria-labelledby="when-h">
+  <div class="wrap">
+    <h2 id="when-h">When it fits</h2>
+    <p class="hp-intro">Three moments in an ordinary workday.</p>
+    <ul class="hp-moments">
+      <li><b>Between back-to-back calls</b><span>Unknot neck and shoulders, seated; it works on a call.</span></li>
+      <li><b>The post-lunch slump</b><span>A standing energy lift at the desk.</span></li>
+      <li><b>The start of a team meeting (a group reset)</b><span>One link in the invite; everyone presses Start together.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5. The pilot -->
+<section class="sec hp" id="close" aria-labelledby="pilot-h">
+  <div class="wrap">
+    <h2 id="pilot-h">The pilot</h2>
+    <div class="hp-card">
+      <ol class="hp-timeline" aria-label="Pilot timeline">
+        <li><span class="wk">Week 0</span><span>Pick one team. Agree targets. Share a link.</span></li>
+        <li><span class="wk">Week 3</span><span>Review team totals. Adjust what isn't working.</span></li>
+        <li><span class="wk">Week 6</span><span>Written readout. Continue or stop.</span></li>
+      </ol>
+      <dl class="hp-facts">
+        <div><dt>Price</dt><dd>₹60–120 per person per month, indicative. No annual contract.</dd></div>
+        <div><dt>What you have to do</dt><dd>15-minute kickoff, one team contact, two check-ins.</dd></div>
+      </dl>
+      <div class="btns">
+        <a class="btn btn-primary" data-cta="pilot" data-ev="cta-pilot-card" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
+        <a class="cta-email" href="mailto:rupakr2g@gmail.com" data-ev="email-pilot">or email rupakr2g@gmail.com</a>
+      </div>
+      <p class="next-step">What happens next: 15-minute call → choose team and targets → launch in a week.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Quick answers -->
+<section class="sec hp" id="answers" aria-labelledby="answers-h">
+  <div class="wrap">
+    <h2 id="answers-h">Quick answers</h2>
+    <div class="faq hp-faq">
+      <details data-faq="home-private"><summary>Is it private? Yes: team totals only, teams under 10 hidden.</summary><p>No names, no individual sessions, nothing anyone typed. Who reported pain is never shared with anyone. The demo sends nothing; a pilot link sends only the anonymous counts listed in Settings.</p></details>
+      <details data-faq="home-use"><summary>Will people use it? It lives in the workday: calendar or Slack reminders and team resets.</summary><p>After a session, each person can put their own weekday reminder in their calendar or Slack, and you'll see how many did. If usage stalls, you'll know by week 3, not at renewal.</p></details>
+      <details data-faq="home-medical"><summary>Is it medical care? No: short movement resets, with a safety stop for pain.</summary><p>Three-minute desk resets you can do in work clothes, seated or standing. If someone mentions pain, dizziness or injury, the reset stops and points them to proper help.</p></details>
+      <details data-faq="home-fail"><summary>What if it doesn't work? Targets are agreed upfront; the week-6 readout says so plainly.</summary><p>For example: at least half the team tries it, at least 1 in 3 comes back within a week. We check the team totals together at week 3. If the targets aren't met, the week 6 report will say so plainly.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Go deeper -->
+<section class="sec hp" id="deeper" aria-labelledby="deeper-h">
+  <div class="wrap">
+    <h2 id="deeper-h">Go deeper</h2>
+    <ul class="hp-options">
+      <li><a href="pilot.html#report" data-ev="deeper-report"><b>See the sample week-6 report</b><span>Illustrative sample, not customer data.</span></a></li>
+      <li><a href="pilot.html#calculator" data-ev="deeper-cost"><b>Work out the cost for my team</b><span>Drag a team size; see the monthly range.</span></a></li>
+      <li><a href="data.html" data-ev="deeper-data"><b>Data handling and pilot terms</b><span>What's sent, what never is, your controls.</span></a></li>
+      <li><a href="pilot-pack.html" data-ev="deeper-pack"><b>Printable pilot pack</b><span>Everything for your approver, on paper.</span></a><a class="hp-pdf" href="lull-pilot-pack.pdf" download data-ev="deeper-pack-pdf">Download the PDF</a></li>
+      <li><a href="product.html" data-ev="deeper-product"><b>For product people: how it was built</b><span>Decisions, measurement and what I got wrong.</span></a></li>
+    </ul>
+  </div>
 </section>
 
 </main>

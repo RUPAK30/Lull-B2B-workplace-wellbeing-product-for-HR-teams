@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Links between the overview and the pilot page keep ?for= and ?ref=.
-  if (location.search) document.querySelectorAll('a[href^="pilot.html"], a[href="./"], a[href^="./#"]').forEach(function (a) {
+  if (location.search) document.querySelectorAll('a[href^="pilot.html"], a[href^="data.html"], a[href^="product.html"], a[href^="pilot-pack.html"], a[href="./"], a[href^="./#"]').forEach(function (a) {
     var h = a.getAttribute('href'), k = h.indexOf('#');
     a.setAttribute('href', (k < 0 ? h : h.slice(0, k)) + location.search + (k < 0 ? '' : h.slice(k)));
   });
@@ -76,20 +76,20 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('main section[id]').forEach(function (el) { seen.observe(el); });
   }
 
-  // --- Hero CTA sticky mobile bar ---
-  if (document.getElementById('sticky') && document.querySelector('.hero-cta')) {
+  // --- Sticky mobile bar: shows once the hero button has scrolled away (or after a screen on other
+  // pages), and steps aside wherever the page already shows its own pilot button (#close). ---
+  if (document.getElementById('sticky')) {
     var sticky = document.getElementById('sticky');
     var pad = function () { document.documentElement.style.setProperty('--bar-h', sticky.offsetHeight + 'px'); };
     pad();
     if ('ResizeObserver' in window) new ResizeObserver(pad).observe(sticky); else addEventListener('resize', pad);
     var heroCta = document.querySelector('.hero-cta'), closeSec = document.getElementById('close');
-    if (heroCta && closeSec) {
-      var upd = function () {
-        var past = heroCta.getBoundingClientRect().bottom < 0, atClose = closeSec.getBoundingClientRect().top < innerHeight;
-        sticky.classList.toggle('show', past && !atClose);
-      };
-      addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
-    }
+    var upd = function () {
+      var past = heroCta ? heroCta.getBoundingClientRect().bottom < 0 : scrollY > innerHeight * 0.6;
+      var r = closeSec && closeSec.getBoundingClientRect(), atClose = !!r && r.top < innerHeight && r.bottom > 0;
+      sticky.classList.toggle('show', past && !atClose);
+    };
+    addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
   }
 
   // --- Two-sided demo: only on pages with the split element ---
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
       pain: { title: 'Let\'s not work around pain.', text: 'If you\'d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.' },
       rehab: { title: 'Let\'s not work around pain.', text: 'If you\'d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.' }
     };
-    var esc = function (s) { return String(s).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"'); };
+    var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
     var full = function (team) { return TEAMS.filter(function (t) { return t[0] === team; })[0][1]; };
     var rows = document.getElementById('hr-rows'), emp = document.getElementById('emp'), status = document.getElementById('hr-status');
     if (rows && emp && status) {
@@ -315,6 +315,32 @@ document.addEventListener('DOMContentLoaded', function () {
     usage.addEventListener('input', function () { usageRead(); if (!usageUsed) { usageUsed = true; track('usage-guess-used'); } });
     usage.addEventListener('change', function () { track('usage-guess-' + (+usage.value < 10 ? 'under10' : +usage.value <= 35 ? '10to35' : 'over35')); });
     usageRead();
+  }
+
+  // Calculator: a pilot team first (what she can approve), the whole company on request ---
+  if (document.getElementById('size')) {
+    var size = document.getElementById('size');
+    var fmt = function (n) { return n.toLocaleString('en-IN'); };
+    var MODES = { pilot: { min: 10, max: 50, step: 5, value: 20, label: 'Pilot team size' }, company: { min: 20, max: 500, step: 10, value: 100, label: 'Company size' } };
+    var mode = 'pilot', used = false;
+    var calc = function () {
+      var n = +size.value;
+      document.getElementById('cost').innerHTML = '<span class="ppl">' + n + ' people:</span> <span class="amt">₹' + fmt(n * 60) + '–' + fmt(n * 120) + '</span> <span class="mo">/ month</span>';
+      document.getElementById('cost-note').textContent = mode === 'pilot'
+        ? '6-week pilot total: ₹' + fmt(n * 90) + '–' + fmt(n * 180) + '. Indicative.'
+        : 'Indicative, at ₹60–120 per person per month. Pilots start with one team of 10–50.';
+    };
+    document.getElementById('calc-mode').addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b || b.dataset.mode === mode) return;
+      mode = b.dataset.mode; var m = MODES[mode];
+      this.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      size.min = m.min; size.max = m.max; size.step = m.step; size.value = m.value;
+      document.getElementById('size-min').textContent = m.min; document.getElementById('size-max').textContent = m.max;
+      document.getElementById('size-label').textContent = m.label;
+      calc(); track('calculator-mode-' + mode);
+    });
+    size.addEventListener('input', function () { calc(); if (!used) { used = true; track('calculator-used'); } });
+    calc();
   }
 
   // Copy team reset invite ---

@@ -36,19 +36,37 @@
     <nav class="nav-links" aria-label="Sections">
       <a href="./">Overview</a>
       <a href="pilot.html">Pilot & cost</a>
-      <a href="./data.html">Data & terms</a>
+      <a href="data.html">Data & terms</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
 
+<section class="page-intro">
+  <div class="wrap">
+    <p class="kicker">Data &amp; terms</p>
+    <h1>Data handling and pilot terms</h1>
+    <p class="lede">What leaves a device, what never does, and the terms of a pilot, in plain language.</p>
+  </div>
+</section>
+
+<section class="sec" id="summary" aria-labelledby="summary-h">
+  <div class="wrap">
+    <h2 id="summary-h" class="sr">Summary</h2>
+    <div class="d-cols">
+      <div><h3>What's sent</h3><p>Anonymous counts from a pilot link, such as "session finished". Counts events, not people.</p></div>
+      <div><h3>What's never sent</h3><p>Names, device IDs, typed text, pain or safety data.</p></div>
+      <div><h3>Your controls</h3><p>Turn counting off, clear the log, request deletion.</p></div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="data" aria-labelledby="data-h">
   <div class="wrap">
-    <h2 id="data-h">Data handling and pilot terms</h2>
-    <p>The following table summarises what data is collected, why, where it goes, and who can see it. All figures are from the made-up 64-person company in <code>src/shared/team.ts</code> and are labelled as sample data.</p>
-
-    <table>
+    <h2 id="data-h">Every count a pilot can send</h2>
+    <p class="hp-intro">The full allow-list. The demo, without a team link, sends nothing at all.</p>
+    <div class="data-table"><table>
       <thead>
         <tr><th>What is collected</th><th>Why</th><th>Where it goes</th><th>Who sees it</th><th>Retention</th></tr>
       </thead>
@@ -58,40 +76,37 @@
         <tr><td data-label="What is collected">felt-lighter</td><td data-label="Why">Indicates the person felt better after the reset</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/felt-lighter</code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
         <tr><td data-label="What is collected">felt-same</td><td data-label="Why">Indicates the person felt the same</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/felt-same</code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
         <tr><td data-label="What is collected">felt-not-for-me</td><td data-label="Why">Indicates the person wouldn't use it again</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/felt-not-for-me</code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
-        <tr><td data-label="What is collected">need-<category></td><td data-label="Why">Broad need category (neck, back, sitting, stiff, legs, eyes, time, low, restless, energetic, calm, unsure, fitness)</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/need-<category></code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
+        <tr><td data-label="What is collected">need-&lt;category&gt;</td><td data-label="Why">Broad need category (neck, back, sitting, stiff, legs, eyes, time, low, restless, energetic, calm, unsure, fitness)</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/need-&lt;category&gt;</code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
         <tr><td data-label="What is collected">reminder-set</td><td data-label="Why">Employee set an opt-in weekday reminder</td><td data-label="Where it goes">GoatCounter + employee's own calendar/Slack</td><td data-label="Who sees it">Employee: own calendar/Slack; HR: team totals only</td><td data-label="Retention">Opt-in, can be cleared</td></tr>
         <tr><td data-label="What is collected">came-back</td><td data-label="Why">Person returned for another session</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/came-back</code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
         <tr><td data-label="What is collected">opened-from-reminder</td><td data-label="Why">Reminder opened Lull</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/opened-from-reminder</code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
         <tr><td data-label="What is collected">team-reset-joined</td><td data-label="Why">Person joined a team reset in a meeting</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/team-reset-joined</code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
       </tbody>
-    </table>
-
-    <h3>Key principles</h3>
-    <ul>
-      <li><strong>No names, device IDs, typed text or pain/safety data leave the device.</strong> The only events that may leave a device are the allow-listed anonymous counts above.</li>
-      <li><strong>GoatCounter counts events, not people.</strong> It counts how many times an event happened, not who performed it.</li>
-      <li><strong>The local activity log stays in the browser.</strong> Unmatched messages up to 120 characters can be stored locally and can be turned off or cleared in Settings.</li>
-      <li><strong>The demo without a team link sends nothing.</strong> Without a <code>?team=sales</code> link, no pilot counts are sent anywhere.</li>
-      <li><strong>Optional Claude mode.</strong> If agreed in writing, typed messages may be sent to Anthropic. The default pilot mode is Mock: nothing is sent.</li>
-      <li><strong>Data deletion on request.</strong> Anyone can request deletion of their data; there is no sale, no ads, and no model training.</li>
+    </table></div>
+    <ul class="pm-list d-notes">
+      <li>The local activity log stays in the browser. It can be turned off or cleared in Settings.</li>
+      <li>No sale, no ads, no model training.</li>
     </ul>
-
-    <h3>Pilot terms (plain language)</h3>
-    <table>
-      <thead><tr><th>Term</th><th>Detail</th></tr></thead>
-      <tbody>
-        <tr><td data-label="Term">Scope</td><td data-label="Detail">One team of 10–50 people at a 50–500 person company. Employees type how they feel in English or romanised Hinglish.</td></tr>
-        <tr><td data-label="Term">Duration</td><td data-label="Detail">6 weeks, with a check-in at week 3 and a written readout at week 6.</td></tr>
-        <tr><td data-label="Term">Price</td><td data-label="Detail">₹60–120 per person per month, indicative. No annual contract. Pilot ends or continues by mutual agreement.</td></tr>
-        <tr><td data-label="Term">Termination</td><td data-label="Detail">Either party can stop the pilot at any time. Pilot data is deleted on request.</td></tr>
-        <tr><td data-label="Term">Data deletion</td><td data-label="Detail">On request, all personal data is deleted. Aggregated team totals in HR view are anonymised.</td></tr>
-        <tr><td data-label="Term">Safety escalation</td><td data-label="Detail">Pain, dizziness or injury reports stop the reset and point to proper help. Urgent symptoms point to emergency care.</td></tr>
-      </tbody>
-    </table>
-
-    <p><em>Not legal advice.</em></p>
+    <div class="note d-ai"><p><strong>Optional AI mode.</strong> Typed messages go to Anthropic only if agreed in writing. Pilots use Mock mode: nothing typed is sent.</p></div>
   </div>
 </section>
+
+<section class="sec" id="terms" aria-labelledby="terms-h">
+  <div class="wrap">
+    <h2 id="terms-h">Pilot terms</h2>
+    <ul class="d-terms">
+      <li><b>Scope</b><span>One team of 10–50 at a 50–500 person company.</span></li>
+      <li><b>Duration</b><span>6 weeks: check-in at week 3, written readout at week 6.</span></li>
+      <li><b>Price</b><span>₹60–120 per person per month, indicative. No annual contract.</span></li>
+      <li><b>Ending the pilot</b><span>Either side can stop at any time.</span></li>
+      <li><b>Data deletion</b><span>Pilot data is deleted on request.</span></li>
+      <li><b>Safety</b><span>Pain, dizziness or injury stops the reset and points to proper help.</span></li>
+    </ul>
+    <p class="tiny d-legal">Not legal advice.</p>
+  </div>
+</section>
+
+</main>
 
 <footer class="foot">
   <div class="wrap">

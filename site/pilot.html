@@ -51,6 +51,20 @@
   </div>
 </section>
 
+<section class="sec" id="calculator" aria-labelledby="cost-h">
+  <div class="wrap">
+    <h2 id="cost-h" class="sr">Work out the cost</h2>
+    <div class="calc reveal">
+      <div class="calc-top"><label for="size" id="size-label">Pilot team size</label>
+        <div class="seg seg-sm" id="calc-mode" role="group" aria-label="Price for"><button type="button" data-mode="pilot" aria-pressed="true">Pilot team</button><button type="button" data-mode="company" aria-pressed="false">Whole company</button></div></div>
+      <input type="range" id="size" min="10" max="50" step="5" value="20" aria-describedby="cost">
+      <div class="range-ends" aria-hidden="true"><span id="size-min">10</span><span id="size-max">50</span></div>
+      <output id="cost" for="size" aria-live="polite">20 people: ₹1,200–2,400 / month</output>
+      <p class="per" id="cost-note">6-week pilot total: ₹1,800–3,600. Indicative.</p>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="pilot" aria-labelledby="pilot-h">
   <div class="wrap pilot-grid">
     <div class="reveal">
@@ -120,7 +134,7 @@
         <tbody>
           <tr><td data-label="What is collected">session-started, session-finished</td><td data-label="Why">Team totals: weekly active people, return rate</td><td data-label="Where it goes">GoatCounter (events, not people)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
           <tr><td data-label="What is collected">felt-lighter / felt-same / felt-not-for-me</td><td data-label="Why">Return-rate leading indicator</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
-          <tr><td data-label="What is collected">need-<category> (neck, back, sitting, stiff, legs, eyes, time, low, restless, energetic, calm, unsure, fitness)</td><td data-label="Why">Broad need categories per team</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
+          <tr><td data-label="What is collected">need-&lt;category&gt; (neck, back, sitting, stiff, legs, eyes, time, low, restless, energetic, calm, unsure, fitness)</td><td data-label="Why">Broad need categories per team</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
           <tr><td data-label="What is collected">reminder-set</td><td data-label="Why">Leading indicator for return rate</td><td data-label="Where it goes">GoatCounter + employee's calendar</td><td data-label="Who sees it">Employee: own calendar/Slack</td><td data-label="Retention">Opt-in, can be cleared</td></tr>
           <tr><td data-label="What is collected">came-back, opened-from-reminder</td><td data-label="Why">Return-rate tracking</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
           <tr><td data-label="What is collected">team-reset-joined</td><td data-label="Why">Team habit formation</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
@@ -199,6 +213,7 @@
             <li><span>Engineering</span><b>Not much time</b><small>12 of 36 requests</small></li>
             <li><span>Sales</span><b>Not much time</b><small>10 of 31</small></li>
             <li><span>Product & Design</span><b>A lot of sitting</b><small>8 of 22</small></li>
+          </ul>
         </div>
         <div class="cost-cell">
           <p class="slide-sub">Cost per finished session</p>
@@ -213,6 +228,8 @@
     <p class="slide-actions reveal"><button type="button" class="btn btn-ghost" id="dl-slide">Download this slide (PNG)</button><span class="tiny">Forward it to your founder as-is.</span></p>
   </div>
 </section>
+
+</main>
 
 <footer class="foot">
   <div class="wrap">
