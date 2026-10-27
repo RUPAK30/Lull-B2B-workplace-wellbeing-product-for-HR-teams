@@ -35,3 +35,11 @@ li { margin: 0 0 8px; }
 
 .foot { margin-top: 30px; border-top: 1px solid #DCD3C2; padding-top: 12px; font-size: 10pt; color: #5B6670; }
 .foot-links a { margin-right: 16px; }
+/* print polish: no site chrome, calm document styling */
+.skip, .nav, .nav-links, .sticky, .foot-links, nav { display: none !important; }
+body { font-size: 10.5pt; }
+h1 { font-size: 26pt; padding-bottom: 8px; border-bottom: 2px solid #2D5A45; }
+h2 { font-size: 13.5pt; color: #2D5A45; margin: 18px 0 6px; break-after: avoid; }
+.section, section { break-inside: avoid; }
+li { margin-bottom: 4px; }
+.offer { background: #F3EEE3; border-radius: 8px; padding: 12px 14px; }

@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
         try { last = localStorage.getItem('lull-last-feeling'); } catch (err) { last = null; }
         if (last) { input.value = last; run(last, 'auto'); }
         else { if (CHIP_TEXT) run(CHIP_TEXT.calls, 'auto'); if (chips) chips[0].setAttribute('aria-pressed', 'true'); }
-      }).catch(function () { if (emp) emp.textContent = 'The demo could not load. Try the app instead.; });
+      }).catch(function () { if (emp) emp.textContent = 'The demo could not load. Try the app instead.'; });
     }
   }
 
