@@ -47,7 +47,16 @@
   <div class="wrap">
     <p class="kicker">Running a pilot</p>
     <h1>3 founding pilot slots</h1>
-    <p class="lede">6 weeks. One team of 10–50. Indicative price: ₹60–120 per person per month. No annual contract. <span class="small-print">At ~30% participation you pay ~3.3x per actual participant; Lull's target (≥50% try it) means ~2x. The 50% try target is a goal, not a result.</span></p>
+    <p class="lede">One team, six weeks, no annual contract.</p>
+    <div class="p-stats">
+      <div><b>6 weeks</b><span>check-in at week 3, readout at week 6</span></div>
+      <div><b>10–50</b><span>people in one pilot team</span></div>
+      <div><b>₹60–120</b><span>per person per month, indicative</span></div>
+    </div>
+    <div class="p-compare">
+      <div><b>~3.3×</b><span>what you really pay per participant when ~30% take part (typical)</span></div>
+      <div class="good"><b>~2×</b><span>if half the team tries it: Lull's pilot target, a goal not a result</span></div>
+    </div>
   </div>
 </section>
 
@@ -66,7 +75,7 @@
 </section>
 
 <section class="sec" id="pilot" aria-labelledby="pilot-h">
-  <div class="wrap pilot-grid">
+  <div class="wrap pilot-grid p-cards">
     <div class="reveal">
       <h2 id="pilot-h">What employees get</h2>
       <ul>
@@ -99,10 +108,10 @@
         <li>At week 6, receive a written readout: what worked, what didn't, and whether to continue.</li>
       </ol>
     </div>
-    <div class="call-to-action">
-      <p><strong>Who this is for:</strong> 50–500 person companies with desk-heavy teams. Teams of 10+.
-      <br><strong>Who this is not for:</strong> Companies wanting clinical mental-health support.</p>
-      <p><strong>What happens after you click:</strong> 15-minute call → choose one team and agree targets → launch in a week.</p>
+    <div class="p-fit">
+      <div class="yes"><b>Good fit</b><span>50–500 person companies with desk-heavy teams of 10+.</span></div>
+      <div class="no"><b>Not a fit</b><span>If you need clinical mental-health support.</span></div>
+      <div><b>After you click</b><span>15-minute call → pick a team and agree targets → launch within a week.</span></div>
     </div>
   </div>
 </section>
@@ -126,26 +135,12 @@
   <div class="wrap">
     <div class="reveal">
       <h2 id="privacy-data-h">Privacy and data</h2>
-      <p>Pilot link sends only the anonymous counts listed in Settings. The demo sends nothing.</p>
-      <table>
-        <thead>
-          <tr><th>What is collected</th><th>Why</th><th>Where it goes</th><th>Who sees it</th><th>Retention</th></tr>
-        </thead>
-        <tbody>
-          <tr><td data-label="What is collected">session-started, session-finished</td><td data-label="Why">Team totals: weekly active people, return rate</td><td data-label="Where it goes">GoatCounter (events, not people)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
-          <tr><td data-label="What is collected">felt-lighter / felt-same / felt-not-for-me</td><td data-label="Why">Return-rate leading indicator</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
-          <tr><td data-label="What is collected">need-&lt;category&gt; (neck, back, sitting, stiff, legs, eyes, time, low, restless, energetic, calm, unsure, fitness)</td><td data-label="Why">Broad need categories per team</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
-          <tr><td data-label="What is collected">reminder-set</td><td data-label="Why">Leading indicator for return rate</td><td data-label="Where it goes">GoatCounter + employee's calendar</td><td data-label="Who sees it">Employee: own calendar/Slack</td><td data-label="Retention">Opt-in, can be cleared</td></tr>
-          <tr><td data-label="What is collected">came-back, opened-from-reminder</td><td data-label="Why">Return-rate tracking</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
-          <tr><td data-label="What is collected">team-reset-joined</td><td data-label="Why">Team habit formation</td><td data-label="Where it goes">GoatCounter</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
-        </tbody>
-      </table>
-      <p>No names, device IDs, typed text or pain/safety data leave the device.<br>
-      GoatCounter counts events, not people.<br>
-      The local activity log stays in the browser; unmatched messages up to 120 characters can be turned off/cleared.<br>
-      Optional Claude mode sends typed messages to Anthropic; the pilot uses Mock mode unless agreed in writing.<br>
-      Data deletion on request; no sale, no ads, no model training.<br>
-      <em>Not legal advice.</em></p>
+      <div class="d-cols p-priv">
+        <div><h3>HR sees</h3><p>Team totals only. Teams under 10 are hidden.</p></div>
+        <div><h3>Never leaves the device</h3><p>Names, device IDs, typed text, pain or safety data.</p></div>
+        <div><h3>Your controls</h3><p>Delete on request. No sale, ads or model training.</p></div>
+      </div>
+      <p><a class="more" href="data.html#data">See every count a pilot can send →</a></p>
     </div>
   </div>
 </section>
@@ -154,7 +149,7 @@
   <div class="wrap">
     <div class="reveal">
       <h2 id="targets-h">Targets and stop criteria</h2>
-      <p><strong>Proposed kill criteria (clearly labelled):</strong></p>
+      <p class="lede">If any of these happen, we pause or stop. Proposed, agreed with you on day one.</p>
       <ul>
         <li>Under 30% of the team tries a session by week 2.</li>
         <li>Under 1 in 5 return for a second session within a week.</li>
@@ -162,8 +157,7 @@
         <li>Any unresolved safety issue (pain report not stopped).</li>
         <li>HR cannot name a decision they would make differently.</li>
       </ul>
-      <p>If any of the above occur, the pilot will be paused or ended. These are proposed criteria, not customer guarantees.</p>
-    </div>
+          </div>
   </div>
 </section>
 

@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (video) {
       var openBtn = document.getElementById('open-video');
       if (openBtn) {
-        openBtn.addEventListener('click', function () {
+        openBtn.addEventListener('click', function (ev) { ev.preventDefault();
           var srcs = video.querySelectorAll('source');
           if (srcs.length && !srcs[0].getAttribute('src')) { srcs.forEach(function (s) { s.src = s.dataset.src; }); video.load(); }
           if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
@@ -391,3 +391,8 @@ document.addEventListener('DOMContentLoaded', function () {
     share.addEventListener('click', function () { track('share-founder-' + (phone ? 'whatsapp' : 'email')); });
   }
 });
+// Phone demo: one panel at a time
+(function(){var t=document.querySelector('.view-tabs'),sp=document.getElementById('split');if(!t||!sp)return;
+t.addEventListener('click',function(e){var b=e.target.closest('button[data-view]');if(!b)return;
+t.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');});
+sp.classList.toggle('show-emp',b.dataset.view==='emp');sp.classList.toggle('show-hr',b.dataset.view==='hr');});})();

@@ -78,7 +78,11 @@
         <button type="submit" class="say-go">Try</button>
       </form>
       <p class="tiny say-hint">Hinglish works too: try "gardan akad gayi" or "kamar mein dard".</p>
-      <div class="split" id="split">
+      <div class="view-tabs" role="tablist" aria-label="Choose a view">
+        <button type="button" role="tab" aria-selected="true" data-view="emp">Employee sees</button>
+        <button type="button" role="tab" aria-selected="false" data-view="hr">HR sees</button>
+      </div>
+      <div class="split show-emp" id="split">
         <div class="side emp" aria-live="polite">
           <p class="chrome phone" aria-hidden="true"><span class="notch"></span><span class="app-name">lull</span></p>
           <p class="side-label"><i></i>What your employee sees</p>
@@ -170,6 +174,7 @@
       <li><a href="pilot.html#calculator" data-ev="deeper-cost"><b>Work out the cost for my team</b><span>Drag a team size; see the monthly range.</span></a></li>
       <li><a href="data.html" data-ev="deeper-data"><b>Data handling and pilot terms</b><span>What's sent, what never is, your controls.</span></a></li>
       <li><a href="pilot-pack.html" data-ev="deeper-pack"><b>Printable pilot pack</b><span>Everything for your approver, on paper.</span></a><a class="hp-pdf" href="lull-pilot-pack.pdf" download data-ev="deeper-pack-pdf">Download the PDF</a></li>
+      <li><a href="lull-walkthrough.mp4" id="open-video" data-ev="deeper-video"><b>Watch the 2-minute walkthrough</b><span>The employee and HR side, end to end.</span></a></li>
       <li><a href="product.html" data-ev="deeper-product"><b>For product people: how it was built</b><span>Decisions, measurement and what I got wrong.</span></a></li>
     </ul>
   </div>

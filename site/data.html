@@ -56,8 +56,8 @@
     <h2 id="summary-h" class="sr">Summary</h2>
     <div class="d-cols">
       <div><h3>What's sent</h3><p>Anonymous counts from a pilot link, such as "session finished". Counts events, not people.</p></div>
-      <div><h3>What's never sent</h3><p>Names, device IDs, typed text, pain or safety data.</p></div>
-      <div><h3>Your controls</h3><p>Turn counting off, clear the log, request deletion.</p></div>
+      <div><h3>What's never sent</h3><p>Names, device IDs, typed text, pain or safety data. Nothing is sold, used for ads or used to train models.</p></div>
+      <div><h3>Your controls</h3><p>The activity log stays in the browser. Turn counting off, clear the log, or request deletion.</p></div>
     </div>
   </div>
 </section>
@@ -66,6 +66,18 @@
   <div class="wrap">
     <h2 id="data-h">Every count a pilot can send</h2>
     <p class="hp-intro">The full allow-list. The demo, without a team link, sends nothing at all.</p>
+    <p class="d-shared"><b>Every count below:</b> tagged with the team, never a person · sent to GoatCounter · HR sees team totals only · kept until the week-6 report.</p>
+    <div class="d-groups">
+      <div class="d-group"><h3>Usage</h3><p>Are people trying it and coming back?</p>
+        <div class="chips ev"><code>session-started</code><code>session-finished</code><code>came-back</code><code>opened-from-reminder</code><code>team-reset-joined</code></div></div>
+      <div class="d-group"><h3>Feedback</h3><p>Was the reset worth their time?</p>
+        <div class="chips ev"><code>felt-lighter</code><code>felt-same</code><code>felt-not-for-me</code></div></div>
+      <div class="d-group"><h3>Needs</h3><p>Broad need picked, e.g. neck, back, eyes, calm. Never the words typed.</p>
+        <div class="chips ev"><code>need-&lt;category&gt;</code></div></div>
+      <div class="d-group"><h3>Reminders</h3><p>Opt-in only. The reminder lives on the employee's own calendar or Slack.</p>
+        <div class="chips ev"><code>reminder-set</code></div></div>
+    </div>
+    <details class="d-full"><summary>See the full allow-list table</summary>
     <div class="data-table"><table>
       <thead>
         <tr><th>What is collected</th><th>Why</th><th>Where it goes</th><th>Who sees it</th><th>Retention</th></tr>
@@ -83,10 +95,7 @@
         <tr><td data-label="What is collected">team-reset-joined</td><td data-label="Why">Person joined a team reset in a meeting</td><td data-label="Where it goes">GoatCounter (as <code>pilot/&lt;team&gt;/team-reset-joined</code>)</td><td data-label="Who sees it">HR: team totals only</td><td data-label="Retention">Until week-6 report</td></tr>
       </tbody>
     </table></div>
-    <ul class="pm-list d-notes">
-      <li>The local activity log stays in the browser. It can be turned off or cleared in Settings.</li>
-      <li>No sale, no ads, no model training.</li>
-    </ul>
+    </details>
     <div class="note d-ai"><p><strong>Optional AI mode.</strong> Typed messages go to Anthropic only if agreed in writing. Pilots use Mock mode: nothing typed is sent.</p></div>
   </div>
 </section>
