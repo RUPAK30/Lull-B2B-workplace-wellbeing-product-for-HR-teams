@@ -25,7 +25,9 @@
 <link rel="stylesheet" href="styles.css">
 <script data-goatcounter="https://lull.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
+
 <body>
+
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav" id="nav">
@@ -34,7 +36,7 @@
     <nav class="nav-links" aria-label="Sections">
       <a href="app/" data-ev="app-opened-nav">Try Lull</a>
       <a href="#report">Week 6 report</a>
-      <a href="pilot.html">Pilot &amp; cost</a>
+      <a href="pilot.html">Pilot & cost</a>
       <a href="pilot.html#faq">Questions</a>
     </nav>
   </div>
@@ -42,14 +44,23 @@
 
 <main id="main">
 
+<!-- Block 1: Hero -->
 <section class="hero" id="hero">
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <p class="for-line" id="for-line" hidden></p>
-      <p class="scene">3:40 pm. Fourth back-to-back call just wrapped. Shoulders up by your ears, and the next sync starts in two minutes.</p>
-      <h1>A 3-minute movement reset for teams stuck in back&#8209;to&#8209;back calls.</h1>
-      <p class="lede">Lull gives your team a 3-minute guided movement reset, matched to how they say they feel.</p>
-      <p class="lede lede-2">HR sees whether teams are using it, without ever seeing a person.</p>
+      <p class="eyebrow">3:40 pm. Between calls.</p>
+      <h1>Most employees don't use the wellbeing benefit you pay for.</h1>
+      <p class="subhead">Lull is a 3-minute movement reset built for the workday, with team-level proof and no individual data.</p>
+      <div class="cta-block">
+        <div class="btns">
+          <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-hero" href="https://tally.so/r/peex9E?cta=sample">Get a sample report for your company</a>
+          <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-hero" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
+        </div>
+        <p class="cta-sub">Tell me your team size and I'll send you what week 6 could look like for you, free. (Delivered within 24 hours)</p>
+        <p class="cta-email">or email <a href="mailto:rupakr2g@gmail.com" data-ev="email-hero">rupakr2g@gmail.com</a></p>
+      </div>
+      <p class="chips">3 minutes · No install · Team totals only</p>
+      <p class="source-line"><a href="#source" data-ev="source-link">See the source: Plum 2023 ~30% participation</a></p>
     </div>
 
     <div class="try" id="try">
@@ -60,7 +71,7 @@
       <div class="chips" role="group" aria-labelledby="try-h">
         <button type="button" class="chip" data-chip="calls" aria-pressed="false">After back-to-back calls</button>
         <button type="button" class="chip" data-chip="slump" aria-pressed="false">Post-lunch slump</button>
-        <button type="button" class="chip" data-chip="stress" aria-pressed="false">Stressed, can’t switch off</button>
+        <button type="button" class="chip" data-chip="stress" aria-pressed="false">Stressed, can't switch off</button>
         <button type="button" class="chip chip-care" data-chip="pain" aria-pressed="false">My lower back hurts</button>
       </div>
       <form class="say" id="say" autocomplete="off">
@@ -68,7 +79,7 @@
         <input id="say-input" name="say" maxlength="120" placeholder="Or type how you feel…" enterkeyhint="go">
         <button type="submit" class="say-go">Try</button>
       </form>
-      <p class="tiny say-hint">Hinglish works too: try “gardan akad gayi” or “kamar mein dard”.</p>
+      <p class="tiny say-hint">Hinglish works too: try "gardan akad gayi" or "kamar mein dard".</p>
       <div class="split" id="split">
         <div class="side emp" aria-live="polite">
           <p class="chrome phone" aria-hidden="true"><span class="notch"></span><span class="app-name">lull</span></p>
@@ -85,37 +96,65 @@
       </div>
       <p class="try-app"><a href="app/" data-ev="app-opened">Open the real Lull app →</a><span>Runs in your browser, no sign-up. The demo sends nothing. A pilot link sends only the anonymous counts listed in Settings.</span></p>
     </div>
-
-    <div class="cta-block hero-cta">
-      <div class="btns">
-        <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-hero" href="https://tally.so/r/peex9E?cta=sample">Get a sample report for your company</a>
-        <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-hero" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
-        <a class="btn btn-text" data-cta="feedback" data-ev="cta-feedback-hero" href="https://tally.so/r/peex9E?cta=feedback">Give 15-min feedback</a>
-      </div>
-      <p class="cta-sub">Tell me your team size and I'll send you what week 6 could look like for you, free. (Delivered within 24 hours)</p>
-      <p class="cta-email">or email <a href="mailto:rupakr2g@gmail.com" data-ev="email-hero">rupakr2g@gmail.com</a></p>
-    </div>
   </div>
 </section>
 
+<!-- Block 2: 30-second summary -->
 <section class="summary" id="summary" aria-labelledby="summary-h">
   <div class="wrap">
     <h2 class="sr" id="summary-h">Lull in 30 seconds</h2>
     <dl class="tldr">
-      <div><dt>What it is</dt><dd>A 3-minute guided movement break, matched to how people say they feel.</dd></div>
-      <div><dt>What HR sees</dt><dd>Team totals only. Teams under 10 hidden. Nothing anyone types.</dd></div>
-      <div><dt>What it costs</dt><dd>A 6-week pilot with one team: about ₹1,800–3,600 in total.</dd></div>
+      <div><dt>Employees get</dt><dd>One 3-minute reset between calls, in English or Hinglish.</dd></div>
+      <div><dt>HR gets</dt><dd>Team totals and return rates. No names, no messages. Under-10 teams hidden.</dd></div>
+      <div><dt>You need</dt><dd>15 minutes to launch. One team of 10–50. Two check-ins.</dd></div>
     </dl>
+    <p class="privacy-under">The demo sends nothing. A pilot link sends only the anonymous counts listed in Settings.</p>
     <nav class="jumps" aria-label="Jump to your question">
       <a href="#try" data-ev="jump-private">Is it private?</a>
       <a href="#usage-sec" data-ev="jump-use">Will people use it?</a>
-      <a href="#report" data-ev="jump-ceo">What will I show my CEO?</a>
       <a href="pilot.html" data-ev="jump-cost">What does it cost?</a>
+      <a href="pilot.html#report" data-ev="jump-report">Sample week-6 readout</a>
     </nav>
   </div>
 </section>
 
-<section class="sec band" id="usage-sec" aria-labelledby="usage-h">
+<!-- Block 3: How a pilot runs -->
+<section class="pilot-steps" id="pilot-steps">
+  <div class="wrap">
+    <h2 class="sr">How a pilot runs</h2>
+    <ol class="steps">
+      <li><span class="step-n">Week 0</span> "Pick one team. Agree targets. Share a link."</li>
+      <li><span class="step-n">Week 3</span> "Review team totals. Adjust what isn't working."</li>
+      <li><span class="step-n">Week 6</span> "Written readout. Continue or stop."</li>
+    </ol>
+    <p><a href="pilot.html#report" data-ev="pilot-report-link">See the sample week-6 readout →</a> <span class="label">Illustrative sample, not customer data.</span></p>
+  </div>
+</section>
+
+<!-- Block 4: Founding pilot -->
+<section class="founding-pilot" id="founding-pilot">
+  <div class="wrap">
+    <h2 class="sr">3 founding pilot slots</h2>
+    <dl class="terms">
+      <div><dt>What they get</dt><dd>Launch kit, week-3 check-in, week-6 written readout.</dd></div>
+      <div><dt>What you need</dt><dd>15-minute kickoff, one team contact, two check-ins.</dd></div>
+      <div><dt>Price</dt><dd>₹60–120 per person per month, indicative. No annual contract.</dd></div>
+    </dl>
+    <div class="btns">
+      <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-founding" href="https://tally.so/r/peex9E?cta=sample">Apply for a founding pilot</a>
+      <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-founding" href="https://tally.so/r/peex9E?cta=pilot">Email Rupak</a>
+    </div>
+    <p class="next-step">What happens next: 15-minute call → choose team and targets → launch in a week.</p>
+  </div>
+</section>
+
+<!-- Block 5: Source reference (collapsible) -->
+<details class="fold" id="source" aria-label="See research source">
+  <summary>See the source: Plum 2023 ~30% participation</summary>
+  <p>Plum, Health Report of Corporate India 2023 (3,500+ organisations). About 30% of employees take part in company wellness programmes. Lull's pilot target of ≥50% is higher than typical uptake, to test whether a between-calls reset can beat the baseline.</p>
+</details>
+
+<section class="sec" id="usage-sec" aria-labelledby="usage-h">
   <div class="wrap usage-grid">
     <div class="sec-head reveal">
       <p class="kicker">Start with your own number</p>
@@ -130,45 +169,12 @@
       <ul class="bench">
         <li class="you"><span>Your guess</span><i id="usage-bar" style="--w:20%"></i><b id="usage-you">20%</b></li>
         <li><span>Indian company wellness programmes</span><i style="--w:30%"></i><b>~30%</b></li>
-        <li><span>Wellbeing apps, still used after 30 days</span><i style="--w:3.3%"></i><b>~3%</b></li>
+        <li><span>Mental-health apps, still used after 30 days</span><i style="--w:3.3%"></i><b>~3%</b></li>
         <li class="target"><span>Lull pilot target: tried it</span><i style="--w:50%"></i><b>≥50%</b></li>
       </ul>
       <p class="usage-verdict" id="usage-verdict" aria-live="polite"></p>
       <p class="cite">Plum, Health Report of Corporate India 2023 (3,500+ organisations). JMIR 2019: median day-30 retention across 93 mental-health apps. Lull's figure is a pilot target, not a result.</p>
     </div>
-  </div>
-  <div class="wrap" id="return">
-    <div class="sec-head reveal">
-      <p class="kicker">Why people come back</p>
-      <h2 id="return-h">Most tools rely on a launch email. Lull relies on a moment people choose.</h2>
-      <p class="lede">And nobody has to admit they're struggling to use it. It's a stretch break, not a counselling session.</p>
-    </div>
-    <ol class="loop">
-      <li class="reveal"><span class="loop-n">1</span><h3>They pick a time, once</h3><p>After a session, one tap puts a weekday reminder on their own calendar or in Slack. Lull never sends reminders itself, so “not today” costs nothing.</p>
-        <div class="mini mini-cal" aria-hidden="true"><b>3:40 pm</b><span>Lull: 3-minute reset</span><small>Weekdays</small></div></li>
-      <li class="reveal"><span class="loop-n">2</span><h3>One tap, three minutes</h3><p>The reminder opens Lull, they say how they feel, and get one short session that fits. Mention pain and it stops.</p>
-        <div class="mini mini-say" aria-hidden="true"><span>“Stiff neck after calls”</span><b>Unknot neck &amp; shoulders · 2:30</b></div></li>
-      <li class="reveal"><span class="loop-n">3</span><h3>You see the team total move</h3><p>Only anonymous counts leave the device: started, finished, how it felt, reminder set. Each person can see exactly what was sent, and switch it off.</p>
-        <div class="mini mini-hr" aria-hidden="true"><span>Sales · reminders set</span><b>+1</b></div></li>
-    </ol>
-    <p class="loop-hint" aria-hidden="true">Swipe for all three steps →</p>
-    <div class="together reveal">
-      <div>
-        <h3>Or make it a team habit</h3>
-        <p>Any manager can end a recurring meeting with a 3-minute reset. One link in the invite opens the same session for everyone. No install, no accounts. People do what their team does, so this is often what makes it stick.</p>
-        <button type="button" class="btn btn-ghost" id="copy-reset" data-ev="team-reset-copied">Copy a team reset invite</button>
-        <p class="tiny" id="copy-reset-done" role="status"></p>
-      </div>
-      <details class="fold invite-fold" data-desktop-open>
-        <summary>See the meeting invite</summary>
-      <div class="invite" aria-hidden="true">
-        <p class="invite-title">Weekly stand-up</p>
-        <p class="invite-time">Tue · 10:00–10:30</p>
-        <p class="invite-body">Agenda: updates, blockers.<br><b>Last 3 minutes: Lull team reset.</b> Open together and press Start: <span>lull-hr.vercel.app/app/?reset=unknot-seated</span></p>
-      </div>
-      </details>
-    </div>
-    <p class="loop-try reveal"><a href="app/" data-ev="app-opened-loop">Try it: finish a session in the app and set your own reminder →</a></p>
   </div>
 </section>
 
@@ -203,11 +209,10 @@
           <ul>
             <li><span>Engineering</span><b>8 <small>of 24</small></b></li>
             <li><span>Sales</span><b>6 <small>of 14</small></b></li>
-            <li><span>Product &amp; Design</span><b>2 <small>of 11</small></b></li>
+            <li><span>Product & Design</span><b>2 <small>of 11</small></b></li>
             <li class="hid"><span>Customer support</span><b>Hidden · under 10</b></li>
-            <li class="hid"><span>People &amp; Ops</span><b>Hidden · under 10</b></li>
+            <li class="hid"><span>People & Ops</span><b>Hidden · under 10</b></li>
           </ul>
-
         </div>
       </div>
       <details class="fold slide-more" data-desktop-open>
@@ -218,7 +223,7 @@
           <ul class="needs-list">
             <li><span>Engineering</span><b>Not much time</b><small>12 of 36 requests</small></li>
             <li><span>Sales</span><b>Not much time</b><small>10 of 31</small></li>
-            <li><span>Product &amp; Design</span><b>A lot of sitting</b><small>8 of 22</small></li>
+            <li><span>Product & Design</span><b>A lot of sitting</b><small>8 of 22</small></li>
           </ul>
         </div>
         <div class="cost-cell">
@@ -232,41 +237,6 @@
       <p class="slide-foot">HR saw team totals only. No names, no messages.</p>
     </article>
     <p class="slide-actions reveal"><button type="button" class="btn btn-ghost" id="dl-slide">Download this slide (PNG)</button><span class="tiny">Forward it to your founder as-is.</span></p>
-  </div>
-</section>
-
-
-
-<section class="sec close band" id="close" aria-labelledby="close-h">
-  <div class="wrap reveal">
-    <h2 class="sr" id="builder-h">From the builder</h2>
-    <div class="close-grid">
-    <div class="builder">
-      <img class="avatar" src="img/rupak.jpg" alt="Rupak Ghanpathi" width="72" height="72" loading="lazy">
-      <div>
-        <blockquote>
-          <p>I built Lull because people who sit all day know they should move more; what stops them is deciding what to do with five spare minutes. It's a working product at pilot stage, not a finished platform. I'm looking for 3 pilot partners to shape what it becomes, and to tell me plainly where it falls short.</p>
-        </blockquote>
-        <p class="who">Rupak Ghanpathi, builder of Lull · <a href="https://www.linkedin.com/in/rupak-ghanpathi">LinkedIn</a></p>
-        <div class="btns"><button type="button" class="btn btn-text" id="open-video">See the full app in 2 minutes</button></div>
-      </div>
-    </div>
-
-    <div class="close-cta">
-    <h2 id="close-h">We're looking for 3 pilot partners.</h2>
-    <div class="cta-block">
-      <div class="btns">
-        <a class="btn btn-primary" data-cta="sample" data-ev="cta-sample-close" href="https://tally.so/r/peex9E?cta=sample">Get a sample report for your company</a>
-        <a class="btn btn-ghost" data-cta="pilot" data-ev="cta-pilot-close" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot</a>
-        <a class="btn btn-text" data-cta="feedback" data-ev="cta-feedback-close" href="https://tally.so/r/peex9E?cta=feedback">Give 15-min feedback</a>
-      </div>
-      <p class="cta-sub">Tell me your team size and I'll send you what week 6 could look like for you, free. (Delivered within 24 hours)</p>
-      <p class="cta-email">or email <a href="mailto:rupakr2g@gmail.com" data-ev="email-close">rupakr2g@gmail.com</a></p>
-      <p class="share-line"><a class="btn btn-text" id="share" href="#">Send this to my founder</a></p>
-      <p class="more-line"><a href="pilot.html" data-ev="pilot-page-close">How a pilot runs: cost, terms, launch kit and questions →</a></p>
-    </div>
-    </div>
-    </div>
   </div>
 </section>
 

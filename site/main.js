@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var forLine = document.getElementById('for-line');
   if (company && forLine) {
     forLine.textContent = 'A 2-minute look at Lull, prepared for the People team at ' + company; forLine.hidden = false;
-    // Her company's name on the sample views, still labelled as sample data.
     var set = function (id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
     set('hr-label', 'What HR at ' + company + ' sees');
     set('hr-chrome', company + ' · team view (sample data)');
@@ -27,16 +26,20 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Links between the overview and the pilot page keep ?for= and ?ref=.
-  if (location.search) document.querySelectorAll('a[href^="pilot.html"], a[href="./"], a[href^="./#"]').forEach(function (a) {
-    var h = a.getAttribute('href'), k = h.indexOf('#');
-    a.setAttribute('href', (k < 0 ? h : h.slice(0, k)) + location.search + (k < 0 ? '' : h.slice(k)));
-  });
+  if (location.search) {
+    document.querySelectorAll('a[href^="pilot.html"], a[href="./"], a[href^="./#"]').forEach(function (a) {
+      var h = a.getAttribute('href'), k = h.indexOf('#');
+      a.setAttribute('href', (k < 0 ? h : h.slice(0, k)) + location.search + (k < 0 ? '' : h.slice(k)));
+    });
+  }
 
-  // Every Tally link already has ?cta=, so ref joins with &.
+  // Tally links already have ?cta=, so ref joins with &.
   if (ref) document.querySelectorAll('a[data-cta]').forEach(function (a) { a.href += '&ref=' + encodeURIComponent(ref); });
 
   var nav = document.getElementById('nav');
-  addEventListener('scroll', function () { nav.classList.toggle('scrolled', scrollY > 8); }, { passive: true });
+  if (nav) {
+    addEventListener('scroll', function () { nav.classList.toggle('scrolled', scrollY > 8); }, { passive: true });
+  }
 
   var io = 'IntersectionObserver' in window;
   var reveals = document.querySelectorAll('.reveal');
@@ -49,10 +52,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Layered sections: open on wide screens, one tap away on phones.
   var wide = matchMedia('(min-width:860px)');
-  document.querySelectorAll('details[data-desktop-open]').forEach(function (d) {
-    if (wide.matches) d.open = true;
-    d.addEventListener('toggle', function () { if (d.open && !wide.matches) track('fold-' + (d.className.split(' ')[1] || 'details')); });
-  });
+  if (document.querySelectorAll('details[data-desktop-open]').length) {
+    document.querySelectorAll('details[data-desktop-open]').forEach(function (d) {
+      if (wide.matches) d.open = true;
+      d.addEventListener('toggle', function () { if (d.open && !wide.matches) track('fold-' + (d.className.split(' ')[1] || 'details')); });
+    });
+  }
 
   var site = 'https://lull-hr.vercel.app/';
   var slug = (company || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24);
@@ -73,326 +78,289 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('main section[id]').forEach(function (el) { seen.observe(el); });
   }
 
-  if (document.getElementById('split')) {
-
-  // Two-sided demo. It runs Lull's real engine, the same file the app uses (app/server/lull.js):
-  // the same need matching (English and Hinglish), safety rules and five desk resets. No AI.
-  // HR figures come from the repo's sample company (src/shared/team.ts): a finished reset moves
-  // one team from one below to its week-6 active count.
-  var TEAMS = [['Engineering', 8], ['Sales', 6], ['Product & Design', 2], ['Customer support', null], ['People & Ops', null]];
-  var TEAM_FOR = { unknot: 'Engineering', unsit: 'Product & Design', energy: 'Product & Design', calm: 'Sales', screen: 'Engineering' };
-  // The broad category HR may see, mirroring src/shared/pilot.ts. Never the words typed.
-  var NEED_LABEL = { neck: 'neck and shoulders', back: 'a stiff back', sitting: 'a lot of sitting', stiff: 'stiffness', legs: 'tight legs', eyes: 'eyes and wrists', time: 'short on time', low: 'low energy', restless: 'restless', energetic: 'more energy', calm: 'something calm', unsure: 'not sure', fitness: 'general fitness' };
-  var CARE = {
-    urgent: { title: 'Please get help first.', text: 'This isn’t something Lull can help with, and it isn’t a time to move.' },
-    pain: { title: 'Let’s not work around pain.', text: 'If you’d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.' },
-    rehab: { title: 'Let’s not work around pain.', text: 'If you’d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.' }
-  };
-  var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
-  var full = function (team) { return TEAMS.filter(function (t) { return t[0] === team; })[0][1]; };
-  var rows = document.getElementById('hr-rows'), emp = document.getElementById('emp'), status = document.getElementById('hr-status');
-  rows.innerHTML = TEAMS.map(function (t) {
-    return t[1] === null
-      ? '<li class="hr-row hidden"><span><b>' + esc(t[0]) + '</b></span><span class="n">Hidden · under 10</span></li>'
-      : '<li class="hr-row" data-team="' + esc(t[0]) + '"><span><b>' + esc(t[0]) + '</b></span><span class="n"><strong>' + t[1] + '</strong> active this week<span class="delta">+1</span></span></li>';
-  }).join('');
-
-  var chips = document.querySelectorAll('.chip'), split = document.getElementById('split'), input = document.getElementById('say-input');
-  var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches, timers = [];
-  var later = function (fn, ms) { timers.push(setTimeout(fn, reduce ? 0 : ms)); };
-  function resetHr(team) {
-    rows.querySelectorAll('.hr-row[data-team]').forEach(function (r) {
-      r.classList.remove('bump');
-      r.querySelector('strong').textContent = full(r.dataset.team) - (r.dataset.team === team ? 1 : 0);
-    });
-    status.className = 'hr-status';
-  }
-  import('./app/server/lull.js').then(function (L) {
-    function run(raw, source) {
-      timers.forEach(clearTimeout); timers = [];
-      var r = L.interpretNeed(raw);
-      chips.forEach(function (c) { c.setAttribute('aria-pressed', source === c.dataset.chip); });
-      if (source !== 'auto') { split.classList.remove('swap'); void split.offsetWidth; split.classList.add('swap'); }
-      if (r.kind === 'care') {
-        var c = CARE[r.level];
-        emp.innerHTML = '<h3>' + c.title + '</h3><p class="care-alert' + (r.level === 'urgent' ? ' urgent' : '') + '">' + esc(L.CARE_ACK[r.level]) + '</p><p class="emp-text">' + c.text + '</p><p class="emp-run">No reset offered.</p>';
-        resetHr(null);
-        status.className = 'hr-status care';
-        status.innerHTML = '<b>Nothing changed.</b> Pain reports are never shared with anyone.';
-        return r;
-      }
-      if (r.kind === 'clarify') {
-        emp.innerHTML = '<h3 class="clarify">' + esc(r.ack) + '</h3><p class="emp-text">Lull asks rather than guesses.</p><div class="clarify-opts">' +
-          L.RESETS.map(function (k) { return '<button type="button" class="chip clarify-opt" data-say="' + esc(L.RESET_MOMENTS[k]) + '">' + esc(L.RESET_MOMENTS[k]) + '</button>'; }).join('') + '</div>';
-        resetHr(null);
-        status.innerHTML = '<b>Nothing changed.</b> No reset, nothing counted.';
-        return r;
-      }
-      var posture = r.posture || L.DEFAULT_POSTURE[r.reset], plan = L.planOf(r.reset, posture), team = TEAM_FOR[r.reset];
-      var other = posture === 'seated' ? 'standing' : 'seated';
-      var heard = r.heard.length ? '<p class="emp-heard">Heard: ' + r.heard.map(function (k) { return L.HEARD[k]; }).join(' · ') + '</p>' : '';
-      emp.innerHTML = heard + '<p class="emp-ack">' + esc(r.ack) + '</p><h3>' + esc(L.RESET_NAMES[r.reset]) + '</h3>' +
-        '<p class="emp-meta">' + posture.charAt(0).toUpperCase() + posture.slice(1) + ' · ' + L.clock(plan.total) + ' · ' + other + ' also offered</p><ol class="blocks">' +
-        plan.blocks.map(function (b) { return '<li><b>' + esc(b.title) + '</b><span>' + L.clock(b.seconds) + '</span></li>'; }).join('') + '</ol><p class="emp-run" id="emp-run"></p>';
-      resetHr(team);
-      status.textContent = 'Updates when a reset finishes.';
-      var lis = emp.querySelectorAll('.blocks li'), runEl = document.getElementById('emp-run');
-      var step = 700, start = source === 'auto' ? 500 : 250;
-      lis.forEach(function (li, i) {
-        later(function () {
-          if (i) lis[i - 1].className = 'done';
-          li.className = 'on';
-          runEl.textContent = 'Step ' + (i + 1) + ' of ' + lis.length + ' · ' + li.querySelector('b').textContent;
-        }, start + i * step);
-      });
-      later(function () {
-        lis.forEach(function (li) { li.className = 'done'; });
-        runEl.innerHTML = '<b>Back to your day</b> · ' + L.clock(plan.total);
-        var row = rows.querySelector('.hr-row[data-team="' + team + '"]');
-        row.querySelector('strong').textContent = full(team);
-        row.classList.add('bump');
-        var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
-        status.innerHTML = '<b>' + esc(team) + ' +1</b>' + esc(need) + '. That’s all HR gets.';
-      }, start + lis.length * step);
-      return r;
-    }
-    var CHIP_TEXT = {};
-    chips.forEach(function (chip) {
-      CHIP_TEXT[chip.dataset.chip] = chip.textContent;
-      chip.addEventListener('click', function () { input.value = chip.textContent; run(chip.textContent, chip.dataset.chip); track('chip-' + chip.dataset.chip); });
-    });
-    document.getElementById('say').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var v = input.value.trim(); if (!v) { input.focus(); return; }
-      var r = run(v, 'typed');
-      try { localStorage.setItem('lull-last-feeling', v); } catch (err) { /* private mode: nothing to remember */ }
-      input.blur();
-      track('typed-' + (r.kind === 'suggest' ? r.reset : r.kind === 'care' ? 'care-' + r.level : 'clarify'));
-    });
-    emp.addEventListener('click', function (e) {
-      var b = e.target.closest('.clarify-opt'); if (!b) return;
-      run(b.dataset.say, 'typed'); track('clarify-' + b.textContent.trim().toLowerCase().replace(/[^a-z]+/g, '-'));
-    });
-    // A returning visitor sees her own last answer again; everyone else starts on the first moment.
-    var last = null;
-    try { last = localStorage.getItem('lull-last-feeling'); } catch (err) { last = null; }
-    if (last) { input.value = last; run(last, 'auto'); }
-    else { run(CHIP_TEXT.calls, 'auto'); chips[0].setAttribute('aria-pressed', 'true'); }
-  }).catch(function () { emp.textContent = 'The demo could not load. Try the app instead.'; });
-
-  // CEO slide chart: the sample's weekly active people.
-  var WEEKLY = [33, 34, 29, 21, 23, 22], max = 34;
-  document.getElementById('bars').innerHTML = WEEKLY.map(function (n, i) {
-    return '<li style="--h:' + (n / max * 100).toFixed(1) + '%"><span class="v">' + n + '</span><span class="b" aria-hidden="true"></span><span class="w">W' + (i + 1) + '</span></li>';
-  }).join('');
-
-  // Targets: the sample results (44 of 64 tried, 27 of 44 still using) checked against hers.
-  var RESULT = { tried: 44 / 64, stayed: 27 / 44 }, target = { tried: 0.5, stayed: 0.3334 };
-  var LABELS = { tried: { '0.5': '50%', '0.6': '60%', '0.75': '75%' }, stayed: { '0.3334': '1 in 3', '0.5': '1 in 2', '0.6667': '2 in 3' } };
-  function verdicts() {
-    ['tried', 'stayed'].forEach(function (k) {
-      var met = RESULT[k] >= target[k], el = document.getElementById('v-' + k);
-      el.className = 'verdict ' + (met ? 'met' : 'miss');
-      el.textContent = (met ? 'Met' : 'Not met') + ' · target ' + LABELS[k][String(target[k])];
-    });
-  }
-  document.querySelectorAll('.seg[data-target]').forEach(function (seg) {
-    seg.addEventListener('click', function (e) {
-      var b = e.target.closest('button'); if (!b) return;
-      seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
-      target[seg.dataset.target] = +b.dataset.v; verdicts(); track('target-' + seg.dataset.target + '-' + b.textContent.replace(/\s+/g, ''));
-    });
-  });
-  verdicts();
-  document.querySelector('.why-hidden').addEventListener('toggle', function (e) { if (e.target.open) track('why-hidden-opened'); });
-
-  // Download the slide as a PNG, drawn on a canvas so it looks the same everywhere.
-  document.getElementById('dl-slide').addEventListener('click', function () {
-    var go = function () {
-      var W = 1600, H = 1000, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
-      var x = cv.getContext('2d'), INK = '#1F2933', MUTE = '#5B6670', ACC = '#2D5A45', LINE = '#E4DCCB', SERIF = 'Fraunces, Georgia, serif', SANS = 'Inter, system-ui, sans-serif';
-      x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
-      var L = 90, R = W - 90;
-      x.fillStyle = INK; x.font = '600 26px ' + SANS; x.fillText(document.getElementById('slide-title').textContent, L, 100);
-      x.fillStyle = MUTE; x.font = '500 18px ' + SANS; x.textAlign = 'right'; x.fillText('SAMPLE REPORT', R, 100); x.textAlign = 'left';
-      x.fillStyle = INK; x.fillRect(L, 124, R - L, 3);
-      var stat = function (big, of, cap, k, sx) {
-        x.fillStyle = ACC; x.font = '600 112px ' + SANS; x.fillText(big, sx, 290); var w = x.measureText(big).width;
-        x.fillStyle = MUTE; x.font = '400 34px ' + SANS; x.fillText(of, sx + w + 16, 290);
-        x.fillStyle = INK; x.font = '500 28px ' + SANS; x.fillText(cap, sx, 338);
-        var met = RESULT[k] >= target[k]; x.fillStyle = met ? ACC : '#9A5B36'; x.font = '600 22px ' + SANS;
-        x.fillText((met ? 'Met' : 'Not met') + ' · target ' + LABELS[k][String(target[k])], sx, 378);
-      };
-      stat('44', 'of 64', 'tried it', 'tried', L); stat('27', 'of 44', 'still using it in weeks 5–6', 'stayed', 820);
-      x.fillStyle = LINE; x.fillRect(L, 412, R - L, 2);
-      x.fillStyle = MUTE; x.font = '600 18px ' + SANS; x.fillText('PEOPLE ACTIVE EACH WEEK', L, 466); x.fillText('ACTIVE IN WEEK 6, BY TEAM', 900, 466);
-      var bw = 92, gap = 26, base = 760, hmax = 240;
-      WEEKLY.forEach(function (n, i) {
-        var bx = L + i * (bw + gap), h = n / max * hmax;
-        x.fillStyle = ACC; x.fillRect(bx, base - h, bw, h);
-        x.fillStyle = INK; x.font = '600 22px ' + SANS; x.textAlign = 'center'; x.fillText(String(n), bx + bw / 2, base - h - 12);
-        x.fillStyle = MUTE; x.font = '400 18px ' + SANS; x.fillText('W' + (i + 1), bx + bw / 2, base + 30); x.textAlign = 'left';
-      });
-      [['Engineering', '8 of 24'], ['Sales', '6 of 14'], ['Product & Design', '2 of 11'], ['Customer support', 'Hidden · under 10'], ['People & Ops', 'Hidden · under 10']].forEach(function (t, i) {
-        var y = 520 + i * 54, hid = t[1].indexOf('Hidden') === 0;
-        x.fillStyle = hid ? MUTE : INK; x.font = '400 24px ' + SANS; x.fillText(t[0], 900, y);
-        x.font = (hid ? '500 20px ' : '600 24px ') + SANS; x.textAlign = 'right'; x.fillText(t[1], R, y); x.textAlign = 'left';
-        x.fillStyle = LINE; x.fillRect(900, y + 18, R - 900, 1);
-      });
-      x.fillStyle = LINE; x.fillRect(L, 812, R - L, 2);
-      x.fillStyle = MUTE; x.font = '600 18px ' + SANS; x.fillText('ASKED FOR MOST', L, 846); x.fillText('COST PER FINISHED SESSION', 1110, 846);
-      x.fillStyle = INK; x.font = '500 22px ' + SANS; x.fillText('Engineering: not much time · Sales: not much time · Product & Design: a lot of sitting', L, 880);
-      x.fillStyle = ACC; x.font = '600 30px ' + SANS; x.fillText('₹26–53', 1110, 884);
-      x.fillStyle = INK; x.fillRect(L, 912, R - L, 3);
-      x.font = '500 28px ' + SERIF; x.fillText('HR saw team totals only. No names, no messages.', L, 958);
-      var a = document.createElement('a'); a.download = 'lull-week6-sample-slide.png'; a.href = cv.toDataURL('image/png'); document.body.appendChild(a); a.click(); a.remove();
-    };
-    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(go);
-    track('slide-downloaded');
-  });
-
-  // Her own usage guess against cited benchmarks (Plum 2023, JMIR 2019). Lull's number is a target.
-  var usage = document.getElementById('usage'), usageUsed = false;
-  var usageRead = function () {
-    var v = +usage.value;
-    document.getElementById('usage-out').textContent = v + '%';
-    document.getElementById('usage-you').textContent = v + '%';
-    document.getElementById('usage-bar').style.setProperty('--w', Math.max(v, 1) + '%');
-    document.getElementById('usage-verdict').textContent = v < 10
-      ? 'Below even typical counselling-service use. The content is rarely the problem; nothing brings people back.'
-      : v <= 35 ? 'About where most companies are. Most tools are bought at launch and quietly forgotten by week four.'
-      : 'Better than most. The harder part is showing it to your CEO without naming anyone.';
-  };
-  usage.addEventListener('input', function () { usageRead(); if (!usageUsed) { usageUsed = true; track('usage-guess-used'); } });
-  usage.addEventListener('change', function () { track('usage-guess-' + (+usage.value < 10 ? 'under10' : +usage.value <= 35 ? '10to35' : 'over35')); });
-  usageRead();
-
-  document.getElementById('copy-reset').addEventListener('click', function () {
-    copyText(invite, document.getElementById('copy-reset-done'), 'Copied. Paste it at the bottom of any recurring meeting invite.');
-  });
-
-  }
-
-  if (document.getElementById('kit-text')) {
-  // Launch kit: ready-to-send words, with her company name when the link has ?for=.
-  var org = company || 'our company';
-  var KIT = {
-    slack: 'Trying something small for the next 6 weeks: Lull, a 3-minute movement reset for days full of calls.\n\n'
-      + 'Type how you feel (Hinglish works too) and you get one three-minute desk reset: for a stiff neck after calls, a post-lunch slump, or a busy mind.\n\n'
-      + 'Private by design: ' + org + ' only sees team totals, never who used it or anything you type.\n\n'
-      + 'Try it now: ' + teamLink + '\nAt the end, you can set your own reminder in your calendar or Slack.',
-    email: 'Subject: A 3-minute reset for the days that are all calls\n\n'
-      + 'Hi all,\n\nFor the next 6 weeks we are piloting Lull: a short guided movement break you can take at your desk. '
-      + 'Type how you feel, in your own words or Hinglish, and it suggests one three-minute desk reset, seated or standing. If you mention pain, it stops and points you to proper help.\n\n'
-      + 'It is private by design. ' + org + ' sees team totals only: no names, no individual sessions, nothing you type. You can see exactly what is counted in Lull’s settings, and switch it off.\n\n'
-      + 'Open it here: ' + teamLink + '\n\nThere is nothing to install and no account to create. Questions? Just reply.',
-    managers: 'Thanks for helping with the Lull pilot. One small ask: end one recurring meeting a week with a 3-minute team reset.\n\n'
-      + 'Paste this at the bottom of the invite:\n' + invite + '\n\n'
-      + 'Join in yourself. People do what their team does. And you will never see who took part: HR only sees team totals.',
-    card: 'A printable desk card for meeting rooms and desks, with a QR code that opens Lull for your team.\n\n'
-      + '“Three minutes between calls. Type how you feel, even in Hinglish. Private: your company sees team totals only.”'
-  };
-  var kitKey = 'slack', kitText = document.getElementById('kit-text'), kitPrint = document.getElementById('kit-print');
-  kitPrint.href = 'card.html?' + (company ? 'for=' + encodeURIComponent(company) + '&' : '') + 'team=' + encodeURIComponent(slug || 'your-team');
-  var showKit = function () {
-    kitText.textContent = KIT[kitKey];
-    kitPrint.hidden = kitKey !== 'card';
-    document.getElementById('kit-copy').hidden = kitKey === 'card';
-    document.getElementById('kit-done').textContent = '';
-    document.querySelectorAll('.kit-tabs [role=tab]').forEach(function (t) {
-      var on = t.dataset.kit === kitKey; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1;
-      if (on) document.getElementById('kit-panel').setAttribute('aria-labelledby', t.id);
-    });
-  };
-  document.querySelector('.kit-tabs').addEventListener('click', function (e) {
-    var t = e.target.closest('[role=tab]'); if (!t) return; kitKey = t.dataset.kit; showKit(); track('launch-kit-' + kitKey);
-  });
-  document.querySelector('.kit-tabs').addEventListener('keydown', function (e) {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-    var tabs = Array.prototype.slice.call(this.querySelectorAll('[role=tab]')), i = tabs.findIndex(function (t) { return t.dataset.kit === kitKey; });
-    var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; kitKey = next.dataset.kit; showKit(); next.focus();
-  });
-  document.getElementById('kit-copy').addEventListener('click', function () {
-    copyText(KIT[kitKey], document.getElementById('kit-done'), 'Copied.'); track('launch-kit-copied-' + kitKey);
-  });
-  showKit();
-
-  }
-
-  if (document.getElementById('size')) {
-  // Calculator: a pilot team first (what she can approve), the whole company on request.
-  var size = document.getElementById('size');
-  var fmt = function (n) { return n.toLocaleString('en-IN'); };
-  var MODES = { pilot: { min: 10, max: 50, step: 5, value: 20, label: 'Pilot team size' }, company: { min: 20, max: 500, step: 10, value: 100, label: 'Company size' } };
-  var mode = 'pilot', used = false;
-  var calc = function () {
-    var n = +size.value;
-    document.getElementById('cost').innerHTML = '<span class="ppl">' + n + ' people:</span> <span class="amt">₹' + fmt(n * 60) + '–' + fmt(n * 120) + '</span> <span class="mo">/ month</span>';
-    document.getElementById('cost-note').textContent = mode === 'pilot'
-      ? '6-week pilot total: ₹' + fmt(n * 90) + '–' + fmt(n * 180) + '. Indicative.'
-      : 'Indicative, at ₹60–120 per person per month. Pilots start with one team of 10–50.';
-  };
-  document.getElementById('calc-mode').addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (!b || b.dataset.mode === mode) return;
-    mode = b.dataset.mode; var m = MODES[mode];
-    this.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
-    size.min = m.min; size.max = m.max; size.step = m.step; size.value = m.value;
-    document.getElementById('size-min').textContent = m.min; document.getElementById('size-max').textContent = m.max;
-    document.getElementById('size-label').textContent = m.label;
-    calc(); track('calculator-mode-' + mode);
-  });
-  size.addEventListener('input', function () { calc(); if (!used) { used = true; track('calculator-used'); } });
-  calc();
-
-  }
-
-  // FAQ.
-  document.querySelectorAll('details[data-faq]').forEach(function (d) {
-    d.addEventListener('toggle', function () { if (d.open) track('faq-' + d.dataset.faq); });
-  });
-
-  if (document.getElementById('vid')) {
-  // Video modal: the file only loads when opened.
-  var dlg = document.getElementById('vid'), video = dlg.querySelector('video');
-  document.getElementById('open-video').addEventListener('click', function () {
-    var srcs = video.querySelectorAll('source');
-    if (srcs.length && !srcs[0].getAttribute('src')) { srcs.forEach(function (s) { s.src = s.dataset.src; }); video.load(); }
-    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
-    video.play().catch(function () {});
-    track('video-opened');
-  });
-  var shut = function () { video.pause(); dlg.close ? dlg.close() : dlg.removeAttribute('open'); };
-  document.getElementById('vid-close').addEventListener('click', shut);
-  dlg.addEventListener('click', function (e) { if (e.target === dlg) shut(); });
-  dlg.addEventListener('close', function () { video.pause(); });
-
-  }
-
-  if (document.getElementById('share')) {
-  // Send this to my founder: WhatsApp on phones, email on desktop.
-  var share = document.getElementById('share');
-  var url = 'https://lull-hr.vercel.app/' + (company ? '?for=' + encodeURIComponent(company) : '');
-  var text = 'Worth a look: Lull, a 3-minute guided movement reset for our team, where HR sees team totals only (never individuals). 6-week pilot with targets agreed up front. ' + url;
-  var phone = matchMedia('(max-width:760px), (pointer:coarse)').matches;
-  share.href = phone
-    ? 'https://wa.me/?text=' + encodeURIComponent(text)
-    : 'mailto:?subject=' + encodeURIComponent('Worth a look: Lull pilot') + '&body=' + encodeURIComponent(text);
-  if (phone) { share.target = '_blank'; share.rel = 'noopener'; }
-  share.addEventListener('click', function () { track('share-founder-' + (phone ? 'whatsapp' : 'email')); });
-
-  }
-
+  // --- Hero CTA sticky mobile bar ---
   if (document.getElementById('sticky') && document.querySelector('.hero-cta')) {
-  // Sticky mobile bar: body padding tracks its real height, so it never covers content.
-  var sticky = document.getElementById('sticky');
-  var pad = function () { document.documentElement.style.setProperty('--bar-h', sticky.offsetHeight + 'px'); };
-  pad();
-  if ('ResizeObserver' in window) new ResizeObserver(pad).observe(sticky); else addEventListener('resize', pad);
-  var heroCta = document.querySelector('.hero-cta'), closeSec = document.getElementById('close');
-  var upd = function () {
-    var past = heroCta.getBoundingClientRect().bottom < 0, atClose = closeSec.getBoundingClientRect().top < innerHeight;
-    sticky.classList.toggle('show', past && !atClose);
-  };
-  addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
+    var sticky = document.getElementById('sticky');
+    var pad = function () { document.documentElement.style.setProperty('--bar-h', sticky.offsetHeight + 'px'); };
+    pad();
+    if ('ResizeObserver' in window) new ResizeObserver(pad).observe(sticky); else addEventListener('resize', pad);
+    var heroCta = document.querySelector('.hero-cta'), closeSec = document.getElementById('close');
+    if (heroCta && closeSec) {
+      var upd = function () {
+        var past = heroCta.getBoundingClientRect().bottom < 0, atClose = closeSec.getBoundingClientRect().top < innerHeight;
+        sticky.classList.toggle('show', past && !atClose);
+      };
+      addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
+    }
+  }
+
+  // --- Two-sided demo: only on pages with the split element ---
+  if (document.getElementById('split')) {
+    // Two-sided demo. It runs Lull's real engine, the same file the app uses (app/server/lull.js):
+    var TEAMS = [['Engineering', 8], ['Sales', 6], ['Product & Design', 2], ['Customer support', null], ['People & Ops', null]];
+    var TEAM_FOR = { unknot: 'Engineering', unsit: 'Product & Design', energy: 'Product & Design', calm: 'Sales', screen: 'Engineering' };
+    var NEED_LABEL = { neck: 'neck and shoulders', back: 'a stiff back', sitting: 'a lot of sitting', stiff: 'stiffness', legs: 'tight legs', eyes: 'eyes and wrists', time: 'short on time', low: 'low energy', restless: 'restless', energetic: 'more energy', calm: 'something calm', unsure: 'not sure', fitness: 'general fitness' };
+    var CARE = {
+      urgent: { title: 'Please get help first.', text: 'This isn\'t something Lull can help with, and it isn\'t a time to move.' },
+      pain: { title: 'Let\'s not work around pain.', text: 'If you\'d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.' },
+      rehab: { title: 'Let\'s not work around pain.', text: 'If you\'d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.' }
+    };
+    var esc = function (s) { return String(s).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"'); };
+    var full = function (team) { return TEAMS.filter(function (t) { return t[0] === team; })[0][1]; };
+    var rows = document.getElementById('hr-rows'), emp = document.getElementById('emp'), status = document.getElementById('hr-status');
+    if (rows && emp && status) {
+      rows.innerHTML = TEAMS.map(function (t) {
+        return t[1] === null
+          ? '<li class="hr-row hidden"><span><b>' + esc(t[0]) + '</b></span><span class="n">Hidden · under 10</span></li>'
+          : '<li class="hr-row" data-team="' + esc(t[0]) + '"><span><b>' + esc(t[0]) + '</b></span><span class="n"><strong>' + t[1] + '</strong> active this week<span class="delta">+1</span></span></li>';
+      }).join('');
+    }
+    var chips = document.querySelectorAll('.chip'), split = document.getElementById('split'), input = document.getElementById('say-input');
+    if (chips && input) {
+      var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches, timers = [];
+      var later = function (fn, ms) { timers.push(setTimeout(fn, reduce ? 0 : ms)); };
+      function resetHr(team) {
+        if (!rows) return;
+        rows.querySelectorAll('.hr-row[data-team]').forEach(function (r) {
+          r.classList.remove('bump');
+          r.querySelector('strong').textContent = full(r.dataset.team) - (r.dataset.team === team ? 1 : 0);
+        });
+        status.className = 'hr-status';
+      }
+      import('./app/server/lull.js').then(function (L) {
+        function run(raw, source) {
+          timers.forEach(clearTimeout); timers = [];
+          var r = L.interpretNeed(raw);
+          chips.forEach(function (c) { c.setAttribute('aria-pressed', source === c.dataset.chip); });
+          if (source !== 'auto') { split.classList.remove('swap'); void split.offsetWidth; split.classList.add('swap'); }
+          if (r.kind === 'care') {
+            var c = CARE[r.level];
+            if (emp) {
+              emp.innerHTML = '<h3>' + c.title + '</h3><p class="care-alert' + (r.level === 'urgent' ? ' urgent' : '') + '">' + esc(L.CARE_ACK[r.level]) + '</p><p class="emp-text">' + c.text + '</p><p class="emp-run">No reset offered.</p>';
+            }
+            resetHr(null);
+            if (status) {
+              status.className = 'hr-status care';
+              status.innerHTML = '<b>Nothing changed.</b> Pain reports are never shared with anyone.';
+            }
+            return r;
+          }
+          if (r.kind === 'clarify') {
+            if (emp) {
+              emp.innerHTML = '<h3 class="clarify">' + esc(r.ack) + '</h3><p class="emp-text">Lull asks rather than guesses.</p><div class="clarify-opts">' +
+                L.RESETS.map(function (k) { return '<button type="button" class="chip clarify-opt" data-say="' + esc(L.RESET_MOMENTS[k]) + '">' + esc(L.RESET_MOMENTS[k]) + '</button>'; }).join('') + '</div>';
+            }
+            resetHr(null);
+            if (status) {
+              status.innerHTML = '<b>Nothing changed.</b> No reset, nothing counted.';
+            }
+            return r;
+          }
+          var posture = r.posture || L.DEFAULT_POSTURE[r.reset], plan = L.planOf(r.reset, posture), team = TEAM_FOR[r.reset];
+          var other = posture === 'seated' ? 'standing' : 'seated';
+          var heard = r.heard.length ? '<p class="emp-heard">Heard: ' + r.heard.map(function (k) { return L.HEARD[k]; }).join(' · ') + '</p>' : '';
+          if (emp) {
+            emp.innerHTML = heard + '<p class="emp-ack">' + esc(r.ack) + '</p><h3>' + esc(L.RESET_NAMES[r.reset]) + '</h3>' +
+              '<p class="emp-meta">' + posture.charAt(0).toUpperCase() + posture.slice(1) + ' · ' + L.clock(plan.total) + ' · ' + other + ' also offered</p><ol class="blocks">' +
+              plan.blocks.map(function (b) { return '<li><b>' + esc(b.title) + '</b><span>' + L.clock(b.seconds) + '</span></li>'; }).join('') + '</ol><p class="emp-run" id="emp-run"></p>';
+          }
+          resetHr(team);
+          if (status) {
+            status.textContent = 'Updates when a reset finishes.';
+          }
+          var lis = emp ? emp.querySelectorAll('.blocks li') : [], runEl = document.getElementById('emp-run');
+          var step = 700, start = source === 'auto' ? 500 : 250;
+          if (lis) {
+            lis.forEach(function (li, i) {
+              later(function () {
+                if (i) lis[i - 1].className = 'done';
+                li.className = 'on';
+                runEl.textContent = 'Step ' + (i + 1) + ' of ' + lis.length + ' · ' + li.querySelector('b').textContent;
+              }, start + i * step);
+            });
+          }
+          later(function () {
+            if (lis) lis.forEach(function (li) { li.className = 'done'; });
+            if (runEl) runEl.innerHTML = '<b>Back to your day</b> · ' + L.clock(plan.total);
+            var row = rows.querySelector('.hr-row[data-team="' + team + '"]');
+            if (row) {
+              row.querySelector('strong').textContent = full(team);
+              row.classList.add('bump');
+            }
+            if (status) {
+              var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
+              status.innerHTML = '<b>' + esc(team) + ' +1</b>' + esc(need) + '. That\'s all HR gets.';
+            }
+          }, start + lis.length * step);
+          return r;
+        }
+        var CHIP_TEXT = {};
+        if (chips) {
+          chips.forEach(function (chip) {
+            CHIP_TEXT[chip.dataset.chip] = chip.textContent;
+            chip.addEventListener('click', function () { input.value = chip.textContent; run(chip.textContent, chip.dataset.chip); track('chip-' + chip.dataset.chip); });
+          });
+        }
+        document.getElementById('say').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var v = input.value.trim(); if (!v) { input.focus(); return; }
+          var r = run(v, 'typed');
+          try { localStorage.setItem('lull-last-feeling', v); } catch (err) { /* private mode: nothing to remember */ }
+          input.blur();
+          track('typed-' + (r.kind === 'suggest' ? r.reset : r.kind === 'care' ? 'care-' + r.level : 'clarify'));
+        });
+        emp.addEventListener('click', function (e) {
+          var b = e.target.closest('.clarify-opt'); if (!b) return;
+          run(b.dataset.say, 'typed'); track('clarify-' + b.textContent.trim().toLowerCase().replace(/[^a-z]+/g, '-'));
+        });
+        // A returning visitor sees her own last answer again; everyone else starts on the first moment.
+        var last = null;
+        try { last = localStorage.getItem('lull-last-feeling'); } catch (err) { last = null; }
+        if (last) { input.value = last; run(last, 'auto'); }
+        else { if (CHIP_TEXT) run(CHIP_TEXT.calls, 'auto'); if (chips) chips[0].setAttribute('aria-pressed', 'true'); }
+      }).catch(function () { if (emp) emp.textContent = 'The demo could not load. Try the app instead.'; });
+    }
+  }
+
+  // CEO slide chart: only on pages with the slide element ---
+  if (document.getElementById('bars')) {
+    var WEEKLY = [33, 34, 29, 21, 23, 22], max = 34;
+    document.getElementById('bars').innerHTML = WEEKLY.map(function (n, i) {
+      return '<li style="--h:' + (n / max * 100).toFixed(1) + '%"><span class="v">' + n + '</span><span class="b" aria-hidden="true"></span><span class="w">W' + (i + 1) + '</span></li>';
+    }).join('');
+  }
+
+  // Targets: only on pages with target elements ---
+  if (document.querySelectorAll('.seg[data-target]').length) {
+    var RESULT = { tried: 44 / 64, stayed: 27 / 64 }, target = { tried: 0.5, stayed: 0.3334 };
+    var LABELS = { tried: { '0.5': '50%', '0.6': '60%', '0.75': '75%' }, stayed: { '0.3334': '1 in 3', '0.5': '1 in 2', '0.6667': '2 in 3' } };
+    function verdicts() {
+      ['tried', 'stayed'].forEach(function (k) {
+        var met = RESULT[k] >= target[k], el = document.getElementById('v-' + k);
+        el.className = 'verdict ' + (met ? 'met' : 'miss');
+        el.textContent = (met ? 'Met' : 'Not met') + ' · target ' + LABELS[k][String(target[k])];
+      });
+    }
+    document.querySelectorAll('.seg[data-target]').forEach(function (seg) {
+      seg.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        seg.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+        target[seg.dataset.target] = +b.dataset.v; verdicts(); track('target-' + seg.dataset.target + '-' + b.textContent.replace(/\s+/g, ''));
+      });
+    });
+    verdicts();
+    if (document.querySelector('.why-hidden')) {
+      document.querySelector('.why-hidden').addEventListener('toggle', function (e) { if (e.target.open) track('why-hidden-opened'); });
+    }
+  }
+
+  // Download the slide as a PNG, only on pages with the download button ---
+  if (document.getElementById('dl-slide')) {
+    document.getElementById('dl-slide').addEventListener('click', function () {
+      var go = function () {
+        var W = 1600, H = 1000, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+        var x = cv.getContext('2d'), INK = '#1F2933', MUTE = '#5B6670', ACC = '#2D5A45', LINE = '#E4DCCB', SERIF = 'Fraunces, Georgia, serif', SANS = 'Inter, system-ui, sans-serif';
+        x.fillStyle = '#fff'; x.fillRect(0, 0, W, H);
+        var L = 90, R = W - 90;
+        x.fillStyle = INK; x.font = '600 26px ' + SANS; x.fillText(document.getElementById('slide-title').textContent, L, 100);
+        x.fillStyle = MUTE; x.font = '500 18px ' + SANS; x.textAlign = 'right'; x.fillText('SAMPLE REPORT', R, 100); x.textAlign = 'left';
+        x.fillStyle = INK; x.fillRect(L, 124, R - L, 3);
+        var stat = function (big, of, cap, k, sx) {
+          x.fillStyle = ACC; x.font = '600 112px ' + SANS; x.fillText(big, sx, 290); var w = x.measureText(big).width;
+          x.fillStyle = MUTE; x.font = '400 34px ' + SANS; x.fillText(of, sx + w + 16, 290);
+          x.fillStyle = INK; x.font = '500 28px ' + SANS; x.fillText(cap, sx, 338);
+          var met = RESULT[k] >= target[k]; x.fillStyle = met ? ACC : '#9A5B36'; x.font = '600 22px ' + SANS;
+          x.fillText((met ? 'Met' : 'Not met') + ' · target ' + LABELS[k][String(target[k])], sx, 378);
+        };
+        stat('44', 'of 64', 'tried it', 'tried', L); stat('27', 'of 44', 'still using it in weeks 5–6', 'stayed', 820);
+        x.fillStyle = LINE; x.fillRect(L, 412, R - L, 2);
+        x.fillStyle = MUTE; x.font = '600 18px ' + SANS; x.fillText('PEOPLE ACTIVE EACH WEEK', L, 466); x.fillText('ACTIVE IN WEEK 6, BY TEAM', 900, 466);
+        var bw = 92, gap = 26, base = 760, hmax = 240;
+        WEEKLY.forEach(function (n, i) {
+          var bx = L + i * (bw + gap), h = n / max * hmax;
+          x.fillStyle = ACC; x.fillRect(bx, base - h, bw, h);
+          x.fillStyle = INK; x.font = '600 22px ' + SANS; x.textAlign = 'center'; x.fillText(String(n), bx + bw / 2, base - h - 12);
+          x.fillStyle = MUTE; x.font = '400 18px ' + SANS; x.fillText('W' + (i + 1), bx + bw / 2, base + 30); x.textAlign = 'left';
+        });
+        [['Engineering', '8 of 24'], ['Sales', '6 of 11'], ['Product & Design', '2 of 11'], ['Customer support', 'Hidden · under 10'], ['People & Ops', 'Hidden · under 10']].forEach(function (t, i) {
+          var y = 520 + i * 54, hid = t[1].indexOf('Hidden') === 0;
+          x.fillStyle = hid ? MUTE : INK; x.font = '400 24px ' + SANS; x.fillText(t[0], 900, y);
+          x.font = (hid ? '500 20px ' : '600 24px ') + SANS; x.textAlign = 'right'; x.fillText(t[1], R, y); x.textAlign = 'left';
+          x.fillStyle = LINE; x.fillRect(900, y + 18, R - 900, 1);
+        });
+        x.fillStyle = LINE; x.fillRect(L, 812, R - L, 2);
+        x.fillStyle = MUTE; x.font = '600 18px ' + SANS; x.fillText('ASKED FOR MOST', L, 846); x.fillText('COST PER FINISHED SESSION', 1110, 846);
+        x.fillStyle = INK; x.font = '500 22px ' + SANS; x.fillText('Engineering: not much time · Sales: not much time · Product & Design: a lot of sitting', L, 880);
+        x.fillStyle = ACC; x.font = '600 30px ' + SANS; x.fillText('₹26–53', 1110, 884);
+        x.fillStyle = INK; x.fillRect(L, 912, R - L, 3);
+        x.font = '500 28px ' + SERIF; x.fillText('HR saw team totals only. No names, no messages.', L, 958);
+        var a = document.createElement('a'); a.download = 'lull-week6-sample-slide.png'; a.href = cv.toDataURL('image/png'); document.body.appendChild(a); a.click(); a.remove();
+      };
+      (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(go);
+      track('slide-downloaded');
+    });
+  }
+
+  // Her own usage guess against cited benchmarks ---
+  if (document.getElementById('usage')) {
+    var usage = document.getElementById('usage'), usageUsed = false;
+    var usageRead = function () {
+      var v = +usage.value;
+      document.getElementById('usage-out').textContent = v + '%';
+      document.getElementById('usage-you').textContent = v + '%';
+      document.getElementById('usage-bar').style.setProperty('--w', Math.max(v, 1) + '%');
+      document.getElementById('usage-verdict').textContent = v < 10
+        ? 'Below even typical counselling-service use. The content is rarely the problem; nothing brings people back.'
+        : v <= 35 ? 'About where most companies are. Most tools are bought at launch and quietly forgotten by week four.'
+        : 'Better than most. The harder part is showing it to your CEO without naming anyone.';
+    };
+    usage.addEventListener('input', function () { usageRead(); if (!usageUsed) { usageUsed = true; track('usage-guess-used'); } });
+    usage.addEventListener('change', function () { track('usage-guess-' + (+usage.value < 10 ? 'under10' : +usage.value <= 35 ? '10to35' : 'over35')); });
+    usageRead();
+  }
+
+  // Copy team reset invite ---
+  if (document.getElementById('copy-reset')) {
+    document.getElementById('copy-reset').addEventListener('click', function () {
+      copyText(invite, document.getElementById('copy-reset-done'), 'Copied. Paste it at the bottom of any recurring meeting invite.');
+    });
+  }
+
+  // FAQ ---
+  if (document.querySelectorAll('details[data-faq]').length) {
+    document.querySelectorAll('details[data-faq]').forEach(function (d) {
+      d.addEventListener('toggle', function () { if (d.open) track('faq-' + d.dataset.faq); });
+    });
+  }
+
+  // Video modal: only on pages with the video element ---
+  if (document.getElementById('vid')) {
+    var dlg = document.getElementById('vid'), video = dlg.querySelector('video');
+    if (video) {
+      document.getElementById('open-video').addEventListener('click', function () {
+        var srcs = video.querySelectorAll('source');
+        if (srcs.length && !srcs[0].getAttribute('src')) { srcs.forEach(function (s) { s.src = s.dataset.src; }); video.load(); }
+        if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
+        video.play().catch(function () {});
+        track('video-opened');
+      });
+      var shut = function () { video.pause(); dlg.close ? dlg.close() : dlg.removeAttribute('open'); };
+      document.getElementById('vid-close').addEventListener('click', shut);
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) shut(); });
+      dlg.addEventListener('close', function () { video.pause(); });
+    }
+  }
+
+  // Share founder ---
+  if (document.getElementById('share')) {
+    var share = document.getElementById('share');
+    var url = 'https://lull-hr.vercel.app/' + (company ? '?for=' + encodeURIComponent(company) : '');
+    var text = 'Worth a look: Lull, a 3-minute guided movement reset for our team, where HR sees team totals only (never individuals). 6-week pilot with targets agreed up front. ' + url;
+    var phone = matchMedia('(max-width:760px), (pointer:coarse)').matches;
+    share.href = phone
+      ? 'https://wa.me/?text=' + encodeURIComponent(text)
+      : 'mailto:?subject=' + encodeURIComponent('Worth a look: Lull pilot') + '&body=' + encodeURIComponent(text);
+    if (phone) { share.target = '_blank'; share.rel = 'noopener'; }
+    share.addEventListener('click', function () { track('share-founder-' + (phone ? 'whatsapp' : 'email')); });
   }
 });
