@@ -199,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function live(L, r, plan, team, heard) {
           if (!emp) return false;
           var b = plan.blocks[0], left = b.seconds, paused = false;
+          var da = document.getElementById('demo-area'); if (da) da.hidden = false;
           showView('emp'); if (ask) ask.hidden = true; if (reveal) reveal.hidden = true;
           emp.innerHTML = heard + '<p class="live-step">Step 1 of ' + plan.blocks.length + ' · ' + esc(L.RESET_NAMES[r.reset]) + '</p>' +
             '<h3 class="live-title">' + esc(b.title) + '</h3><p class="live-clock" id="live-clock">' + L.clock(left) + '</p>' +
@@ -213,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
           timers.push(tick);
           function done() {
             clearInterval(tick);
-            emp.innerHTML = '<p class="live-done">✓ That\'s what your team gets.</p><p class="emp-text">3 minutes, between calls. This was 1 of ' + plan.blocks.length + ' steps.</p>';
+            emp.innerHTML = '<p class="live-done"><span class="tick" aria-hidden="true">✓</span> That\'s what your team gets.</p><p class="emp-text">3 minutes, between calls. This was 1 of ' + plan.blocks.length + ' steps.</p>';
             var row = rows.querySelector('.hr-row[data-team="' + team + '"]');
             if (row) { row.querySelector('strong').textContent = full(team); row.classList.add('bump'); }
             var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
