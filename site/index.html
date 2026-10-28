@@ -47,22 +47,11 @@
 <!-- 1. Why -->
 <section class="hero" id="hero">
   <div class="wrap hero-grid">
-    <div class="hero-text">
-      <p class="eyebrow">3:40 pm. Between calls.</p>
-      <p class="for-line" id="for-line" hidden></p>
-      <h1>Most employees don't use the wellbeing benefit you pay for.<a class="fn" href="#src" aria-label="Source">¹</a></h1>
-      <p class="subhead">A 3-minute desk reset your team will actually use.</p>
-      <div class="cta-block hero-cta">
-        <a class="btn btn-primary" data-ev="cta-try-hero" href="app/">Try a 3-minute reset</a>
-        <p class="cta-sub">No sign-up. Works on a call.</p>
-      </div>
-      <p class="source-line" id="src">¹ About 30% of employees take part in company wellness programmes (Plum, Health Report of Corporate India 2023).</p>
-    </div>
-
-<!-- 2. How: the two-sided demo -->
+    <!-- 2. How: the two-sided demo -->
     <div class="try" id="try">
       <div class="try-head">
-        <h2 id="try-h">How are you feeling right now?</h2>
+        <p class="eyebrow" id="for-line">For your team · 3:40 pm, between calls</p>
+        <h1 id="try-h">How are you feeling right now?</h1>
       </div>
       <div class="chips" role="group" aria-labelledby="try-h">
         <button type="button" class="chip" data-chip="calls" aria-pressed="false">After back-to-back calls</button>
@@ -75,7 +64,8 @@
         <input id="say-input" name="say" maxlength="120" placeholder="Or type how you feel…" enterkeyhint="go">
         <button type="submit" class="say-go">Try</button>
       </form>
-      <p class="tiny say-hint">Hinglish works too.</p>
+      <p class="tiny say-hint">Hinglish works too. Tap one: a real 40-second step starts here.</p>
+      <p class="reveal-line" id="reveal" hidden><b>And here's everything HR would see:</b></p>
       <div class="view-tabs" role="tablist" aria-label="Choose a view">
         <button type="button" role="tab" aria-selected="true" data-view="emp">Employee sees</button>
         <button type="button" role="tab" aria-selected="false" data-view="hr">HR sees</button>
@@ -94,7 +84,14 @@
           <p class="hr-never"><strong>No names. No messages. No individual sessions.</strong>Teams under 10 people are hidden.</p>
         </div>
       </div>
-      <p class="try-app"><a href="app/" data-ev="app-opened">Start this reset →</a></p>
+      <div class="ask" id="ask" hidden>
+        <p class="ask-q">Would your team use this?</p>
+        <p class="ask-row"><a data-team="yes" target="_blank" rel="noopener">Yes</a><a data-team="maybe" target="_blank" rel="noopener">Maybe</a><a data-team="no" target="_blank" rel="noopener">No</a></p>
+        <p class="tiny">One tap. Then one optional question: what would stop them?</p>
+      </div>
+      <p class="try-app"><a href="app/" data-ev="app-opened">Do the full 3-minute reset →</a></p>
+      <p class="context-line">Most employees don't use the wellbeing benefit their company pays for.<a class="fn" href="#src">¹</a> Lull is the 3-minute fix they actually do.</p>
+      <p class="source-line" id="src">¹ About 30% take part in company wellness programmes (Plum, Health Report of Corporate India 2023).</p>
     </div>
   </div>
 </section>
@@ -173,7 +170,7 @@
 </footer>
 
 <div class="sticky" id="sticky">
-  <a class="btn btn-primary" data-ev="cta-try-sticky" href="app/">Try a 3-minute reset</a>
+  <a class="btn btn-primary" data-ev="cta-try-sticky" href="#try">Start a 40-second reset</a>
 </div>
 
 <dialog class="vid" id="vid" aria-label="Lull walkthrough video">

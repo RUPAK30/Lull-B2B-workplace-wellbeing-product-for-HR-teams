@@ -842,3 +842,23 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
 .deeper-links li:last-child{border-bottom:1px solid var(--line)}
 .deeper-links a{display:block;padding:14px 0;min-height:44px;color:var(--ink);text-decoration:none;font-weight:500}
 .try-app a{font-weight:600}
+/* Pass 4: question-first hero, live step, ask */
+.try-head h1{font:500 1.75rem/1.2 var(--serif);margin:4px 0 12px}
+.try-head .eyebrow{margin:0;font-size:.8rem;color:var(--ink-3)}
+.live-step{font-size:.78rem;color:var(--ink-3);margin:0 0 4px}
+.live-title{font:500 1.3rem/1.25 var(--serif);margin:0}
+.live-clock{font:500 2.6rem/1 var(--serif);margin:12px 0 8px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.live-bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:12px}
+.live-bar i{display:block;height:100%;width:0;background:var(--accent-2);transition:width 1s linear}
+.live-ctl{display:flex;align-items:center;gap:16px;margin-top:12px}
+.live-skip{background:none;border:0;color:var(--ink-2);font:600 .9rem var(--sans);min-height:44px;cursor:pointer}
+.live-done{font:500 1.3rem/1.3 var(--serif);color:var(--accent-2);margin:0 0 4px}
+.reveal-line{margin:16px 0 0;font-size:.95rem}
+.ask{margin-top:16px;padding:16px;border-radius:var(--r);background:#E5EEE7;border:1px solid var(--accent-2)}
+.ask-q{font:500 1.2rem/1.3 var(--serif);margin:0 0 12px}
+.ask-row{display:flex;gap:8px;margin:0 0 8px}
+.ask-row a{flex:1;text-align:center;padding:12px 0;min-height:44px;border-radius:999px;background:var(--accent-2);color:#fff;font-weight:600;text-decoration:none}
+.ask-row a[data-team="no"],.ask-row a[data-team="maybe"]{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.context-line{font-size:.9rem;color:var(--ink-2);margin:16px 0 0}
+.try .source-line{margin-top:6px}
+.hero{padding-top:16px}

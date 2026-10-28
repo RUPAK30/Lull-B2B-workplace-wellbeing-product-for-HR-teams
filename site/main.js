@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Personal opening.
   var forLine = document.getElementById('for-line');
   if (company && forLine) {
-    forLine.textContent = 'A 2-minute look at Lull, prepared for the People team at ' + company; forLine.hidden = false;
+    forLine.textContent = 'For ' + company + '\'s HR team · 3:40 pm, between calls'; forLine.hidden = false;
     var set = function (id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
     set('hr-label', 'What HR at ' + company + ' sees');
     set('hr-chrome', company + ' · team view (sample data)');
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       import('./app/server/lull.js').then(function (L) {
         function run(raw, source) {
-          timers.forEach(clearTimeout); timers = [];
+          timers.forEach(function (t) { clearTimeout(t); clearInterval(t); }); timers = [];
           var r = L.interpretNeed(raw);
           chips.forEach(function (c) { c.setAttribute('aria-pressed', source === c.dataset.chip); });
           if (source !== 'auto') { split.classList.remove('swap'); void split.offsetWidth; split.classList.add('swap'); }
@@ -166,6 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
           if (status) {
             status.textContent = 'Updates when a reset finishes.';
           }
+          if (source !== 'auto' && live(L, r, plan, team, heard)) return r;
           var lis = emp ? emp.querySelectorAll('.blocks li') : [], runEl = document.getElementById('emp-run');
           var step = 700, start = source === 'auto' ? 500 : 250;
           if (lis) {
@@ -191,6 +192,46 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }, start + lis.length * step);
           return r;
+        }
+        // Live first step: one real block with a countdown, then the HR reveal, then the ask (foot in the door, peak-end).
+        var ask = document.getElementById('ask'), reveal = document.getElementById('reveal');
+        function showView(v) { var b = document.querySelector('.view-tabs [data-view="' + v + '"]'); if (b) b.click(); }
+        function live(L, r, plan, team, heard) {
+          if (!emp) return false;
+          var b = plan.blocks[0], left = b.seconds, paused = false;
+          showView('emp'); if (ask) ask.hidden = true; if (reveal) reveal.hidden = true;
+          emp.innerHTML = heard + '<p class="live-step">Step 1 of ' + plan.blocks.length + ' · ' + esc(L.RESET_NAMES[r.reset]) + '</p>' +
+            '<h3 class="live-title">' + esc(b.title) + '</h3><p class="live-clock" id="live-clock">' + L.clock(left) + '</p>' +
+            '<div class="live-bar"><i id="live-bar"></i></div><p class="emp-text">' + esc(b.cue || b.text) + '</p>' +
+            '<p class="live-ctl"><button type="button" class="chip" id="live-pause">Pause</button><button type="button" class="live-skip" id="live-skip">Skip →</button></p>';
+          var clock = document.getElementById('live-clock'), bar = document.getElementById('live-bar');
+          var tick = setInterval(function () {
+            if (paused) return; left--;
+            clock.textContent = L.clock(Math.max(left, 0)); bar.style.width = (100 * (b.seconds - left) / b.seconds) + '%';
+            if (left <= 0) done();
+          }, 1000);
+          timers.push(tick);
+          function done() {
+            clearInterval(tick);
+            emp.innerHTML = '<p class="live-done">✓ That\'s what your team gets.</p><p class="emp-text">3 minutes, between calls. This was 1 of ' + plan.blocks.length + ' steps.</p>';
+            var row = rows.querySelector('.hr-row[data-team="' + team + '"]');
+            if (row) { row.querySelector('strong').textContent = full(team); row.classList.add('bump'); }
+            var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
+            if (status) status.innerHTML = '<b>' + esc(team) + ' +1</b>' + esc(need) + '. That\'s all HR gets.';
+            if (reveal) reveal.hidden = false;
+            setTimeout(function () { showView('hr'); if (ask) { ask.hidden = false; } }, reduce ? 0 : 1400);
+            track('live-finished');
+          }
+          document.getElementById('live-pause').addEventListener('click', function (e) { paused = !paused; e.target.textContent = paused ? 'Resume' : 'Pause'; });
+          document.getElementById('live-skip').addEventListener('click', function () { track('live-skipped'); done(); });
+          return true;
+        }
+        if (ask) {
+          var ref = new URLSearchParams(location.search).get('ref') || '';
+          ask.querySelectorAll('a[data-team]').forEach(function (a) {
+            a.href = 'https://tally.so/r/peex9E?cta=home-feedback&team=' + a.dataset.team + (ref ? '&ref=' + encodeURIComponent(ref) : '');
+            a.addEventListener('click', function () { track('ask-' + a.dataset.team); });
+          });
         }
         var CHIP_TEXT = {};
         if (chips) {
