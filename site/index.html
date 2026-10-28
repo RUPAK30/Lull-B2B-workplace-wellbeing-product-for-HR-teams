@@ -100,11 +100,11 @@
 <section class="sec hp" id="how" aria-labelledby="how-h">
   <div class="wrap">
     <h2 id="how-h">What it looks like at work</h2>
-    <dl class="hp-rows">
-      <div><dt>Employees</dt><dd>A 3-minute reset, seated or standing.<span class="moments">Between calls · Post-lunch · Start of a meeting</span></dd></div>
-      <div><dt>HR</dt><dd>Team totals and return rates. Never individuals; teams under 10 hidden.</dd></div>
-      <div><dt>You</dt><dd>Pick one team, share a link, read the week-6 readout.</dd></div>
-    </dl>
+    <ul class="shots" aria-label="Screens from the product">
+      <li><img src="img/shot-employee.jpg" alt="Lull on a phone: Between calls? Take three minutes, with moments to pick" width="640" height="800" loading="lazy"><p><b>Employee</b> 3 minutes, between calls.</p></li>
+      <li><img src="img/shot-hr.jpg" alt="HR team view: active people per team, small teams hidden" width="640" height="762" loading="lazy"><p><b>HR</b> Team totals, never individuals.</p></li>
+      <li><img src="img/shot-report.jpg" alt="Sample week-6 readout: 44 of 64 tried it, 27 still using it" width="584" height="730" loading="lazy"><p><b>You</b> A plain readout at week 6.</p></li>
+    </ul>
   </div>
 </section>
 
@@ -113,14 +113,12 @@
   <div class="wrap">
     <h2 id="pilot-h">The pilot</h2>
     <div class="hp-card">
-      <ol class="hp-timeline" aria-label="Pilot timeline">
-        <li><span class="wk">Week 0</span><span>Pick one team. Agree targets. Share a link.</span></li>
-        <li><span class="wk">Week 3</span><span>Review team totals. Adjust what isn't working.</span></li>
-        <li><span class="wk">Week 6</span><span>Written readout. Continue or stop.</span></li>
+      <ol class="steps3" aria-label="Pilot timeline">
+        <li><b>Wk 0</b><span>Pick a team</span></li>
+        <li><b>Wk 3</b><span>Check totals</span></li>
+        <li><b>Wk 6</b><span>Readout</span></li>
       </ol>
-      <dl class="hp-facts">
-        <div><dt>Price</dt><dd>₹60–120 per person per month, indicative. No annual contract.</dd></div>
-      </dl>
+      <p class="price-line">₹60–120 per person per month, indicative. No annual contract.</p>
       <div class="btns">
         <a class="more" data-cta="pilot" data-ev="cta-pilot-card" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot →</a>
         <a class="cta-email" href="mailto:rupakr2g@gmail.com" data-ev="email-pilot">or email rupakr2g@gmail.com</a>
@@ -142,6 +140,18 @@
   </div>
 </section>
 
+<!-- Built by -->
+<section class="sec hp" id="maker" aria-label="Who built Lull">
+  <div class="wrap maker">
+    <img src="img/rupak.jpg" alt="Rupak Ghanpathi" width="64" height="64" loading="lazy">
+    <div>
+      <p class="maker-name"><b>Built by Rupak Ghanpathi</b>, business analyst, ex-HDFC Bank.</p>
+      <p class="maker-proof">Requirements doc · 89 automated tests · targets and kill criteria agreed upfront</p>
+      <a class="more" href="product.html" data-ev="maker-product">How I built it, and what I got wrong →</a>
+    </div>
+  </div>
+</section>
+
 <!-- 7. Go deeper -->
 <section class="sec hp" id="deeper" aria-labelledby="deeper-h">
   <div class="wrap">
@@ -150,7 +160,6 @@
       <li><a href="pilot.html#report" data-ev="deeper-report">See a sample week-6 report →</a></li>
       <li><a href="lull-walkthrough.mp4" id="open-video" data-ev="deeper-video">Watch the 2-minute walkthrough →</a></li>
       <li><a href="data.html" data-ev="deeper-data">Data handling and pilot terms →</a></li>
-      <li><a href="product.html" data-ev="deeper-product">For product people: how it was built →</a></li>
     </ul>
   </div>
 </section>

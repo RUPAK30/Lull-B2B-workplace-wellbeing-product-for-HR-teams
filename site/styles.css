@@ -863,3 +863,22 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
 .try .source-line{margin-top:6px}
 .hero{padding-top:16px}
 .ask-why{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+/* Pass 5: real screens, lighter answers, compact pilot, maker strip */
+.shots{list-style:none;margin:0 -16px;padding:0 16px 8px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.shots li{flex:0 0 72%;scroll-snap-align:start}
+.shots img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--line);background:var(--card);display:block}
+.shots p{margin:8px 0 0;font-size:.88rem;color:var(--ink-2)}
+.shots b{display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+@media (min-width:720px){.shots{overflow:visible;margin:0;padding:0}.shots li{flex:1}}
+.hp-faq summary{font:400 .98rem/1.45 var(--sans);color:var(--ink)}
+.steps3{list-style:none;margin:0 0 12px;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;counter-reset:none}
+.steps3 li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px}
+.steps3 b{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.steps3 span{font-size:.92rem;color:var(--ink)}
+.price-line{font-size:.92rem;color:var(--ink-2);margin:0 0 4px}
+.maker{display:flex;gap:16px;align-items:flex-start;border-top:1px solid var(--line);padding-top:24px}
+.maker img{width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none}
+.maker-name{margin:0;font-size:.95rem}
+.maker-proof{margin:4px 0 0;font-size:.82rem;color:var(--ink-3)}
+.maker .more{padding:8px 0}
+.shots{margin:0;padding:0 0 8px}
