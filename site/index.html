@@ -39,7 +39,19 @@
       <a href="pilot.html">Pilot & cost</a>
       <a href="pilot.html#faq">Questions</a>
     </nav>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
+<div class="menu-panel" id="menu-panel" hidden>
+  <nav aria-label="Menu">
+    <a href="./">Overview</a>
+    <a href="pilot.html">Pilot &amp; cost</a>
+    <a href="data.html">Data &amp; trust</a>
+    <a href="pm.html">For product people</a>
+    <a href="safety.html">Safety and limits</a>
+    <a href="mailto:rupakr2g@gmail.com">Contact</a>
+  </nav>
+  <button type="button" class="theme-btn" id="theme-btn">Dark mode</button>
+</div>
 </header>
 
 <main id="main">
@@ -86,8 +98,9 @@
       </div>
       <div class="ask" id="ask" hidden>
         <p class="ask-q">Would your team use this?</p>
+        <p class="tiny ask-group">I'm asking 10 HR and TA people to shape Lull before anyone else uses it.</p>
         <p class="ask-row"><a data-team="yes" target="_blank" rel="noopener">Yes</a><a data-team="maybe" target="_blank" rel="noopener">Maybe</a><a data-team="no" target="_blank" rel="noopener">No</a></p>
-        <p class="tiny">One tap. Anonymous.</p>
+        <p class="ask-me"><img src="img/rupak.jpg" alt="" width="28" height="28">Rupak, ex-HDFC Bank. I read every answer.</p>
       </div>
       <p class="try-app"><a href="app/" data-ev="app-opened">Do the full 3-minute reset →</a></p>
       <p class="context-line">Most employees don't use the wellbeing benefit their company pays for.<a class="fn" href="#src">¹</a> Lull is the 3-minute fix they actually do.</p>
@@ -101,7 +114,7 @@
   <div class="wrap">
     <h2 id="trust-h">Your employees can trust it</h2>
     <ul class="trust">
-      <li><b>Opt-in</b><span>Nobody is signed up. People choose to open a link.</span></li>
+      <li><b>Opt-in, and invisible</b><span>Nobody is signed up, and nobody can see who joined or who didn't.</span></li>
       <li><b>Never used to judge anyone</b><span>It can't be: no names, no individual records.</span></li>
       <li><b>No personal data</b><span>No names, emails or device IDs. Nothing personal to consent to or leak.</span></li>
       <li><b>Small teams hidden</b><span>Teams under 10 never appear.</span></li>
@@ -146,6 +159,7 @@
   <div class="wrap">
     <h2 id="answers-h">Quick answers</h2>
     <div class="faq hp-faq">
+      <details data-faq="home-fail"><summary>Don't most wellness programmes fail? Many do. Lull doesn't claim to fix wellbeing.</summary><p>Large studies find individual programmes like apps and mindfulness show little effect on wellbeing (Oxford, 46,336 workers, 2024; Illinois randomised trial, NBER). Lull is a 3-minute break built into how teams work, including resets at the start of meetings, and it is measured honestly against targets you agree upfront.</p></details>
       <details data-faq="home-private"><summary>Could this be used in performance reviews? No: there is nothing individual to use.</summary><p>HR sees team totals only. No names, no individual sessions, nothing anyone typed. Who reported pain is never shared with anyone. The demo sends nothing; a pilot link sends only the anonymous counts listed in Settings.</p></details>
       <details data-faq="home-use"><summary>Will people use it? It lives in the workday: calendar or Slack reminders and team resets.</summary><p>After a session, each person can put their own weekday reminder in their calendar or Slack, and you'll see how many did. If usage stalls, you'll know by week 3, not at renewal.</p></details>
       <details data-faq="home-medical"><summary>Is it medical care? No: short movement resets, with a safety stop for pain.</summary><p>Three-minute desk resets you can do in work clothes, seated or standing. If someone mentions pain, dizziness or injury, the reset stops and points them to proper help.</p></details>
@@ -182,7 +196,7 @@
 
 <footer class="foot">
   <div class="wrap">
-    <p>Lull is a pilot-stage product, not a medical or mental-health service. All figures shown are sample data.</p>
+    <p>Early-stage product. Report figures are a sample company. Not medical advice. <span class="updated">Updated 28 Oct 2026 · <a href="pm.html#changelog">What's changed</a></span></p>
     <div class="foot-links">
       <a href="pilot.html">Pilot & cost</a>
       <a href="data.html">Data & terms</a>

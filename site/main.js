@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
               track('ask-' + a.dataset.team);
               if (a.dataset.team === 'yes') return;
               e.preventDefault();
-              ask.innerHTML = '<p class="ask-q">Thanks, that helps. What would stop them?</p><p class="ask-why">' +
+              ask.innerHTML = '<p class="ask-q">Thanks. What\'s one thing you\'d change before trying it with your team?</p><p class="ask-why">' +
                 [['busy', 'Too busy'], ['privacy', 'Privacy worries'], ['have-one', 'We already have something'], ['not-needed', 'Not a real need'], ['other', 'Something else']]
                   .map(function (w) { return '<button type="button" class="chip" data-why="' + w[0] + '">' + w[1] + '</button>'; }).join('') + '</p>';
               ask.querySelectorAll('[data-why]').forEach(function (b) {
@@ -447,3 +447,12 @@ document.addEventListener('DOMContentLoaded', function () {
 t.addEventListener('click',function(e){var b=e.target.closest('button[data-view]');if(!b)return;
 t.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');});
 sp.classList.toggle('show-emp',b.dataset.view==='emp');sp.classList.toggle('show-hr',b.dataset.view==='hr');});})();
+
+// Menu and theme (follows the phone's setting unless the person chooses)
+(function(){var b=document.getElementById('menu-btn'),p=document.getElementById('menu-panel'),t=document.getElementById('theme-btn'),root=document.documentElement;
+function get(){try{return localStorage.getItem('lull-theme');}catch(e){return null;}}
+function apply(m){root.setAttribute('data-theme',m);if(t)t.textContent=m==='dark'?'Light mode':'Dark mode';}
+apply(get()||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+if(b&&p){b.addEventListener('click',function(){var o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',String(o));});
+p.addEventListener('click',function(e){if(e.target.closest('a')){p.hidden=true;b.setAttribute('aria-expanded','false');}});}
+if(t)t.addEventListener('click',function(){var m=root.getAttribute('data-theme')==='dark'?'light':'dark';apply(m);try{localStorage.setItem('lull-theme',m);}catch(e){}});})();

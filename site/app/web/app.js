@@ -646,7 +646,7 @@ function teamAsk() {
             if (v === 'yes')
                 return;
             e.preventDefault();
-            box.replaceChildren(el('p', 'Thanks, that helps. What would stop them?', 'feeling-q'));
+            box.replaceChildren(el('p', 'Thanks. What’s one thing you’d change before trying it with your team?', 'feeling-q'));
             const why = el('div', '', 'row choices');
             for (const [k, t] of [['busy', 'Too busy'], ['privacy', 'Privacy worries'], ['have-one', 'We already have something'], ['not-needed', 'Not a real need'], ['other', 'Something else']])
                 why.append(button(t, () => { track('team-ask', { value: `${v}-${k}` }); box.replaceChildren(el('p', 'Noted. Thank you.', 'feeling-thanks')); }, 'ghost'));
