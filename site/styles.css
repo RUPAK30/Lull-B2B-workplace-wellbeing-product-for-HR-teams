@@ -1035,3 +1035,18 @@ html{scroll-padding-bottom:96px}
 :root[data-theme="dark"] .pillars.icons .ic{background:#22302A}
 :root[data-theme="dark"] table,:root[data-theme="dark"] tr,:root[data-theme="dark"] td,:root[data-theme="dark"] th{background:var(--card)!important;color:var(--ink)!important;border-color:var(--line)!important}
 :root[data-theme="dark"] td.pending{color:#E9A98F!important}
+/* Desktop adaptation: same nav + menu as phone, centred hero */
+.nav-links{display:none!important}
+.menu-btn{display:flex!important}
+@media (min-width:761px){
+  .menu-panel{left:auto;right:max(16px,calc((100vw - 1100px)/2));width:300px;border:1px solid var(--line);border-radius:16px;top:66px}
+  .hero-grid{display:block!important;max-width:720px;margin:0 auto}
+  .try{grid-column:auto!important;grid-row:auto!important;max-width:720px;margin:0 auto}
+  .sec.big .wrap,.footnotes .wrap{max-width:960px}
+  .pillars.icons{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr 1fr!important}
+  .split .side{display:block!important}
+  .view-tabs{display:none!important}
+}
+@media (min-width:1100px){.pillars.icons{grid-template-columns:repeat(4,1fr)}#why .pillars.icons,#close .pillars.icons{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1100px){.pillars.icons,#why .pillars.icons,#close .pillars.icons{grid-template-columns:repeat(2,1fr)}}
