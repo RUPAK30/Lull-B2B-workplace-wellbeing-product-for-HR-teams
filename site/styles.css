@@ -1050,3 +1050,22 @@ html{scroll-padding-bottom:96px}
 }
 @media (min-width:1100px){.pillars.icons{grid-template-columns:repeat(4,1fr)}#why .pillars.icons,#close .pillars.icons{grid-template-columns:repeat(3,1fr)}}
 @media (min-width:1100px){.pillars.icons,#why .pillars.icons,#close .pillars.icons{grid-template-columns:repeat(2,1fr)}}
+/* Motion polish (respects reduced motion) */
+@media (prefers-reduced-motion:no-preference){
+  .try{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+  .try-head h1{animation:rise .8s .1s cubic-bezier(.2,.8,.2,1) both}
+  .peek p:not(.peek-h){animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+  .peek p:nth-child(2){animation-delay:.35s}.peek p:nth-child(3){animation-delay:.5s}.peek p:nth-child(4){animation-delay:.65s}
+  .chip{transition:transform .15s ease,background .2s,border-color .2s}
+  .chip:active{transform:scale(.96)}
+  .ask-row a{transition:transform .15s ease}.ask-row a:active{transform:scale(.95)}
+  .pillars.icons li,.card-stats,.shots li,.answers div{transition:transform .25s ease,box-shadow .25s ease}
+  @media (hover:hover){.pillars.icons li:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.08)}}
+  .io{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+  .io.in{opacity:1;transform:none}
+  .peek b{position:relative}
+  .hero::before{content:"";position:absolute;inset:-20% -10% auto;height:520px;background:radial-gradient(closest-side,rgba(61,114,89,.16),transparent 70%);animation:drift 14s ease-in-out infinite alternate;pointer-events:none;z-index:-1}
+}
+.hero{position:relative;isolation:isolate}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes drift{from{transform:translateX(-6%)}to{transform:translateX(6%)}}

@@ -459,3 +459,11 @@ apply(get()||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')
 if(b&&p){b.addEventListener('click',function(){var o=p.hidden;p.hidden=!o;b.setAttribute('aria-expanded',String(o));});
 p.addEventListener('click',function(e){if(e.target.closest('a')){p.hidden=true;b.setAttribute('aria-expanded','false');}});}
 if(t)t.addEventListener('click',function(){var m=root.getAttribute('data-theme')==='dark'?'light':'dark';apply(m);try{localStorage.setItem('lull-theme',m);}catch(e){}});})();
+
+// Scroll reveal + stat count-up
+(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches||!('IntersectionObserver' in window))return;
+var els=document.querySelectorAll('.sec.big h2,.pillars.icons li,.card-stats,.shots li,.answers div,.maker');
+els.forEach(function(e,i){e.classList.add('io');e.style.transitionDelay=(e.matches('.pillars.icons li,.shots li')?(Array.prototype.indexOf.call(e.parentNode.children,e)*90):0)+'ms';});
+var o=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;x.target.classList.add('in');o.unobserve(x.target);
+ if(x.target.classList.contains('card-stats'))x.target.querySelectorAll('b').forEach(function(b){var m=b.textContent.match(/^(\d+)(.*)$/);if(!m||+m[1]===0)return;var n=+m[1],t0=null;(function f(t){t0=t0||t;var k=Math.min((t-t0)/900,1);b.textContent=Math.round(n*(1-Math.pow(1-k,3)))+m[2];if(k<1)requestAnimationFrame(f);})(performance.now());});});},{rootMargin:'0px 0px -8% 0px'});
+els.forEach(function(e){o.observe(e);});})();
