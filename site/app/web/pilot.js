@@ -35,6 +35,8 @@ export const pilotTeam = cleanTeam(store.get(TEAM));
 export const openedFromReminder = params.get('from') === 'reminder';
 /** A team reset link (?reset=unknot-seated) starts that reset straight away. */
 export const teamReset = parseReset(params.get('reset'));
+/** A homepage taster (?taster=1) opens step one of a reset, so a buyer feels it in under a minute. */
+export const taster = params.get('taster') === '1';
 /** The person can stop their sessions being counted at any time. */
 export const pilotCounting = {
     get on() { return pilotTeam !== null && store.get(COUNT) !== 'off'; },

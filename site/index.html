@@ -3,246 +3,274 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lull · A 3-minute reset between calls for teams</title>
-<meta name="description" content="Lull gives your team a 3-minute guided movement reset, matched to how they say they feel. HR sees team totals only, without ever seeing a person.">
+<title>Lull · Three minutes for your team. Proof, never a person.</title>
+<meta name="description" content="Lull is a three-minute desk reset your team does between calls. You see whether teams use it. You never see a person. One team, six weeks, from ₹60 a person a month.">
 <meta name="theme-color" content="#F3EEE3">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lull">
-<meta property="og:title" content="Lull · Take a 40-second reset, then tell me if your team would use it">
-<meta property="og:description" content="A 3-minute desk reset for the workday. HR sees team totals only, never a person. No install, no sign-up.">
+<meta property="og:title" content="Lull · Three minutes for your team. Proof, never a person.">
+<meta property="og:description" content="A three-minute desk reset your team does between calls. You see whether teams use it. You never see a person.">
 <meta property="og:url" content="https://lull-hr.vercel.app/">
 <meta property="og:image" content="https://lull-hr.vercel.app/img/og.jpg">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="How are you feeling right now? Lull, a 3-minute desk reset">
+<meta property="og:image:alt" content="Lull: a three-minute desk reset, with team totals and no names">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://lull-hr.vercel.app/">
-<meta name="twitter:title" content="Lull · Take a 40-second reset, then tell me if your team would use it">
-<meta name="twitter:description" content="A 3-minute desk reset for the workday. HR sees team totals only, never a person.">
+<meta name="twitter:title" content="Lull · Three minutes for your team. Proof, never a person.">
+<meta name="twitter:description" content="A three-minute desk reset your team does between calls. Team totals, never a person.">
 <meta name="twitter:image" content="https://lull-hr.vercel.app/img/og.jpg">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('lull-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="home.css">
 <script data-goatcounter="/gc/count" async src="/gc/count.js"></script>
 </head>
 
-<body>
+<body class="homepage">
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
-    <a class="nav-pilot" href="https://tally.so/r/peex9E?cta=pilot-nav" data-ev="cta-pilot-nav">Request a pilot</a>
-    <nav class="nav-links" aria-label="Sections">
-      <a href="app/" data-ev="app-opened-nav">Try Lull</a>
-      <a href="pilot.html#report">Week 6 report</a>
-      <a href="pilot.html">Pilot & cost</a>
-      <a href="pilot.html#faq">Questions</a>
+<header class="h-nav" id="nav">
+  <div class="h-wrap">
+    <a class="h-brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
+    <nav class="h-links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#questions">Questions</a>
     </nav>
-    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a class="h-nav-cta" href="app/?taster=1" data-ev="nav-taster">Try step one</a>
+    <button type="button" class="h-menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">☰</button>
   </div>
-<div class="menu-panel" id="menu-panel" hidden>
-  <nav aria-label="Menu">
-    <a href="./">Overview</a>
-    <a href="pilot.html">Pilot &amp; cost</a>
-    <a href="data.html">Data &amp; trust</a>
-    <a href="pm.html">For product people</a>
-    <a href="safety.html">Safety and limits</a>
-    <a href="mailto:rupakr2g@gmail.com">Contact</a>
-  </nav>
-  <button type="button" class="theme-btn" id="theme-btn">Dark mode</button>
-</div>
+  <div class="h-panel" id="menu-panel">
+    <div class="h-wrap">
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#questions">Questions</a>
+      <a href="app/?taster=1" data-ev="menu-taster">Try step one</a>
+      <a href="mailto:rupakr2g@gmail.com">Email Rupak</a>
+      <button type="button" class="h-theme" id="theme-btn">Dark mode</button>
+    </div>
+  </div>
 </header>
 
 <main id="main">
 
-<section class="hero" id="hero">
-  <div class="wrap hero-grid">
-    <div class="try" id="try">
-      <div class="try-head">
-        <p class="eyebrow" id="for-line">For your team · 3:40 pm, between calls</p>
-        <h1 id="try-h">See if your team takes a break.<span>Without seeing anyone.</span></h1>
-        <p class="hero-sub">3-minute desk resets for your people. Team totals for you. Nothing to run.</p>
-        <div class="peek" aria-label="Example of what HR sees">
-          <p class="peek-h">What you'd see</p>
-          <p><span>Engineering</span><b>8 took a break this week</b></p>
-          <p><span>Sales</span><b>6 took a break this week</b></p>
-          <p class="peek-hidden"><span>Support</span><b>Hidden · under 10 people</b></p>
-        </div>
-        <p class="try-q">Try it now. How are you feeling?</p>
-      </div>
-      <div class="chips" role="group" aria-labelledby="try-h">
-        <button type="button" class="chip" data-chip="calls" aria-pressed="false">After back-to-back calls</button>
-        <button type="button" class="chip" data-chip="slump" aria-pressed="false">Post-lunch slump</button>
-        <button type="button" class="chip" data-chip="stress" aria-pressed="false">Stressed, can't switch off</button>
-        <button type="button" class="chip chip-care" data-chip="pain" aria-pressed="false">My lower back hurts</button>
-      </div>
-      <form class="say" id="say" autocomplete="off">
-        <label class="sr" for="say-input">Or say it in your own words</label>
-        <input id="say-input" name="say" maxlength="120" placeholder="Or type it. Hinglish works." enterkeyhint="go">
-        <button type="submit" class="say-go">Try</button>
-      </form>
-      <div class="demo-area" id="demo-area" hidden>
-        <ol class="prog" id="flow" aria-label="Progress">
-          <li class="on">Try it</li><li>See HR's view</li><li>Your answer</li>
-        </ol>
-        <p class="reveal-line" id="reveal" hidden><b>Here's everything HR would see.</b></p>
-        <div class="view-tabs" role="tablist" aria-label="Choose a view">
-          <button type="button" role="tab" aria-selected="true" data-view="emp">Employee sees</button>
-          <button type="button" role="tab" aria-selected="false" data-view="hr">HR sees</button>
-        </div>
-        <div class="split show-emp" id="split">
-          <div class="side emp" aria-live="polite">
-            <p class="chrome phone" aria-hidden="true"><span class="notch"></span><span class="app-name">lull</span></p>
-            <p class="side-label"><i></i>What your employee sees</p>
-            <div id="emp"></div>
-          </div>
-          <div class="side hr">
-            <p class="chrome browser" aria-hidden="true"><i></i><i></i><i></i><span id="hr-chrome">lull · team view</span></p>
-            <p class="side-label"><i></i><span id="hr-label">What HR sees</span></p>
-            <ul class="hr-rows" id="hr-rows"></ul>
-            <p class="hr-status" id="hr-status" aria-live="polite"></p>
-            <p class="hr-never"><strong>No names. No messages. No individual sessions.</strong></p>
-          </div>
-        </div>
-        <div class="ask" id="ask" hidden>
-          <p class="ask-q">Would your team use this?</p>
-          <p class="ask-row"><a data-team="yes" target="_blank" rel="noopener">Yes</a><a data-team="maybe" target="_blank" rel="noopener">Maybe</a><a data-team="no" target="_blank" rel="noopener">No</a></p>
-          <p class="ask-me"><img src="img/rupak.jpg" alt="" width="28" height="28">I'm asking 10 HR and TA people to shape Lull. I read every answer. Rupak</p>
-        </div>
-        <p class="try-app"><a href="app/" data-ev="app-opened">Do the full 3-minute reset ›</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec big stats-sec" aria-label="Lull in numbers">
-  <div class="wrap">
-    <ul class="stats card-stats">
-      <li><b>40 sec</b><span>to try it</span></li>
-      <li><b>15 min</b><span>to set up</span></li>
-      <li><b>0</b><span>names collected</span></li>
-      <li><b>10+</b><span>people before HR sees a team</span></li>
-    </ul>
-  </div>
-</section>
-
-<section class="sec big" id="privacy" aria-labelledby="privacy-h">
-  <div class="wrap">
-    <h2 id="privacy-h">What they type stays on their phone.</h2>
-    <ul class="pillars icons">
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></i><b>Collects less.</b><span>No names, no emails, nothing that identifies a phone or laptop.</span></li>
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 17h2"/></svg></i><b>Stays on the device.</b><span>What they type never leaves it. Optional AI mode is off in pilots and needs written sign-off.</span></li>
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M15 15c3 0 6 1.5 6 4"/></svg></i><b>Nobody is singled out.</b><span>Teams under 10 stay hidden. Microsoft's workplace analytics hides groups under 5.<a class="fn" href="#fn">²</a></span></li>
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></i><b>Nothing to breach.</b><span>Nothing personal is stored on a server. People can turn counting off anytime.</span></li>
-    </ul>
-    <p class="cta-row"><a class="more" href="data.html">Every count, listed ›</a></p>
-  </div>
-</section>
-
-<section class="sec big" id="why" aria-labelledby="why-h">
-  <div class="wrap">
-    <h2 id="why-h">Not another wellness app.</h2>
-    <ul class="pillars icons">
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><b>Lull is just a break.</b><span>Three minutes inside the workday: between calls, or at the start of a meeting.</span></li>
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l6 6 4-4 6 6"/><path d="M20 10v4h-4"/></svg></i><b>Most wellness apps fail.</b><span>Large studies find they barely move wellbeing.<a class="fn" href="#fn">¹</a></span></li>
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></i><b>You'll know if it works.</b><span>Targets agreed upfront. A plain readout at week 6.</span></li>
-    </ul>
-  </div>
-</section>
-
-<section class="sec big" id="how" aria-labelledby="how-h">
-  <div class="wrap">
-    <h2 id="how-h">What everyone sees.</h2>
-    <ul class="shots" aria-label="Screens from the product" tabindex="0">
-      <li><img src="img/shot-employee.jpg" alt="Lull on a phone: Between calls? Take three minutes" width="640" height="800" loading="lazy"><p><b>Your people</b> Three minutes, between calls.</p></li>
-      <li><img src="img/shot-hr.jpg" alt="HR team view: active people per team, small teams hidden" width="640" height="762" loading="lazy"><p><b>You</b> Team totals, never individuals.</p></li>
-      <li><img src="img/shot-report.jpg" alt="Sample week-6 readout: 44 of 64 tried it" width="584" height="730" loading="lazy"><p><b>Your leadership</b> A plain readout at week 6.</p></li>
-    </ul>
-  </div>
-</section>
-
-<section class="sec big" id="close" aria-labelledby="pilot-h">
-  <div class="wrap">
-    <h2 id="pilot-h">One team. Six weeks. Nothing to run.</h2>
-    <ul class="pillars icons">
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-2-6-8-2z"/></svg></i><b>We hand you the rollout.</b><span>Launch email and manager message, ready to send.</span></li>
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9h6v6H9z"/></svg></i><b>Stop anytime.</b><span>No contract, nothing to install or remove.</span></li>
-      <li><i class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5h10M7 9h10M7 5c5 0 5 8 0 8l7 6"/></svg></i><b>₹60–120 per person a month.</b><span>Indicative. Set up in a 15-minute call. A written readout either way.</span></li>
-    </ul>
-    <p class="cta-row"><a class="more" data-cta="pilot" data-ev="cta-pilot-card" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot ›</a></p>
-  </div>
-</section>
-
-<section class="sec big" id="answers" aria-labelledby="answers-h">
-  <div class="wrap">
-    <h2 id="answers-h">Questions, answered.</h2>
-    <dl class="answers">
-      <div><dt>Could this be used in performance reviews?</dt><dd>No. There's nothing individual to use.</dd></div>
-      <div><dt>Is it medical care?</dt><dd>No. If someone reports pain or dizziness, the reset stops and points them to proper help. Nobody else is told.</dd></div>
-      <div><dt>What if it doesn't work?</dt><dd>You'll know by week 3. The readout says so plainly.</dd></div>
-    </dl>
-  </div>
-</section>
-
-<section class="sec big" id="maker" aria-label="Who built Lull">
-  <div class="wrap maker">
-    <img src="img/rupak.jpg" alt="Rupak Ghanpathi" width="64" height="64" loading="lazy">
+<section class="h-hero">
+  <div class="h-wrap">
     <div>
-      <p class="maker-name"><b>Built by Rupak Ghanpathi</b>, business analyst, ex-HDFC Bank.</p>
-      <a class="more" href="pm.html" data-ev="maker-pm">How I built it, and what I got wrong ›</a>
+      <p class="h-eyebrow">For teams of 10–500 · <b>between calls</b></p>
+      <h1>Your team takes three minutes.<br>You get proof, never a person.</h1>
+      <p class="h-lede">A three-minute desk reset they do between calls, seated, in work clothes. You see whether teams use it. You never see an individual.</p>
+      <div class="h-cta">
+        <a class="h-btn h-btn-primary" href="app/?taster=1" data-ev="hero-taster">Try step one</a>
+        <a class="h-btn h-btn-ghost" href="#report" data-ev="hero-report">See the week-6 report</a>
+      </div>
+      <p class="h-proof"><img src="img/rupak.jpg" alt="" width="32" height="32">Built by Rupak Ghanpathi · six pilot slots · I reply to every message.</p>
     </div>
+    <figure class="h-media">
+      <img src="img/shot-employee.jpg" alt="Lull on a phone: Between calls? Take three minutes" width="640" height="800">
+      <figcaption>The whole product. No app, no sign-up.</figcaption>
+    </figure>
   </div>
 </section>
 
-<section class="sec big" id="deeper" aria-labelledby="deeper-h">
-  <div class="wrap">
-    <h2 id="deeper-h" class="sr">More</h2>
-    <ul class="deeper-links">
-      <li><a href="pilot.html#report" data-ev="deeper-report">See a sample week-6 report ›</a></li>
-      <li><a href="lull-walkthrough.mp4" id="open-video" data-ev="deeper-video">Watch the 2-minute walkthrough ›</a></li>
-      <li><a href="data.html" data-ev="deeper-data">Data & trust ›</a></li>
+<section class="h-facts" aria-label="Lull at a glance">
+  <div class="h-wrap">
+    <ul>
+      <li><b>3 minutes</b><span>a session, seated or standing</span></li>
+      <li><b>₹60–120</b><span>a person a month</span></li>
+      <li><b>10+ people</b><span>before a team appears</span></li>
+      <li><b>0 installs</b><span>one link, in the browser</span></li>
     </ul>
   </div>
 </section>
 
-<section class="sec footnotes" id="fn" aria-label="Notes">
-  <div class="wrap">
-    <ol>
-      <li>Oxford Wellbeing Research Centre, 46,336 workers, 2024; Illinois Workplace Wellness Study, NBER. Only 38% of employees use health check-ups even when offered (Plum Employee Health Report, 2025).</li>
-      <li>Microsoft Viva Insights documentation: minimum group size defaults to 5.</li>
+<section class="h-sec" id="how">
+  <div class="h-wrap">
+    <h2>What they see. What you see. What your leadership gets.</h2>
+    <p class="h-sec-lede">One reset, matched to how someone says they feel. Then a number, not a name.</p>
+    <div class="h-shots">
+      <figure>
+        <img src="img/shot-employee.jpg" alt="The employee screen: Between calls? Take three minutes" width="640" height="800" loading="lazy">
+        <figcaption><b>Your people</b>Three minutes, between calls.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/shot-hr.jpg" alt="The HR view: active people per team, small teams hidden" width="640" height="762" loading="lazy">
+        <figcaption><b>You</b>Team totals, never individuals.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/shot-report.jpg" alt="The week-6 readout: 44 of 64 tried it" width="584" height="730" loading="lazy">
+        <figcaption><b>Your leadership</b>A plain readout at week 6.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="h-sec" id="privacy">
+  <div class="h-wrap">
+    <h2>You see a team. Not a person.</h2>
+    <p class="h-sec-lede">No names, emails, phone numbers, or employee IDs ever reach you. What reaches you is a short list of counts, for teams of 10 or more.</p>
+    <table class="h-table">
+      <caption class="h-sr">What HR can and cannot receive</caption>
+      <thead><tr><th scope="col">Lull can send</th><th scope="col">Lull never sends</th></tr></thead>
+      <tbody>
+        <tr><td class="yes">A team name, and how many people used it</td><td class="no">Names, emails, phone numbers, employee IDs</td></tr>
+        <tr><td class="yes">Sessions started and finished, as counts</td><td class="no">Anything anyone typed</td></tr>
+        <tr><td class="yes">How many finished a session, as a count</td><td class="no">Anything about pain, injury or safety</td></tr>
+        <tr><td class="yes">Nothing at all for a team under 10</td><td class="no">Device, browser, IP address, or which person</td></tr>
+      </tbody>
+    </table>
+    <p class="h-mech">A team appears only when at least ten people are in it, and the next-smallest team is hidden too, so the small one cannot be worked out by subtraction. A team is never broken down by need, feeling, or person. <strong>We call this aggregated with small numbers suppressed. We don't call it anonymous.</strong></p>
+    <a class="h-more" href="data.html">The exact list, and the AI exception →</a>
+  </div>
+</section>
+
+<section class="h-sec" id="report">
+  <div class="h-wrap h-report">
+    <div>
+      <h2>Week 6, on one page.</h2>
+      <p class="h-sec-lede">Targets are agreed before day one. A check at week 3. At week 6: how many tried it, how many came back, what they asked for most, cost per finished session, and a plain recommendation.</p>
+      <ul>
+        <li>If it worked, the page says so.</li>
+        <li>If it didn't, the page says that too.</li>
+        <li>No dashboard to learn, no contract to exit.</li>
+      </ul>
+      <a class="h-btn h-btn-primary" href="report.html?size=120" style="margin-top:26px" data-ev="see-report">See the sample report</a>
+    </div>
+    <div class="h-shot">
+      <img src="img/shot-report.jpg" alt="A sample week-6 report for a 120-person team" width="584" height="730" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="h-sec" id="pricing">
+  <div class="h-wrap h-price">
+    <div>
+      <h2>₹120 a person at 40.<br>₹60 at 250.</h2>
+      <p class="h-sec-lede">A six-week pilot for one team, then decide. No setup fee, no annual contract, fifteen days' notice.</p>
+      <p>GST extra. Invoiced monthly. The pilot is free for the first six teams.</p>
+      <a class="h-more" href="mailto:rupakr2g@gmail.com?subject=Lull%20pilot%20%E2%80%94%20one%20team&body=Team%20size%3A%20%0AWhat%20I%27d%20like%20to%20check%3A%20">Ask for a pilot →</a>
+    </div>
+    <div>
+      <table class="h-rate">
+        <caption class="h-sr">Price per person per month by team size</caption>
+        <thead><tr><th scope="col">Team</th><th scope="col">Per person</th><th scope="col">Your bill</th></tr></thead>
+        <tbody>
+          <tr><td>10–50</td><td>₹120</td><td>40 people: ₹4,800</td></tr>
+          <tr><td>51–150</td><td>₹90</td><td>120 people: ₹10,800</td></tr>
+          <tr><td>151–500</td><td>₹60</td><td>250 people: ₹15,000</td></tr>
+        </tbody>
+      </table>
+      <p>Prices are indicative for the pilot. Everything is in writing before day one.</p>
+    </div>
+  </div>
+</section>
+
+<section class="h-sec" id="run">
+  <div class="h-wrap">
+    <h2>Fifteen minutes, twice.</h2>
+    <ol class="h-steps">
+      <li><b>Week 0</b><span>Pick one team of 10–50. Send one link. Nothing to install, nothing to run.</span></li>
+      <li><b>Week 3</b><span>We look at the totals together and fix what isn't working.</span></li>
+      <li><b>Week 6</b><span>You get the one-page readout. Continue, or stop. Either way, it's written down.</span></li>
     </ol>
+  </div>
+</section>
+
+<section class="h-sec" id="questions">
+  <div class="h-wrap">
+    <h2>Questions, answered.</h2>
+    <div class="h-q">
+      <details>
+        <summary>Can a manager see one person?</summary>
+        <p>No. There is no screen, export, or report that shows one person. Teams under 10 are hidden, and so is the next-smallest team, so the small one can't be worked out by subtraction.</p>
+      </details>
+      <details>
+        <summary>Does anyone find out who reported pain?</summary>
+        <p>No. Nothing about pain, injury, or safety leaves the device. The reset stops and points the person to proper help. Nobody at your company is told, and it is never counted.</p>
+      </details>
+      <details>
+        <summary>Will my team think we're monitoring them?</summary>
+        <p>They can open Settings and see the exact list of what leaves their device, then switch counting off. No names, no scores, no rankings, no manager view. Here is <a href="data.html">the list they see</a>.</p>
+      </details>
+      <details>
+        <summary>Will anyone actually use it?</summary>
+        <p>That is the only question worth piloting. After a session, each person can put a weekday reminder in their own calendar or Slack, and you'll see how many did. If usage stalls, you'll know by week 3, not at renewal.</p>
+      </details>
+      <details>
+        <summary>Is it medical care?</summary>
+        <p>No. These are three-minute desk resets, not diagnosis or therapy. If someone mentions pain, dizziness, or injury, the reset stops and points them to proper help.</p>
+      </details>
+      <details>
+        <summary>Who are you, and why should I trust this?</summary>
+        <p>I'm Rupak, a business analyst. I built Lull after our own wellness benefit went unused: about 38% of employees use health benefits even when offered. There is no company behind this yet, just me, a written protocol, and a DPA I'll sign before you send a single link.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="h-sec" id="maker">
+  <div class="h-wrap">
+    <div class="h-maker">
+      <img src="img/rupak.jpg" alt="Rupak Ghanpathi" width="64" height="64" loading="lazy">
+      <p><b>Built by Rupak Ghanpathi.</b> Six teams, six weeks, free. I read every reply and I'll tell you honestly if Lull isn't right for your team.</p>
+    </div>
+  </div>
+</section>
+
+<section class="h-sec" id="ask">
+  <div class="h-wrap">
+    <h2>Would this work for your team?</h2>
+    <p class="h-sec-lede">Three answers. No form, no calendar, no follow-up sequence.</p>
+    <div class="h-ask-row">
+      <a data-answer="yes" href="mailto:rupakr2g@gmail.com?subject=Lull%3A%20yes%20%E2%80%94%20my%20team%20would%20use%20this&body=Team%20size%3A%20%0AOne%20thing%20that%20would%20matter%3A%20" data-ev="answer-yes">Yes</a>
+      <a data-answer="maybe" href="mailto:rupakr2g@gmail.com?subject=Lull%3A%20maybe%20%E2%80%94%20one%20thing%20to%20change&body=Team%20size%3A%20%0AWhat%20would%20need%20to%20be%20true%3A%20" data-ev="answer-maybe">Maybe</a>
+      <a data-answer="no" href="mailto:rupakr2g@gmail.com?subject=Lull%3A%20not%20for%20us&body=Team%20size%3A%20%0AWhy%20not%3A%20" data-ev="answer-no">No</a>
+    </div>
+    <p class="h-ask-note">Or write to <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a>. I reply to every message myself.</p>
   </div>
 </section>
 
 </main>
 
-<footer class="foot">
-  <div class="wrap">
-    <p>Early-stage product. Report figures are a sample company. Not medical advice. <span class="updated">Updated 28 Oct 2026 · <a href="pm.html#changelog">What's changed</a></span></p>
-    <div class="foot-links">
-      <a href="pilot.html">Pilot & cost</a>
-      <a href="data.html">Data & trust</a>
+<footer class="h-foot">
+  <div class="h-wrap">
+    <div>
+      <a class="h-brand" href="./"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
+      <p>An early-stage product, not medical care. Report figures are from a sample company.</p>
+    </div>
+    <div>
+      <h3>Product</h3>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="report.html?size=120">Sample report</a>
+      <a href="app/?taster=1">Take a reset</a>
+    </div>
+    <div>
+      <h3>Trust</h3>
+      <a href="data.html">Data &amp; terms</a>
       <a href="safety.html">Safety and limits</a>
-      <a href="lull-pilot-proposal.pdf" download data-ev="proposal-download">Pilot proposal</a>
+      <a href="lull-pilot-proposal.pdf" download>Pilot proposal (PDF)</a>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a>
+      <a href="pm.html">For product people</a>
+      <a href="https://www.linkedin.com/in/rupakghanpathi" rel="noopener">LinkedIn</a>
+    </div>
+    <div class="h-legal">
+      <span>© <span id="year">2026</span> Lull</span>
+      <span>GST invoice on request · India</span>
     </div>
   </div>
 </footer>
 
-<div class="sticky" id="sticky">
-  <a class="btn btn-primary" data-ev="cta-try-sticky" href="#try">Try it · 40 sec</a>
+<div class="h-sticky">
+  <a class="h-btn h-btn-primary" href="app/?taster=1" data-ev="sticky-taster">Try step one</a>
 </div>
 
-<dialog class="vid" id="vid" aria-label="Lull walkthrough video">
-  <div class="vid-top"><span>Lull in 2 minutes</span><button type="button" class="vid-close" id="vid-close" aria-label="Close video">×</button></div>
-  <video controls preload="none" playsinline poster="img/poster.jpg" width="1280" height="800">
-    <source data-src="lull-walkthrough.mp4" type="video/mp4">
-    <source data-src="lull-walkthrough.webm" type="video/webm">
-    <a href="lull-walkthrough.mp4">Download the walkthrough</a>
-  </video>
-</dialog>
-
-<script src="main.js"></script>
+<script src="home.js" defer></script>
 </body>
 </html>

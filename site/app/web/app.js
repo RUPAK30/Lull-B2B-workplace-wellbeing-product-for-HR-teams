@@ -8,7 +8,7 @@ import { redactValue } from '../shared/redact.js';
 import { renderComponent } from './components.js';
 import { byId, el, button } from './dom.js';
 import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js';
-import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, usualReset } from './pilot.js';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js';
 import { reminderCard } from './reminder.js';
 import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js';
 import { renderInsights, teamExport } from './insights-view.js';
@@ -479,34 +479,42 @@ catch {
     byId('patch-status').textContent = 'Invalid patch. Previous screen kept. Check names, arguments and catalog.';
 } });
 byId('export').addEventListener('click', () => { const label = byId('run-label').value; const payload = { format: 'lull-workout-run-v1', label, appVersion: APP_VERSION, schemaVersion: SCHEMA_VERSION, selectedProvider: c.provider, note: byId('note').value, events: c.events, state: { ui_state: c.document.echo(), client_events: c.clientEvents }, timers: timers.list() }; const url = URL.createObjectURL(new Blob([JSON.stringify(redactValue(payload), null, 2)], { type: 'application/json' })); const link = el('a'); link.href = url; link.download = label + '.json'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); byId('export-status').textContent = `Downloaded ${label}.json. Review and move it into runs/.`; });
-async function start() { render(); try {
-    const response = await fetch('/api/config');
-    track('visit');
-    for (const e of EXPERIMENTS)
-        track('exposure', { exp: e.id, variant: variantOf(e.id) });
-    noteReturn();
-    if (!response.ok)
-        throw new Error();
-    config = await response.json();
-    const select = byId('provider');
-    select.replaceChildren();
-    for (const p of config.providers) {
-        const option = el('option', p.label + (p.enabled ? '' : ' · setup / blocked'));
-        option.value = p.id;
-        select.append(option);
-    }
-    select.value = 'mock';
-    select.disabled = false;
+async function start() {
     render();
-    if (teamReset) {
-        track('team_reset');
-        send(`/reset ${teamReset.reset} ${teamReset.posture}`, 'team-reset');
-        history.replaceState(null, '', location.pathname);
+    try {
+        const response = await fetch('/api/config');
+        track('visit');
+        for (const e of EXPERIMENTS)
+            track('exposure', { exp: e.id, variant: variantOf(e.id) });
+        noteReturn();
+        if (!response.ok)
+            throw new Error();
+        config = await response.json();
+        const select = byId('provider');
+        select.replaceChildren();
+        for (const p of config.providers) {
+            const option = el('option', p.label + (p.enabled ? '' : ' · setup / blocked'));
+            option.value = p.id;
+            select.append(option);
+        }
+        select.value = 'mock';
+        select.disabled = false;
+        render();
+        if (teamReset) {
+            track('team_reset');
+            send(`/reset ${teamReset.reset} ${teamReset.posture}`, 'team-reset');
+            history.replaceState(null, '', location.pathname);
+        }
+        else if (taster) {
+            track('taster');
+            send('/reset unknot seated', 'taster');
+            history.replaceState(null, '', location.pathname);
+        }
+    }
+    catch {
+        byId('status').textContent = 'Could not connect. Restart the local server and reload.';
     }
 }
-catch {
-    byId('status').textContent = 'Could not connect. Restart the local server and reload.';
-} }
 /** Jump to a movement from the session overview (never while safety holds the session). */
 function jumpTo(key) { if (safetyHold() || nav.phase() !== 'idle' || paused)
     return; const screens = c.document.screens, i = screens.findIndex(s => s.key === key), from = screens.findIndex(s => s.key === c.document.cursor); if (i < 0 || i === from)
