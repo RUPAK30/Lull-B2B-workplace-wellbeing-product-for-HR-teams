@@ -1,4 +1,8 @@
-# Lull: see if your team takes a break, without seeing anyone
+# Lull: a B2B product I built solo to learn product management end to end
+
+**By Rupak Ghanpathi** · [Case study](https://lull-hr.vercel.app/pm) · [Live site](https://lull-hr.vercel.app/) · Status: testing with HR/TA people now.
+
+*The product:* see if your team takes a break, without seeing anyone.
 
 **Live:** [For HR & TA](https://lull-hr.vercel.app/) · [Product case study (for PMs)](https://lull-hr.vercel.app/pm) · [Pilot & cost](https://lull-hr.vercel.app/pilot.html) · [Data & trust](https://lull-hr.vercel.app/data.html) · [Try the app](https://lull-hr.vercel.app/app/) · [Safety](https://lull-hr.vercel.app/safety.html)
 
