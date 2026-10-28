@@ -5,7 +5,8 @@
 import { cleanTeam, parseReset, pilotEvent, pilotPath, resetFromTitle, type PilotEvent } from '../shared/pilot.js';
 
 const TEAM = 'sw.pilot.team', COUNT = 'sw.pilot.count', SENT = 'sw.pilot.sent', LIMIT = 50;
-const ENDPOINT = 'https://lull.goatcounter.com/count';
+// On the hosted site, counts go through our own domain so ad blockers don't drop them.
+const ENDPOINT = typeof location !== 'undefined' && location.hostname.endsWith('vercel.app') ? '/gc/count' : 'https://lull.goatcounter.com/count';
 const store = {
   get(key: string) { try { return localStorage.getItem(key); } catch { return null; } },
   set(key: string, value: string) { try { localStorage.setItem(key, value); } catch { /* storage blocked */ } },

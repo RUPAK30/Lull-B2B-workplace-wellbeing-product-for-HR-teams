@@ -6,7 +6,7 @@ Lull is a pilot-stage workplace wellbeing product for HR teams at 50–500 perso
 
 ## The problem it answers
 Research behind the product (sources in the HR page's notes):
-- Wellbeing benefits are widely offered but rarely used: about 30% of employees take part in programmes, and wellbeing apps keep about 3% of users after 30 days.
+- Wellbeing benefits are widely offered but rarely used: about 30% of employees take part in programmes, and mental-health apps keep about 3% of users after 30 days.
 - HR can't prove the spend worked, and employees distrust tools that can see individuals.
 - Budgets are tight, and the founder usually approves.
 
@@ -24,7 +24,7 @@ Research behind the product (sources in the HR page's notes):
 | `src/` | The app: TypeScript, local server, Mock mode with no AI by default |
 | `site/` | The public site (deployed on Vercel): `index.html` overview, `pilot.html`, `safety.html`, `thanks.html`, `report.html`, `card.html`, `404.html` |
 | `site/app/` | The real app running fully in the browser, built with `npm run site:app` |
-| `tests/` | `npm test`: 84 unit tests (plus 33 browser tests with `npm run test:ui`), including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
+| `tests/` | `npm test`: 85 tests (80 pass, 1 timed out on http, 4 skipped on Windows), including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
 | `docs/` | **BRD, one-page case study and one pager** (`Lull - BRD.pdf`, `Lull - Case Study.pdf`, `Lull - One Pager.pdf`, editable sources in `docs/product/`), product and business analysis, pilot proposal |
 | `eval/` | Safety evaluation of the pain-detection rules |
 

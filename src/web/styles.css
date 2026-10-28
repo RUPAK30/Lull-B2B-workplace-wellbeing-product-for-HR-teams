@@ -536,3 +536,5 @@ button.link:hover:not(:disabled){background:none}
 .sent-list{margin:4px 0 0;padding-left:18px;font-size:13px;color:var(--soft-ink)}
 .drawer-panel a{color:var(--accent)}
 .clear-done{min-height:1.2em;margin:6px 0 0;color:var(--accent)}
+.team-ask{margin-top:16px;padding-top:16px;border-top:1px solid rgba(0,0,0,.08)}
+.team-ask .choices a{text-decoration:none;text-align:center}
