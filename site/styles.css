@@ -882,3 +882,12 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
 .maker-proof{margin:4px 0 0;font-size:.82rem;color:var(--ink-3)}
 .maker .more{padding:8px 0}
 .shots{margin:0;padding:0 0 8px}
+/* Trust promises */
+.trust{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (min-width:860px){.trust{grid-template-columns:repeat(4,1fr)}}
+.trust li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.trust b{font-size:.92rem;color:var(--ink);line-height:1.3}
+.trust b::before{content:"✓ ";color:var(--accent-2)}
+.trust span{font-size:.82rem;color:var(--ink-2);line-height:1.4}
+.it-line{margin:12px 0 0;font-size:.85rem;color:var(--ink-3)}
+#promises h2{margin:0 0 16px}
