@@ -204,13 +204,13 @@ document.addEventListener('DOMContentLoaded', function () {
           var da = document.getElementById('demo-area'); if (da) da.hidden = false; setFlow(0); if (da) setTimeout(function () { da.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }, 60);
           showView('emp'); if (ask) ask.hidden = true; if (reveal) reveal.hidden = true;
           emp.innerHTML = heard + '<p class="live-step">Step 1 of ' + plan.blocks.length + ' · ' + esc(L.RESET_NAMES[r.reset]) + '</p>' +
-            '<h3 class="live-title">' + esc(b.title) + '</h3><p class="live-clock" id="live-clock">' + L.clock(left) + '</p>' +
-            '<div class="live-bar"><i id="live-bar"></i></div><p class="emp-text">' + esc(b.cue || b.text) + '</p>' +
+            '<h3 class="live-title">' + esc(b.title) + '</h3><div class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" id="live-ring"/></svg><span class="breath" aria-hidden="true"></span><p class="live-clock" id="live-clock">' + L.clock(left) + '</p></div>' +
+            '<div class="live-bar" hidden><i id="live-bar"></i></div><p class="emp-text">' + esc(b.cue || b.text) + '</p>' +
             '<p class="live-ctl"><button type="button" class="chip" id="live-pause">Pause</button><button type="button" class="live-skip" id="live-skip">Skip →</button></p>';
           var clock = document.getElementById('live-clock'), bar = document.getElementById('live-bar');
           var tick = setInterval(function () {
             if (paused) return; left--;
-            clock.textContent = L.clock(Math.max(left, 0)); bar.style.width = (100 * (b.seconds - left) / b.seconds) + '%';
+            clock.textContent = L.clock(Math.max(left, 0)); bar.style.width = (100 * (b.seconds - left) / b.seconds) + '%'; var rg=document.getElementById('live-ring'); if (rg) rg.style.strokeDashoffset = (326.7 * (1 - (b.seconds - left) / b.seconds)).toFixed(1);
             if (left <= 0) done();
           }, 1000);
           timers.push(tick);
@@ -467,3 +467,9 @@ els.forEach(function(e,i){e.classList.add('io');e.style.transitionDelay=(e.match
 var o=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;x.target.classList.add('in');o.unobserve(x.target);
  if(x.target.classList.contains('card-stats'))x.target.querySelectorAll('b').forEach(function(b){var m=b.textContent.match(/^(\d+)(.*)$/);if(!m||+m[1]===0)return;var n=+m[1],t0=null;(function f(t){t0=t0||t;var k=Math.min((t-t0)/900,1);b.textContent=Math.round(n*(1-Math.pow(1-k,3)))+m[2];if(k<1)requestAnimationFrame(f);})(performance.now());});});},{rootMargin:'0px 0px -8% 0px'});
 els.forEach(function(e){o.observe(e);});})();
+
+// Live peek: counts tick like a real dashboard; headings reveal word by word
+(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+var rows=document.querySelectorAll('.peek p:not(.peek-h):not(.peek-hidden) b');var base=[8,6];
+setInterval(function(){var i=Math.random()<.5?0:1,r=rows[i];if(!r)return;base[i]=base[i]>=base[i]+0&&base[i]<(i?9:12)?base[i]+1:(i?6:8);r.textContent=base[i]+' took a break this week';r.classList.remove('tick');void r.offsetWidth;r.classList.add('tick');},2600);
+document.querySelectorAll('.sec.big h2').forEach(function(h){h.innerHTML=h.textContent.split(' ').map(function(w,i){return '<span class="w" style="transition-delay:'+i*70+'ms">'+w+'</span>';}).join(' ');});})();
