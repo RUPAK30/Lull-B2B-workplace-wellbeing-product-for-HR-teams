@@ -831,3 +831,14 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
 .sticky{justify-content:center}
 .sticky .btn-primary{flex:1;max-width:420px}
 /* App feedback ask */
+/* Pass 3: 10-second hero, merged section, plain links */
+.hero h1 .fn{font-size:.45em;vertical-align:super;color:var(--ink-3);text-decoration:none;margin-left:2px}
+.hero .hero-cta{margin-top:24px}
+.hero .subhead{margin-top:8px}
+.hp-rows .moments{display:block;margin-top:4px;font-size:.85rem;color:var(--ink-3)}
+.hp-rows dt{color:var(--ink-3)}
+.deeper-links{list-style:none;margin:0;padding:0}
+.deeper-links li{border-top:1px solid var(--line)}
+.deeper-links li:last-child{border-bottom:1px solid var(--line)}
+.deeper-links a{display:block;padding:14px 0;min-height:44px;color:var(--ink);text-decoration:none;font-weight:500}
+.try-app a{font-weight:600}

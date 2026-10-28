@@ -50,21 +50,19 @@
     <div class="hero-text">
       <p class="eyebrow">3:40 pm. Between calls.</p>
       <p class="for-line" id="for-line" hidden></p>
-      <h1>Most employees don't use the wellbeing benefit you pay for.</h1>
-      <p class="subhead">Lull is a 3-minute movement reset built for the workday, with team-level proof and no individual data.</p>
-      <ul class="chips pills" aria-label="At a glance"><li>3 minutes</li><li>No install</li><li>Works on a call</li></ul>
+      <h1>Most employees don't use the wellbeing benefit you pay for.<a class="fn" href="#src" aria-label="Source">¹</a></h1>
+      <p class="subhead">A 3-minute desk reset your team will actually use.</p>
       <div class="cta-block hero-cta">
         <a class="btn btn-primary" data-ev="cta-try-hero" href="app/">Try a 3-minute reset</a>
-        <p class="cta-sub">No sign-up. At the end, two taps tell me if your team would use it.</p>
+        <p class="cta-sub">No sign-up. Works on a call.</p>
       </div>
-      <p class="source-line">About 30% of employees take part in company wellness programmes (Plum, Health Report of Corporate India 2023).</p>
+      <p class="source-line" id="src">¹ About 30% of employees take part in company wellness programmes (Plum, Health Report of Corporate India 2023).</p>
     </div>
 
 <!-- 2. How: the two-sided demo -->
     <div class="try" id="try">
       <div class="try-head">
         <h2 id="try-h">How are you feeling right now?</h2>
-        <p class="tiny demo-note">Demo · Lull's built-in rules, no AI</p>
       </div>
       <div class="chips" role="group" aria-labelledby="try-h">
         <button type="button" class="chip" data-chip="calls" aria-pressed="false">After back-to-back calls</button>
@@ -77,7 +75,7 @@
         <input id="say-input" name="say" maxlength="120" placeholder="Or type how you feel…" enterkeyhint="go">
         <button type="submit" class="say-go">Try</button>
       </form>
-      <p class="tiny say-hint">Hinglish works too: try "gardan akad gayi" or "kamar mein dard".</p>
+      <p class="tiny say-hint">Hinglish works too.</p>
       <div class="view-tabs" role="tablist" aria-label="Choose a view">
         <button type="button" role="tab" aria-selected="true" data-view="emp">Employee sees</button>
         <button type="button" role="tab" aria-selected="false" data-view="hr">HR sees</button>
@@ -96,36 +94,20 @@
           <p class="hr-never"><strong>No names. No messages. No individual sessions.</strong>Teams under 10 people are hidden.</p>
         </div>
       </div>
-      <p class="try-app"><a href="app/" data-ev="app-opened">Open the real Lull app →</a><span>Runs in your browser. Nothing to install.</span></p>
+      <p class="try-app"><a href="app/" data-ev="app-opened">Start this reset →</a></p>
     </div>
   </div>
 </section>
 
-<!-- 3. How it works -->
+<!-- 3. What it looks like at work -->
 <section class="sec hp" id="how" aria-labelledby="how-h">
   <div class="wrap">
-    <h2 id="how-h">How it works</h2>
-    <div class="hp-card">
-      <dl class="hp-rows">
-        <div><dt>Employees get</dt><dd>One 3-minute reset between calls, seated or standing, in English or Hinglish.</dd></div>
-        <div><dt>HR sees</dt><dd>Team totals and return rates, a week-3 check-in and a week-6 readout.</dd></div>
-        <div><dt>You do</dt><dd>Pick one team of 10–50, share a link, join two check-ins.</dd></div>
-      </dl>
-      <p class="promise">Team totals only. Teams under 10 hidden. No individual data shown to HR.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 4. When it fits -->
-<section class="sec hp" id="when" aria-labelledby="when-h">
-  <div class="wrap">
-    <h2 id="when-h">When it fits</h2>
-    <p class="hp-intro">Three moments in an ordinary workday.</p>
-    <ul class="hp-moments">
-      <li><b>Between back-to-back calls</b><span>Unknot neck and shoulders, seated; it works on a call.</span></li>
-      <li><b>The post-lunch slump</b><span>A standing energy lift at the desk.</span></li>
-      <li><b>The start of a team meeting (a group reset)</b><span>One link in the invite; everyone presses Start together.</span></li>
-    </ul>
+    <h2 id="how-h">What it looks like at work</h2>
+    <dl class="hp-rows">
+      <div><dt>Employees</dt><dd>A 3-minute reset, seated or standing.<span class="moments">Between calls · Post-lunch · Start of a meeting</span></dd></div>
+      <div><dt>HR</dt><dd>Team totals and return rates. Never individuals; teams under 10 hidden.</dd></div>
+      <div><dt>You</dt><dd>Pick one team, share a link, read the week-6 readout.</dd></div>
+    </dl>
   </div>
 </section>
 
@@ -141,7 +123,6 @@
       </ol>
       <dl class="hp-facts">
         <div><dt>Price</dt><dd>₹60–120 per person per month, indicative. No annual contract.</dd></div>
-        <div><dt>What you have to do</dt><dd>15-minute kickoff, one team contact, two check-ins.</dd></div>
       </dl>
       <div class="btns">
         <a class="more" data-cta="pilot" data-ev="cta-pilot-card" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot →</a>
@@ -168,13 +149,11 @@
 <section class="sec hp" id="deeper" aria-labelledby="deeper-h">
   <div class="wrap">
     <h2 id="deeper-h">Go deeper</h2>
-    <ul class="hp-options">
-      <li><a href="pilot.html#report" data-ev="deeper-report"><b>See the sample week-6 report</b><span>Illustrative sample, not customer data.</span></a></li>
-      <li><a href="pilot.html#calculator" data-ev="deeper-cost"><b>Work out the cost for my team</b><span>Drag a team size; see the monthly range.</span></a></li>
-      <li><a href="data.html" data-ev="deeper-data"><b>Data handling and pilot terms</b><span>What's sent, what never is, your controls.</span></a></li>
-      <li><a href="pilot-pack.html" data-ev="deeper-pack"><b>Printable pilot pack</b><span>Everything for your approver, on paper.</span></a></li>
-      <li><a href="lull-walkthrough.mp4" id="open-video" data-ev="deeper-video"><b>Watch the 2-minute walkthrough</b><span>The employee and HR side, end to end.</span></a></li>
-      <li><a href="product.html" data-ev="deeper-product"><b>For product people: how it was built</b><span>Decisions, measurement and what I got wrong.</span></a></li>
+    <ul class="deeper-links">
+      <li><a href="pilot.html#report" data-ev="deeper-report">See a sample week-6 report →</a></li>
+      <li><a href="lull-walkthrough.mp4" id="open-video" data-ev="deeper-video">Watch the 2-minute walkthrough →</a></li>
+      <li><a href="data.html" data-ev="deeper-data">Data handling and pilot terms →</a></li>
+      <li><a href="product.html" data-ev="deeper-product">For product people: how it was built →</a></li>
     </ul>
   </div>
 </section>
