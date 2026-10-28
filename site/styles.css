@@ -981,3 +981,25 @@ html{scroll-padding-bottom:96px}
 @media (prefers-reduced-motion:reduce){.live-done .tick{animation:none}}
 :root[data-theme="dark"] .live-done .tick{color:#10160F}
 .maker{border-top:0;padding-top:0}
+/* ===== Final: Apple discipline for a busy HR reader ===== */
+.brand-line{margin:6px 0 2px;font:600 .95rem var(--sans);color:var(--accent-2)}
+.try-head h1{font-size:2rem;line-height:1.1}
+.try-head h1 span{display:block;color:var(--ink-3)}
+.sec.big{padding-top:96px}
+.sec.big h2{text-align:center;max-width:16ch;margin-left:auto;margin-right:auto}
+.sec.big .pillars,.sec.big .answers,.sec.big .shots{margin-top:8px}
+.stats-sec{padding-top:72px!important}
+.stats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px 16px;text-align:center}
+@media (min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stats b{display:block;font:500 2.4rem/1 var(--serif);color:var(--ink);letter-spacing:-.02em}
+.stats span{display:block;margin-top:6px;font-size:.85rem;color:var(--ink-2);line-height:1.35}
+.more,.deeper-links a,.cta-row a{text-decoration:none!important;color:var(--accent-2)!important;font-weight:600}
+.cta-row{text-align:center}
+.maker{justify-content:center}
+.footnotes{padding:72px 0 0}
+.footnotes ol{margin:0;padding-left:18px;border-top:1px solid var(--line);padding-top:16px}
+.footnotes li{font-size:.74rem;line-height:1.5;color:var(--ink-3);margin-bottom:6px}
+.fn{color:var(--ink-3);text-decoration:none;font-size:.7em;vertical-align:super;margin-left:1px}
+.try-head{display:block!important}
+.brand-line{display:block;text-align:left}
+.sec.big h2{max-width:22ch}
