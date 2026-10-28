@@ -63,7 +63,8 @@
     <div class="try" id="try">
       <div class="try-head">
         <p class="eyebrow" id="for-line">For your team · 3:40 pm, between calls</p>
-        <h1 id="try-h">How are you feeling right now?</h1>
+        <h1 id="try-h">Most wellness benefits go unused. Would a 3-minute break between calls?<a class="fn" href="#src">¹</a></h1>
+        <p class="try-q">How are you feeling right now? Tap one.</p>
       </div>
       <div class="chips" role="group" aria-labelledby="try-h">
         <button type="button" class="chip" data-chip="calls" aria-pressed="false">After back-to-back calls</button>
@@ -76,7 +77,7 @@
         <input id="say-input" name="say" maxlength="120" placeholder="Or type how you feel…" enterkeyhint="go">
         <button type="submit" class="say-go">Try</button>
       </form>
-      <p class="tiny say-hint">Hinglish works too. Tap one: a real 40-second step starts here.</p>
+      <p class="tiny say-hint">Hinglish works too. A real 40-second step starts right here.</p>
       <p class="reveal-line" id="reveal" hidden><b>And here's everything HR would see:</b></p>
       <div class="view-tabs" role="tablist" aria-label="Choose a view">
         <button type="button" role="tab" aria-selected="true" data-view="emp">Employee sees</button>
@@ -96,6 +97,16 @@
           <p class="hr-never"><strong>No names. No messages. No individual sessions.</strong>Teams under 10 people are hidden.</p>
         </div>
       </div>
+<div class="pfacts" role="table" aria-label="Privacy facts">
+        <p class="pfacts-h" role="caption">Privacy facts · what Lull collects</p>
+        <div role="row"><span role="cell">Names or emails</span><b role="cell" class="no">Never</b></div>
+        <div role="row"><span role="cell">Anything that identifies a phone or laptop</span><b role="cell" class="no">Never</b></div>
+        <div role="row"><span role="cell">What people type</span><b role="cell" class="no">Stays on their device*</b></div>
+        <div role="row"><span role="cell">Pain or safety reports</span><b role="cell" class="no">Never shared</b></div>
+        <div role="row"><span role="cell">Who joined and who didn't</span><b role="cell" class="no">Nobody can see</b></div>
+        <div role="row"><span role="cell">How many people in a team used it (teams of 10 or more)</span><b role="cell" class="yes">HR sees this, and only this</b></div>
+        <p class="pfacts-f">*Unless your company turns on the optional AI mode in writing. Pilots don't use it.</p>
+      </div>
       <div class="ask" id="ask" hidden>
         <p class="ask-q">Would your team use this?</p>
         <p class="tiny ask-group">I'm asking 10 HR and TA people to shape Lull before anyone else uses it.</p>
@@ -103,22 +114,20 @@
         <p class="ask-me"><img src="img/rupak.jpg" alt="" width="28" height="28">Rupak, ex-HDFC Bank. I read every answer.</p>
       </div>
       <p class="try-app"><a href="app/" data-ev="app-opened">Do the full 3-minute reset →</a></p>
-      <p class="context-line">Most employees don't use the wellbeing benefit their company pays for.<a class="fn" href="#src">¹</a> Lull is the 3-minute fix they actually do.</p>
-      <p class="source-line" id="src">¹ About 30% take part in company wellness programmes (Plum, Health Report of Corporate India 2023).</p>
+      <p class="source-line" id="src">¹ Only 38% of employees use health check-ups even when offered, and about 1 in 3 say they lack the time to look after their health (Plum Employee Health Report 2025, 6,000+ companies).</p>
     </div>
   </div>
 </section>
 
-<!-- Trust -->
-<section class="sec hp" id="trust" aria-labelledby="trust-h">
+<!-- Why this works -->
+<section class="sec hp" id="why" aria-labelledby="why-h">
   <div class="wrap">
-    <h2 id="trust-h">Your employees can trust it</h2>
-    <ul class="trust">
-      <li><b>Opt-in, and invisible</b><span>Nobody is signed up, and nobody can see who joined or who didn't.</span></li>
-      <li><b>Never used to judge anyone</b><span>It can't be: no names, no individual records.</span></li>
-      <li><b>No personal data</b><span>No names, emails or device IDs. Nothing personal to consent to or leak.</span></li>
-      <li><b>Small teams hidden</b><span>Teams under 10 never appear.</span></li>
-    </ul>
+    <h2 id="why-h">Why this, when most wellness apps fail</h2>
+    <dl class="hp-rows">
+      <div><dt>The evidence</dt><dd>A study of 46,336 workers found individual programmes such as apps and mindfulness showed little effect on wellbeing. In a randomised trial, the people who joined were already the healthier ones.<span class="moments">Oxford Wellbeing Research Centre, 2024 · Illinois Workplace Wellness Study, NBER</span></dd></div>
+      <div><dt>What Lull does instead</dt><dd>It doesn't claim to fix wellbeing. It's a 3-minute break built into how teams already work: between calls, and at the start of meetings.</dd></div>
+      <div><dt>How you'll know</dt><dd>Targets agreed upfront, and a readout that says plainly if they weren't met.</dd></div>
+    </dl>
     <p class="it-line">Works in any browser. No install, no login, nothing for IT to set up.</p>
   </div>
 </section>
@@ -138,7 +147,8 @@
 <!-- 5. The pilot -->
 <section class="sec hp" id="close" aria-labelledby="pilot-h">
   <div class="wrap">
-    <h2 id="pilot-h">The pilot</h2>
+    <h2 id="pilot-h">Try it with one team. Nothing to lose.</h2>
+    <ul class="norisk"><li>One team</li><li>Stop anytime</li><li>No personal data to leak</li><li>Nothing to install or remove</li><li>A written readout either way</li></ul>
     <div class="hp-card">
       <ol class="steps3" aria-label="Pilot timeline">
         <li><b>Wk 0</b><span>Pick a team</span></li>
@@ -158,13 +168,11 @@
 <section class="sec hp" id="answers" aria-labelledby="answers-h">
   <div class="wrap">
     <h2 id="answers-h">Quick answers</h2>
-    <div class="faq hp-faq">
-      <details data-faq="home-fail"><summary>Don't most wellness programmes fail? Many do. Lull doesn't claim to fix wellbeing.</summary><p>Large studies find individual programmes like apps and mindfulness show little effect on wellbeing (Oxford, 46,336 workers, 2024; Illinois randomised trial, NBER). Lull is a 3-minute break built into how teams work, including resets at the start of meetings, and it is measured honestly against targets you agree upfront.</p></details>
-      <details data-faq="home-private"><summary>Could this be used in performance reviews? No: there is nothing individual to use.</summary><p>HR sees team totals only. No names, no individual sessions, nothing anyone typed. Who reported pain is never shared with anyone. The demo sends nothing; a pilot link sends only the anonymous counts listed in Settings.</p></details>
-      <details data-faq="home-use"><summary>Will people use it? It lives in the workday: calendar or Slack reminders and team resets.</summary><p>After a session, each person can put their own weekday reminder in their calendar or Slack, and you'll see how many did. If usage stalls, you'll know by week 3, not at renewal.</p></details>
-      <details data-faq="home-medical"><summary>Is it medical care? No: short movement resets, with a safety stop for pain.</summary><p>Three-minute desk resets you can do in work clothes, seated or standing. If someone mentions pain, dizziness or injury, the reset stops and points them to proper help.</p></details>
-      <details data-faq="home-fail"><summary>What if it doesn't work? Targets are agreed upfront; the week-6 readout says so plainly.</summary><p>For example: at least half the team tries it, at least 1 in 3 comes back within a week. We check the team totals together at week 3. If the targets aren't met, the week 6 report will say so plainly.</p></details>
-    </div>
+    <dl class="answers">
+      <div><dt>Could this be used in performance reviews?</dt><dd>No. There is nothing individual to use: HR sees team totals only.</dd></div>
+      <div><dt>Is it medical care?</dt><dd>No. Short movement resets; pain, dizziness or injury stops the reset and points to proper help.</dd></div>
+      <div><dt>What if it doesn't work?</dt><dd>You'll know by week 3, and the week-6 readout says so plainly.</dd></div>
+    </dl>
   </div>
 </section>
 

@@ -935,3 +935,19 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
 :root[data-theme="dark"] .blocks li.on{background:#26332C;color:var(--ink)}
 :root[data-theme="dark"] .sticky{background:var(--bg);border-color:var(--line)}
 :root[data-theme="dark"] .say input{background:var(--bg);color:var(--ink);border-color:var(--line)}
+/* Final pass */
+.try-head h1{font-size:1.55rem;line-height:1.22}
+.try-q{margin:0 0 10px;font-weight:600;color:var(--ink)}
+.pfacts{margin-top:16px;border:2px solid var(--ink);border-radius:12px;padding:12px 14px;background:var(--card)}
+.pfacts-h{margin:0 0 6px;padding-bottom:6px;border-bottom:4px solid var(--ink);font:700 .95rem var(--sans);color:var(--ink)}
+.pfacts [role=row]{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.85rem}
+.pfacts [role=row] span{color:var(--ink-2)}
+.pfacts b{white-space:nowrap;text-align:right;font-size:.82rem}
+.pfacts b.no{color:var(--ink)}
+.pfacts b.yes{color:var(--accent-2);white-space:normal;max-width:45%}
+.pfacts-f{margin:6px 0 0;font-size:.74rem;color:var(--ink-3)}
+.norisk{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.norisk li{font-size:.82rem;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink-2)}
+.answers{margin:0}.answers div{padding:12px 0;border-top:1px solid var(--line)}.answers div:last-child{border-bottom:1px solid var(--line)}
+.answers dt{font-weight:600;color:var(--ink);font-size:.95rem}.answers dd{margin:2px 0 0;color:var(--ink-2);font-size:.9rem}
+#promises .pfacts{margin-top:0}
