@@ -214,8 +214,9 @@ draft.addEventListener('input',()=>{draft.style.height='auto';draft.style.height
 /** Feedback for the builder: would this person's team use it? Opens a 1-question form with the answer prefilled. */
 function teamAsk(){const box=el('div','','team-ask'),ref=new URLSearchParams(location.search).get('ref')??'';
   box.append(el('p','Would your team use this?','feeling-q'));const row=el('div','','row choices');
-  for(const [v,t] of [['yes','Yes'],['maybe','Maybe'],['no','No']] as const){const a=el('a',t,'btn ghost');a.href=`https://tally.so/r/peex9E?cta=app-feedback&team=${v}${ref?`&ref=${encodeURIComponent(ref)}`:''}`;a.target='_blank';a.rel='noopener';a.addEventListener('click',()=>track('team-ask',{value:v}));row.append(a);}
-  box.append(row,el('p','Opens one short question: what would stop them? Takes 30 seconds.','micro'));return box;}
+  for(const [v,t] of [['yes','Yes'],['maybe','Maybe'],['no','No']] as const){const a=el('a',t,'btn ghost');a.href=`https://tally.so/r/peex9E?cta=app-feedback&team=${v}${ref?`&ref=${encodeURIComponent(ref)}`:''}`;a.target='_blank';a.rel='noopener';a.addEventListener('click',e=>{track('team-ask',{value:v});if(v==='yes')return;e.preventDefault();box.replaceChildren(el('p','Thanks, that helps. What would stop them?','feeling-q'));const why=el('div','','row choices');
+    for(const [k,t] of [['busy','Too busy'],['privacy','Privacy worries'],['have-one','We already have something'],['not-needed','Not a real need'],['other','Something else']] as const)why.append(button(t,()=>{track('team-ask',{value:`${v}-${k}`});box.replaceChildren(el('p','Noted. Thank you.','feeling-thanks'));},'ghost'));box.append(why);});row.append(a);}
+  box.append(row);return box;}
 /** The one optional question at the end: self-reported, one tap, skippable, stored only here. */
 const felt=new Set<string>();
 function feelingCard(){const run=currentRun()??'none',n=el('section','','feeling');

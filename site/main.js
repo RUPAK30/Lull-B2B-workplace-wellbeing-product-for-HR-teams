@@ -230,7 +230,17 @@ document.addEventListener('DOMContentLoaded', function () {
           var ref = new URLSearchParams(location.search).get('ref') || '';
           ask.querySelectorAll('a[data-team]').forEach(function (a) {
             a.href = 'https://tally.so/r/peex9E?cta=home-feedback&team=' + a.dataset.team + (ref ? '&ref=' + encodeURIComponent(ref) : '');
-            a.addEventListener('click', function () { track('ask-' + a.dataset.team); });
+            a.addEventListener('click', function (e) {
+              track('ask-' + a.dataset.team);
+              if (a.dataset.team === 'yes') return;
+              e.preventDefault();
+              ask.innerHTML = '<p class="ask-q">Thanks, that helps. What would stop them?</p><p class="ask-why">' +
+                [['busy', 'Too busy'], ['privacy', 'Privacy worries'], ['have-one', 'We already have something'], ['not-needed', 'Not a real need'], ['other', 'Something else']]
+                  .map(function (w) { return '<button type="button" class="chip" data-why="' + w[0] + '">' + w[1] + '</button>'; }).join('') + '</p>';
+              ask.querySelectorAll('[data-why]').forEach(function (b) {
+                b.addEventListener('click', function () { track('why-' + a.dataset.team + '-' + b.dataset.why); ask.innerHTML = '<p class="ask-q">Noted. Thank you.</p><p class="tiny">Want to say more? <a href="mailto:rupakr2g@gmail.com">Email me</a>.</p>'; });
+              });
+            });
           });
         }
         var CHIP_TEXT = {};

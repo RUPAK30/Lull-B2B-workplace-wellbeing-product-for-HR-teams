@@ -862,3 +862,4 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
 .context-line{font-size:.9rem;color:var(--ink-2);margin:16px 0 0}
 .try .source-line{margin-top:6px}
 .hero{padding-top:16px}
+.ask-why{display:flex;flex-wrap:wrap;gap:8px;margin:0}
