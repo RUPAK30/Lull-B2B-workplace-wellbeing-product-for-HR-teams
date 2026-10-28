@@ -1003,3 +1003,13 @@ html{scroll-padding-bottom:96px}
 .try-head{display:block!important}
 .brand-line{display:block;text-align:left}
 .sec.big h2{max-width:22ch}
+/* Dark-mode contrast fixes */
+:root[data-theme="dark"] .data-table table,:root[data-theme="dark"] .data-table tr,:root[data-theme="dark"] .data-table td{background:var(--card)!important;color:var(--ink)!important;border-color:var(--line)!important}
+:root[data-theme="dark"] .data-table td::before{color:var(--ink-3)!important}
+:root[data-theme="dark"] .p-fit .no b{color:#E9A98F}
+:root[data-theme="dark"] .seg button{color:var(--ink-2)}
+:root[data-theme="dark"] .seg button[aria-pressed=true]{background:var(--accent);color:#10160F}
+.shots:focus-visible{outline:2px solid var(--accent-2);outline-offset:4px;border-radius:12px}
+/* Pilot page stats inside intro */
+.page-intro .stats{margin-top:24px}
+#demo-area{scroll-margin-top:72px}

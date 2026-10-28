@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var pad = function () { document.documentElement.style.setProperty('--bar-h', sticky.offsetHeight + 'px'); };
     pad();
     if ('ResizeObserver' in window) new ResizeObserver(pad).observe(sticky); else addEventListener('resize', pad);
-    var heroCta = document.querySelector('.hero-cta'), closeSec = document.getElementById('close');
+    var heroCta = document.querySelector('.hero-cta') || document.getElementById('try'), closeSec = document.getElementById('close');
     var upd = function () {
       var past = heroCta ? heroCta.getBoundingClientRect().bottom < 0 : scrollY > innerHeight * 0.6;
       var r = closeSec && closeSec.getBoundingClientRect(), atClose = !!r && r.top < innerHeight && r.bottom > 0;
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
         function live(L, r, plan, team, heard) {
           if (!emp) return false;
           var b = plan.blocks[0], left = b.seconds, paused = false;
-          var da = document.getElementById('demo-area'); if (da) da.hidden = false;
+          var da = document.getElementById('demo-area'); if (da) da.hidden = false; if (da) setTimeout(function () { da.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }, 60);
           showView('emp'); if (ask) ask.hidden = true; if (reveal) reveal.hidden = true;
           emp.innerHTML = heard + '<p class="live-step">Step 1 of ' + plan.blocks.length + ' · ' + esc(L.RESET_NAMES[r.reset]) + '</p>' +
             '<h3 class="live-title">' + esc(b.title) + '</h3><p class="live-clock" id="live-clock">' + L.clock(left) + '</p>' +
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
             if (status) status.innerHTML = '<b>' + esc(team) + ' +1</b>' + esc(need) + '. That\'s all HR gets.';
             if (reveal) reveal.hidden = false;
-            setTimeout(function () { showView('hr'); if (ask) { ask.hidden = false; } }, reduce ? 0 : 1400);
+            setTimeout(function () { showView('hr'); if (ask) { ask.hidden = false; setTimeout(function () { ask.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }, 300); } }, reduce ? 0 : 1400);
             track('live-finished');
           }
           document.getElementById('live-pause').addEventListener('click', function (e) { paused = !paused; e.target.textContent = paused ? 'Resume' : 'Pause'; });
