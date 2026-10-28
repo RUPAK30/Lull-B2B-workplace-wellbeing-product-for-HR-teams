@@ -1,34 +1,43 @@
-# Lull: 3-minute movement resets, with proof HR can share
+# Lull: see if your team takes a break, without seeing anyone
 
-**Live:** [Overview for HR](https://lull-hr.vercel.app/) · [Pilot details](https://lull-hr.vercel.app/pilot.html) · [Try the app](https://lull-hr.vercel.app/app/) · [Safety and limits](https://lull-hr.vercel.app/safety.html)
+**Live:** [For HR & TA](https://lull-hr.vercel.app/) · [Product case study (for PMs)](https://lull-hr.vercel.app/pm) · [Pilot & cost](https://lull-hr.vercel.app/pilot.html) · [Data & trust](https://lull-hr.vercel.app/data.html) · [Try the app](https://lull-hr.vercel.app/app/) · [Safety](https://lull-hr.vercel.app/safety.html)
 
-Lull is a pilot-stage workplace wellbeing product for HR teams at 50–500 person companies. Employees type how they feel, in English or Hinglish, and get one three-minute desk reset, seated or standing. HR sees whether teams are using it, without ever seeing a person.
+Lull is a pilot-stage workplace wellbeing product for HR teams at 50–500 person companies in India. Employees pick or type how they feel (English or Hinglish) and get a three-minute desk reset, seated or standing. HR sees team totals, never a person. Nothing for HR to run.
 
 ## The problem it answers
-Research behind the product (sources in the HR page's notes):
-- Wellbeing benefits are widely offered but rarely used: about 30% of employees take part in programmes, and mental-health apps keep about 3% of users after 30 days.
-- HR can't prove the spend worked, and employees distrust tools that can see individuals.
-- Budgets are tight, and the founder usually approves.
+- Only 38% of employees use health check-ups even when offered; 1 in 3 say they lack time (Plum Employee Health Report 2025).
+- Large studies find individual wellness programmes barely move wellbeing (Oxford Wellbeing Research Centre, 46,336 workers, 2024; Illinois Workplace Wellness Study, NBER). Lull doesn't claim to fix wellbeing: it's a short break built into the workday, measured honestly.
+- Employees distrust tools that can see individuals; HR can't prove a benefit is used.
+
+## The site: one goal per audience
+| Audience | Link | Goal |
+|---|---|---|
+| HR / TA | `/?for=Company&ref=name` | Try a real 40-second step on the page, see what HR would see, answer "Would your team use this?" |
+| Product managers | `/pm` | 3-minute case study: problem, users vs buyers, v0→v3 timeline, decisions and trade-offs, funnel design, metrics, changelog |
+
+**Homepage flow:** headline → live "What you'd see" preview → tap a feeling → breathing timer ring (40 s) → HR view → Yes / Maybe / No (Maybe/No pick a one-tap reason on the page; Yes opens Tally) → privacy (Apple-style four pillars) → why it isn't another wellness app → product screens → pilot ("One team. Six weeks. Nothing to run.") → answers → footnotes.
+
+**Design benchmarks:** Apple (clarity, one idea per section, privacy pillars), Headspace for Work (page length), Calm and Wellhub (HR rollout effort), Microsoft Viva (minimum group size 5; Lull uses 10), Officevibe (privacy wording), Plum (Indian HR buyer), Navattic 2026 (ungated, short demos). Light/dark mode, the same menu on phone and desktop, WCAG 2.2 checks (axe) and reduced-motion support.
 
 ## What's in the product
 | For | What it does |
 |---|---|
-| Employees | Free-text need matching (English and Hinglish), five office-safe three-minute desk resets (seated or standing), a safety stop for pain or urgent symptoms (before or during a session), opt-in reminders on their own calendar or Slack, one-tap "your usual" from a reminder, team resets for meetings |
-| HR | Team totals only; teams under 10 hidden; broad need categories per team; a week-6 report with targets agreed up front, cost per finished session and a downloadable slide |
-| Privacy | One allow-list of anonymous counts (`src/shared/pilot.ts`), shown live to each employee under "What leaves this device", with a switch to turn counting off |
-| Buying | Two-sided demo, personalised links (`?for=Company&ref=…`), pilot calculator, launch kit (Slack, email, manager note, QR desk card), sample report generator |
+| Employees | Free-text need matching (English and Hinglish), five office-safe three-minute resets (seated or standing), a safety stop for pain or urgent symptoms, opt-in reminders on their own calendar or Slack, team resets for meetings |
+| HR | Team totals only; teams under 10 hidden; broad need categories; a week-6 readout against targets agreed upfront |
+| Privacy | No names, emails or device identifiers. One allow-list of anonymous counts (`src/shared/pilot.ts`), listed on `/data.html` with who sees what by role; employees can turn counting off |
+| Feedback | On-page funnel events (`ask-yes/maybe/no`, `why-<answer>-<reason>`, `live-finished`) via GoatCounter, proxied through the site's own domain (`site/vercel.json`) so blockers don't drop them |
 
 ## Repo map
 | Path | What |
 |---|---|
 | `src/` | The app: TypeScript, local server, Mock mode with no AI by default |
-| `site/` | The public site (deployed on Vercel): `index.html` overview, `pilot.html`, `safety.html`, `thanks.html`, `report.html`, `card.html`, `404.html` |
-| `site/app/` | The real app running fully in the browser, built with `npm run site:app` |
-| `tests/` | `npm test`: 85 tests (80 pass, 1 timed out on http, 4 skipped on Windows), including the privacy contract (`pilot.test.mjs`) and Hinglish safety (`hinglish.test.mjs`) |
-| `docs/` | **BRD, one-page case study and one pager** (`Lull - BRD.pdf`, `Lull - Case Study.pdf`, `Lull - One Pager.pdf`, editable sources in `docs/product/`), product and business analysis, pilot proposal |
+| `site/` | Public site on Vercel: `index.html` (HR/TA), `pm.html` (PM case study), `pilot.html`, `data.html`, `product.html`, `safety.html`, `report.html`, `pilot-pack.html`, `vercel.json` |
+| `site/app/` | The real app in the browser, built with `npm run site:app` (don't edit by hand) |
+| `tests/` | `npm test`: 89 tests, including the privacy contract, Hinglish safety and a syntax check on every site script |
+| `docs/` | BRD, case study, one pager, pilot proposal (PDF) and sources |
 | `eval/` | Safety evaluation of the pain-detection rules |
 
-All usage figures shown anywhere are sample data from a made-up 64-person company (`src/shared/team.ts`). Lull is not a medical or mental-health service.
+All usage figures shown are sample data from a made-up 64-person company (`src/shared/team.ts`). Lull is not a medical or mental-health service.
 
 ## Running a team pilot
 
