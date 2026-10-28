@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var last = null;
         try { last = localStorage.getItem('lull-last-feeling'); } catch (err) { last = null; }
         if (last) { input.value = last; run(last, 'auto'); }
-        else { if (CHIP_TEXT) run(CHIP_TEXT.calls, 'auto'); if (chips) chips[0].setAttribute('aria-pressed', 'true'); }
+        else { if (CHIP_TEXT) run(CHIP_TEXT.calls, 'auto'); if (chips) chips.forEach(function (c) { c.setAttribute('aria-pressed', 'false'); }); input.value = ''; }
       }).catch(function () { if (emp) emp.textContent = 'The demo could not load. Try the app instead.'; });
     }
   }

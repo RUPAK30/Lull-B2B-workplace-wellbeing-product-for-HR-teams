@@ -891,3 +891,18 @@ dialog.vid video{width:100%;height:auto;background:#E9E2D4}
 .trust span{font-size:.82rem;color:var(--ink-2);line-height:1.4}
 .it-line{margin:12px 0 0;font-size:.85rem;color:var(--ink-3)}
 #promises h2{margin:0 0 16px}
+/* PM case study */
+.pm .p-stats b{font-size:1.05rem}
+.pm-ev{grid-template-columns:1fr}
+@media (min-width:720px){.pm-ev{grid-template-columns:repeat(3,1fr)}}
+.pm-tldr{margin:0;padding-left:18px}.pm-tldr li{margin-bottom:8px}
+.pm-timeline{list-style:none;margin:0;padding:0 0 0 16px;border-left:2px solid var(--line)}
+.pm-timeline li{position:relative;padding:0 0 16px 8px;display:flex;flex-direction:column;gap:2px}
+.pm-timeline li::before{content:"";position:absolute;left:-23px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--accent-2)}
+.pm-timeline b{font-size:.95rem}.pm-timeline span{font-size:.9rem;color:var(--ink-2)}
+.pm-funnel{margin:16px 0}
+.pm-next{padding-left:20px}.pm-next li{margin-bottom:6px}
+.pm-links{margin:16px 0 0;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+/* Tap targets */
+.foot a,.cta-email,.fn{display:inline-block;min-height:44px;line-height:44px}
+.fn{min-height:auto;line-height:1}
