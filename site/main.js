@@ -196,10 +196,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Live first step: one real block with a countdown, then the HR reveal, then the ask (foot in the door, peak-end).
         var ask = document.getElementById('ask'), reveal = document.getElementById('reveal');
         function showView(v) { var b = document.querySelector('.view-tabs [data-view="' + v + '"]'); if (b) b.click(); }
+        function setFlow(i) { document.querySelectorAll('#flow li').forEach(function (li, j) { li.className = j < i ? 'done' : j === i ? 'on' : ''; }); }
+        function nextStep() { return '<p class="next-step"><a class="more" href="#privacy">Next: how your people\'s privacy works ›</a></p>'; }
         function live(L, r, plan, team, heard) {
           if (!emp) return false;
           var b = plan.blocks[0], left = b.seconds, paused = false;
-          var da = document.getElementById('demo-area'); if (da) da.hidden = false; if (da) setTimeout(function () { da.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }, 60);
+          var da = document.getElementById('demo-area'); if (da) da.hidden = false; setFlow(0); if (da) setTimeout(function () { da.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }, 60);
           showView('emp'); if (ask) ask.hidden = true; if (reveal) reveal.hidden = true;
           emp.innerHTML = heard + '<p class="live-step">Step 1 of ' + plan.blocks.length + ' · ' + esc(L.RESET_NAMES[r.reset]) + '</p>' +
             '<h3 class="live-title">' + esc(b.title) + '</h3><p class="live-clock" id="live-clock">' + L.clock(left) + '</p>' +
@@ -219,8 +221,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (row) { row.querySelector('strong').textContent = full(team); row.classList.add('bump'); }
             var need = r.heard.length ? ' · need: ' + NEED_LABEL[r.heard[0]] : '';
             if (status) status.innerHTML = '<b>' + esc(team) + ' +1</b>' + esc(need) + '. That\'s all HR gets.';
-            if (reveal) reveal.hidden = false;
-            setTimeout(function () { showView('hr'); if (ask) { ask.hidden = false; setTimeout(function () { ask.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }, 300); } }, reduce ? 0 : 1400);
+            if (reveal) reveal.hidden = false; setFlow(1); if (navigator.vibrate) navigator.vibrate(20);
+            setTimeout(function () { showView('hr'); if (ask) { ask.hidden = false; setFlow(2); setTimeout(function () { ask.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }, 300); } }, reduce ? 0 : 1400);
             track('live-finished');
           }
           document.getElementById('live-pause').addEventListener('click', function (e) { paused = !paused; e.target.textContent = paused ? 'Resume' : 'Pause'; });
@@ -233,13 +235,13 @@ document.addEventListener('DOMContentLoaded', function () {
             a.href = 'https://tally.so/r/peex9E?cta=home-feedback&team=' + a.dataset.team + (ref ? '&ref=' + encodeURIComponent(ref) : '');
             a.addEventListener('click', function (e) {
               track('ask-' + a.dataset.team);
-              if (a.dataset.team === 'yes') return;
+              if (a.dataset.team === 'yes') { setTimeout(function () { ask.innerHTML = '<p class="ask-q">Thank you. The form opened in a new tab.</p>' + nextStep(); setFlow(3); }, 400); return; }
               e.preventDefault();
               ask.innerHTML = '<p class="ask-q">Thanks. What\'s one thing you\'d change before trying it with your team?</p><p class="ask-why">' +
                 [['busy', 'Too busy'], ['privacy', 'Privacy worries'], ['have-one', 'We already have something'], ['not-needed', 'Not a real need'], ['other', 'Something else']]
                   .map(function (w) { return '<button type="button" class="chip" data-why="' + w[0] + '">' + w[1] + '</button>'; }).join('') + '</p>';
               ask.querySelectorAll('[data-why]').forEach(function (b) {
-                b.addEventListener('click', function () { track('why-' + a.dataset.team + '-' + b.dataset.why); ask.innerHTML = '<p class="ask-q">Noted. Thank you.</p><p class="tiny">Want to say more? <a href="mailto:rupakr2g@gmail.com">Email me</a>.</p>'; });
+                b.addEventListener('click', function () { track('why-' + a.dataset.team + '-' + b.dataset.why); ask.innerHTML = '<p class="ask-q">Noted. Thank you.</p><p class="tiny">Want to say more? <a href="mailto:rupakr2g@gmail.com">Email me</a>.</p>' + nextStep(); setFlow(3); });
               });
             });
           });

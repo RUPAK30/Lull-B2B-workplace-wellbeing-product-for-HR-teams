@@ -1013,3 +1013,11 @@ html{scroll-padding-bottom:96px}
 /* Pilot page stats inside intro */
 .page-intro .stats{margin-top:24px}
 #demo-area{scroll-margin-top:72px}
+/* Flow progress (Duolingo/Stripe pattern) */
+.prog{list-style:none;margin:0 0 12px;padding:0;display:flex;gap:6px;counter-reset:f}
+.prog li{flex:1;font-size:.72rem;font-weight:600;color:var(--ink-3);padding-top:8px;border-top:3px solid var(--line);counter-increment:f;transition:color .3s,border-color .3s}
+.prog li::before{content:counter(f) " · "}
+.prog li.on{color:var(--ink);border-color:var(--accent-2)}
+.prog li.done{color:var(--accent-2);border-color:var(--accent-2)}
+.prog li.done::before{content:"✓ "}
+.next-step{margin:12px 0 0}
