@@ -1085,3 +1085,4 @@ html{scroll-padding-bottom:96px}
 .sec.big h2.in .w{opacity:1;transform:none;filter:none}
 .sec.big h2.io{opacity:1!important;transform:none!important}
 @media (prefers-reduced-motion:reduce){.breath,.peek-h::after{animation:none}.sec.big h2 .w{opacity:1;transform:none;filter:none}}
+.nav .wrap{gap:12px}.nav-pilot{margin-left:auto;font:600 .82rem var(--sans);color:var(--accent-2);text-decoration:none;border:1px solid var(--accent-2);border-radius:999px;padding:7px 12px;white-space:nowrap}
