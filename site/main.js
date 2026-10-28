@@ -473,3 +473,10 @@ els.forEach(function(e){o.observe(e);});})();
 var rows=document.querySelectorAll('.peek p:not(.peek-h):not(.peek-hidden) b');var base=[8,6];
 setInterval(function(){var i=Math.random()<.5?0:1,r=rows[i];if(!r)return;base[i]=base[i]>=base[i]+0&&base[i]<(i?9:12)?base[i]+1:(i?6:8);r.textContent=base[i]+' took a break this week';r.classList.remove('tick');void r.offsetWidth;r.classList.add('tick');},2600);
 document.querySelectorAll('.sec.big h2').forEach(function(h){h.innerHTML=h.textContent.split(' ').map(function(w,i){return '<span class="w" style="transition-delay:'+i*70+'ms">'+w+'</span>';}).join(' ');});})();
+
+// Close the menu on outside click, scroll or Escape
+(function(){var b=document.getElementById('menu-btn'),p=document.getElementById('menu-panel');if(!b||!p)return;
+function shut(){if(!p.hidden){p.hidden=true;b.setAttribute('aria-expanded','false');}}
+document.addEventListener('click',function(e){if(!p.contains(e.target)&&!b.contains(e.target))shut();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')shut();});
+addEventListener('scroll',shut,{passive:true});})();
