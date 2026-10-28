@@ -1,37 +1,6 @@
 (function () {
-  var root = document.documentElement;
-
-  /* Theme */
-  var themeBtn = document.getElementById('theme-btn');
-  function label() {
-    if (themeBtn) themeBtn.textContent = root.getAttribute('data-theme') === 'dark' ? 'Light mode' : 'Dark mode';
-  }
-  label();
-  if (themeBtn) themeBtn.addEventListener('click', function () {
-    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('lull-theme', next); } catch (e) {}
-    label();
-  });
-
-  /* Menu */
   var nav = document.getElementById('nav');
   var menuBtn = document.getElementById('menu-btn');
-  function close() {
-    if (!nav) return;
-    nav.classList.remove('open');
-    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
-  }
-  if (menuBtn) menuBtn.addEventListener('click', function (e) {
-    e.stopPropagation();
-    var open = nav.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', String(open));
-  });
-  document.addEventListener('click', function (e) {
-    if (nav && nav.classList.contains('open') && !nav.contains(e.target)) close();
-  });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-  if (nav) nav.querySelectorAll('.h-panel a').forEach(function (a) { a.addEventListener('click', close); });
 
   /* Sticky nav border */
   if (nav) {
@@ -40,17 +9,35 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  /* Reveal on scroll */
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var blocks = document.querySelectorAll('.h-sec > .h-wrap, .h-hero > .h-wrap');
-  if (!reduce && 'IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
-      });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    blocks.forEach(function (b) { b.classList.add('h-reveal'); io.observe(b); });
+  /* Mobile menu */
+  function setMenu(open) {
+    if (!nav || !menuBtn) return;
+    nav.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
+    menuBtn.textContent = open ? '✕' : '☰';
   }
+  if (menuBtn) {
+    menuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setMenu(!nav.classList.contains('open'));
+    });
+  }
+  document.addEventListener('click', function (e) {
+    if (nav && nav.classList.contains('open') && !nav.contains(e.target)) setMenu(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav && nav.classList.contains('open')) {
+      setMenu(false);
+      if (menuBtn) menuBtn.focus();
+    }
+  });
+  if (nav) {
+    nav.querySelectorAll('.menu a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  }
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 840) setMenu(false);
+  });
 
   /* Year */
   var year = document.getElementById('year');
@@ -65,6 +52,117 @@
       if (window.goatcounter && window.goatcounter.count) {
         window.goatcounter.count({ path: 'home/' + name, title: name, event: true });
       }
-    } catch (err) {}
+    } catch (err) { /* analytics blocked: nothing to do */ }
   });
+
+  /* The real first move, 40 seconds, straight on the page. */
+  var demo = document.getElementById('reset-live');
+  if (!demo) return;
+  var live = document.getElementById('demo-live');
+  var doneBox = document.getElementById('demo-done');
+  var doneTitle = document.getElementById('demo-done-title');
+  var timeEl = document.getElementById('demo-time');
+  var bar = document.getElementById('demo-bar');
+  var fill = document.getElementById('demo-fill');
+  var startBtn = document.getElementById('demo-start');
+  var skipBtn = document.getElementById('demo-skip');
+  var againBtn = document.getElementById('demo-again');
+  var status = document.getElementById('demo-status');
+  var total = 40;
+  var remaining = total;
+  var running = false;
+  var done = false;
+  var raf = 0;
+  var last = 0;
+
+  function announce(msg) {
+    if (!status) return;
+    status.textContent = '';
+    window.requestAnimationFrame(function () { status.textContent = msg; });
+  }
+
+  function clock(sec) {
+    sec = Math.max(0, Math.ceil(sec));
+    return '0:' + String(sec).padStart(2, '0');
+  }
+
+  function paint() {
+    var sec = Math.max(0, Math.ceil(remaining));
+    var elapsed = total - remaining;
+    timeEl.textContent = clock(sec);
+    fill.style.width = ((elapsed / total) * 100).toFixed(2) + '%';
+    bar.setAttribute('aria-valuenow', String(Math.round(elapsed)));
+    bar.setAttribute('aria-valuetext', sec + (sec === 1 ? ' second left' : ' seconds left'));
+  }
+
+  function stopFrame() {
+    if (raf) window.cancelAnimationFrame(raf);
+    raf = 0;
+  }
+
+  function frame(now) {
+    if (!running) return;
+    var delta = (now - last) / 1000;
+    last = now;
+    remaining -= delta;
+    if (remaining <= 0) {
+      remaining = 0;
+      paint();
+      finish();
+      return;
+    }
+    paint();
+    raf = window.requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (running || done) return;
+    running = true;
+    last = window.performance.now();
+    startBtn.textContent = 'Pause';
+    announce('Step started. Forty seconds.');
+    raf = window.requestAnimationFrame(frame);
+  }
+
+  function pause() {
+    if (!running) return;
+    running = false;
+    stopFrame();
+    startBtn.textContent = 'Resume';
+    announce('Paused with ' + Math.ceil(remaining) + ' seconds left.');
+  }
+
+  function finish() {
+    if (done) return;
+    running = false;
+    done = true;
+    stopFrame();
+    remaining = 0;
+    paint();
+    live.hidden = true;
+    doneBox.hidden = false;
+    announce('Step one complete. The full reset is two minutes thirty seconds.');
+    if (doneTitle) doneTitle.focus();
+  }
+
+  function resetAll() {
+    running = false;
+    done = false;
+    stopFrame();
+    remaining = total;
+    live.hidden = false;
+    doneBox.hidden = true;
+    startBtn.textContent = 'Start the 40-second step';
+    paint();
+    announce('Ready. Forty seconds.');
+    startBtn.focus();
+  }
+
+  startBtn.addEventListener('click', function () {
+    if (running) pause();
+    else start();
+  });
+  skipBtn.addEventListener('click', finish);
+  againBtn.addEventListener('click', resetAll);
+  paint();
 })();
