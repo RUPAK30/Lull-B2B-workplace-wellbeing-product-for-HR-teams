@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lull-hr.vercel.app/sitemap.xml
