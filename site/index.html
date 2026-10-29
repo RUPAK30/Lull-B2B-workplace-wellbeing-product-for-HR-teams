@@ -128,7 +128,7 @@
     <div class="scene-col">
       <figure class="scene" id="scene" aria-label="Illustration: someone at their desk doing the four moves as you scroll">
         <svg viewBox="0 0 400 300" role="img" aria-hidden="true">
-          <defs><radialGradient id="glow" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#DCEBE1"/><stop offset="1" stop-color="#F4EFE6"/></radialGradient></defs>
+          <defs><linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3C8364"/><stop offset="1" stop-color="#245740"/></linearGradient><linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C9A6"/><stop offset="1" stop-color="#DDAA84"/></linearGradient><filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter><radialGradient id="glow" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#DCEBE1"/><stop offset="1" stop-color="#F4EFE6"/></radialGradient></defs>
           <rect width="400" height="300" fill="url(#glow)"/>
           <circle cx="200" cy="150" r="118" fill="none" stroke="#E3DACB" stroke-width="3"/>
           <circle id="ring" cx="200" cy="150" r="118" fill="none" stroke="#2F6B52" stroke-width="3" stroke-linecap="round" stroke-dasharray="741.4" stroke-dashoffset="741.4" transform="rotate(-90 200 150)"/>
@@ -136,16 +136,16 @@
           <circle id="p-breath" cx="200" cy="170" r="0" fill="rgba(143,209,172,.45)"/>
           <g>
             <g id="p-torso">
-              <g id="p-shoulders"><path d="M156 214 C156 170 170 142 200 142 C230 142 244 170 244 214 Z" fill="#2F6B52"/></g>
+              <ellipse cx="200" cy="222" rx="62" ry="8" fill="rgba(31,77,58,.18)" filter="url(#soft)"/><g id="p-shoulders"><path d="M156 214 C156 170 170 142 200 142 C230 142 244 170 244 214 Z" fill="url(#shirt)"/><path d="M188 142 L200 156 L212 142" fill="none" stroke="#1E4A36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
               <g id="p-armL"><path d="M168 156 C156 178 160 198 178 206" fill="none" stroke="#3F8466" stroke-width="12" stroke-linecap="round"/></g>
               <g id="p-armR"><path d="M232 156 C244 178 240 198 222 206" fill="none" stroke="#3F8466" stroke-width="12" stroke-linecap="round"/></g>
               <g id="p-back" opacity="0"><path d="M170 152 C160 170 158 186 166 196" fill="none" stroke="#24533F" stroke-width="12" stroke-linecap="round"/><path d="M230 152 C240 170 242 186 234 196" fill="none" stroke="#24533F" stroke-width="12" stroke-linecap="round"/></g>
-              <g id="p-head"><rect x="192" y="122" width="16" height="22" rx="8" fill="#E2B48F"/><circle cx="200" cy="106" r="22" fill="#E8BE9A"/><path d="M178 102 C180 82 220 80 222 102 C212 92 188 92 178 102 Z" fill="#2E3A33"/></g>
+              <g id="p-head"><rect x="192" y="122" width="16" height="22" rx="8" fill="#D9A47E"/><circle cx="200" cy="106" r="22" fill="url(#skin)"/><path d="M177 104 C176 80 224 78 223 104 C216 90 186 88 177 104 Z" fill="#2E3A33"/><g id="eyes" fill="none" stroke="#3A2E28" stroke-width="2.2" stroke-linecap="round"><path d="M190 110 q3 2.5 6 0"/><path d="M204 110 q3 2.5 6 0"/></g><path d="M196 118 q4 3 8 0" fill="none" stroke="#B9785A" stroke-width="2" stroke-linecap="round"/><circle cx="187" cy="115" r="3" fill="rgba(230,120,100,.18)"/><circle cx="213" cy="115" r="3" fill="rgba(230,120,100,.18)"/></g>
             </g>
           </g>
           <text x="200" y="262" text-anchor="middle" font-size="13" font-family="Inter,sans-serif" fill="#5B6670" id="scr-t">2:30</text>
         </svg>
-        <figcaption><span id="sc-time">3:40 pm</span><span id="sc-move">Between calls</span></figcaption>
+        <figcaption><span id="sc-time">0:00</span><span id="sc-move">Neck release</span><button type="button" class="sc-play" id="sc-play" aria-label="Pause">❚❚</button></figcaption>
         <div class="sc-bar"><i id="sc-fill"></i></div>
       </figure>
       <figure class="app-shot">

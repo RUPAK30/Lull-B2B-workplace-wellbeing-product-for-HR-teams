@@ -653,3 +653,10 @@ body.home main > section:not(.hero) h2{background:none!important;-webkit-text-fi
 }
 @media (prefers-reduced-motion:reduce){.scene-col{position:static}}
 #p-head,#p-armL,#p-armR,#p-torso,#p-handL,#p-shoulders,#p-back{transform-origin:0 0!important;transform-box:view-box!important}
+.scene{position:relative!important;top:auto!important}
+.scene-col{position:static!important}
+@media (max-width:860px){.scene-col{order:-1}}
+.scene figcaption{align-items:center;gap:10px}
+.scene #sc-move{margin-left:auto}
+.sc-play{border:1px solid var(--rule);background:#fff;border-radius:999px;min-width:36px;min-height:36px;font-size:.7rem;color:var(--ink);cursor:pointer}
+.move-table tbody tr:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}

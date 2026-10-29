@@ -276,21 +276,25 @@ lEl.textContent=lab;head.style.transform='rotate('+hd+'deg) translateY('+sh+'px)
 aL.style.transform='translate('+(-ar*9)+'px,'+(sh-ar*6)+'px)';aR.style.transform='translate('+(ar*9)+'px,'+(sh-ar*6)+'px)';torso.style.transform='scaleY('+(1+bb*.04)+')';br.setAttribute('r',(bb*16).toFixed(1));}
 addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();
 
-/* Scene: a calm line figure inside a progress ring; your scroll drives the four moves */
-(function(){var sc=document.getElementById('scene');if(!sc)return;var prod=document.getElementById('product'),rows=document.querySelectorAll('.move-table tbody tr');
+/* Scene: plays on its own when in view (not tied to scroll). Tap a move to jump; pause anytime. */
+(function(){var sc=document.getElementById('scene');if(!sc)return;var rows=document.querySelectorAll('.move-table tbody tr');
 var H=document.getElementById('p-head'),T=document.getElementById('p-torso'),S=document.getElementById('p-shoulders'),AL=document.getElementById('p-armL'),AR=document.getElementById('p-armR'),PB=document.getElementById('p-back'),B=document.getElementById('p-breath'),ring=document.getElementById('ring'),
-tm=document.getElementById('sc-time'),mv=document.getElementById('sc-move'),fill=document.getElementById('sc-fill'),scr=document.getElementById('scr-t');
-var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,cur={h:0,s:0,a:0,b:0},tgt={h:0,s:0,a:0,b:0},names=['Neck release','Shoulder rolls','Chest opener','Long exhale'],t0=performance.now();
-function target(){var r=prod.getBoundingClientRect(),vh=innerHeight,q=Math.max(0,Math.min(1,(vh*0.45-r.top)/(r.height-vh*0.5)));
-var m=Math.min(3,Math.floor(q*4)),f=(q*4)%1,w=Math.sin(f*Math.PI),inb=q>0.001&&q<0.999;tgt={h:0,s:0,a:0,b:0};
-if(inb){if(m===0)tgt.h=Math.sin(f*Math.PI*2)*13;else if(m===1)tgt.s=Math.sin(f*Math.PI*4);else if(m===2)tgt.a=Math.min(1,w*1.6);else tgt.b=w;}
-var sec=Math.round(q*150),left=150-sec;tm.textContent='3:4'+Math.min(2,Math.floor(sec/60))+' pm';scr.textContent=Math.floor(left/60)+':'+('0'+left%60).slice(-2)+' left';
-mv.textContent=!inb?(q<=0?'Between calls':'Back to work'):names[m];fill.style.width=(q*100)+'%';ring.setAttribute('stroke-dashoffset',(741.4*(1-q)).toFixed(1));
-rows.forEach(function(rw,i){rw.classList.toggle('now',inb&&i===m);});}
-function frame(now){var k=reduce?1:0.12;for(var x in cur)cur[x]+=(tgt[x]-cur[x])*k;var idle=Math.sin((now-t0)/1400);
-H.setAttribute('transform','rotate('+cur.h.toFixed(2)+' 200 142) translate(0 '+(-cur.s*5).toFixed(2)+')');
-S.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');AL.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');AR.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');S.setAttribute('transform','translate(0 '+(-cur.s*5).toFixed(2)+')');
+tm=document.getElementById('sc-time'),mv=document.getElementById('sc-move'),fill=document.getElementById('sc-fill'),scr=document.getElementById('scr-t'),btn=document.getElementById('sc-play');
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,cur={h:0,s:0,a:0,b:0},names=['Neck release','Shoulder rolls','Chest opener','Long exhale'],MOVE=5000,CYCLE=MOVE*4,
+pos=0,last=null,playing=!reduce,visible=false;
+function pose(q){var m=Math.min(3,Math.floor(q*4)),f=(q*4)%1,w=Math.sin(f*Math.PI),t={h:0,s:0,a:0,b:0};
+ if(m===0)t.h=Math.sin(f*Math.PI*2)*14;else if(m===1)t.s=Math.sin(f*Math.PI*4);else if(m===2)t.a=Math.min(1,w*1.6);else t.b=w;return [t,m];}
+function frame(now){if(last===null)last=now;var dt=now-last;last=now;if(playing&&visible)pos=(pos+dt)%CYCLE;
+var q=pos/CYCLE,pm=pose(q),t=pm[0],m=pm[1],k=0.12;for(var x in cur)cur[x]+=(t[x]-cur[x])*k;var idle=Math.sin(now/1400);
+H.setAttribute('transform','rotate('+(cur.h+idle*.8).toFixed(2)+' 200 142) translate(0 '+(-cur.s*5).toFixed(2)+')');
+S.setAttribute('transform','translate(0 '+(-cur.s*5).toFixed(2)+')');AL.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');AR.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');
 AL.setAttribute('opacity',(1-cur.a).toFixed(2));AR.setAttribute('opacity',(1-cur.a).toFixed(2));PB.setAttribute('opacity',cur.a.toFixed(2));
-T.setAttribute('transform','translate(0 '+(idle*1.2-cur.a*3).toFixed(2)+')');B.setAttribute('r',(cur.b*70).toFixed(1));
-if(!reduce)requestAnimationFrame(frame);}
-addEventListener('scroll',target,{passive:true});addEventListener('resize',target);target();requestAnimationFrame(frame);})();
+T.setAttribute('transform','translate(0 '+(idle*1.4-cur.a*3).toFixed(2)+')');B.setAttribute('r',(cur.b*70).toFixed(1));
+var sec=Math.round(q*150),left=150-sec;tm.textContent=Math.floor(sec/60)+':'+('0'+sec%60).slice(-2)+' / 2:30';scr.textContent=Math.floor(left/60)+':'+('0'+left%60).slice(-2)+' left';
+mv.textContent=names[m];fill.style.width=(q*100)+'%';ring.setAttribute('stroke-dashoffset',(741.4*(1-q)).toFixed(1));
+rows.forEach(function(r,i){r.classList.toggle('now',i===m);});requestAnimationFrame(frame);}
+rows.forEach(function(r,i){r.style.cursor='pointer';r.tabIndex=0;r.setAttribute('aria-label','Show '+names[i]);function go(){pos=i*MOVE+1;playing=true;btn.textContent='❚❚';btn.setAttribute('aria-label','Pause');}r.addEventListener('click',go);r.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
+btn.addEventListener('click',function(){playing=!playing;btn.textContent=playing?'❚❚':'▶';btn.setAttribute('aria-label',playing?'Pause':'Play');});
+if(reduce){btn.textContent='▶';btn.setAttribute('aria-label','Play');}
+if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;},{threshold:.3}).observe(sc);else visible=true;
+requestAnimationFrame(frame);})();
