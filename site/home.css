@@ -628,3 +628,27 @@ body.home main > section:not(.hero) h2{background:none!important;-webkit-text-fi
 @media (min-width:1100px){.day{left:24px;bottom:24px;width:150px}}
 @media (prefers-reduced-motion:reduce){.day{display:none}}
 .day-clock{white-space:nowrap;gap:6px}.day-clock #day-label{overflow:hidden;text-overflow:ellipsis}
+
+/* ===== The break, told at the desk: a scroll-driven scene in "Four moves" ===== */
+.day{display:none!important}
+.product{padding-bottom:clamp(64px,10vw,140px)}
+.scene-col{display:flex;flex-direction:column;gap:24px}
+.scene{position:sticky;top:76px;margin:0;border-radius:24px;overflow:hidden;background:#F4EFE6;box-shadow:0 1px 2px rgba(20,30,25,.06),0 24px 48px -20px rgba(20,30,25,.3);z-index:2}
+.scene svg{display:block;width:100%;height:auto}
+.scene figcaption{display:flex;justify-content:space-between;align-items:baseline;padding:12px 16px 8px;font:600 .9rem var(--sans);color:var(--ink);font-variant-numeric:tabular-nums}
+.scene #sc-move{font-weight:500;color:var(--accent)}
+.sc-bar{height:4px;background:rgba(0,0,0,.08)}.sc-bar i{display:block;height:100%;width:0;background:var(--accent)}
+#p-head,#p-armL,#p-armR,#p-torso,#p-handL{transform-box:view-box}
+#p-head{transform-origin:152px 148px}#p-torso{transform-origin:148px 230px}#p-armL{transform-origin:142px 158px}#p-armR{transform-origin:160px 158px}
+.move-table tbody tr{transition:background .3s,opacity .3s}
+.move-table tbody tr.now{background:var(--sage)}
+.move-table tbody tr.now th{color:var(--accent);font-weight:700}
+@media (max-width:860px){
+  .product-grid{display:flex;flex-direction:column}
+  .scene-col{order:-1;position:sticky;top:60px;z-index:3;margin:0 -4px}
+  .scene{position:relative;top:0}
+  .scene figcaption{padding:8px 12px 6px;font-size:.82rem}
+  .app-shot{display:none}
+  .product-copy{position:relative;z-index:1}
+}
+@media (prefers-reduced-motion:reduce){.scene-col{position:static}}

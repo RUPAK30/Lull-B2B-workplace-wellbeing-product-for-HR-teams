@@ -275,3 +275,23 @@ else lab=q<=0?(p<.12?'Back-to-back calls':'Between calls'):p<.6?'Friday email':'
 lEl.textContent=lab;head.style.transform='rotate('+hd+'deg) translateY('+sh+'px)';
 aL.style.transform='translate('+(-ar*9)+'px,'+(sh-ar*6)+'px)';aR.style.transform='translate('+(ar*9)+'px,'+(sh-ar*6)+'px)';torso.style.transform='scaleY('+(1+bb*.04)+')';br.setAttribute('r',(bb*16).toFixed(1));}
 addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();
+
+/* Scene: scroll through "Four moves" and the person at the desk does the reset. Smoothed, with idle breathing so it never freezes. */
+(function(){var sc=document.getElementById('scene');if(!sc)return;var prod=document.getElementById('product'),rows=document.querySelectorAll('.move-table tbody tr');
+var H=document.getElementById('p-head'),T=document.getElementById('p-torso'),AL=document.getElementById('p-armL'),AR=document.getElementById('p-armR'),B=document.getElementById('p-breath'),eye=document.getElementById('eye'),
+tm=document.getElementById('sc-time'),mv=document.getElementById('sc-move'),fill=document.getElementById('sc-fill'),scr=document.getElementById('scr-t'),sun=document.getElementById('sun'),steam=document.getElementById('steam');
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,cur={h:0,s:0,a:0,b:0,r:0},tgt={h:0,s:0,a:0,b:0,r:0},names=['Neck release','Shoulder rolls','Chest opener','Long exhale'],q=0,t0=performance.now();
+function target(){var r=prod.getBoundingClientRect(),vh=innerHeight;q=Math.max(0,Math.min(1,(vh*0.45-r.top)/(r.height-vh*0.5)));
+var m=Math.min(3,Math.floor(q*4)),f=(q*4)%1,w=Math.sin(f*Math.PI),inb=q>0.001&&q<0.999;
+tgt={h:0,s:0,a:0,b:0,r:inb?1:0};if(inb){if(m===0)tgt.h=Math.sin(f*Math.PI*2)*11;else if(m===1)tgt.s=Math.sin(f*Math.PI*4);else if(m===2)tgt.a=Math.min(1,w*1.6);else tgt.b=w;}
+var sec=Math.round(q*150),left=150-sec;tm.textContent='3:4'+Math.min(2,Math.floor(sec/60))+' pm';scr.textContent=Math.floor(left/60)+':'+('0'+left%60).slice(-2);
+mv.textContent=!inb?(q<=0?'Back-to-back calls':'Back to work'):names[m];fill.style.width=(q*100)+'%';
+rows.forEach(function(rw,i){rw.classList.toggle('now',inb&&i===m);});
+sun.setAttribute('cy',(96-q*20).toFixed(1));}
+function frame(now){var k=reduce?1:0.14;for(var x in cur)cur[x]+=(tgt[x]-cur[x])*k;var idle=Math.sin((now-t0)/1100)*(1-cur.r*0.6);
+H.setAttribute('transform','rotate('+(cur.h+idle*1.2).toFixed(2)+' 152 148) translate(0 '+(-cur.s*6).toFixed(2)+')');
+T.setAttribute('transform','translate(0 '+(-cur.s*4-cur.a*3-cur.b*2+idle*0.6).toFixed(2)+')');
+AL.setAttribute('opacity',(1-cur.a).toFixed(2));AR.setAttribute('opacity',(1-cur.a).toFixed(2));var PB=document.getElementById('p-back');PB.setAttribute('opacity',cur.a.toFixed(2));
+B.setAttribute('r',(cur.b*30).toFixed(1));eye.setAttribute('ry',1);var bl=((now-t0)%3800)<140;eye.setAttribute('r',bl?0.6:2);
+steam.setAttribute('transform','translate(0 '+(Math.sin((now-t0)/700)*2).toFixed(2)+')');if(!reduce)requestAnimationFrame(frame);}
+addEventListener('scroll',target,{passive:true});addEventListener('resize',target);target();requestAnimationFrame(frame);})();
