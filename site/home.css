@@ -675,3 +675,4 @@ html{scroll-behavior:auto!important}
 .email.agg-wait .email-stats strong{opacity:0}
 .agg-cap{position:absolute;left:16px;right:16px;bottom:8px;font:600 .72rem var(--sans);color:var(--accent);letter-spacing:.04em;text-align:center;z-index:4;transition:opacity .4s}
 .agg-cap{top:10px;bottom:auto!important;right:16px;left:auto;text-align:right}.aggr span{font-size:.8rem;padding:5px 11px;box-shadow:0 4px 10px -6px rgba(0,0,0,.25)}
+.agg-replay{position:absolute;right:12px;top:8px;z-index:5;border:1px solid var(--rule);background:#fff;border-radius:999px;padding:6px 12px;min-height:32px;font:600 .75rem var(--sans);color:var(--accent);cursor:pointer;pointer-events:auto}.agg-replay[hidden]{display:none}
