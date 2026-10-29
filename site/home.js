@@ -329,10 +329,14 @@ addEventListener('scroll',upd,{passive:true});upd();
 addEventListener('keydown',function(e){if(e.target.closest('input,textarea,select,[contenteditable]')||!document.getElementById('asksheet').hidden)return;var d=(e.key==='ArrowDown'||e.key==='PageDown')?1:(e.key==='ArrowUp'||e.key==='PageUp')?-1:0;if(!d)return;
  var t=secs[Math.max(0,Math.min(secs.length-1,cur+d))];var r=t.getBoundingClientRect();if(d===1&&secs[cur].getBoundingClientRect().bottom>innerHeight+40&&e.key==='ArrowDown')return;e.preventDefault();t.scrollIntoView({behavior:'smooth'});});})();
 
-/* Breath interludes: scroll through a full inhale between chapters */
+/* Breath interludes in three acts: inhale (orb grows), hold (orb holds, counts down, rings ripple), exhale (old colour shrinks away revealing the next) */
 (function(){var B=[].slice.call(document.querySelectorAll('.breath'));if(!B.length)return;
 B.forEach(function(b){b.style.setProperty('--bc',b.dataset.col);});
-function upd(){var vh=innerHeight,cover=Math.hypot(innerWidth,vh)/200*1.05;B.forEach(function(b){var r=b.getBoundingClientRect(),p=Math.max(0,Math.min(1,-r.top/(r.height-vh)));if(r.bottom<0||r.top>vh)return;
- var inh=Math.min(1,p/0.75),e=inh<.5?2*inh*inh:1-Math.pow(-2*inh+2,2)/2;b.style.setProperty('--s',(0.15+e*(cover-0.15)).toFixed(3));
- b.style.setProperty('--a',Math.max(0,1-p/0.55).toFixed(2));b.style.setProperty('--sp',e.toFixed(2));b.style.setProperty('--b',Math.max(0,Math.min(1,(p-0.55)/0.25)).toFixed(2));});}
+function sm(t){t=Math.max(0,Math.min(1,t));return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+function upd(){var vh=innerHeight,cover=Math.hypot(innerWidth,vh)/200*1.05;B.forEach(function(b){var r=b.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;var p=Math.max(0,Math.min(1,-r.top/(r.height-vh))),m=b.dataset.mode,s,cnt='';
+ if(m==='in'){s=0.15+sm(p/0.75)*(cover-0.15);}
+ else if(m==='hold'){var g=sm(p/0.3);s=0.15+g*(0.9-0.15)+Math.sin(p*Math.PI*6)*0.03*g;if(p>0.3&&p<0.8){cnt=String(4-Math.min(3,Math.floor((p-0.3)/0.5*4)));}if(p>=0.8)s=0.9+sm((p-0.8)/0.2)*(cover-0.9);b.style.setProperty('--rip',(p*6%1).toFixed(2));}
+ else{s=cover-sm(p/0.75)*(cover-0.0001);}
+ b.style.setProperty('--s',s.toFixed(3));b.querySelector('.breath-count').textContent=cnt;
+ b.style.setProperty('--a',Math.max(0,1-Math.max(0,p-0.45)/0.15).toFixed(2));b.style.setProperty('--sp',(m==='in'?sm(p/0.6):m==='out'?1-sm(p/0.6):0).toFixed(2));b.style.setProperty('--b',sm(m==='hold'?(p-0.86)/0.12:(p-0.62)/0.22).toFixed(2));if(m==='hold')b.style.setProperty('--a',Math.max(0,1-Math.max(0,p-0.8)/0.06).toFixed(2));});}
 addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();

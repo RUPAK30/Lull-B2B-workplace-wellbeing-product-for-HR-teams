@@ -718,3 +718,11 @@ body.home main > section{clip-path:none!important}
 html,body{overflow-x:clip!important;overflow-y:visible}
 .breath{background:linear-gradient(var(--from,#F4EBDD),var(--from,#F4EBDD))}
 .breath.dark .breath-in{color:#F6F3EC}
+.breath-step{position:absolute;top:22%;left:0;right:0;margin:0;text-align:center;font:600 .72rem var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);opacity:var(--a,1)}
+.breath-count{position:absolute;top:60%;left:0;right:0;margin:0;text-align:center;font:500 2.4rem var(--serif);color:var(--accent);font-variant-numeric:tabular-nums}
+.breath[data-mode="hold"] .breath-orb::after{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(47,107,82,.35);transform:scale(calc(1 + var(--rip,0) * .6));opacity:calc(1 - var(--rip,0))}
+/* exhale: orb carries the previous colour and shrinks away, page behind is the next colour */
+.breath[data-mode="out"]{background:var(--bc)!important}
+.breath[data-mode="out"] .breath-orb{background:var(--from)!important;box-shadow:none}
+.breath.dark .breath-step{color:#9DA69F}
+.breath[data-mode="out"].dark .breath-in{color:var(--ink);mix-blend-mode:difference;filter:invert(1)}
