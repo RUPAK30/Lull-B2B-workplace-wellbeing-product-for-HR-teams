@@ -504,3 +504,9 @@ html{scroll-behavior:smooth;scroll-padding-top:72px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero::before,.hero::after{animation:none}}
 .week-table caption,.move-table caption{display:table-caption;width:auto;white-space:normal;padding:14px 14px 10px;background:var(--paper)}
 @media (max-width:760px){.week-table caption,.move-table caption{display:block;width:100%;box-sizing:border-box}}
+.rules,.price{padding:20px 22px!important;border:1px solid var(--rule)}
+.rules ul{margin:0;padding-left:0;list-style:none}
+.rules li{position:relative;padding-left:22px}
+.rules li::before{left:0}
+.inbox .small a,.small a{color:var(--accent)}
+.rules-h{margin:0 0 12px!important}.rules li+li{margin-top:10px}
