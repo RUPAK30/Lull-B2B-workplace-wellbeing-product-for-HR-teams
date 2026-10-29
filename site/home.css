@@ -690,3 +690,17 @@ body.home main > section:not(.is-current):not(.hero) > .wrap{opacity:.45;transfo
 .chap b.flip{animation:flip .45s cubic-bezier(.2,.9,.2,1)}
 @keyframes flip{from{transform:translateY(8px);opacity:0}}
 @media (prefers-reduced-motion:reduce){html{scroll-snap-type:none}body.home main > section > .wrap{opacity:1!important;transform:none!important}}
+
+/* ===== Undo deck snapping; signature "breath" transition between chapters ===== */
+html{scroll-snap-type:none!important}
+body.home main > section{min-height:0!important;display:block!important;scroll-snap-align:none!important}
+body.home main > section:not(.is-current):not(.hero) > .wrap{opacity:1!important;transform:none!important}
+.chap{display:none!important}
+body.home main > section:not(.hero):not(.footnotes){clip-path:circle(var(--r,150%) at 50% var(--cy,0%));will-change:clip-path}
+.breathring{position:fixed;left:50%;width:0;height:0;border-radius:50%;border:1.5px solid rgba(47,107,82,.45);transform:translate(-50%,-50%);pointer-events:none;z-index:55;opacity:0}
+@media (prefers-reduced-motion:reduce){body.home main > section{clip-path:none!important}.breathring{display:none}}
+body.home main > section#product{background:#F4EBDD!important}
+body.home main > section#inbox{background:#E3EDE6!important}
+body.home main > section#pilot{background:#F6E8E2!important}
+body.home main > section#company{background:#E6EEE8!important}
+body.home main > section.wrong{margin:0!important;border-radius:0!important}

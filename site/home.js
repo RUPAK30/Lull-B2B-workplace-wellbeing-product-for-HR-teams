@@ -328,3 +328,13 @@ addEventListener('scroll',upd,{passive:true});upd();
 /* Keyboard: arrows / PageDown move one chapter, like a deck */
 addEventListener('keydown',function(e){if(e.target.closest('input,textarea,select,[contenteditable]')||!document.getElementById('asksheet').hidden)return;var d=(e.key==='ArrowDown'||e.key==='PageDown')?1:(e.key==='ArrowUp'||e.key==='PageUp')?-1:0;if(!d)return;
  var t=secs[Math.max(0,Math.min(secs.length-1,cur+d))];var r=t.getBoundingClientRect();if(d===1&&secs[cur].getBoundingClientRect().bottom>innerHeight+40&&e.key==='ArrowDown')return;e.preventDefault();t.scrollIntoView({behavior:'smooth'});});})();
+
+/* Breath transition: each chapter opens from a breathing circle as it arrives, a thin ring exhales outward with it */
+(function(){if(!document.body.classList.contains('home')||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+var secs=[].slice.call(document.querySelectorAll('main > section:not(.hero):not(.footnotes)'));var ring=document.createElement('div');ring.className='breathring';document.body.appendChild(ring);
+function ease(t){return 1-Math.pow(1-t,3);}
+function upd(){var vh=innerHeight,vw=innerWidth,act=null;secs.forEach(function(s){var r=s.getBoundingClientRect(),p=Math.max(0,Math.min(1,(vh-r.top)/(vh*0.75))),e=ease(p);
+ var full=Math.hypot(vw/2,vh);s.style.setProperty('--r',(p>=1?'150%':Math.max(4,Math.pow(p,1.6)*full).toFixed(0)+'px'));s.style.setProperty('--cy',(p>=1?0:Math.max(0,(vh-r.top)*0.55)).toFixed(0)+'px');
+ if(p>0&&p<1&&!act)act={y:r.top+Math.max(0,(vh-r.top)*0.55),e:Math.pow(p,1.6)};});
+if(act){var d=act.e*Math.hypot(vw/2,vh)*2+6;ring.style.top=act.y+'px';ring.style.width=ring.style.height=d+'px';ring.style.opacity=(1-act.e).toFixed(2);}else ring.style.opacity=0;}
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();
