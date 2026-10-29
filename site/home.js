@@ -247,3 +247,13 @@ var cur=stops[i],nxt=stops[Math.min(i+1,stops.length-1)],t=0;if(nxt!==cur){var r
 b.style.setProperty('--canvas',mix(cur.c,nxt.c,t));var dark=(cur.el.id==='wrong'&&t<.5)||(nxt.el.id==='wrong'&&t>=.5);b.classList.toggle('ink-dark',dark);
 if(!reduce)hs.forEach(function(h){var r=h.getBoundingClientRect();var p=Math.max(0,Math.min(1,(innerHeight*0.85-r.top)/(innerHeight*0.45)));h.style.setProperty('--fill',(p*100).toFixed(1)+'%');});}
 addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();
+
+/* Make the example yours: the Friday email reacts to team name and size */
+(function(){var n=document.getElementById('tune-n');if(!n)return;var nm=document.getElementById('tune-name'),out=document.getElementById('tune-n-out'),email=document.querySelector('.email'),hid=document.getElementById('t-hidden'),price=document.getElementById('t-price');
+function set(id,v){var el=document.getElementById(id);if(el.textContent!==String(v)){el.textContent=v;el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');}}
+function rate(k){return k<=40?120:k<=120?90:60;}
+function upd(){var k=+n.value;out.textContent=k;var s=Math.round(k*0.75),f=Math.round(s*0.84);set('t-s',s);set('t-f',f);set('t-d',s-f);
+var small=k<10;email.classList.toggle('is-hidden',small);hid.hidden=!small;
+document.querySelectorAll('.t-name').forEach(function(e){e.textContent=nm.value.trim()||'Your team';});
+if(price)price.textContent='At '+k+' people: free for six weeks, then about ₹'+(rate(k)*k).toLocaleString('en-IN')+' a month.';}
+n.addEventListener('input',upd);nm.addEventListener('input',upd);upd();})();

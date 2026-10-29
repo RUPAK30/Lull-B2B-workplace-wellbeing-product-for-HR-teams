@@ -592,3 +592,22 @@ body.home main > section:not(.hero) h2{background:linear-gradient(90deg,currentC
 @media (prefers-reduced-motion:reduce){body.home main > section:not(.hero) h2{-webkit-text-fill-color:currentColor;background:none}}
 body.home main > section.wrong{background:var(--dark)!important;border-radius:32px!important;margin:24px 12px!important;color:#EDEAE2}
 body.home main > section.wrong h2{color:#F6F3EC}
+
+/* Remove slide-style effects; keep the canvas calm */
+body.home main > section:not(.hero) > .wrap{animation:none!important;clip-path:none!important;opacity:1!important;transform:none!important}
+body.home main > section:not(.hero) h2{background:none!important;-webkit-text-fill-color:currentColor!important}
+.rail{display:none!important}
+.rv{opacity:1!important;transform:none!important}
+/* Direct manipulation: tune the example */
+.tune{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:14px 16px;margin-bottom:12px}
+.tune-h{margin:0 0 8px;font:600 .72rem/1.4 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.tune-row{display:flex;flex-direction:column;gap:6px;font-size:.88rem;color:var(--ink-2);margin-top:8px}
+.tune-row span{display:flex;justify-content:space-between}
+.tune-row input[type=text],.tune-row input:not([type]){border:1px solid var(--rule);border-radius:10px;padding:10px 12px;font:500 .95rem var(--sans);background:#fff;color:var(--ink);min-height:44px}
+.tune-row input[type=range]{width:100%;accent-color:var(--accent);min-height:32px}
+.email-stats strong{display:inline-block;transition:transform .25s cubic-bezier(.2,1.6,.4,1)}
+.email-stats strong.bump{transform:scale(1.18)}
+.email-hidden{background:var(--sand);border-radius:10px;padding:10px 12px;font-size:.88rem;color:var(--ink)}
+.email.is-hidden .email-stats{opacity:.25;filter:blur(3px)}
+.tune-price{margin-top:8px;font-weight:600;color:var(--accent)}
+.email-head span.t-name{font:inherit!important;text-transform:none!important;letter-spacing:0!important;color:inherit!important;width:auto!important;display:inline!important}

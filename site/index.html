@@ -150,20 +150,26 @@
       <p class="small"><strong>We call this aggregated with small numbers suppressed. We don't call it anonymous.</strong> <a href="trust.html#data">The exact data, the subprocessors, and the DPA.</a></p>
     </div>
     <div>
+      <div class="tune" aria-label="Make the example yours">
+        <p class="tune-h">Make it yours</p>
+        <label class="tune-row"><span>Team name</span><input id="tune-name" value="Engineering" maxlength="24" autocomplete="off"></label>
+        <label class="tune-row"><span>People in the team <b id="tune-n-out">60</b></span><input id="tune-n" type="range" min="4" max="250" value="60"></label>
+      </div>
       <div class="email" aria-label="Example Friday email">
         <div class="email-head">
           <p><span>From</span> Sukoon &lt;rupakr2g@gmail.com&gt;</p>
-          <p><span>Subject</span> Week 6 · Engineering</p>
+          <p><span>Subject</span> Week 6 · <span class="t-name">Engineering</span></p>
           <p><span>Sent</span> Fri 30 Oct, 09:00 IST</p>
         </div>
         <div class="email-body">
           <p class="email-kicker">Week 6</p>
-          <p class="email-team">Engineering</p>
+          <p class="email-team t-name">Engineering</p>
           <div class="email-stats">
-            <div><strong>45</strong><span>started</span></div>
-            <div><strong>38</strong><span>finished</span></div>
-            <div><strong>7</strong><span>didn't finish</span></div>
+            <div><strong id="t-s">45</strong><span>started</span></div>
+            <div><strong id="t-f">38</strong><span>finished</span></div>
+            <div><strong id="t-d">7</strong><span>didn't finish</span></div>
           </div>
+          <p class="email-hidden" id="t-hidden" hidden>This team is under 10 people, so it is hidden. You would see nothing for it, by design.</p>
           <p class="email-note">Teams under 10 are hidden. No names or individual sessions are in this email.</p>
           <p class="email-link">Week-6 report →</p>
         </div>
@@ -190,6 +196,7 @@
         <p class="price-kicker">The offer</p>
         <p class="price-line"><strong>Free</strong> for the first six teams.</p>
         <p>After the pilot: ₹120 a person at 40, ₹90 at 120, ₹60 at 250. GST extra. Monthly, fifteen days' notice.</p>
+        <p class="tune-price" id="t-price"></p>
         <p class="small">No setup fee. Stop at any point.</p>
       </div>
     </div>
