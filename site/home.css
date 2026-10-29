@@ -573,3 +573,22 @@ body.home .wrong::before{background:rgba(255,255,255,.22)}
 @media (hover:hover){.email,.rules,.price,.move-table,.week-table,.data-table{background-image:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(143,209,172,.18),transparent 60%)}}
 @media (prefers-reduced-motion:reduce){.dock-ask,.spark,.caret{animation:none}}
 body.home{padding-bottom:84px}
+
+/* ===== Flow v3: one continuous canvas that changes colour as you read ===== */
+body.home{background:var(--canvas,#F3F1EA)!important;transition:background-color .6s ease,color .6s ease}
+body.home main > section{position:relative!important;top:auto!important;margin-top:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;border:0!important}
+body.home main > section::before{display:none!important}
+body.home .hero::before,body.home .hero::after{opacity:.45}
+/* dark chapter: canvas goes deep green, text inverts */
+body.home.ink-dark{color:#EDEAE2}
+body.home.ink-dark main > section h2,body.home.ink-dark main > section .lede{color:#F6F3EC}
+/* Headlines fill with ink as you scroll through them */
+body.home main > section:not(.hero) h2{background:linear-gradient(90deg,currentColor 0 var(--fill,0%),color-mix(in srgb,currentColor 22%,transparent) var(--fill,0%) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* Content opens like a portal from the centre */
+@supports (animation-timeline:view()){@media (prefers-reduced-motion:no-preference){
+  body.home main > section:not(.hero) > .wrap{animation:portal linear both!important;animation-timeline:view()!important;animation-range:entry 5% cover 35%!important}
+}}
+@keyframes portal{from{clip-path:inset(18% 8% 18% 8% round 40px);opacity:.3;transform:scale(.96)}to{clip-path:inset(0 0 0 0 round 0);opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){body.home main > section:not(.hero) h2{-webkit-text-fill-color:currentColor;background:none}}
+body.home main > section.wrong{background:var(--dark)!important;border-radius:32px!important;margin:24px 12px!important;color:#EDEAE2}
+body.home main > section.wrong h2{color:#F6F3EC}
