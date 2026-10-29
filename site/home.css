@@ -467,3 +467,40 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 /* Small screens */
 @media (max-width:360px){.wrap{padding-left:14px;padding-right:14px}h1{font-size:2rem!important}.data-table{font-size:.85rem}}
 html,body{overflow-x:hidden}
+
+/* ===== Experience pass: colour rhythm, compact spacing, motion ===== */
+:root{--sage:#E4EDE6;--sage-2:#CFE0D4;--sand:#F4EBDD;--blush:#F6E9E3}
+/* Hero: soft living gradient instead of flat white */
+.hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,#F3F7F2 0%,var(--paper) 100%)}
+.hero::before,.hero::after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(60px);opacity:.7;pointer-events:none}
+.hero::before{width:520px;height:520px;left:-160px;top:-140px;background:var(--sage-2);animation:float1 18s ease-in-out infinite alternate}
+.hero::after{width:440px;height:440px;right:-140px;bottom:-160px;background:var(--sand);animation:float2 22s ease-in-out infinite alternate}
+@keyframes float1{to{transform:translate(90px,60px) scale(1.08)}}
+@keyframes float2{to{transform:translate(-80px,-50px) scale(1.1)}}
+/* Section colour rhythm: each section its own calm tone */
+.product{background:var(--sand);border-top:0}
+.inbox{background:var(--sage);border:0}
+.weeks{background:linear-gradient(180deg,var(--paper) 0%,var(--blush) 100%)}
+.company{background:var(--sage);border-top:0}
+/* Compact: tighter vertical rhythm, nothing removed */
+.product,.inbox,.weeks,.company,.wrong{padding:clamp(48px,6vw,80px) 0}
+.hero{padding:clamp(32px,5vw,72px) 0 clamp(40px,5vw,64px)}
+.hero .lede{margin-top:16px}
+section h2{margin-bottom:12px}
+/* Cards lift off the coloured grounds */
+.move-table,.week-table,.email,.rules,.price,.app-shot img,.demo{box-shadow:0 1px 2px rgba(20,30,25,.06),0 12px 32px -12px rgba(20,30,25,.18)}
+.move-table,.week-table{background:var(--paper);border-radius:16px;overflow:hidden}
+.move-table td,.move-table th,.week-table td,.week-table th{padding-left:14px;padding-right:14px}
+.rules,.price{background:var(--paper);border-radius:16px}
+/* Motion: responsive, never decorative-only */
+@media (hover:hover){.email,.price,.rules,.app-shot img,.move-table,.week-table{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}.email:hover,.price:hover,.rules:hover,.app-shot img:hover{transform:translateY(-4px);box-shadow:0 18px 40px -14px rgba(20,30,25,.28)}}
+.btn{transition:transform .15s ease,box-shadow .2s,background .2s}.btn:active{transform:scale(.97)}
+.btn-primary{box-shadow:0 8px 20px -8px rgba(31,77,58,.55)}
+.rv{transition-duration:.6s}
+.data-table tbody tr,.move-table tbody tr,.week-table tbody tr{transition:background .2s}
+@media (hover:hover){.move-table tbody tr:hover,.week-table tbody tr:hover{background:var(--sage)}}
+/* Smooth anchor jumps, sticky header offset */
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero::before,.hero::after{animation:none}}
+.week-table caption,.move-table caption{display:table-caption;width:auto;white-space:normal;padding:14px 14px 10px;background:var(--paper)}
+@media (max-width:760px){.week-table caption,.move-table caption{display:block;width:100%;box-sizing:border-box}}
