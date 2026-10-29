@@ -652,3 +652,4 @@ body.home main > section:not(.hero) h2{background:none!important;-webkit-text-fi
   .product-copy{position:relative;z-index:1}
 }
 @media (prefers-reduced-motion:reduce){.scene-col{position:static}}
+#p-head,#p-armL,#p-armR,#p-torso,#p-handL,#p-shoulders,#p-back{transform-origin:0 0!important;transform-box:view-box!important}
