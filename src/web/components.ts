@@ -36,7 +36,7 @@ export const renderers: Record<string,(node:StatementNode,context:Context)=>HTML
     const form=el('form','','name-input text-input');form.noValidate=true;const id='field-'+key;
     const label=el('label',typeof p.label==='string'?p.label:'In your own words');label.htmlFor=id;
     const input=el('input');input.type='text';input.id=id;input.maxLength=200;input.autocomplete='off';input.placeholder=typeof p.placeholder==='string'?p.placeholder:'';input.setAttribute('enterkeyhint','send');input.value=drafts.get(key)??'';input.addEventListener('input',()=>drafts.set(key,input.value));input.addEventListener('focus',()=>{typingIn=key;});input.addEventListener('blur',()=>{if(input.isConnected&&typingIn===key)typingIn='';});if(typingIn===key)setTimeout(()=>{if(input.isConnected&&!input.disabled)input.focus({preventScroll:true});},0);
-    const go=el('button','Tell Lull','primary');go.type='submit';const line=el('div','','name-line');line.append(input,go);form.append(label,line);
+    const go=el('button','Tell Sukoon','primary');go.type='submit';const line=el('div','','name-line');line.append(input,go);form.append(label,line);
     form.addEventListener('submit',event=>{event.preventDefault();const text=input.value.trim();if(!text){input.focus();return;}drafts.delete(key);input.value='';c.send(text);});
     const update=()=>{const off=c.paused||c.busy();input.disabled=off;go.disabled=off;};c.updates.push(update);update();return form;
   },

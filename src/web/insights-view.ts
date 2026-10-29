@@ -59,7 +59,7 @@ export function renderInsights(root: HTMLElement, o: InsightsOptions) {
   root.append(head, body);
   if (o.source === 'team') { renderTeam(body); return; }
   const s = summarize(o.events);
-  if (s.visits < 2 && o.source === 'device') body.append(empty('Not much here yet. Use Lull for a few resets, or switch to the sample to see how this screen reads.'));
+  if (s.visits < 2 && o.source === 'device') body.append(empty('Not much here yet. Use Sukoon for a few resets, or switch to the sample to see how this screen reads.'));
 
   const tiles = el('div', '', 'ins-tiles');
   tiles.append(
@@ -75,14 +75,14 @@ export function renderInsights(root: HTMLElement, o: InsightsOptions) {
   const grid = el('div', '', 'ins-grid');
   const funnel = card('Where people drop off', 'Each step counts visits. The note shows how many carried on from the step before.', true);
   funnel.append(bars(s.funnel.map((f, i) => ({ ...f, note: i ? `${P(f.n / Math.max(1, s.funnel[i - 1].n))} of previous` : undefined }))), table(['Step', 'Visits', 'Of previous'], s.funnel.map((f, i) => [f.label, f.n, i ? P(f.n / Math.max(1, s.funnel[i - 1].n)) : '–'])));
-  const needs = card('What people asked for', 'What Lull heard in typed needs. One request can contain more than one.');
+  const needs = card('What people asked for', 'What Sukoon heard in typed needs. One request can contain more than one.');
   needs.append(s.needs.length ? bars(s.needs) : empty('No typed needs yet.'), table(['Need', 'Times'], s.needs.map(n => [n.label, n.n])));
   const routes = card('How people start', 'Which door they came in through on each visit.');
   const r = s.routes.map(label(ROUTES)); routes.append(r.length ? bars(r) : empty('No starts yet.'), table(['Route', 'Visits'], r.map(x => [x.label, x.n])));
   const feelings = card('How it felt afterwards', 'The optional one-tap question at the end. Self-reported, so read it as a signal, not proof.');
   const f = s.feelings.map(label(FEELINGS)), totalFelt = f.reduce((a, c) => a + c.n, 0);
   feelings.append(f.length ? bars(f.map(x => ({ ...x, note: P(x.n / totalFelt) }))) : empty('Nobody has answered yet.'), table(['Answer', 'Count'], f.map(x => [x.label, x.n])));
-  const gaps = card('Requests we couldn’t serve', 'Typed requests Lull didn’t understand. This is the raw input for the backlog.');
+  const gaps = card('Requests we couldn’t serve', 'Typed requests Sukoon didn’t understand. This is the raw input for the backlog.');
   if (s.unmatched.length) { const list = el('ol', '', 'ins-gaps'); for (const g of s.unmatched.slice(0, 8)) { const li = el('li'); li.append(el('span', `“${g.label}”`), el('strong', `×${g.n}`)); list.append(li); } gaps.append(list); } else gaps.append(empty('Nothing unmatched yet.'));
   const safety = card('Safety stops', 'Every time someone reported pain, injury or dizziness. These should stay rare, and every one should end safely.');
   const sf = s.safety.map(label(WHEN)); safety.append(sf.length ? bars(sf) : empty('None recorded.'), table(['When', 'Count'], sf.map(x => [x.label, x.n])));
@@ -137,8 +137,8 @@ function renderTeam(body: HTMLElement) {
   teams.append(list);
   const when = card('When people take a break', 'Finished resets by time of day. Useful for deciding when a gentle reminder would help most.');
   when.append(bars(r.when), table(['Time', 'Sessions'], r.when.map(w => [w.label, w.n])));
-  const needs = card('What people asked for', 'Company-wide totals of the needs Lull recognised. What people actually typed is never shown here.');
+  const needs = card('What people asked for', 'Company-wide totals of the needs Sukoon recognised. What people actually typed is never shown here.');
   needs.append(bars(r.needs), table(['Need', 'Times'], r.needs.map(n => [n.label, n.n])));
   grid.append(weekly, teams, when, needs);
-  body.append(grid, el('p', 'This sample is made up, so it shows how the report reads, not how a real team would use Lull. In a real pilot these totals would come from people who opted in, combined across devices before anyone sees them.', 'ins-foot'));
+  body.append(grid, el('p', 'This sample is made up, so it shows how the report reads, not how a real team would use Sukoon. In a real pilot these totals would come from people who opted in, combined across devices before anyone sees them.', 'ins-foot'));
 }

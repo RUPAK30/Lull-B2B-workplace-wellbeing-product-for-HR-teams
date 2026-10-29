@@ -31,7 +31,7 @@ test('safety and limits page: reachable from the page for teams and the app, and
   await page.goto('/teams');
   await page.getByRole('link', { name: /Read the safety and limits page/ }).click();
   await expect(page).toHaveURL(/\/safety$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('What Lull does, and what it doesn’t.');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('What Sukoon does, and what it doesn’t.');
   await expect(page.locator('.s-pending')).toHaveCount(11);
   await expect(page.locator('#access')).toContainText('Not done yet');
   await expect(page.locator('.l-note')).toContainText('can miss unusual wording');

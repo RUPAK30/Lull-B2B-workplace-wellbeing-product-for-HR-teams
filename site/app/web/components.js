@@ -85,7 +85,7 @@ export const renderers = {
         if (typingIn === key)
             setTimeout(() => { if (input.isConnected && !input.disabled)
                 input.focus({ preventScroll: true }); }, 0);
-        const go = el('button', 'Tell Lull', 'primary');
+        const go = el('button', 'Tell Sukoon', 'primary');
         go.type = 'submit';
         const line = el('div', '', 'name-line');
         line.append(input, go);

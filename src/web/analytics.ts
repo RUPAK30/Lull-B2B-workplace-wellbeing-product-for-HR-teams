@@ -1,6 +1,6 @@
 // A private activity log for product insight. It lives in this browser only: nothing is
 // sent anywhere, it can be turned off, cleared or exported, and it never stores free text
-// except the requests Lull could not understand (so they can shape the backlog).
+// except the requests Sukoon could not understand (so they can shape the backlog).
 import { sendPilot, noteUsual } from './pilot.js';
 
 export type Event = { t: number; type: string; user: string; visit: string; run?: string; data?: Record<string, unknown> };
@@ -49,7 +49,7 @@ export function variantOf(experiment: string): 'A' | 'B' {
 export const overrideOf = (experiment: string) => store.get('sw.exp.' + experiment) ?? 'auto';
 export function setOverride(experiment: string, value: string) { if (value === 'A' || value === 'B') store.set('sw.exp.' + experiment, value); else store.del('sw.exp.' + experiment); }
 
-/** Reads what Lull just did from its reply, so the log reflects product moments, not clicks. */
+/** Reads what Sukoon just did from its reply, so the log reflects product moments, not clicks. */
 export function observeTurn(said: string, reply: string) {
   const heard = reply.match(/pick_need = Text\("Heard: ([^"]+)"/);
   if (heard) track('need', { kinds: heard[1].split(' · ') });

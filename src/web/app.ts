@@ -32,20 +32,20 @@ let nav=makeNav(),closedRun=false,lastStage='',lastWasWorkout=false,lastIntent='
 /** The screen after the one holding `key`: its title without the "n of N · " prefix, and whether it is the closing screen. */
 function upNext(key:string){const screens=c.document.screens,i=screens.findIndex(s=>(s.props.children as StatementNode[]).some(n=>n.key===key)),next=screens[i+1];if(i<0||!next)return null;const children=next.props.children as StatementNode[],title=children.find(n=>n.name==='Text'&&n.props.variant==='title');return {label:title?String(title.props.text).replace(/^\d+ of \d+ · /,''):`step ${i+2}`,closing:children.some(n=>n.name==='Recap')};}
 function advance(key:string){const holds=(c.document.current?.props.children as StatementNode[]??[]).some(n=>n.key===key);if(!holds||nav.phase()!=='idle'||paused)return;nav.next();}
-/** Lull's ambient presence follows the activity: present at arrival, receding during movement, calm at the close. */
+/** Sukoon's ambient presence follows the activity: present at arrival, receding during movement, calm at the close. */
 const hasTimer=(s:StatementNode)=>(s.props.children as StatementNode[]).some(n=>n.name==='Timer');
 /** A movement screen: it has a timer and no safety notice. These render as one continuous reset stage. */
 function isWorkout(s:StatementNode|undefined){const kids=s?.props.children as StatementNode[]|undefined;return !!kids&&hasTimer(s!)&&!kids.some(n=>n.name==='Alert'&&(n.props.tone==='warning'||n.props.tone==='danger'));}
 /** The active reset, composed as one guided stage:
- *  header (Lull, session, progress) → movement stage (name, instruction, dial timer, controls, cues)
- *  → up next + Lull companion (guidance, offers, "Tell Lull") → session navigation. */
+ *  header (Sukoon, session, progress) → movement stage (name, instruction, dial timer, controls, cues)
+ *  → up next + Sukoon companion (guidance, offers, "Tell Sukoon") → session navigation. */
 function renderWorkout(current:StatementNode,ctx:Context){
   const kids=current.props.children as StatementNode[],screens=c.document.screens,moves=screens.filter(hasTimer),pos=moves.findIndex(s=>s.key===current.key);
   const of=(name:string)=>kids.find(n=>n.name===name),rail=of('Rail'),intent=String(rail?.props.intent??''),timerNode=of('Timer')!;
   const stage=el('section','','workout');
   // Header: who is with you, what this session is, where you are in it.
   const head=el('div','','workout-head'),mark=el('p','','workout-mark'),progress=button('',()=>toggleSheet(),'workout-progress'),track=el('div','','workout-track');
-  mark.append(el('span','','sw-dot'),el('span','Lull','sw-name'),el('span',intent||'Session','workout-intent'));
+  mark.append(el('span','','sw-dot'),el('span','Sukoon','sw-name'),el('span',intent||'Session','workout-intent'));
   track.setAttribute('aria-hidden','true');const dots=moves.map(()=>{const d=el('span');track.append(d);return d;});
   progress.setAttribute('aria-expanded','false');progress.setAttribute('aria-label',`Step ${pos+1} of ${moves.length}. Show all steps`);
   progress.append(el('span',`Step ${pos+1} of ${moves.length}`,'workout-count'),track);head.append(mark,progress);
@@ -69,14 +69,14 @@ function renderWorkout(current:StatementNode,ctx:Context){
   ring.setAttribute('class','dial-track');arc.setAttribute('class','dial-arc');arc.style.strokeDasharray=String(C);svg.append(ring,arc);
   const face=timer.querySelector('.timer-face'),dial=el('div','','dial'),count=el('span','','dial-count'),breath=el('span','','dial-breath'),breathing=/breath|exhale/i.test(String(timerNode.props.label));count.setAttribute('aria-hidden','true');if(face){face.replaceWith(dial);dial.append(svg,face,count);face.append(breath);}
   hero.append(words,timer);if(cues){const list=renderComponent(cues,ctx);list.classList.add('workout-cues');hero.append(list);}
-  // Below the stage: what comes next, and Lull (guidance, any offer, and the way to tell it something).
+  // Below the stage: what comes next, and Sukoon (guidance, any offer, and the way to tell it something).
   const lower=el('div','','workout-lower'),next=el('div','','workout-next'),companion=el('div','','workout-companion'),offer=el('div','','workout-offer');
   const after=screens[screens.findIndex(s=>s.key===current.key)+1],afterKids=(after?.props.children as StatementNode[]|undefined)??[];
   const afterTimer=afterKids.find(n=>n.name==='Timer'),afterTitle=afterKids.find(n=>n.name==='Text'&&n.props.variant==='title');
   next.append(el('span','Up next','workout-next-label'),el('strong',afterTimer?String(afterTitle?.props.text??'').replace(/^\d+ of \d+ · /,''):'Back to your day','workout-next-title'),el('span',afterTimer?`${Math.floor(Number(afterTimer.props.seconds)/60)}:${String(Number(afterTimer.props.seconds)%60).padStart(2,'0')} on the timer`:'A calm close, then back to work','workout-next-meta'));
   const cue=of('Cue'),say=el('p','','workout-say');say.append(el('span','','sw-dot'),el('span',cue?String(cue.props.text):'','workout-say-text'));
   for(const node of kids)if(node.name==='Alert'||node.name==='FollowUps')offer.append(renderComponent(node,ctx));
-  if(offer.childNodes.length){offer.prepend(el('span','Lull suggests','workout-offer-label'));stage.classList.add('has-offer');}
+  if(offer.childNodes.length){offer.prepend(el('span','Sukoon suggests','workout-offer-label'));stage.classList.add('has-offer');}
   companion.append(offer.childNodes.length?offer:say);const ask=of('TextInput');if(ask)companion.append(renderComponent(ask,ctx));
   lower.append(companion,next);
   // A confirmed change to the session (same run, new intensity or activity) is marked on the stage.
@@ -130,8 +130,8 @@ function applyTimerAction(id:string,action:'start'|'pause'|'reset'|'finish'){
 function render(){let moveFocus=false;
   if(config){const selected=config.providers.find(p=>p.id===c.provider)!;byId('mode').textContent=c.provider==='mock'?'MOCK · NO MODEL CALLS':selected.enabled?'LIVE WHEN SENT':'SETUP / BLOCKED';byId('provider-description').textContent=selected.message;byId('consent-wrap').hidden=c.provider==='mock'||!selected.enabled;byId('consent-label').textContent=c.provider==='claude-cli'?'Use my subscription quota on Send/Retry; I reviewed the host-policy limits.':'Use my API budget on Send/Retry.';byId<HTMLInputElement>('consent').checked=c.consent;byId<HTMLButtonElement>('send').disabled=!selected.enabled||(c.provider!=='mock'&&!c.consent)||paused;byId('mock-controls').hidden=c.provider!=='mock';byId('sample').hidden=c.provider!=='mock';}
   byId('send').textContent=c.pending?'Update':'Send';byId('cancel').hidden=!c.pending;byId<HTMLButtonElement>('cancel').disabled=!c.pending;byId('pending').hidden=!c.pending;byId('status').textContent=c.pending?'Thinking… type an update to interrupt':c.error?'Needs attention':'Ready when you are';byId('error').hidden=!c.error;byId('error-message').textContent=c.error;
-  const transcript=byId('transcript');transcript.replaceChildren();if(!c.events.length)transcript.append(el('p','Start the scripted Lull flow, type /reset (optionally /reset calm seated) for a reset, or load the wiring sample. Mock makes no model calls.','micro'));
-  for(const event of c.events){if(event.kind==='input'||event.kind==='response'){const n=el('div','','message '+(event.kind==='input'?'user':'assistant'));n.append(el('span',event.kind==='input'?'You':'Lull','who'),el('p',event.text??splitReply(event.result!.turn.reply).prose??''));transcript.append(n);}else if(event.text)transcript.append(el('p',event.text,'event'));else if(event.kind==='interrupted'||event.kind==='cancelled')transcript.append(el('p',event.kind==='interrupted'?'Previous reply interrupted. Your messages are kept.':'Reply cancelled.','event'));}
+  const transcript=byId('transcript');transcript.replaceChildren();if(!c.events.length)transcript.append(el('p','Start the scripted Sukoon flow, type /reset (optionally /reset calm seated) for a reset, or load the wiring sample. Mock makes no model calls.','micro'));
+  for(const event of c.events){if(event.kind==='input'||event.kind==='response'){const n=el('div','','message '+(event.kind==='input'?'user':'assistant'));n.append(el('span',event.kind==='input'?'You':'Sukoon','who'),el('p',event.text??splitReply(event.result!.turn.reply).prose??''));transcript.append(n);}else if(event.text)transcript.append(el('p',event.text,'event'));else if(event.kind==='interrupted'||event.kind==='cancelled')transcript.append(el('p',event.kind==='interrupted'?'Previous reply interrupted. Your messages are kept.':'Reply cancelled.','event'));}
   transcript.scrollTop=transcript.scrollHeight;syncTimers();
   holdForSafety();const screens=c.document.screens,index=screens.findIndex(s=>s.key===c.document.cursor),key=c.document.echo()+String(paused);
   if(key!==renderKey || !byId('screen').childNodes.length){renderKey=key;updates=[];const surface=byId('screen');if(surface.contains(byId('navigation')))surface.after(byId('navigation'));surface.replaceChildren();const stage=`${c.document.clearVersion}:${c.document.cursor}`;const current=c.document.current,workoutNow=isWorkout(current);if(stage!==lastStage){surface.classList.remove('enter','enter-stage','enter-soft');void surface.offsetWidth;surface.classList.add(lastStage&&!lastStage.startsWith(`${c.document.clearVersion}:`)?'enter-stage':workoutNow&&lastWasWorkout?'enter-soft':'enter');lastStage=stage;moveFocus=true;}lastWasWorkout=workoutNow;surface.classList.toggle('closing',(c.document.current?.props.children as StatementNode[]??[]).some(n=>n.name==='Recap'));
@@ -166,7 +166,7 @@ const describe=(reset:Reset,posture:Posture)=>`${RESET_NAMES[reset]}, ${posture}
 function renderHome(){
   const mem=loadMemory(),hour=new Date().getHours(),hello=hour<12?'Good morning':hour<18?'Good afternoon':'Good evening';
   const n=el('div','','home');n.append(el('p',`${hello}${mem.name?`, ${mem.name}`:''}`,'home-hello'),el('h2','Between calls? Take three minutes.','home-title'),el('p','Tell me how you feel, even in Hinglish, or pick a moment below. I’ll suggest one short reset and stay quiet while you move.','home-lede'));
-  const begin=button('Start with Lull',()=>send('Start Lull','onboarding'),'primary home-start');begin.id='workout';
+  const begin=button('Start with Sukoon',()=>send('Start Sukoon','onboarding'),'primary home-start');begin.id='workout';
   // Opened from their own reminder: their usual session is one tap away.
   const usual=openedFromReminder?usualReset():null;
   if(usual){n.append(el('p','Your reset time. Same as usual?','home-label'));const one=button(`Start ${describe(usual.reset,usual.posture).toLowerCase().replace(/^./,ch=>ch.toUpperCase())}`,()=>send(`/reset ${usual.reset} ${usual.posture}`,'reminder'),'primary home-start');n.append(one);begin.className='home-start';begin.textContent='Something different';}
@@ -174,10 +174,10 @@ function renderHome(){
   const last=mem.last&&RESETS.includes(mem.last.reset as Reset)?mem.last:null;
   if(last){const again=button('',()=>send(`/reset ${last.reset} ${last.posture}`,'again'),'quick again');again.append(el('strong','Same as last time'),el('span',last.title));quick.append(again);}
   for(const q of QUICK){if(variantOf('home-quick')==='B')break;const b=button('',()=>send(q.cmd,'quick'),'quick');b.append(el('strong',q.label),el('span',q.detail));quick.append(b);}
-  n.append(begin,...(quick.childNodes.length?[el('p',last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick your moment','home-label'),quick]:[]),el('p','Text only: Lull can’t see you. Stop anything that doesn’t feel right.','micro home-note'),...(pilotTeam?[pilotNote()]:[]));
+  n.append(begin,...(quick.childNodes.length?[el('p',last&&quick.childNodes.length===1?'Or pick up where you left off':'Or pick your moment','home-label'),quick]:[]),el('p','Text only: Sukoon can’t see you. Stop anything that doesn’t feel right.','micro home-note'),...(pilotTeam?[pilotNote()]:[]));
   return n;
 }
-/** Lull's latest words, shown as a caption outside the reset (where the stage speaks for itself). */
+/** Sukoon's latest words, shown as a caption outside the reset (where the stage speaks for itself). */
 function renderCaption(){const reply=[...c.events].reverse().find(e=>e.kind==='response'),prose=reply?.result?splitReply(reply.result.turn.reply).prose:'';const kids=c.document.current?.props.children as StatementNode[]|undefined;const quiet=isWorkout(c.document.current)||(kids??[]).some(n=>n.name==='Recap')||c.pending;const cap=byId('caption');if(cap.textContent!==prose)cap.textContent=prose;const onScreen=(kids??[]).some(n=>typeof n.props.text==='string'&&prose.includes(String(n.props.text)));cap.hidden=quiet||!prose||onScreen;}
 /** Opt-in memory: the last reset, kept in this browser only. */
 function rememberSession(){if(!prefs.remember)return;const nodes=c.document.screens.flatMap(s=>s.props.children as StatementNode[]),title=nodes.find(n=>n.key==='intro_title');
@@ -247,7 +247,7 @@ if(openedFromReminder){track('opened_from_reminder');history.replaceState(null,'
 function pilotNote(){const p=el('p','','micro pilot-note');p.append(`Part of the ${pilotTeam} team pilot. Your sessions count as team totals, never by name. `,button('See what’s sent',()=>openDrawer('settings'),'link'));return p;}
 /** "What leaves this device": the exact team counts sent, or a plain statement that nothing is. */
 function renderDeviceSends(){const box=byId('sent-box');box.replaceChildren();
-  if(!pilotTeam){box.append(el('p','Nothing. This copy of Lull isn’t part of a team pilot, so nothing is sent anywhere.','micro'));return;}
+  if(!pilotTeam){box.append(el('p','Nothing. This copy of Sukoon isn’t part of a team pilot, so nothing is sent anywhere.','micro'));return;}
   const toggle=el('label','','toggle'),input=el('input');input.type='checkbox';input.checked=pilotCounting.on;input.addEventListener('change',()=>{pilotCounting.on=input.checked;renderDeviceSends();renderKey='';render();});
   const text=el('span');text.append(el('strong',`Count my sessions for the ${pilotTeam} team`),` Only these leave this device: session started or finished, coming back, setting a reminder, opening one, and joining a team reset. No name, no device ID, nothing you type, how you felt, and nothing about pain.`);
   toggle.append(input,text);box.append(toggle);

@@ -44,7 +44,7 @@ test('calendar and Slack reminders recur on weekdays and link back with the team
   assert.equal(google.searchParams.get('recur'),'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR');
   assert.equal(google.searchParams.get('dates'),'20261026T154000/20261026T154500');
   assert.equal(google.searchParams.get('ctz'),'Asia/Kolkata');
-  assert.equal(reminderSlack('15:40',link),`/remind me "Take a 3-minute Lull reset: ${link}" every weekday at 3:40pm`);
+  assert.equal(reminderSlack('15:40',link),`/remind me "Take a 3-minute Sukoon reset: ${link}" every weekday at 3:40pm`);
   assert.equal(reminderSlack('09:05',link).endsWith('every weekday at 9:05am'),true);
   assert.equal(reminderSlack('12:00',link).endsWith('at 12:00pm'),true);
 });
@@ -67,7 +67,7 @@ test('team reset links only open known resets',()=>{
   for(const bad of ['', 'unknot', 'yoga-seated', 'unknot-hard', 'mobility-gentle', '/reset unknot seated', null]) assert.equal(parseReset(bad),null,String(bad));
   assert.equal(pilotEvent('team_reset'),'team-reset-joined');
   assert.equal(pilotEvent('team_reset_shared'),null,'sharing an invite is not counted');
-  assert.match(teamResetInvite('https://x/app/?reset=unknot-seated'),/^Last 3 minutes: Lull team reset\. .+https:\/\/x\/app\/\?reset=unknot-seated$/);
+  assert.match(teamResetInvite('https://x/app/?reset=unknot-seated'),/^Last 3 minutes: Sukoon team reset\. .+https:\/\/x\/app\/\?reset=unknot-seated$/);
 });
 
 test('a reset title maps back to its one-tap reset code',()=>{

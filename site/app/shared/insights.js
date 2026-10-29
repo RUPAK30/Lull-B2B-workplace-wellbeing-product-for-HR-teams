@@ -29,7 +29,7 @@ export function summarize(events) {
     const started = visitList.filter(v => has(v, 'timer_started'));
     const finished = visitList.filter(v => has(v, 'session_finished', e => e.data?.reason === 'finished'));
     const funnel = [
-        { label: 'Opened Lull', n: visitList.length },
+        { label: 'Opened Sukoon', n: visitList.length },
         { label: 'Chose a reset', n: chose.length },
         { label: 'Started the first step', n: started.length },
         { label: 'Reached the end', n: finished.length },

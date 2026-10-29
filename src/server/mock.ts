@@ -95,7 +95,7 @@ export function mockTurn(request: RequestData, input: string | MockFixtures, opt
   if (last === 'load wiring sample' || last === '/demo') return { reply: 'Wiring fixture loaded. This is deterministic, not a model interpreting your skill.\n' + CLEAR + '\n' + fence(wiring) };
   const command = resetCommand(last);
   if (command) return session(command.reset, command.posture, { name: '' }, `${lull.RESET_NAMES[command.reset]}, ${command.posture}:`);
-  if (['/lull', '/start', 'start lull'].includes(last)) return { reply: 'Hey, I’m Lull. Three minutes, then back to your day. (Mock mode: this flow is scripted and stays on this page.)\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
+  if (['/lull', '/start', 'start lull'].includes(last)) return { reply: 'Hey, I’m Sukoon. Three minutes, then back to your day. (Mock mode: this flow is scripted and stays on this page.)\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
   const doc = new ScreenDocument(); if (request.state.ui_state) doc.apply(fence(request.state.ui_state));
   // Typed next/back still navigate on the first screens.
   if (lull.isOnboarding(doc) && !['next', 'back'].includes(last)) { const turn = onboardingTurn(doc, raw, last, options.understood?.need); if (turn) return turn; }

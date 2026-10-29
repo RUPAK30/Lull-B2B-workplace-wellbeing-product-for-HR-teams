@@ -1,4 +1,4 @@
-// Lull: three-minute desk resets for people between calls. Everything an employee sees comes
+// Sukoon: three-minute desk resets for people between calls. Everything an employee sees comes
 // from here: the five resets (each seated or standing), the screens that offer them, the
 // session itself, and the safety screens that always come first.
 import { serializeStatement as statement } from '../shared/openui/serialize.js';
@@ -150,12 +150,12 @@ export function sessionProgram(reset: Reset, posture: Posture, ctx: LullContext,
     statement('intro_title', 'Text', [`${RESET_NAMES[reset]} · ${POSTURE_LABELS[posture]}`, 'title']),
     statement('intro_text', 'Text', [`${need && NEED_INTRO[need] ? NEED_INTRO[need] + ' ' : ''}${n} short steps · ${clock(total)}. Stay at your desk; nothing to change into.`, 'description']),
     ...list('intro_plan', blocks.map(b => `${b.title} · ${clock(b.seconds)}`)),
-    statement('intro_note', 'Alert', ['info', 'Lull can’t see you. Do only what feels comfortable, and stop if anything hurts.']),
+    statement('intro_note', 'Alert', ['info', 'Sukoon can’t see you. Do only what feels comfortable, and stop if anything hurts.']),
     statement('intro_cue', 'Cue', ['Start each timer when you’re set. Back is always there.']));
   const rail = `${RESET_NAMES[reset]} · ${posture}${need && NEED_RAIL[need] ? ` · ${NEED_RAIL[need]}` : ''}`;
   blocks.forEach((b, i) => {
     lines.push(screen(b.key, blockChildren(b.key)),
-      statement(`${b.key}_ask`, 'TextInput', ['Something changed? Tell Lull', 'e.g. can I do this seated?']),
+      statement(`${b.key}_ask`, 'TextInput', ['Something changed? Tell Sukoon', 'e.g. can I do this seated?']),
       statement(`${b.key}_rail`, 'Rail', [rail, blocks[i + 1]?.title ?? 'Back to your day']),
       statement(`${b.key}_title`, 'Text', [`${i + 1} of ${n} · ${b.title}`, 'title']),
       statement(`${b.key}_timer`, 'Timer', [b.label, b.seconds]),
@@ -225,7 +225,7 @@ export function normalise(raw: string) {
   return raw.toLowerCase().replace(/[’‘`]/g, "'").replace(/\bcan't\b/g, 'cannot').replace(/\bwon't\b/g, 'will not').replace(/n't\b/g, ' not')
     .replace(/\bi'm\b/g, 'i am').replace(/\bi've\b/g, 'i have').replace(/'s\b/g, ' is').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
-// What Lull heard, in its words (shown on the pick screen), and how it says so.
+// What Sukoon heard, in its words (shown on the pick screen), and how it says so.
 export const HEARD: Record<NeedKind, string> = { neck: 'neck and shoulders', back: 'a stiff back', sitting: 'a lot of sitting', stiff: 'some stiffness', legs: 'tight legs', eyes: 'tired eyes or wrists', time: 'not much time', low: 'low energy', restless: 'restless energy', energetic: 'wanting more energy', calm: 'wanting something calm', unsure: 'not sure where to start', fitness: 'general fitness' };
 const NEED_ACK: Record<NeedKind, string> = {
   neck: 'After back-to-back calls, the neck and shoulders usually hold the most.',
@@ -240,7 +240,7 @@ const NEED_ACK: Record<NeedKind, string> = {
   energetic: 'A quick lift, then.',
   calm: 'Something quieter, then.',
   unsure: 'No need to know. Let’s start with the one most people like.',
-  fitness: 'Lull is for short resets at your desk, not a fitness plan. An energy lift is the closest fit.',
+  fitness: 'Sukoon is for short resets at your desk, not a fitness plan. An energy lift is the closest fit.',
 };
 const NEED_RAIL: Partial<Record<NeedKind, string>> = { neck: 'after calls', back: 'for your back', sitting: 'after sitting', stiff: 'for stiffness', legs: 'for tight legs', eyes: 'for eyes and wrists', time: 'short and sweet', low: 'kept light', restless: 'for restless energy', calm: 'to unwind' };
 const NEED_INTRO: Partial<Record<NeedKind, string>> = { neck: 'Built for after a run of calls.', back: 'Built around a stiff back.', sitting: 'Built for a break from sitting.', stiff: 'Built around easing stiffness.', legs: 'Built for tight legs.', eyes: 'Built to rest your eyes and wrists.', time: 'Built to fit a short window.', low: 'Kept light for a low-energy moment.', restless: 'Built to give restless energy somewhere to go.', energetic: 'Built as a quick lift.', calm: 'Built to be quiet.', unsure: 'An easy place to start.' };
@@ -271,7 +271,7 @@ export function interpretNeed(raw: string): Need {
     : has('back') || has('legs') || has('sitting') ? 'unsit' : has('stiff') || has('time') || has('unsure') ? 'unknot' : null);
   if (!reset) return { kind: 'clarify', ack: 'Tell me a little more: is it your neck and shoulders, your back from sitting, your energy, your eyes, or just a lot on your mind?' };
   const posture = detectPosture(t);
-  const lines = [...(outside ? ['Running, weights and jumping are outside what Lull does; these are short, quiet resets you can do at your desk.'] : []), ...heard.map(k => NEED_ACK[k])];
+  const lines = [...(outside ? ['Running, weights and jumping are outside what Sukoon does; these are short, quiet resets you can do at your desk.'] : []), ...heard.map(k => NEED_ACK[k])];
   const plan = planOf(reset, posture ?? DEFAULT_POSTURE[reset]);
   const pick = `I’d suggest ${RESET_NAMES[reset].toLowerCase()} (${clock(plan.total)}).`;
   if (!lines.length) return { kind: 'suggest', reset, posture, ack: `${WHY[reset]} ${pick}`, plain: true, heard: [] };
@@ -284,19 +284,19 @@ export function careStatements(level: 'urgent' | 'pain' | 'rehab' | 'rest' | 're
   const urgent = level === 'urgent' || level === 'rest-urgent', rest = level.startsWith('rest');
   if (rest) return [screen('feel', ['care_title', 'care_text', ...(urgent ? [] : ['care_actions']), 'care_cue']),
     statement('care_title', 'Text', [urgent ? 'Please look after that first.' : 'That’s a good call.', 'title']),
-    statement('care_text', 'Text', [urgent ? 'Get help now. Lull will be here another time, when you’re ready.' : 'Look after yourself. If you change your mind, the resets are still here.', 'description']),
+    statement('care_text', 'Text', [urgent ? 'Get help now. Sukoon will be here another time, when you’re ready.' : 'Look after yourself. If you change your mind, the resets are still here.', 'description']),
     ...(urgent ? [] : [statement('care_actions', 'FollowUps', [['Show the resets']])]),
     statement('care_cue', 'Cue', ['Take care.'])];
   return [screen('feel', ['care_title', 'care_alert', 'care_text', 'care_actions', 'care_cue']),
     statement('care_title', 'Text', [urgent ? 'Please get help first.' : 'Let’s not work around pain.', 'title']),
     statement('care_alert', 'Alert', [urgent ? 'danger' : 'warning', CARE_ACK[level as 'urgent' | 'pain' | 'rehab']]),
-    statement('care_text', 'Text', [urgent ? 'This isn’t something Lull can help with, and it isn’t a time to move.' : 'If you’d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.', 'description']),
+    statement('care_text', 'Text', [urgent ? 'This isn’t something Sukoon can help with, and it isn’t a time to move.' : 'If you’d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.', 'description']),
     statement('care_actions', 'FollowUps', [urgent ? ['I understand'] : ['Not today', 'Show the resets']]),
     statement('care_cue', 'Cue', [urgent ? 'Please look after yourself first.' : 'No pressure either way.'])];
 }
 export const careLevel = (doc: ScreenDocument) => { const node = doc.screens.flatMap(childrenOf).find(n => n.key === 'care_alert' || n.key === 'care_title'); if (!node) return null; const alert = doc.screens.flatMap(childrenOf).find(n => n.key === 'care_alert'); return alert ? (alert.props.tone === 'danger' ? 'urgent' : 'pain') : (doc.screens.flatMap(childrenOf).some(n => n.key === 'care_actions') ? 'rest' : 'rest-urgent'); };
 
-// In session: the person can tell Lull something changed. Safety always wins; every other
+// In session: the person can tell Sukoon something changed. Safety always wins; every other
 // change is offered and waits for an explicit yes. Nothing restarts the session or a timer.
 export const blockChildren = (key: string) => [`${key}_rail`, `${key}_title`, `${key}_text`, `${key}_timer`, `${key}_steps`, `${key}_ask`, `${key}_cue`];
 export type SessionRequest = { kind: 'safety'; level: 'urgent' | 'pain' | 'rehab' } | { kind: 'standing' | 'seated' | 'stop' | 'unclear' } | { kind: 'switch'; reset: Reset | null } | { kind: 'tip'; text: string };

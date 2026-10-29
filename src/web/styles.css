@@ -91,7 +91,7 @@ ul.block li::before{content:"";position:absolute;left:2px;top:14px;width:8px;hei
 .recap-title{font-weight:600;letter-spacing:.02em}
 .recap-summary{font-size:13px}
 .recap[open] .recap-summary{color:var(--ink)}
-/* Closing screen: Lull's voice, more air, nothing to do */
+/* Closing screen: Sukoon's voice, more air, nothing to do */
 #screen.closing{padding-top:40px}
 #screen.closing .block-title{font-family:var(--serif);font-weight:400;font-size:38px;letter-spacing:-.01em}
 #screen.closing .block-description{font-size:19px;max-width:540px}
@@ -122,7 +122,7 @@ footer{padding:26px 0;color:var(--muted);font-size:12px}
 .workspace,.tools-grid{grid-template-columns:1fr}.conversation{border-right:0;border-bottom:1px solid var(--line);padding:16px}.preview{padding:16px}
 #transcript{height:220px}.provider-panel strong{display:block;margin:12px 0 0}.spoken{margin:20px -16px -16px;padding:18px 16px}.spoken h2{display:block}.spoken .micro{display:block}
 .row{flex-wrap:wrap}.builder summary span{display:block;margin-left:0}#screen{min-height:260px}.block-title{font-size:27px}.keyword strong{font-size:48px}.timer-clock{font-size:52px}}
-/* Lull's presence: one soft organic form behind the preview. It never loops; it only
+/* Sukoon's presence: one soft organic form behind the preview. It never loops; it only
    settles into a new state when the activity changes (see updatePhase in app.ts). */
 .preview{position:relative;overflow:hidden;overflow:clip}
 .preview>*:not(#aura){position:relative;z-index:1}
@@ -162,7 +162,7 @@ transition:transform 1.4s cubic-bezier(.2,.7,.2,1),opacity 1.4s ease,border-radi
 .preview[data-phase=closing],.preview[data-phase=closed]{background:var(--sage-wash)}
 .preview[data-phase=care]{background:var(--surface)}
 .preview[data-phase=care] .timer{display:none}
-/* During movement, talking to Lull stays available but quiet. */
+/* During movement, talking to Sukoon stays available but quiet. */
 .preview[data-phase=ready] .text-input,.preview[data-phase=focus] .text-input,.preview[data-phase=rest] .text-input{margin-top:18px;opacity:.8;max-width:440px}
 .preview[data-phase=ready] .text-input label,.preview[data-phase=focus] .text-input label,.preview[data-phase=rest] .text-input label{font-size:11px}
 .preview[data-phase=ready] .text-input input,.preview[data-phase=focus] .text-input input,.preview[data-phase=rest] .text-input input{min-height:40px;font-size:14px;padding:8px 12px}
@@ -177,7 +177,7 @@ transition:transform 1.4s cubic-bezier(.2,.7,.2,1),opacity 1.4s ease,border-radi
 .timer[data-status=paused]{border-color:var(--sand)}
 .timer[data-status=done]{background:var(--sage-wash);border-color:var(--line-sage)}
 .preview[data-phase=ready],.preview[data-phase=focus],.preview[data-phase=rest]{background:linear-gradient(180deg,var(--surface) 0%,var(--panel) 100%)}
-/* Conversation and reset share Lull's mark. */
+/* Conversation and reset share Sukoon's mark. */
 .message.assistant{border-left:2px solid var(--sage);padding-left:12px}
 .message.assistant .who{color:var(--accent)}
 @media(prefers-reduced-motion:reduce){.workout.adjusted .workout-hero{animation:none}}
@@ -217,7 +217,7 @@ transition:transform 1.4s cubic-bezier(.2,.7,.2,1),opacity 1.4s ease,border-radi
 .workout-cues{display:flex!important;flex-wrap:wrap;justify-content:center;gap:8px;padding:10px 0 0!important;margin:0}
 .workout-cues li{padding:6px 12px!important;border-radius:999px;background:rgba(251,247,238,.85);border:1px solid var(--line-sage);font-size:14px}
 .workout-cues li::before{display:none}
-/* Below the stage: Lull companion (wide) and Up next (compact). */
+/* Below the stage: Sukoon companion (wide) and Up next (compact). */
 .workout-lower{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:14px;align-items:stretch}
 .workout-companion{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
 .workout-say{display:flex;gap:10px;align-items:baseline;margin:0;font-family:var(--serif);font-size:17px;line-height:1.4;color:var(--soft-ink);transition:opacity .5s ease}
@@ -238,7 +238,7 @@ transition:transform 1.4s cubic-bezier(.2,.7,.2,1),opacity 1.4s ease,border-radi
 #screen.enter-soft .workout-hero>*,#screen.enter-soft .workout-next{animation:screen-in .4s ease both}
 @media(prefers-reduced-motion:reduce){#screen.enter-soft .workout-hero>*,#screen.enter-soft .workout-next{animation:none}.dial-arc{transition:none}}
 @media(max-width:760px){.workout-hero{padding:22px 16px}.workout-title{font-size:32px}.dial{width:180px;height:180px}.dial .timer-clock{font-size:44px}.workout-lower{grid-template-columns:1fr}.workout-head{flex-direction:column;align-items:flex-start}}
-/* Lull speaks inside the reset, so the separate lane steps back; the offer is one surface, not a box in a box. */
+/* Sukoon speaks inside the reset, so the separate lane steps back; the offer is one surface, not a box in a box. */
 .preview[data-phase=ready] .spoken,.preview[data-phase=focus] .spoken,.preview[data-phase=rest] .spoken{display:none}
 .workout-companion .workout-offer:not(:empty){border:0;padding:0;background:transparent}
 /* ── Final visual pass: one art-directed reset environment ─────────────── */
@@ -284,7 +284,7 @@ transition:transform 1.4s cubic-bezier(.2,.7,.2,1),opacity 1.4s ease,border-radi
 .stage-timer>.timer-done p{color:var(--done)}
 .workout-cues{gap:6px;padding-top:14px!important}
 .workout-cues li{background:color-mix(in srgb,var(--ivory) 72%,transparent);border:0;box-shadow:inset 0 0 0 1px rgba(125,138,92,.14);font-size:13px;color:var(--soft-ink)}
-/* Lull and Up next continue the stage: same tonal family, no hard boxes. */
+/* Sukoon and Up next continue the stage: same tonal family, no hard boxes. */
 .workout-lower{grid-template-columns:minmax(0,1fr) 190px;gap:18px}
 .workout-companion{border:0;background:linear-gradient(180deg,var(--stage-2),var(--panel));border-radius:22px;padding:16px 18px;gap:12px}
 .workout-say{font-size:17px;color:var(--soft-ink)}
@@ -314,7 +314,7 @@ transition:transform 1.4s cubic-bezier(.2,.7,.2,1),opacity 1.4s ease,border-radi
 @media(max-width:760px){.workout-hero{padding:26px 16px 22px}.workout-title{font-size:34px}.dial{width:190px;height:190px}.dial .timer-clock{font-size:46px}.workout-lower{grid-template-columns:1fr}}
 .preview .workout-companion .text-input button{background:transparent;border-color:transparent;color:var(--accent);font-weight:600;opacity:1}
 @media(max-width:760px){.workout-intent::before{display:none}}
-/* ═══ App shell (Lull as a product, not a harness) ═══════════════════ */
+/* ═══ App shell (Sukoon as a product, not a harness) ═══════════════════ */
 html{scroll-padding-top:80px}
 body{min-height:100dvh;display:flex;flex-direction:column;overflow-x:clip;transition:background-color .8s ease}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -443,7 +443,7 @@ body[data-phase=closing],body[data-phase=closed]{background:radial-gradient(1000
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){--paper:#121714;--surface:#1A201C;--panel:#1F2621;--ivory:#232B25;--ivory-warm:#232A22;--stage-1:#1E2621;--stage-2:#181F1A;--ink:#E8ECE5;--soft-ink:#C6CEC3;--muted:#97A193;--line:#2B342E;--line-strong:#3A453D;--line-sage:#33433A;--accent:#9CCBB0;--accent-hover:#B2D9C2;--accent-soft:#213128;--sage:#6F927A;--sand:#B89F6E;--moss:#86AD90;--olive:#AAB784;--sage-wash:#1E2A23;--paused:#D2A35A;--paused-wash:#2C261B;--danger:#E08A78;--danger-wash:#2E1E1A;--disabled:#3A433C;--on-accent:#0F2419;--shadow-soft:0 22px 44px -28px rgba(0,0,0,.7);--shadow-lift:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.6);color-scheme:dark}}
 :root[data-theme=dark] #aura{opacity:.35}
 :root[data-theme=dark] .dial-track{stroke:rgba(156,203,176,.16)}
-/* During a reset the stage has its own "Tell Lull"; the page-level talk bar steps aside. */
+/* During a reset the stage has its own "Tell Sukoon"; the page-level talk bar steps aside. */
 body.stage-talk #composer,body.stage-talk .talk-hint{display:none}
 body.stage-talk .talk{padding:0;background:none}
 body[data-phase=ready] .topbar .progress,body[data-phase=focus] .topbar .progress,body[data-phase=rest] .topbar .progress{opacity:0}

@@ -118,7 +118,7 @@ export function mockTurn(request, input, options = {}) {
     if (command)
         return session(command.reset, command.posture, { name: '' }, `${lull.RESET_NAMES[command.reset]}, ${command.posture}:`);
     if (['/lull', '/start', 'start lull'].includes(last))
-        return { reply: 'Hey, I’m Lull. Three minutes, then back to your day. (Mock mode: this flow is scripted and stays on this page.)\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
+        return { reply: 'Hey, I’m Sukoon. Three minutes, then back to your day. (Mock mode: this flow is scripted and stays on this page.)\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
     const doc = new ScreenDocument();
     if (request.state.ui_state)
         doc.apply(fence(request.state.ui_state));

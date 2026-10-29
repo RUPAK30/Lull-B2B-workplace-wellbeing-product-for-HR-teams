@@ -1,6 +1,6 @@
 {
-  "name": "Lull: a 3-minute reset between calls",
-  "short_name": "Lull",
+  "name": "Sukoon: a 3-minute reset between calls",
+  "short_name": "Sukoon",
   "description": "Three-minute guided desk resets between calls, matched to how you feel. Seated or standing, nothing to install.",
   "start_url": "/",
   "scope": "/",

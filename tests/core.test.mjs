@@ -49,7 +49,7 @@ test('mock preserves wiring sample values and cursor under change',()=>{
  assert(mockTurn(req('create something real'),fixture).reply.startsWith('Tell me a little more'),'free text on home is read as a need');
  assert(mockTurn(req('/nothing'),fixture).reply.includes('does not read your skill'));
 });
-// --- Lull mock flow (scripted; Mock does not read the skill) ---
+// --- Sukoon mock flow (scripted; Mock does not read the skill) ---
 // Like the HTTP server: the reply must be valid on top of the echoed (reachable-only) state.
 const say=(doc,text,options)=>{const ui_state=doc.echo();const reply=mockTurn(req(text,{ui_state,client_events:[]}),fixture,options).reply;const check=new ScreenDocument();if(ui_state)check.apply(fence(ui_state));check.apply(reply);doc.apply(reply);return reply;};
 const onboardTo=(name='Maya')=>{const doc=new ScreenDocument();for(const t of ['/lull',name])say(doc,t);return doc;};
