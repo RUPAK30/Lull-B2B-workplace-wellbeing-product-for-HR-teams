@@ -257,3 +257,21 @@ var small=k<10;email.classList.toggle('is-hidden',small);hid.hidden=!small;
 document.querySelectorAll('.t-name').forEach(function(e){e.textContent=nm.value.trim()||'Your team';});
 if(price)price.textContent='At '+k+' people: free for six weeks, then about ₹'+(rate(k)*k).toLocaleString('en-IN')+' a month.';}
 n.addEventListener('input',upd);nm.addEventListener('input',upd);upd();})();
+
+/* Workday: the whole page is one day. Scroll = time; the light changes; at the break, the person at the desk does the four moves with your scroll. */
+(function(){var day=document.getElementById('day');if(!day||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+var tEl=document.getElementById('day-time'),lEl=document.getElementById('day-label'),head=document.getElementById('fig-head'),aL=document.getElementById('fig-armL'),aR=document.getElementById('fig-armR'),torso=document.getElementById('fig-torso'),br=document.getElementById('fig-breath');
+var prod=document.getElementById('product'),hero=document.querySelector('.hero');
+var light=[[0,'#F6F1E6'],[.25,'#F9F4E9'],[.45,'#F4EBDD'],[.65,'#F5E6D3'],[.85,'#E9DCCB'],[1,'#DED6CE']];
+function hex(h){return [1,3,5].map(function(i){return parseInt(h.substr(i,2),16);});}
+function at(p){for(var i=1;i<light.length;i++){if(p<=light[i][0]){var a=light[i-1],b=light[i],t=(p-a[0])/(b[0]-a[0]),x=hex(a[1]),y=hex(b[1]);return 'rgb('+x.map(function(v,k){return Math.round(v+(y[k]-v)*t);}).join(',')+')';}}return light[light.length-1][1];}
+function upd(){var h=document.documentElement,p=Math.max(0,Math.min(1,h.scrollTop/((h.scrollHeight-h.clientHeight)||1)));
+var mins=9*60+Math.round(p*9*60),hh=Math.floor(mins/60),mm=mins%60;tEl.textContent=(hh>12?hh-12:hh)+':'+(mm<10?'0':'')+mm+(hh>=12?' pm':' am');
+document.body.style.setProperty('--canvas',at(p));day.classList.toggle('show',hero.getBoundingClientRect().bottom<innerHeight*.6);
+var r=prod.getBoundingClientRect(),q=(innerHeight*.6-r.top)/r.height;if(q>0&&q<1){var sec=Math.round(q*150);tEl.textContent='3:4'+(sec>=120?2:sec>=60?1:0)+' pm';}var hd=0,sh=0,ar=0,bb=0,lab;
+if(q>0&&q<1){var m=Math.min(3,Math.floor(q*4)),f=(q*4)%1,w=Math.sin(f*Math.PI);
+ if(m===0){hd=w*30*(f<.5?1:-1);lab='Neck release';}else if(m===1){sh=-w*7;lab='Shoulder rolls';}else if(m===2){ar=w;lab='Chest opener';}else{bb=w;lab='Long exhale';}}
+else lab=q<=0?(p<.12?'Back-to-back calls':'Between calls'):p<.6?'Friday email':'Back to work';
+lEl.textContent=lab;head.style.transform='rotate('+hd+'deg) translateY('+sh+'px)';
+aL.style.transform='translate('+(-ar*9)+'px,'+(sh-ar*6)+'px)';aR.style.transform='translate('+(ar*9)+'px,'+(sh-ar*6)+'px)';torso.style.transform='scaleY('+(1+bb*.04)+')';br.setAttribute('r',(bb*16).toFixed(1));}
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();

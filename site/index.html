@@ -291,6 +291,20 @@
   </div>
 </footer>
 
+<div class="day" id="day" aria-hidden="true">
+  <div class="day-clock"><span id="day-time">9:00</span><span id="day-label">Inbox</span></div>
+  <svg class="day-fig" viewBox="0 0 120 120">
+    <line x1="10" y1="96" x2="110" y2="96" class="desk"/>
+    <rect x="66" y="74" width="30" height="20" rx="2" class="laptop"/><line x1="62" y1="95" x2="100" y2="95" class="desk"/>
+    <g id="fig-body">
+      <path id="fig-torso" d="M44 92 C44 76 46 66 50 60" class="body"/>
+      <g id="fig-head"><circle cx="51" cy="48" r="8" class="head"/></g>
+      <path id="fig-armL" d="M49 64 L40 78 L46 88" class="body"/>
+      <path id="fig-armR" d="M51 64 L62 78 L70 84" class="body"/>
+    </g>
+    <circle id="fig-breath" cx="51" cy="66" r="0" class="breath"/>
+  </svg>
+</div>
 <div class="dock" id="dock" aria-label="Page navigator">
   <button type="button" class="dock-ask" id="ask-open" aria-haspopup="dialog" data-ev="ask-open"><span class="spark" aria-hidden="true">✦</span> Ask</button>
   <div class="dock-ch" id="dock-ch"></div>

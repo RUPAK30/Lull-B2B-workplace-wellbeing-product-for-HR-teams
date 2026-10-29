@@ -611,3 +611,20 @@ body.home main > section:not(.hero) h2{background:none!important;-webkit-text-fi
 .email.is-hidden .email-stats{opacity:.25;filter:blur(3px)}
 .tune-price{margin-top:8px;font-weight:600;color:var(--accent)}
 .email-head span.t-name{font:inherit!important;text-transform:none!important;letter-spacing:0!important;color:inherit!important;width:auto!important;display:inline!important}
+
+/* ===== The page is a workday: scroll moves the clock, the light, and the person at the desk ===== */
+.day{position:fixed;left:16px;bottom:78px;z-index:65;width:118px;padding:8px 10px 4px;border-radius:18px;background:rgba(255,255,255,.72);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 10px 30px -14px rgba(0,0,0,.35);opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s}
+.day.show{opacity:1;transform:none}
+.day-clock{display:flex;justify-content:space-between;align-items:baseline;font:600 .78rem var(--sans);color:var(--ink);font-variant-numeric:tabular-nums}
+.day-clock #day-label{font-weight:500;font-size:.68rem;color:var(--ink-3)}
+.day-fig{width:100%;height:auto;display:block}
+.day-fig .desk{stroke:var(--rule-2);stroke-width:2.5;stroke-linecap:round}
+.day-fig .laptop{fill:none;stroke:var(--ink-2);stroke-width:2.5}
+.day-fig .body{fill:none;stroke:var(--accent);stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+.day-fig .head{fill:var(--accent)}
+.day-fig .breath{fill:rgba(143,209,172,.35)}
+#fig-head,#fig-armL,#fig-armR,#fig-torso{transform-box:fill-box;transition:transform .12s linear}
+#fig-head{transform-origin:50% 100%}
+@media (min-width:1100px){.day{left:24px;bottom:24px;width:150px}}
+@media (prefers-reduced-motion:reduce){.day{display:none}}
+.day-clock{white-space:nowrap;gap:6px}.day-clock #day-label{overflow:hidden;text-overflow:ellipsis}
