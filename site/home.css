@@ -726,3 +726,4 @@ html,body{overflow-x:clip!important;overflow-y:visible}
 .breath[data-mode="out"] .breath-orb{background:var(--from)!important;box-shadow:none}
 .breath.dark .breath-step{color:#9DA69F}
 .breath[data-mode="out"].dark .breath-in{color:var(--ink);mix-blend-mode:difference;filter:invert(1)}
+.breath{height:260vh}.breath-out{transition:none}
