@@ -280,16 +280,16 @@ addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd
 (function(){var sc=document.getElementById('scene');if(!sc)return;var rows=document.querySelectorAll('.move-table tbody tr');
 var H=document.getElementById('p-head'),T=document.getElementById('p-torso'),S=document.getElementById('p-shoulders'),AL=document.getElementById('p-armL'),AR=document.getElementById('p-armR'),PB=document.getElementById('p-back'),B=document.getElementById('p-breath'),ring=document.getElementById('ring'),
 tm=document.getElementById('sc-time'),mv=document.getElementById('sc-move'),fill=document.getElementById('sc-fill'),scr=document.getElementById('scr-t'),btn=document.getElementById('sc-play');
-var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,cur={h:0,s:0,a:0,b:0},names=['Neck release','Shoulder rolls','Chest opener','Long exhale'],MOVE=5000,CYCLE=MOVE*4,
+var R1=document.getElementById('rip1'),R2=document.getElementById('rip2'),G=document.getElementById('glow1'),cue=document.getElementById('sc-cue'),TINT=['#DCEBE1','#E3EBDA','#EAE6D6','#D6EAE3'],CUES=['Ear toward shoulder. Mild stretch only.','Up, back and down. Reverse halfway.','Hands behind. Let the chest lift.','Breathe out a little longer each time.'];var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,cur={h:0,s:0,a:0,b:0,x:0},names=['Neck release','Shoulder rolls','Chest opener','Long exhale'],MOVE=5000,CYCLE=MOVE*4,
 pos=0,last=null,playing=!reduce,visible=false;
 function pose(q){var m=Math.min(3,Math.floor(q*4)),f=(q*4)%1,w=Math.sin(f*Math.PI),t={h:0,s:0,a:0,b:0};
- if(m===0)t.h=Math.sin(f*Math.PI*2)*14;else if(m===1)t.s=Math.sin(f*Math.PI*4);else if(m===2)t.a=Math.min(1,w*1.6);else t.b=w;return [t,m];}
+ t.x=0;if(m===0)t.h=Math.sin(f*Math.PI*2)*18;else if(m===1){var ang=f*Math.PI*4;t.s=(1-Math.cos(ang))/2;t.x=Math.sin(ang)*3;}else if(m===2){t.a=Math.min(1,w*1.6);t.h=-w*4;}else t.b=w;return [t,m];}
 function frame(now){if(last===null)last=now;var dt=now-last;last=now;if(playing&&visible)pos=(pos+dt)%CYCLE;
 var q=pos/CYCLE,pm=pose(q),t=pm[0],m=pm[1],k=0.12;for(var x in cur)cur[x]+=(t[x]-cur[x])*k;var idle=Math.sin(now/1400);
 H.setAttribute('transform','rotate('+(cur.h+idle*.8).toFixed(2)+' 200 142) translate(0 '+(-cur.s*5).toFixed(2)+')');
-S.setAttribute('transform','translate(0 '+(-cur.s*5).toFixed(2)+')');AL.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');AR.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');
+S.setAttribute('transform','translate('+(-cur.x).toFixed(2)+' '+(-cur.s*6).toFixed(2)+')');AL.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');AR.setAttribute('transform','translate(0 '+(-cur.s*9).toFixed(2)+')');
 AL.setAttribute('opacity',(1-cur.a).toFixed(2));AR.setAttribute('opacity',(1-cur.a).toFixed(2));PB.setAttribute('opacity',cur.a.toFixed(2));
-T.setAttribute('transform','translate(0 '+(idle*1.4-cur.a*3).toFixed(2)+')');B.setAttribute('r',(cur.b*70).toFixed(1));
+T.setAttribute('transform','translate(0 '+(idle*1.4-cur.a*3).toFixed(2)+')');B.setAttribute('r',(cur.b*70).toFixed(1));var ph=(now%2600)/2600;R1.setAttribute('r',(cur.b*(40+ph*60)).toFixed(1));R1.setAttribute('opacity',(1-ph).toFixed(2));var ph2=((now+1300)%2600)/2600;R2.setAttribute('r',(cur.b*(40+ph2*60)).toFixed(1));R2.setAttribute('opacity',(1-ph2).toFixed(2));G.setAttribute('stop-color',TINT[m]);if(cue.textContent!==CUES[m])cue.textContent=CUES[m];
 var sec=Math.round(q*150),left=150-sec;tm.textContent=Math.floor(sec/60)+':'+('0'+sec%60).slice(-2)+' / 2:30';scr.textContent=Math.floor(left/60)+':'+('0'+left%60).slice(-2)+' left';
 mv.textContent=names[m];fill.style.width=(q*100)+'%';ring.setAttribute('stroke-dashoffset',(741.4*(1-q)).toFixed(1));
 rows.forEach(function(r,i){r.classList.toggle('now',i===m);});requestAnimationFrame(frame);}
