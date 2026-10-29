@@ -185,3 +185,18 @@ var els=document.querySelectorAll('main section h2,.data-table,.move-table,.week
 els.forEach(function(e){if(e.closest('.hero'))return;e.classList.add('rv');});
 var o=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');o.unobserve(x.target);}});},{rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.rv').forEach(function(e){o.observe(e);});})();
+
+/* Chapter rail for the stacked flow */
+(function(){if(!document.body.classList.contains('home'))return;
+var secs=[].slice.call(document.querySelectorAll('main > section')).filter(function(s){return s.querySelector('h1,h2');});
+var rail=document.createElement('nav');rail.className='rail';rail.setAttribute('aria-label','Chapters');
+secs.forEach(function(s,i){if(!s.id)s.id='ch'+i;var t=(s.querySelector('.eyebrow')||s.querySelector('h1,h2')).textContent.trim().split('·')[0].slice(0,28);
+var a=document.createElement('a');a.href='#'+s.id;a.innerHTML='<span>'+t+'</span><i></i>';rail.appendChild(a);});
+document.body.appendChild(rail);var links=rail.querySelectorAll('a');
+function upd(){var y=innerHeight*0.4,cur=0;secs.forEach(function(s,i){if(s.getBoundingClientRect().top<y)cur=i;});links.forEach(function(a,i){a.classList.toggle('on',i===cur);});}
+addEventListener('scroll',upd,{passive:true});upd();})();
+
+/* Tall chapters: stick only after their bottom is reached, so nothing is ever covered unread */
+(function(){if(!document.body.classList.contains('home'))return;var secs=document.querySelectorAll('main > section:not(.hero)');
+function fit(){secs.forEach(function(s){s.style.top=Math.min(0,innerHeight-s.offsetHeight)+'px';});}
+fit();addEventListener('resize',fit);addEventListener('load',fit);})();
