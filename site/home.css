@@ -704,3 +704,17 @@ body.home main > section#inbox{background:#E3EDE6!important}
 body.home main > section#pilot{background:#F6E8E2!important}
 body.home main > section#company{background:#E6EEE8!important}
 body.home main > section.wrong{margin:0!important;border-radius:0!important}
+
+/* ===== Breath interludes: the page pauses and breathes between chapters ===== */
+body.home main > section{clip-path:none!important}
+.breathring{display:none!important}
+.breath{height:170vh;position:relative}
+.breath-pin{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
+.breath-orb{position:absolute;left:50%;top:50%;width:200px;height:200px;margin:-100px 0 0 -100px;border-radius:50%;background:var(--bc,#E3EDE6);box-shadow:0 0 0 1px rgba(47,107,82,.15),0 0 80px 20px color-mix(in srgb,var(--bc,#E3EDE6) 70%,transparent);transform:scale(var(--s,0.15));will-change:transform}
+.breath-in,.breath-out{position:relative;margin:0;font:400 clamp(1.8rem,6vw,3.4rem)/1.1 var(--serif);color:var(--ink);text-align:center;transition:none}
+.breath-in{grid-area:1/1;opacity:var(--a,1);letter-spacing:calc(var(--sp,0) * .2em)}
+.breath-out{grid-area:1/1;opacity:var(--b,0);font-size:clamp(1.2rem,4vw,1.8rem);transform:translateY(calc((1 - var(--b,0)) * 16px))}
+@media (prefers-reduced-motion:reduce){.breath{display:none}}
+html,body{overflow-x:clip!important;overflow-y:visible}
+.breath{background:linear-gradient(var(--from,#F4EBDD),var(--from,#F4EBDD))}
+.breath.dark .breath-in{color:#F6F3EC}
