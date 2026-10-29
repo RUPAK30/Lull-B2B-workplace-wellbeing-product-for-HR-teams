@@ -665,3 +665,13 @@ body.home main > section:not(.hero) h2{background:none!important;-webkit-text-fi
 /* velocity response: headlines breathe with speed */
 body.home main > section:not(.hero) h2{letter-spacing:calc(-0.01em + var(--vel,0) * 0.01em);transition:letter-spacing .25s ease}
 html{scroll-behavior:auto!important}
+/* Mobile: centre the scene */
+@media (max-width:860px){.scene-col{width:100%;align-items:center}.scene{width:100%;max-width:520px;margin:0 auto!important}}
+/* ===== "Never a person", shown: names dissolve into a team count ===== */
+.email-body{position:relative}
+.aggr{position:absolute;inset:0;pointer-events:none;z-index:3}
+.aggr span{position:absolute;left:0;top:0;padding:4px 9px;border-radius:999px;background:#fff;border:1px solid var(--rule);font:500 .72rem var(--sans);color:var(--ink-2);white-space:nowrap;will-change:transform,opacity,filter}
+.email-stats strong{transition:opacity .4s}
+.email.agg-wait .email-stats strong{opacity:0}
+.agg-cap{position:absolute;left:16px;right:16px;bottom:8px;font:600 .72rem var(--sans);color:var(--accent);letter-spacing:.04em;text-align:center;z-index:4;transition:opacity .4s}
+.agg-cap{top:10px;bottom:auto!important;right:16px;left:auto;text-align:right}.aggr span{font-size:.8rem;padding:5px 11px;box-shadow:0 4px 10px -6px rgba(0,0,0,.25)}

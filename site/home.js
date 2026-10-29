@@ -316,3 +316,18 @@ function frame(){if(wheeling||Math.abs(target-smooth)>0.5){smooth+=(target-smoot
     var off=(r.top+r.height/2-vh/2)*L.d,t=off-v*Math.abs(L.d)*1.5;L.y+=(t-L.y)*0.15;L.el.style.transform='translate3d(0,'+L.y.toFixed(2)+'px,0)';});
   requestAnimationFrame(frame);}
 requestAnimationFrame(frame);})();
+
+/* Names dissolve into a count as you reach the Friday email: the product's privacy rule, felt. */
+(function(){var em=document.querySelector('.email');if(!em||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var body=em.querySelector('.email-body'),stats=em.querySelector('.email-stats');
+var N=['Aisha','Rohan','Meera','Kabir','Priya','Arjun','Neha','Vikram','Sana','Dev','Isha','Kunal','Tara','Rahul','Zoya','Nikhil','Ritu','Aman','Leela','Farhan','Pooja','Sid','Anya','Varun'];
+var box=document.createElement('div');box.className='aggr';box.setAttribute('aria-hidden','true');var cap=document.createElement('p');cap.className='agg-cap';cap.textContent='Names in. One number out.';
+var chips=N.map(function(n,i){var s=document.createElement('span');s.textContent=n;box.appendChild(s);return {el:s,x:Math.random(),y:Math.random(),r:(Math.random()-.5)*30,d:Math.random()*.25};});
+body.appendChild(box);body.appendChild(cap);em.classList.add('agg-wait');var done=false;
+function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+function upd(){var r=em.getBoundingClientRect(),vh=innerHeight,p=Math.max(0,Math.min(1,(vh*1.0-r.top)/(vh*0.75)));
+var bw=body.clientWidth,bh=body.clientHeight,sr=stats.getBoundingClientRect(),br=body.getBoundingClientRect(),tx=sr.left-br.left+sr.width*0.15,ty=sr.top-br.top+sr.height*0.3;
+chips.forEach(function(c){var q=ease(Math.max(0,Math.min(1,(p-c.d)/(1-c.d)))),sx=c.x*(bw-70),sy=c.y*(bh-30),x=sx+(tx-sx)*q,y=sy+(ty-sy)*q;
+c.el.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px) rotate('+(c.r*(1-q)).toFixed(1)+'deg) scale('+(1-q*0.7).toFixed(2)+')';
+c.el.style.filter='blur('+(q*6).toFixed(1)+'px)';c.el.style.opacity=(q>0.92?0:1-q*0.4).toFixed(2);c.el.style.color=q>.45?'transparent':'';});
+cap.style.opacity=p>0.05&&p<0.97?1:0;var fin=p>0.93;em.classList.toggle('agg-wait',!fin);if(fin&&!done){done=true;stats.querySelectorAll('strong').forEach(function(s){s.classList.remove('bump');void s.offsetWidth;s.classList.add('bump');});}if(!fin)done=false;}
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();
