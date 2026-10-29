@@ -423,3 +423,7 @@ p{margin:0}
 .doc-section a.btn{text-decoration:none}
 .doc-section a.btn-primary{color:var(--on-accent)}
 .doc-section a.btn-ghost{color:var(--ink)}
+
+/* audit fixes */
+.doc-section a:not(.btn):not(.download){text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.lane h2.lane-h{margin:0;font:600 .8125rem/1.4 var(--sans);letter-spacing:0}
