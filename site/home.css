@@ -676,3 +676,17 @@ html{scroll-behavior:auto!important}
 .agg-cap{position:absolute;left:16px;right:16px;bottom:8px;font:600 .72rem var(--sans);color:var(--accent);letter-spacing:.04em;text-align:center;z-index:4;transition:opacity .4s}
 .agg-cap{top:10px;bottom:auto!important;right:16px;left:auto;text-align:right}.aggr span{font-size:.8rem;padding:5px 11px;box-shadow:0 4px 10px -6px rgba(0,0,0,.25)}
 .agg-replay{position:absolute;right:12px;top:8px;z-index:5;border:1px solid var(--rule);background:#fff;border-radius:999px;padding:6px 12px;min-height:32px;font:600 .75rem var(--sans);color:var(--accent);cursor:pointer;pointer-events:auto}.agg-replay[hidden]{display:none}
+
+/* ===== Chapters: one screen each, snapping into place ===== */
+html{scroll-snap-type:y proximity}
+body.home main > section{scroll-snap-align:start;scroll-margin-top:0;min-height:100svh;display:flex;flex-direction:column;justify-content:center;box-sizing:border-box}
+body.home main > section > .wrap{width:100%}
+body.home main > section.wrong{min-height:calc(100svh - 48px)}
+body.home .footnotes{min-height:0;scroll-snap-align:none}
+body.home main > section > .wrap{transition:opacity .6s ease,transform .6s ease}
+body.home main > section:not(.is-current):not(.hero) > .wrap{opacity:.45;transform:scale(.985)}
+.chap{position:fixed;top:72px;right:16px;z-index:60;display:flex;align-items:center;gap:6px;font:600 .78rem var(--sans);color:var(--ink-3);font-variant-numeric:tabular-nums;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);padding:6px 10px;border-radius:999px}
+.chap b{color:var(--ink);display:inline-block}.chap i{width:14px;height:1px;background:var(--rule-2)}
+.chap b.flip{animation:flip .45s cubic-bezier(.2,.9,.2,1)}
+@keyframes flip{from{transform:translateY(8px);opacity:0}}
+@media (prefers-reduced-motion:reduce){html{scroll-snap-type:none}body.home main > section > .wrap{opacity:1!important;transform:none!important}}

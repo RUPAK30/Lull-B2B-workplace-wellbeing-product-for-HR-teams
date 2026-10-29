@@ -299,23 +299,7 @@ if(reduce){btn.textContent='▶';btn.setAttribute('aria-label','Play');}
 if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting;},{threshold:.3}).observe(sc);else visible=true;
 requestAnimationFrame(frame);})();
 
-/* Page flow: inertial scroll on desktop, depth parallax and velocity response. Physical, continuous, never a "transition". */
-(function(){if(!document.body.classList.contains('home'))return;if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
-var layers=[].map.call(document.querySelectorAll('main > section:not(.hero) h2, .email, .price, .rules, .app-shot, .scene, .move-table, .week-table, .fail-table, .company .wrap > *:last-child, .tune'),function(el){
-  var d=el.matches('h2')?0.06:el.matches('.scene,.app-shot,.email')?-0.08:el.matches('.price,.rules,.tune')?-0.05:0.03;el.style.willChange='transform';return {el:el,d:d,y:0};});
-var target=scrollY,smooth=scrollY,lastY=scrollY,vel=0,wheeling=false,wt;
-if(fine){addEventListener('wheel',function(e){if(e.ctrlKey||e.defaultPrevented)return;if(e.target.closest('.asksheet,.dock-ch,input,textarea,select'))return;
-  e.preventDefault();if(!wheeling){target=smooth=scrollY;}wheeling=true;clearTimeout(wt);wt=setTimeout(function(){wheeling=false;},220);
-  var max=document.documentElement.scrollHeight-innerHeight;target=Math.max(0,Math.min(max,target+e.deltaY*(e.deltaMode===1?32:1)));},{passive:false});}
-addEventListener('scroll',function(){if(!wheeling){target=smooth=scrollY;}},{passive:true});
-function frame(){if(wheeling||Math.abs(target-smooth)>0.5){smooth+=(target-smooth)*0.11;if(Math.abs(target-smooth)<0.5)smooth=target;scrollTo(0,smooth);}
-  var y=scrollY;vel+=((y-lastY)-vel)*0.2;lastY=y;var v=Math.max(-40,Math.min(40,vel));
-  document.body.style.setProperty('--vel',(v/40).toFixed(3));
-  var vh=innerHeight;layers.forEach(function(L){var r=L.el.getBoundingClientRect();if(r.bottom<-200||r.top>vh+200)return;
-    var off=(r.top+r.height/2-vh/2)*L.d,t=off-v*Math.abs(L.d)*1.5;L.y+=(t-L.y)*0.15;L.el.style.transform='translate3d(0,'+L.y.toFixed(2)+'px,0)';});
-  requestAnimationFrame(frame);}
-requestAnimationFrame(frame);})();
+
 
 /* Names dissolve into a count as you reach the Friday email: the product's privacy rule, felt. */
 (function(){var em=document.querySelector('.email');if(!em||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var body=em.querySelector('.email-body'),stats=em.querySelector('.email-stats');
@@ -335,3 +319,12 @@ var playing=false;function play(){if(playing)return;playing=true;rb.hidden=true;
 setTimeout(function(){requestAnimationFrame(function step(t){if(t0===null)t0=t;P=Math.min(1,(t-t0)/D);upd();if(P<1)requestAnimationFrame(step);else{playing=false;rb.hidden=false;}});},500);}
 rb.addEventListener('click',play);upd();
 if('IntersectionObserver' in window)new IntersectionObserver(function(es){if(es[0].isIntersecting&&!playing&&P<1)play();},{threshold:0.7}).observe(em);else{P=1;upd();}})();
+
+/* Chapter-by-chapter: each section is one screen, the page settles on it like turning a page. */
+(function(){if(!document.body.classList.contains('home'))return;var secs=[].slice.call(document.querySelectorAll('main > section')).filter(function(x){return !x.classList.contains('footnotes');});
+var c=document.createElement('div');c.className='chap';c.setAttribute('aria-hidden','true');c.innerHTML='<b id="chap-n">01</b><i></i><span>'+('0'+secs.length).slice(-2)+'</span>';document.body.appendChild(c);var n=c.querySelector('#chap-n'),cur=-1;
+function upd(){var mid=innerHeight*0.5,k=0;secs.forEach(function(x,i){if(x.getBoundingClientRect().top<mid)k=i;});if(k!==cur){cur=k;n.textContent=('0'+(k+1)).slice(-2);n.classList.remove('flip');void n.offsetWidth;n.classList.add('flip');secs.forEach(function(x,i){x.classList.toggle('is-current',i===k);});}}
+addEventListener('scroll',upd,{passive:true});upd();
+/* Keyboard: arrows / PageDown move one chapter, like a deck */
+addEventListener('keydown',function(e){if(e.target.closest('input,textarea,select,[contenteditable]')||!document.getElementById('asksheet').hidden)return;var d=(e.key==='ArrowDown'||e.key==='PageDown')?1:(e.key==='ArrowUp'||e.key==='PageUp')?-1:0;if(!d)return;
+ var t=secs[Math.max(0,Math.min(secs.length-1,cur+d))];var r=t.getBoundingClientRect();if(d===1&&secs[cur].getBoundingClientRect().bottom>innerHeight+40&&e.key==='ArrowDown')return;e.preventDefault();t.scrollIntoView({behavior:'smooth'});});})();
