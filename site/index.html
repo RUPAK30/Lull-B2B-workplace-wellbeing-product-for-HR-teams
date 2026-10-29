@@ -128,38 +128,22 @@
     <div class="scene-col">
       <figure class="scene" id="scene" aria-label="Illustration: someone at their desk doing the four moves as you scroll">
         <svg viewBox="0 0 400 300" role="img" aria-hidden="true">
-          <defs>
-            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" id="sky1" stop-color="#F7E3C4"/><stop offset="1" id="sky2" stop-color="#F3EEE3"/></linearGradient>
-          </defs>
-          <rect width="400" height="300" fill="#F4EFE6"/>
-          <rect x="250" y="34" width="118" height="96" rx="8" fill="url(#sky)" stroke="#D9CFBF" stroke-width="3"/>
-          <circle id="sun" cx="300" cy="96" r="12" fill="#F2B866"/>
-          <line x1="309" y1="34" x2="309" y2="130" stroke="#D9CFBF" stroke-width="3"/>
-          <rect x="0" y="232" width="400" height="68" fill="#EAE2D5"/>
-          <!-- chair -->
-          <rect x="112" y="150" width="14" height="84" rx="7" fill="#C9BBA6"/>
-          <rect x="100" y="206" width="70" height="12" rx="6" fill="#C9BBA6"/>
-          <line x1="135" y1="218" x2="135" y2="262" stroke="#B7A891" stroke-width="6"/><line x1="112" y1="266" x2="160" y2="266" stroke="#B7A891" stroke-width="6" stroke-linecap="round"/>
-          <!-- desk -->
-          <rect x="176" y="190" width="200" height="10" rx="4" fill="#B98F68"/>
-          <line x1="196" y1="200" x2="196" y2="268" stroke="#A47C57" stroke-width="7"/><line x1="356" y1="200" x2="356" y2="268" stroke="#A47C57" stroke-width="7"/>
-          <rect x="228" y="140" width="80" height="50" rx="5" fill="#2A3530"/><rect x="234" y="146" width="68" height="38" rx="2" fill="#3E5A4C" id="screen"/>
-          <text x="268" y="170" text-anchor="middle" font-size="11" font-family="Inter,sans-serif" fill="#CFE8D8" id="scr-t">2:30</text>
-          <rect x="214" y="188" width="108" height="4" rx="2" fill="#1C2420"/>
-          <rect x="334" y="170" width="16" height="20" rx="3" fill="#F7F3EC" stroke="#CBBFAE" stroke-width="2"/>
-          <path id="steam" d="M342 166 q-4 -8 0 -14" stroke="#CBBFAE" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <!-- person -->
-          <g id="p">
-            <path d="M150 232 L188 232 L196 270" stroke="#2F4A5E" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs><radialGradient id="glow" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#DCEBE1"/><stop offset="1" stop-color="#F4EFE6"/></radialGradient></defs>
+          <rect width="400" height="300" fill="url(#glow)"/>
+          <circle cx="200" cy="150" r="118" fill="none" stroke="#E3DACB" stroke-width="3"/>
+          <circle id="ring" cx="200" cy="150" r="118" fill="none" stroke="#2F6B52" stroke-width="3" stroke-linecap="round" stroke-dasharray="741.4" stroke-dashoffset="741.4" transform="rotate(-90 200 150)"/>
+          <circle id="p-breath" cx="200" cy="168" r="0" fill="rgba(143,209,172,.28)"/>
+          <g fill="none" stroke="#1F4D3A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
             <g id="p-torso">
-              <path d="M128 230 C126 196 130 168 142 150 L162 150 C170 170 170 200 166 230 Z" fill="#3F7A5F"/>
-              <g id="p-back" opacity="0"><path d="M142 158 C128 178 124 196 132 206" stroke="#356A51" stroke-width="13" fill="none" stroke-linecap="round"/><path d="M160 158 C150 180 140 198 134 206" stroke="#3F7A5F" stroke-width="13" fill="none" stroke-linecap="round"/><circle cx="133" cy="208" r="7" fill="#C98E6A"/></g>
-              <g id="p-armL"><path d="M140 158 C130 178 136 196 158 198" stroke="#3F7A5F" stroke-width="14" fill="none" stroke-linecap="round"/><circle id="p-handL" cx="160" cy="198" r="7" fill="#C98E6A"/></g>
-              <g id="p-armR"><path d="M160 158 C176 172 196 182 214 184" stroke="#3F7A5F" stroke-width="14" fill="none" stroke-linecap="round"/><circle cx="216" cy="184" r="7" fill="#C98E6A"/></g>
-              <g id="p-head"><rect x="146" y="132" width="12" height="16" rx="5" fill="#C98E6A"/><circle cx="152" cy="118" r="20" fill="#C98E6A"/><path d="M132 114 C134 96 168 92 172 112 C164 104 144 104 132 114 Z" fill="#2B2420"/><circle id="eye" cx="160" cy="120" r="2" fill="#2B2420"/></g>
+              <path d="M200 132 L200 214"/>
+              <g id="p-shoulders"><path d="M168 140 Q200 130 232 140"/></g>
+              <g id="p-armL"><path d="M168 140 Q160 170 172 196"/></g>
+              <g id="p-armR"><path d="M232 140 Q240 170 228 196"/></g>
+              <g id="p-back" opacity="0"><path d="M168 140 Q156 176 196 206"/><path d="M232 140 Q244 176 204 206"/></g>
+              <g id="p-head"><circle cx="200" cy="102" r="17"/><path d="M200 119 L200 132"/></g>
             </g>
-            <circle id="p-breath" cx="150" cy="176" r="0" fill="rgba(143,209,172,.35)"/>
           </g>
+          <text x="200" y="262" text-anchor="middle" font-size="13" font-family="Inter,sans-serif" fill="#5B6670" id="scr-t">2:30</text>
         </svg>
         <figcaption><span id="sc-time">3:40 pm</span><span id="sc-move">Between calls</span></figcaption>
         <div class="sc-bar"><i id="sc-fill"></i></div>
