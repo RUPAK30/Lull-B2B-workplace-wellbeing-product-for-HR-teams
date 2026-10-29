@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Lull · A 3-minute reset between calls</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Sukoon · A 3-minute reset between calls</title>
 <meta name="description" content="A 3-minute guided movement reset between calls, matched to how you say you feel. Private: your company sees team totals only.">
 <meta name="theme-color" content="#2A5444"><link rel="icon" href="./web/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./web/icon-192.png">
 <link rel="stylesheet" href="./web/styles.css"><script type="module" src="./shim.js"></script><script type="module" src="./web/app.js"></script><style>#tab-dev,#panel-dev{display:none!important}</style></head>
 <body data-phase="idle">
 <a class="skip-link" href="#screen">Skip to the session</a>
 <header class="topbar">
-  <a href="./" class="brand" aria-label="Lull home"><span class="brand-mark" aria-hidden="true"></span><span>lull</span></a>
+  <a href="./" class="brand" aria-label="Sukoon home"><span class="brand-mark" aria-hidden="true"></span><span>sukoon</span></a>
   <div id="progress" class="progress" aria-label="Session progress"></div>
   <div class="topbar-actions">
     <button id="pause" class="ghost" disabled>Pause</button>
@@ -17,18 +17,18 @@
 <main class="app">
   <section class="preview" data-phase="idle" aria-label="Session">
     <div id="aura" aria-hidden="true"></div>
-    <div id="pending" class="notice" hidden>Lull is thinking…</div>
+    <div id="pending" class="notice" hidden>Sukoon is thinking…</div>
     <div id="paused" class="notice" hidden>Paused. Your place is kept.</div>
     <p id="caption" class="caption" hidden></p>
     <div id="screen" tabindex="-1"></div>
     <nav id="navigation" class="row" hidden aria-label="Session steps"><button id="back">← Back</button><span id="position" class="micro"></span><button id="next" class="primary">Next →</button></nav>
-    <section class="spoken" aria-label="Lull says"><p id="spoken"></p></section>
+    <section class="spoken" aria-label="Sukoon says"><p id="spoken"></p></section>
   </section>
-  <section class="talk" aria-label="Talk to Lull">
+  <section class="talk" aria-label="Talk to Sukoon">
     <div id="error" role="alert" hidden><p id="error-message"></p><button id="retry">Try again</button></div>
     <form id="composer">
       <label for="message" id="status" class="sr-only" role="status">Ready when you are</label>
-      <textarea id="message" rows="1" maxlength="2000" placeholder="Tell Lull what today needs…"></textarea>
+      <textarea id="message" rows="1" maxlength="2000" placeholder="Tell Sukoon what today needs…"></textarea>
       <button id="cancel" type="button" class="ghost" disabled hidden>Stop</button>
       <button id="send" class="primary" disabled>Send</button>
     </form>
@@ -47,7 +47,7 @@
     <button id="close-drawer" class="ghost icon" type="button" aria-label="Close menu">✕</button>
   </div>
   <section id="panel-talk" class="drawer-panel" data-panel="talk" role="tabpanel" aria-labelledby="tab-talk">
-    <div class="panel-row"><p class="micro">Everything you and Lull said in this session.</p><button id="reset">Start over</button></div>
+    <div class="panel-row"><p class="micro">Everything you and Sukoon said in this session.</p><button id="reset">Start over</button></div>
     <div id="transcript" role="log" aria-label="Conversation history"></div>
   </section>
   <section id="panel-settings" class="drawer-panel" data-panel="settings" role="tabpanel" aria-labelledby="tab-settings" hidden>
@@ -64,7 +64,7 @@
     <label class="toggle"><input type="checkbox" id="pref-remember"><span><strong>Remember me here</strong> Your name and last session, stored only in this browser. Nothing is sent anywhere.</span></label>
     <button id="forget" type="button">Forget me on this device</button>
     <h2>Your reset time</h2>
-    <p class="micro">A weekday reminder on your own calendar or in Slack. Lull never sends reminders itself.</p>
+    <p class="micro">A weekday reminder on your own calendar or in Slack. Sukoon never sends reminders itself.</p>
     <div id="reminder-settings"></div>
     <h2>What leaves this device</h2>
     <div id="sent-box"></div>
@@ -73,8 +73,8 @@
     <button id="clear-log" type="button">Clear my activity log</button>
     <p id="clear-log-done" class="micro clear-done" role="status"></p>
     <h2>About</h2>
-    <p class="micro"><a href="../safety.html">Safety and limits</a>: how pain is handled, what Lull never claims, and what hasn’t been reviewed yet. <a href="../">Lull for teams</a>.</p>
-    <p class="micro settings-note">Lull is text only. It can’t see or hear you, and timers measure time on this page, not movement.</p>
+    <p class="micro"><a href="../safety.html">Safety and limits</a>: how pain is handled, what Sukoon never claims, and what hasn’t been reviewed yet. <a href="../">Sukoon for teams</a>.</p>
+    <p class="micro settings-note">Sukoon is text only. It can’t see or hear you, and timers measure time on this page, not movement.</p>
   </section>
   <section id="panel-dev" class="drawer-panel" data-panel="dev" role="tabpanel" aria-labelledby="tab-dev" hidden>
     <button id="open-insights" class="primary" type="button">Open product insights</button>

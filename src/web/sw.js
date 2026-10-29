@@ -1,4 +1,4 @@
-// Lull service worker: network-first, so the running app always serves fresh code;
+// Sukoon service worker: network-first, so the running app always serves fresh code;
 // the cached shell is only a fallback. Conversation requests (/api) are never cached.
 const CACHE = 'lull-shell-v1';
 self.addEventListener('install', event => { self.skipWaiting(); event.waitUntil(caches.open(CACHE).then(c => c.addAll(['/', '/web/styles.css', '/web/app.js', '/web/icon.svg']).catch(() => undefined))); });

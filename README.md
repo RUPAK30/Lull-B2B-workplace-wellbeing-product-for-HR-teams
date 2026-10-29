@@ -1,10 +1,10 @@
-# Lull
+# Sukoon
 
 **A three-minute movement break for teams, with proof and no surveillance.**
 
 [Live site](https://lull-hr.vercel.app/) · [Product](https://lull-hr.vercel.app/#product) · [Security and data](https://lull-hr.vercel.app/trust) · [Pilot and pricing](https://lull-hr.vercel.app/pilot) · [Sample report](https://lull-hr.vercel.app/report) · [Safety](https://lull-hr.vercel.app/safety) · [Try the 2:30](https://lull-hr.vercel.app/app/?taster=1)
 
-Lull is an early-stage product for HR and TA leads at 10–250 person companies in India. An employee opens one link, takes a seated 2:30 reset, and closes it. HR gets one line per team per week: how many started, how many finished. Never who.
+Sukoon is an early-stage product for HR and TA leads at 10–250 person companies in India. An employee opens one link, takes a seated 2:30 reset, and closes it. HR gets one line per team per week: how many started, how many finished. Never who.
 
 No app, no account, no roster, no HRIS. The pilot is free for the first six teams.
 
@@ -34,7 +34,7 @@ Teams appear only at 10 starters, and the next-smallest team is suppressed so a 
 | `/trust` | Trust centre: data, small numbers, roles, subprocessors, retention, AI, DPA summary, employee notice, security, pack |
 | `/pilot` | The offer, what we need, the six weeks, price after, FAQ, booking |
 | `/report` | Illustrative week-6 report, with how it is calculated and print styles |
-| `/safety` | Pain handling, red flags, when to check with a clinician, what Lull is not, review status |
+| `/safety` | Pain handling, red flags, when to check with a clinician, what Sukoon is not, review status |
 | `/privacy` | This website's notice: cookieless analytics, short-lived logs, email |
 | `/terms` | Site, demo, and pilot terms |
 | `/404` | Not found |
@@ -76,7 +76,7 @@ The local app never sends pilot counts: its Content Security Policy allows only 
 
 ## How it understands people
 
-People type how they feel, in English or Hinglish. **Claude can read that; Lull's own code draws every screen.** Claude returns a checked interpretation, so it cannot invent a movement, a duration, or medical wording.
+People type how they feel, in English or Hinglish. **Claude can read that; Sukoon's own code draws every screen.** Claude returns a checked interpretation, so it cannot invent a movement, a duration, or medical wording.
 
 - **Safety has a floor.** A fixed word and phrase list always runs. Claude can add caution, never remove it. If Claude is unavailable, the list answers and the app says so.
 - **AI is off by default, and off in every pilot.** The public demo is scripted. The optional guided mode sends typed text to Anthropic, which deletes it within 30 days and does not train on it by default.
@@ -85,7 +85,7 @@ People type how they feel, in English or Hinglish. **Claude can read that; Lull'
 ## Product tour
 
 1. **Start.** One question: “How are you feeling right now?” Tap a work moment or type it.
-2. **One reset.** Lull says what it heard and suggests one reset with its reason and real length. Seated or standing.
+2. **One reset.** Sukoon says what it heard and suggests one reset with its reason and real length. Seated or standing.
 3. **The reset.** Four steps, dial timer, real time. “Too easy” offers standing; “joining a call” offers seated. “My shoulder hurts” or “kamar mein dard” triggers the safety hold.
 4. **End.** “Back to your day.” Optional “How did that feel?”, and an opt-in weekday reminder on the person's own calendar or Slack.
 
@@ -116,6 +116,6 @@ On Windows, four tests are skipped with a stated reason: three need the full-scr
 - **No certifications.** No SOC 2, ISO 27001, or penetration test. The trust centre says exactly what exists instead.
 - **Booking is email.** There is no Cal.com link yet; `mailto:rupakr2g@gmail.com` is the honest route.
 - **No HRIS, SSO, WhatsApp, or Slack read access.** Reminders are the person's own. There are no live-activity counters.
-- **Timers measure time on a page, not movement.** The evidence on microbreaks is mixed; Lull claims only a short, optional break, not pain relief or productivity gains.
+- **Timers measure time on a page, not movement.** The evidence on microbreaks is mixed; Sukoon claims only a short, optional break, not pain relief or productivity gains.
 
 The internal product notes, sources, and decisions are in `docs/`.

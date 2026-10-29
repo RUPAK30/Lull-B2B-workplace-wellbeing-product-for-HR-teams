@@ -9,7 +9,7 @@ async function closeDrawer(page){if(await page.locator('#drawer').isVisible())aw
 async function startOver(page){if(await page.locator('#drawer').isHidden())await page.locator('#menu').click();await page.getByRole('tab',{name:'Conversation'}).click();await page.locator('#reset').click({trial:false});await closeDrawer(page);}
 // The optional 3-2-1 countdown is covered by its own test; elsewhere timers start on click.
 test.beforeEach(async({page})=>{await page.addInitScript(()=>{if(!localStorage.getItem('sw.prefs'))localStorage.setItem('sw.prefs',JSON.stringify({ready:false,readySet:true}));localStorage.setItem('sw.exp.home-quick','A');});await page.goto('/');await expect(page.locator('#mode')).toHaveText('MOCK · NO MODEL CALLS');});
-test('Lull opens on how you feel: one question, one suggested reset, then seated or standing',async({page})=>{
+test('Sukoon opens on how you feel: one question, one suggested reset, then seated or standing',async({page})=>{
  await page.setViewportSize({width:1440,height:1000});await page.locator('#workout').click();await expect(page.locator('#screen')).toContainText('How are you feeling right now?');await expect(page.locator('#spoken')).toContainText('Three minutes, then back');
  await expect(page.locator('#next')).toBeDisabled();await expect(page.locator('#next')).toHaveText('Answer above');await expect(page.locator('#position')).toHaveText('1 / 1');
  for(const moment of ['After back-to-back calls','Stiff from sitting','Post-lunch slump','Stressed, can’t switch off','Tired eyes and wrists'])await expect(page.getByRole('button',{name:moment})).toBeVisible();
@@ -77,15 +77,15 @@ test('pain changes the interface: a calm safety screen, no reset choices, and a 
 });
 test('in a reset: a safety report pauses the running timer and holds; seated or standing keeps your place',async({page})=>{
  await page.setViewportSize({width:1440,height:1000});await send(page,'/reset unknot seated');await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Neck side release');
- const ask=page.getByLabel('Something changed? Tell Lull');await ask.fill('this is too easy');await ask.press('Enter');await expect(page.locator('#screen .alert')).toContainText('standing version');
+ const ask=page.getByLabel('Something changed? Tell Sukoon');await ask.fill('this is too easy');await ask.press('Enter');await expect(page.locator('#screen .alert')).toContainText('standing version');
  await page.getByRole('button',{name:'Switch to standing'}).click();await expect(page.locator('.workout-intent')).toContainText('Unknot neck & shoulders · standing');await expect(page.locator('#position')).toHaveText('2 / 6');
  await page.getByRole('button',{name:'Start',exact:true}).click();await expect(page.locator('.timer-status')).toHaveText('running');
- await page.getByLabel('Something changed? Tell Lull').fill('ouch, my shoulder hurts');await page.getByLabel('Something changed? Tell Lull').press('Enter');
+ await page.getByLabel('Something changed? Tell Sukoon').fill('ouch, my shoulder hurts');await page.getByLabel('Something changed? Tell Sukoon').press('Enter');
  await expect(page.locator('#screen .alert-warning')).toContainText('I’ve paused the timer');await expect(page.locator('.preview')).toHaveAttribute('data-phase','care');
  await expect(page.locator('.timer')).toBeHidden();await expect(page.locator('#next')).toBeDisabled();await expect(page.locator('#back')).toBeDisabled();await expect(page.locator('.event',{hasText:'for safety'})).toHaveCount(0);
  await page.getByRole('button',{name:'I’ve rested and feel okay'}).click();await expect(page.locator('.timer-status')).toHaveText('paused');await expect(page.getByRole('button',{name:'Resume timer'})).toBeEnabled();await expect(page.locator('#next')).toBeEnabled();
 });
-test('the active reset is one stage: step, live timer, progress, next step and Lull together',async({page})=>{
+test('the active reset is one stage: step, live timer, progress, next step and Sukoon together',async({page})=>{
  await page.setViewportSize({width:1440,height:1000});await page.locator('#workout').click();
  const f=page.getByLabel('Or in your own words');await f.fill('so sleepy after lunch');await f.press('Enter');await page.getByRole('button',{name:'Start standing · 2:25'}).click();
  const stage=page.locator('.workout');await expect(stage).toBeVisible();await expect(stage.locator('.workout-count')).toHaveText('Step 1 of 4');await expect(stage.locator('.workout-intent')).toContainText('Energy lift · standing · kept light');await expect(stage.locator('.workout-next-title')).toHaveText('Tall reach');
@@ -98,8 +98,8 @@ test('the active reset is one stage: step, live timer, progress, next step and L
 test('feedback during a reset adapts the stage without errors, even with an unanswered offer',async({page})=>{
  await page.setViewportSize({width:1440,height:1000});await send(page,'/reset energy standing');await page.locator('#next').click();
  await page.getByRole('button',{name:'Start',exact:true}).click();await page.getByRole('button',{name:'Finish now',exact:true}).click();
- const ask=async t=>{const f=page.getByLabel('Something changed? Tell Lull');await f.fill(t);await f.press('Enter');await expect(page.locator('#pending')).toBeHidden();};
- await ask('a colleague is right next to me, too much');await expect(page.locator('.workout-offer')).toContainText('Lull suggests');await page.locator('#next').click();await expect(page.locator('.workout-count')).toHaveText('Step 2 of 4');
+ const ask=async t=>{const f=page.getByLabel('Something changed? Tell Sukoon');await f.fill(t);await f.press('Enter');await expect(page.locator('#pending')).toBeHidden();};
+ await ask('a colleague is right next to me, too much');await expect(page.locator('.workout-offer')).toContainText('Sukoon suggests');await page.locator('#next').click();await expect(page.locator('.workout-count')).toHaveText('Step 2 of 4');
  await ask('too easy');await expect(page.locator('#error')).toBeHidden();await expect(page.locator('.workout-offer')).toContainText('already the standing version');
  await page.getByRole('button',{name:'Keep this one'}).click();await ask('I am joining a call now');await page.getByRole('button',{name:'Switch to seated'}).click();
  await expect(page.locator('.workout-adjusted')).toHaveText('Adjusted · now energy lift, seated');await expect(page.locator('.workout-count')).toHaveText('Step 2 of 4');await expect(page.locator('.workout-intent')).toContainText('Energy lift · seated');

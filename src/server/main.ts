@@ -7,7 +7,7 @@ try {
   if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('PORT must be an integer from 1024 to 65535.');
   const server = createApp(config);
   server.on('error', () => { console.error('Could not start the local server. Try another PORT.'); process.exitCode = 1; });
-  server.listen(port, '127.0.0.1', () => console.log(`Lull: http://127.0.0.1:${port} · starts in mock mode`));
+  server.listen(port, '127.0.0.1', () => console.log(`Sukoon: http://127.0.0.1:${port} · starts in mock mode`));
 } catch (error) {
   console.error(error instanceof Error ? error.message : 'Invalid local configuration.'); process.exitCode = 1;
 }

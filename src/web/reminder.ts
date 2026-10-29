@@ -1,5 +1,5 @@
 // "Make it a habit": the person picks a time and puts a recurring reminder on their own calendar
-// or in Slack. Lull never schedules or sends reminders itself, so skipping a day costs nothing.
+// or in Slack. Sukoon never schedules or sends reminders itself, so skipping a day costs nothing.
 import { reminderGoogle, reminderIcs, reminderSlack, teamResetInvite } from '../shared/pilot.js';
 import { el, button } from './dom.js';
 import { track } from './analytics.js';
@@ -12,7 +12,7 @@ const save = (value: string) => { try { localStorage.setItem(TIME, value); } cat
 /** The reminder card shown after a finished session and in Settings. */
 export function reminderCard(compact = false) {
   const n = el('section', '', 'reminder' + (compact ? ' compact' : ''));
-  if (!compact) n.append(el('p', 'Make it a habit', 'reminder-q'), el('p', 'Pick a time and add it to your own calendar or Slack. Skip any day you like: Lull won’t follow up.', 'micro'));
+  if (!compact) n.append(el('p', 'Make it a habit', 'reminder-q'), el('p', 'Pick a time and add it to your own calendar or Slack. Skip any day you like: Sukoon won’t follow up.', 'micro'));
   const row = el('div', '', 'row reminder-time'), label = el('label', 'Weekdays at'), input = el('input');
   input.type = 'time'; input.id = compact ? 'reminder-time-settings' : 'reminder-time'; input.value = saved(); label.htmlFor = input.id;
   input.addEventListener('change', () => save(input.value));

@@ -68,7 +68,7 @@ test('free text is read for the body part and the moment, and context sets the p
   assert.deepEqual(pick('neck is stiff and I am on a call in 5'),['suggest','unknot','seated']);
   assert.deepEqual(pick('I want to stand up and move'),['suggest','energy','standing']);
   assert.equal(pick('I want to go for a run')[1],'energy','outside scope lands on the closest desk reset');
-  assert.match(interpretNeed('I want to go for a run').ack,/outside what Lull does/);
+  assert.match(interpretNeed('I want to go for a run').ack,/outside what Sukoon does/);
   assert.equal(interpretNeed('asdf').kind,'clarify');
   // Punctuation is dropped before matching: "stiff, back-to-back" must not become "stiff back".
   const calls=interpretNeed('neck is stiff, back to back calls');assert.equal(calls.reset,'unknot');assert(!calls.heard.includes('back'),'back-to-back is about calls, not a back');

@@ -55,20 +55,20 @@ function upNext(key) { const screens = c.document.screens, i = screens.findIndex
     return null; const children = next.props.children, title = children.find(n => n.name === 'Text' && n.props.variant === 'title'); return { label: title ? String(title.props.text).replace(/^\d+ of \d+ · /, '') : `step ${i + 2}`, closing: children.some(n => n.name === 'Recap') }; }
 function advance(key) { const holds = (c.document.current?.props.children ?? []).some(n => n.key === key); if (!holds || nav.phase() !== 'idle' || paused)
     return; nav.next(); }
-/** Lull's ambient presence follows the activity: present at arrival, receding during movement, calm at the close. */
+/** Sukoon's ambient presence follows the activity: present at arrival, receding during movement, calm at the close. */
 const hasTimer = (s) => s.props.children.some(n => n.name === 'Timer');
 /** A movement screen: it has a timer and no safety notice. These render as one continuous reset stage. */
 function isWorkout(s) { const kids = s?.props.children; return !!kids && hasTimer(s) && !kids.some(n => n.name === 'Alert' && (n.props.tone === 'warning' || n.props.tone === 'danger')); }
 /** The active reset, composed as one guided stage:
- *  header (Lull, session, progress) → movement stage (name, instruction, dial timer, controls, cues)
- *  → up next + Lull companion (guidance, offers, "Tell Lull") → session navigation. */
+ *  header (Sukoon, session, progress) → movement stage (name, instruction, dial timer, controls, cues)
+ *  → up next + Sukoon companion (guidance, offers, "Tell Sukoon") → session navigation. */
 function renderWorkout(current, ctx) {
     const kids = current.props.children, screens = c.document.screens, moves = screens.filter(hasTimer), pos = moves.findIndex(s => s.key === current.key);
     const of = (name) => kids.find(n => n.name === name), rail = of('Rail'), intent = String(rail?.props.intent ?? ''), timerNode = of('Timer');
     const stage = el('section', '', 'workout');
     // Header: who is with you, what this session is, where you are in it.
     const head = el('div', '', 'workout-head'), mark = el('p', '', 'workout-mark'), progress = button('', () => toggleSheet(), 'workout-progress'), track = el('div', '', 'workout-track');
-    mark.append(el('span', '', 'sw-dot'), el('span', 'Lull', 'sw-name'), el('span', intent || 'Session', 'workout-intent'));
+    mark.append(el('span', '', 'sw-dot'), el('span', 'Sukoon', 'sw-name'), el('span', intent || 'Session', 'workout-intent'));
     track.setAttribute('aria-hidden', 'true');
     const dots = moves.map(() => { const d = el('span'); track.append(d); return d; });
     progress.setAttribute('aria-expanded', 'false');
@@ -126,7 +126,7 @@ function renderWorkout(current, ctx) {
         list.classList.add('workout-cues');
         hero.append(list);
     }
-    // Below the stage: what comes next, and Lull (guidance, any offer, and the way to tell it something).
+    // Below the stage: what comes next, and Sukoon (guidance, any offer, and the way to tell it something).
     const lower = el('div', '', 'workout-lower'), next = el('div', '', 'workout-next'), companion = el('div', '', 'workout-companion'), offer = el('div', '', 'workout-offer');
     const after = screens[screens.findIndex(s => s.key === current.key) + 1], afterKids = after?.props.children ?? [];
     const afterTimer = afterKids.find(n => n.name === 'Timer'), afterTitle = afterKids.find(n => n.name === 'Text' && n.props.variant === 'title');
@@ -137,7 +137,7 @@ function renderWorkout(current, ctx) {
         if (node.name === 'Alert' || node.name === 'FollowUps')
             offer.append(renderComponent(node, ctx));
     if (offer.childNodes.length) {
-        offer.prepend(el('span', 'Lull suggests', 'workout-offer-label'));
+        offer.prepend(el('span', 'Sukoon suggests', 'workout-offer-label'));
         stage.classList.add('has-offer');
     }
     companion.append(offer.childNodes.length ? offer : say);
@@ -360,11 +360,11 @@ function render() {
     const transcript = byId('transcript');
     transcript.replaceChildren();
     if (!c.events.length)
-        transcript.append(el('p', 'Start the scripted Lull flow, type /reset (optionally /reset calm seated) for a reset, or load the wiring sample. Mock makes no model calls.', 'micro'));
+        transcript.append(el('p', 'Start the scripted Sukoon flow, type /reset (optionally /reset calm seated) for a reset, or load the wiring sample. Mock makes no model calls.', 'micro'));
     for (const event of c.events) {
         if (event.kind === 'input' || event.kind === 'response') {
             const n = el('div', '', 'message ' + (event.kind === 'input' ? 'user' : 'assistant'));
-            n.append(el('span', event.kind === 'input' ? 'You' : 'Lull', 'who'), el('p', event.text ?? splitReply(event.result.turn.reply).prose ?? ''));
+            n.append(el('span', event.kind === 'input' ? 'You' : 'Sukoon', 'who'), el('p', event.text ?? splitReply(event.result.turn.reply).prose ?? ''));
             transcript.append(n);
         }
         else if (event.text)
@@ -528,7 +528,7 @@ function renderHome() {
     const mem = loadMemory(), hour = new Date().getHours(), hello = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
     const n = el('div', '', 'home');
     n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', 'Between calls? Take three minutes.', 'home-title'), el('p', 'Tell me how you feel, even in Hinglish, or pick a moment below. I’ll suggest one short reset and stay quiet while you move.', 'home-lede'));
-    const begin = button('Start with Lull', () => send('Start Lull', 'onboarding'), 'primary home-start');
+    const begin = button('Start with Sukoon', () => send('Start Sukoon', 'onboarding'), 'primary home-start');
     begin.id = 'workout';
     // Opened from their own reminder: their usual session is one tap away.
     const usual = openedFromReminder ? usualReset() : null;
@@ -553,10 +553,10 @@ function renderHome() {
         b.append(el('strong', q.label), el('span', q.detail));
         quick.append(b);
     }
-    n.append(begin, ...(quick.childNodes.length ? [el('p', last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), el('p', 'Text only: Lull can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
+    n.append(begin, ...(quick.childNodes.length ? [el('p', last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), el('p', 'Text only: Sukoon can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
     return n;
 }
-/** Lull's latest words, shown as a caption outside the reset (where the stage speaks for itself). */
+/** Sukoon's latest words, shown as a caption outside the reset (where the stage speaks for itself). */
 function renderCaption() { const reply = [...c.events].reverse().find(e => e.kind === 'response'), prose = reply?.result ? splitReply(reply.result.turn.reply).prose : ''; const kids = c.document.current?.props.children; const quiet = isWorkout(c.document.current) || (kids ?? []).some(n => n.name === 'Recap') || c.pending; const cap = byId('caption'); if (cap.textContent !== prose)
     cap.textContent = prose; const onScreen = (kids ?? []).some(n => typeof n.props.text === 'string' && prose.includes(String(n.props.text))); cap.hidden = quiet || !prose || onScreen; }
 /** Opt-in memory: the last reset, kept in this browser only. */
@@ -712,7 +712,7 @@ function renderDeviceSends() {
     const box = byId('sent-box');
     box.replaceChildren();
     if (!pilotTeam) {
-        box.append(el('p', 'Nothing. This copy of Lull isn’t part of a team pilot, so nothing is sent anywhere.', 'micro'));
+        box.append(el('p', 'Nothing. This copy of Sukoon isn’t part of a team pilot, so nothing is sent anywhere.', 'micro'));
         return;
     }
     const toggle = el('label', '', 'toggle'), input = el('input');

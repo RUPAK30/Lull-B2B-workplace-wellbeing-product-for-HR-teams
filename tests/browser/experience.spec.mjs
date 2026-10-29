@@ -7,7 +7,7 @@ async function fresh(page, prefs = { ready: false }) { await page.addInitScript(
 test('home offers one clear way in, quick picks with real durations, and accepts a typed need', async ({ page }) => {
   await fresh(page);
   await expect(page.locator('.home-title')).toHaveText('Between calls? Take three minutes.');
-  await expect(page.locator('#workout')).toHaveText('Start with Lull');
+  await expect(page.locator('#workout')).toHaveText('Start with Sukoon');
   await expect(page.locator('.quick')).toHaveText([/After back-to-back calls.*Unknot neck & shoulders · 2:30/, /Stiff from sitting.*Undo the sitting · 2:40/, /Post-lunch slump.*Energy lift · 2:25/, /Stressed, can’t switch off.*Calm down · 2:30/, /Tired eyes and wrists.*Screen break · 2:30/]);
   await expect(page.locator('#pause')).toBeHidden();
   await send(page, 'I only have five minutes before my next call');
@@ -44,7 +44,7 @@ test('keyboard: Space starts and pauses the timer, arrows move; focus mode quiet
   await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4'); await page.locator('#screen').focus();
   await page.keyboard.press('Space'); await expect(page.locator('.timer-status')).toHaveText('running');
   await expect(page.locator('body')).toHaveAttribute('data-phase', 'focus');
-  await expect(page.locator('#composer')).toBeHidden(); // the stage's own "Tell Lull" is the way to talk here
+  await expect(page.locator('#composer')).toBeHidden(); // the stage's own "Tell Sukoon" is the way to talk here
   await page.keyboard.press('Space'); await expect(page.locator('.timer-status')).toHaveText('paused');
   await page.keyboard.press('ArrowRight'); await expect(page.locator('.workout-count')).toHaveText('Step 2 of 4');
   await page.keyboard.press('ArrowLeft'); await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4');
@@ -75,7 +75,7 @@ test('remember me is opt-in, offers the last reset on return, and forgets on req
 test('installable: manifest, icons and a service worker allowed to control the app', async ({ page, request }) => {
   await fresh(page);
   const manifest = await request.get('/web/manifest.webmanifest'); expect(manifest.headers()['content-type']).toContain('application/manifest+json');
-  expect((await manifest.json()).short_name).toBe('Lull');
+  expect((await manifest.json()).short_name).toBe('Sukoon');
   for (const icon of ['/web/icon-192.png', '/web/icon-512.png']) expect((await request.get(icon)).headers()['content-type']).toBe('image/png');
   expect((await request.get('/web/sw.js')).headers()['service-worker-allowed']).toBe('/');
   await expect.poll(() => page.evaluate(async () => !!(await navigator.serviceWorker.getRegistration('/')))).toBe(true);

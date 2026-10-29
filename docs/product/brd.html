@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Lull · Business Requirements Document</title><style>
+<!doctype html><html><head><meta charset="utf-8"><title>Sukoon · Business Requirements Document</title><style>
 @page{size:A4;margin:12mm 14mm}
 *{box-sizing:border-box}body{margin:0;font:9.2pt/1.42 "Segoe UI",Arial,sans-serif;color:#1F2933}
 h1{font:600 19pt/1.15 Georgia,serif;margin:0 0 1.5mm;color:#1F2933}h2{font:600 10.5pt/1.2 "Segoe UI",Arial;color:#2D5A45;margin:4.2mm 0 1.4mm;text-transform:uppercase;letter-spacing:.04em}
@@ -12,8 +12,8 @@ table{width:100%;border-collapse:collapse;font-size:8.6pt;margin:1mm 0 2mm}th,td
 .foot{margin-top:3mm;border-top:1px solid #DCD3C2;padding-top:1.8mm;font-size:7.6pt;color:#5B6670}
 a{color:#2D5A45}.pb{page-break-before:always}
 </style></head><body>
-<div class="top"><div><h1>Business Requirements Document: Lull</h1><p class="lede">Final product scope for the pilot release.</p></div><p class="meta">BRD · Version 2.1 · Rupak Ghanpathi</p></div>
-<h2>1. Purpose and scope</h2><p>Lull gives desk-heavy teams a 3-minute guided movement reset and gives HR team-level evidence of use, without identifying individuals. This BRD covers the employee app, the HR site and the pilot programme for Indian companies of 50–500 people.</p>
+<div class="top"><div><h1>Business Requirements Document: Sukoon</h1><p class="lede">Final product scope for the pilot release.</p></div><p class="meta">BRD · Version 2.1 · Rupak Ghanpathi</p></div>
+<h2>1. Purpose and scope</h2><p>Sukoon gives desk-heavy teams a 3-minute guided movement reset and gives HR team-level evidence of use, without identifying individuals. This BRD covers the employee app, the HR site and the pilot programme for Indian companies of 50–500 people.</p>
 <h2>2. Business problem</h2><div class="stats"><div><b>~30%</b><span>of employees take part in company wellness programmes (Plum, 3,500+ Indian orgs, 2023)</span></div>
 <div><b>~3%</b><span>of mental-health app users still active after 30 days (JMIR 2019, 93 apps)</span></div>
 <div><b>64%</b><span>of employees fear employer health data could affect pay or promotion (Aetna survey)</span></div></div><p>HR cannot show wellbeing spend is used or useful; usage collapses after launch; tools that see individuals are avoided; budgets are under pressure and founders approve spend.</p>
@@ -22,11 +22,11 @@ a{color:#2D5A45}.pb{page-break-before:always}
 <tr><td>Adoption</td><td>≥ 50% of the pilot team start a session in the first two weeks</td></tr><tr><td>Return use</td><td>≥ 1 in 3 who finish one session use it again within a week; reminder set rate as leading indicator</td></tr>
 <tr><td>Value to employees</td><td>More "Lighter" than "Not for me" answers</td></tr><tr><td>Safety</td><td>Every pain or symptom report ends the session, no exceptions</td></tr><tr><td>Commercial</td><td>3 pilot partners; qualified conversations per 10 outreach sends</td></tr></table>
 <h2 class="pb">5. Functional requirements</h2><table><tr><th>ID</th><th>Requirement</th></tr>
-<tr><td>FR-1</td><td>Employees answer one question, "How are you feeling right now?", by tapping a work moment or typing in English or Hinglish; Lull suggests one of five three-minute desk resets (neck and shoulders, back and hips, energy, calm, eyes and wrists) with its reason and real length.</td></tr>
+<tr><td>FR-1</td><td>Employees answer one question, "How are you feeling right now?", by tapping a work moment or typing in English or Hinglish; Sukoon suggests one of five three-minute desk resets (neck and shoulders, back and hips, energy, calm, eyes and wrists) with its reason and real length.</td></tr>
 <tr><td>FR-2</td><td>Every reset is office-safe (work clothes, nothing on the floor, no sweat) and works seated or standing; resets are guided step by step with timers, and "too much" / "on a call" or "too easy" switches posture without losing the person’s place.</td></tr>
 <tr><td>FR-3</td><td>Pain, injury, rehab or urgent symptoms, in English or Hinglish, stop or prevent a session and point to proper help; urgent symptoms point to emergency care.</td></tr>
 <tr><td>FR-4</td><td>After a session, employees can add a weekday reminder to their own Google, Outlook or Apple calendar, or copy a Slack /remind command.</td></tr>
-<tr><td>FR-5</td><td>A reminder opens Lull with the employee's usual session one tap away.</td></tr>
+<tr><td>FR-5</td><td>A reminder opens Sukoon with the employee's usual session one tap away.</td></tr>
 <tr><td>FR-6</td><td>A team reset link opens one known session for everyone in a meeting.</td></tr>
 <tr><td>FR-7</td><td>In a pilot (team link), only allow-listed anonymous counts are sent: session started/finished, feeling, broad need category, reminder set, came back, opened from reminder, team reset joined.</td></tr>
 <tr><td>FR-8</td><td>Employees see every count sent ("What leaves this device"), can switch counting off and clear their local history.</td></tr>
