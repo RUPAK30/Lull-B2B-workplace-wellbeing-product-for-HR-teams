@@ -200,3 +200,37 @@ addEventListener('scroll',upd,{passive:true});upd();})();
 (function(){if(!document.body.classList.contains('home'))return;var secs=document.querySelectorAll('main > section:not(.hero)');
 function fit(){secs.forEach(function(s){s.style.top=Math.min(0,innerHeight-s.offsetHeight)+'px';});}
 fit();addEventListener('resize',fit);addEventListener('load',fit);})();
+
+/* Chapter dock: live progress per chapter, tap to jump */
+(function(){var dock=document.getElementById('dock');if(!dock)return;var box=document.getElementById('dock-ch');
+var names={product:'The reset',inbox:'Friday email',pilot:'Pilot',wrong:'What fails',company:'Who'};var secs=[];
+Object.keys(names).forEach(function(id){var s=document.getElementById(id);if(!s)return;secs.push(s);var a=document.createElement('a');a.href='#'+id;a.innerHTML=names[id]+'<i></i>';box.appendChild(a);});
+var links=box.querySelectorAll('a'),hero=document.querySelector('.hero');
+function upd(){dock.classList.toggle('show',hero.getBoundingClientRect().bottom<innerHeight*0.5);var cur=-1;
+secs.forEach(function(s,i){var r=s.getBoundingClientRect();var p=Math.max(0,Math.min(1,(innerHeight*0.5-r.top)/r.height));links[i].querySelector('i').style.width=(p*100)+'%';if(r.top<innerHeight*0.5)cur=i;});
+links.forEach(function(a,i){var on=i===cur;if(on&&!a.classList.contains('on'))a.scrollIntoView({inline:'center',block:'nearest'});a.classList.toggle('on',on);});}
+addEventListener('scroll',upd,{passive:true});upd();})();
+
+/* Guided answers: AI-style, but written, honest and offline */
+(function(){var sheet=document.getElementById('asksheet');if(!sheet)return;var qs=document.getElementById('ask-qs'),out=document.getElementById('ask-a');
+var Q=[['Can I see who used it?','No. You get one line per team: how many started and finished. Teams under 10 are hidden, and the next-smallest too, so nobody can be worked out by subtraction.','inbox'],
+['What does it cost?','The first six teams are free for six weeks. After that it is ₹60–120 a person a month depending on size, with fifteen days\' notice and no annual contract.','pilot'],
+['What do I have to do?','Send one link and forward one note. Fifteen minutes at kickoff, week 3 and week 6. No roster, no HRIS, no app to install.','pilot'],
+['Is it safe for employees?','Four gentle seated moves. If someone mentions pain, the timer stops and points them to proper help. Nobody at your company is told, and it is never counted.','inbox'],
+['What if nobody uses it?','You will see it by week 3, not at renewal. Targets are agreed on day one, and the week-6 report says "Not met" if they were not.','wrong'],
+['Who is behind this?','Rupak, who runs every pilot himself. There are no customers yet, and the site says so plainly.','company']];
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,timer;
+Q.forEach(function(q,i){var b=document.createElement('button');b.type='button';b.textContent=q[0];b.addEventListener('click',function(){answer(i,b);});qs.appendChild(b);});
+function answer(i,btn){qs.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',x===btn?'true':'false');});clearInterval(timer);
+var t=Q[i][1],n=0;out.innerHTML='<div class="bubble"><span class="txt"></span><span class="caret"></span></div>';var el=out.querySelector('.txt');
+function done(){out.querySelector('.caret').remove();var g=document.createElement('button');g.className='go';g.textContent='Show me on the page →';g.addEventListener('click',function(){close();var s=document.getElementById(Q[i][2]);s.scrollIntoView({behavior:reduce?'auto':'smooth'});var w=s.querySelector('.wrap');w.classList.remove('glow');void w.offsetWidth;w.classList.add('glow');});out.appendChild(g);}
+if(reduce){el.textContent=t;done();return;}
+timer=setInterval(function(){n+=3;el.textContent=t.slice(0,n);if(n>=t.length){clearInterval(timer);done();}},18);
+try{window.goatcounter&&window.goatcounter.count({path:'home/ask-'+i,title:'ask',event:true});}catch(e){}}
+function open(){sheet.hidden=false;document.body.style.overflow='hidden';qs.querySelector('button').focus();}
+function close(){sheet.hidden=true;document.body.style.overflow='';document.getElementById('ask-open').focus();}
+document.getElementById('ask-open').addEventListener('click',open);document.getElementById('ask-close').addEventListener('click',close);
+sheet.addEventListener('click',function(e){if(e.target===sheet)close();});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!sheet.hidden)close();});})();
+
+/* Pointer spotlight */
+document.addEventListener('pointermove',function(e){var c=e.target.closest&&e.target.closest('.email,.rules,.price,.move-table,.week-table,.data-table');if(!c)return;var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');},{passive:true});

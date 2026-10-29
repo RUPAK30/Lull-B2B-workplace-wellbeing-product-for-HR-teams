@@ -535,3 +535,41 @@ body.home .wrong::before{background:rgba(255,255,255,.22)}
 }
 @keyframes sheetIn{from{opacity:.2;transform:translateY(40px) scale(.98)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){body.home main > section{position:relative}}
+
+/* ===== Interaction layer: chapter dock + guided answers + spotlight ===== */
+.sticky{display:none!important}
+.dock{position:fixed;left:50%;bottom:14px;transform:translateX(-50%) translateY(140%);z-index:70;display:flex;align-items:center;gap:6px;padding:6px;max-width:calc(100vw - 20px);border-radius:999px;background:rgba(20,26,23,.86);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);box-shadow:0 18px 40px -12px rgba(0,0,0,.45);transition:transform .45s cubic-bezier(.2,.9,.2,1)}
+.dock.show{transform:translateX(-50%) translateY(0)}
+.dock-ch{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory}
+.dock-ch::-webkit-scrollbar{display:none}
+.dock-ch a{position:relative;flex:none;scroll-snap-align:center;overflow:hidden;color:#CFD8D2;text-decoration:none;font:600 .78rem var(--sans);padding:10px 12px;border-radius:999px;min-height:40px;display:flex;align-items:center;white-space:nowrap;transition:color .25s,background .25s}
+.dock-ch a i{position:absolute;left:0;bottom:0;height:3px;width:0;background:#8FD1AC;border-radius:3px;transition:width .15s linear}
+.dock-ch a.on{background:rgba(255,255,255,.12);color:#fff}
+.dock-ask,.dock-cta{flex:none;border:0;cursor:pointer;font:700 .8rem var(--sans);border-radius:999px;padding:10px 14px;min-height:40px;text-decoration:none;display:flex;align-items:center;gap:6px}
+.dock-ask{background:linear-gradient(120deg,#9BE0B8,#F2D6A6,#9BE0B8);background-size:200% 100%;color:#10180F;animation:sheen 6s linear infinite}
+.dock-cta{background:#fff;color:#14201A}
+@keyframes sheen{to{background-position:200% 0}}
+.spark{display:inline-block;animation:twinkle 2.4s ease-in-out infinite}
+@keyframes twinkle{50%{transform:rotate(20deg) scale(1.2);opacity:.7}}
+.asksheet{position:fixed;inset:0;z-index:90;display:flex;align-items:flex-end;justify-content:center;background:rgba(10,14,12,.35);backdrop-filter:blur(3px)}
+.asksheet[hidden]{display:none}
+.ask-card{width:min(560px,100%);max-height:86vh;overflow:auto;background:var(--paper);border-radius:24px 24px 0 0;padding:18px 18px 24px;box-shadow:0 -20px 60px rgba(0,0,0,.25);animation:up .4s cubic-bezier(.2,.9,.2,1)}
+@media (min-width:760px){.asksheet{align-items:center}.ask-card{border-radius:24px}}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.ask-top{display:flex;justify-content:space-between;align-items:center}.ask-top p{margin:0;font:600 1.05rem var(--serif)}
+.ask-x{border:0;background:none;font-size:1.6rem;cursor:pointer;min-width:44px;min-height:44px;color:var(--ink-2)}
+.ask-qs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.ask-qs button{border:1px solid var(--rule);background:#fff;border-radius:999px;padding:9px 14px;font:500 .88rem var(--sans);cursor:pointer;min-height:40px;color:var(--ink);transition:.2s}
+.ask-qs button:hover,.ask-qs button[aria-pressed=true]{border-color:var(--accent);background:var(--sage)}
+.ask-a{min-height:0;font-size:.98rem;line-height:1.55;color:var(--ink)}
+.ask-a .bubble{background:var(--sage);border-radius:16px 16px 16px 4px;padding:14px 16px;margin-top:4px}
+.ask-a .go{display:inline-flex;margin-top:10px;font-weight:700;color:var(--accent);text-decoration:none;border:0;background:none;cursor:pointer;padding:6px 0;font-size:.92rem}
+.caret{display:inline-block;width:7px;height:1em;background:var(--accent);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.ask-note{font-size:.74rem;color:var(--ink-3);margin:14px 0 0}
+.glow{animation:glow 2.2s ease}
+@keyframes glow{0%{box-shadow:0 0 0 0 rgba(143,209,172,.0)}25%{box-shadow:0 0 0 6px rgba(143,209,172,.6)}100%{box-shadow:0 0 0 0 rgba(143,209,172,0)}}
+/* Pointer spotlight on cards (desktop) */
+@media (hover:hover){.email,.rules,.price,.move-table,.week-table,.data-table{background-image:radial-gradient(260px circle at var(--mx,-999px) var(--my,-999px),rgba(143,209,172,.18),transparent 60%)}}
+@media (prefers-reduced-motion:reduce){.dock-ask,.spark,.caret{animation:none}}
+body.home{padding-bottom:84px}
