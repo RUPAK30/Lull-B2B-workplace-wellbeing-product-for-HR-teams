@@ -430,3 +430,12 @@ p{margin:0}
 .breadcrumb a{text-decoration:underline;text-underline-offset:2px}
 .lane a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 .lane a:hover{text-decoration-thickness:2px}
+/* Additions: failure table, status table, mail fallback, print */
+.wrong{padding:72px 0}
+.wrong h2{margin-bottom:20px}
+.st{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
+.st.ok{background:#E2EBE1;color:#2D5A45}.st.part{background:#F6E7D2;color:#8A5A1F}.st.no{background:#F3E1DC;color:#8F3D2B}
+.mail-line{margin-top:10px}
+.copy-mail{border:1px solid currentColor;background:none;color:inherit;border-radius:999px;padding:6px 12px;min-height:32px;font:600 .8rem inherit;cursor:pointer;margin-left:6px}
+.limits{border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:20px;margin-bottom:24px}
+@media print{.nav,.menu,.foot,footer,.skip,.limits button,.btn{display:none!important}body{background:#fff!important;color:#000!important}a{color:#000;text-decoration:none}main{padding:0!important}section{break-inside:avoid}}

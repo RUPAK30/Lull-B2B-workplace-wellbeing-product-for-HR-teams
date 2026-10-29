@@ -167,3 +167,12 @@
   paint();
 })();
 
+
+/* Copy-address fallback for people without a mail app */
+document.addEventListener('click',function(e){var b=e.target.closest('.copy-mail');if(!b)return;var t='rupakr2g@gmail.com';
+function ok(){b.textContent='Copied';setTimeout(function(){b.textContent='Copy address';},2000);}
+if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){prompt('Email address',t);});}else{prompt('Email address',t);}});
+/* Funnel: taster completion and report views */
+(function(){function c(n){try{window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path:'home/'+n,title:n,event:true});}catch(e){}}
+var d=document.getElementById('demo-done');if(d&&'MutationObserver' in window){new MutationObserver(function(){if(!d.hidden){c('taster-finished');}}).observe(d,{attributes:true,attributeFilter:['hidden']});}
+if(/report\.html$/.test(location.pathname))c('report-view');})();

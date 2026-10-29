@@ -72,6 +72,25 @@
         <div class="lane"><h2 class="lane-h">For IT</h2><p>Architecture, subprocessors, and incident contact.</p><a href="#subprocessors">The stack →</a></div>
       </div>
 
+      <section class="doc-section" id="status">
+        <h2>Status, plainly</h2>
+        <p>What is in place today, and what isn't. Four statuses only: In place, Partial, Not started, Not configured.</p>
+        <table class="data-table status-table">
+          <caption>Last checked 29 October 2026</caption>
+          <thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Detail</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Personal data collected</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">No names, emails or device IDs. Anonymous team counts only.</td></tr>
+            <tr><th scope="row">Small-number suppression</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Teams under 10 are hidden, plus a second team if subtraction could reveal one.</td></tr>
+            <tr><th scope="row">Subprocessor list</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Complete list below, with location and data.</td></tr>
+            <tr><th scope="row">Incident response</th><td data-label="Status"><span class="st part">Partial</span></td><td data-label="Detail">Named contact and a two-working-day reply. No formal runbook yet.</td></tr>
+            <tr><th scope="row">Accessibility</th><td data-label="Status"><span class="st part">Partial</span></td><td data-label="Detail">Keyboard and reduced motion tested; automated checks run. No independent WCAG audit.</td></tr>
+            <tr><th scope="row">DPA and terms</th><td data-label="Status"><span class="st part">Partial</span></td><td data-label="Detail">Founder drafts. Not reviewed by a lawyer.</td></tr>
+            <tr><th scope="row">SOC 2 / ISO 27001 / pen test</th><td data-label="Status"><span class="st no">Not started</span></td><td data-label="Detail">None yet. We'll say so in writing before any paid contract.</td></tr>
+            <tr><th scope="row">Data residency</th><td data-label="Status"><span class="st no">Not configured</span></td><td data-label="Detail">Hosting uses Vercel's default region. We'll pin a region if your DPA requires it.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
       <section class="doc-section" id="data">
         <h2>What is collected</h2>
         <p><strong>Only counts leave a device.</strong> A pilot link carries a short team code. When someone starts or finishes a reset, the app adds one to that team's count. There is no row for a person and no session history.</p>
