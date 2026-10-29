@@ -662,3 +662,6 @@ body.home main > section:not(.hero) h2{background:none!important;-webkit-text-fi
 .move-table tbody tr:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .sc-cue{margin:0;padding:0 16px 10px;font:400 1rem/1.4 var(--serif);color:var(--ink-2);min-height:1.4em;animation:cuein .5s ease}
 #glow1{transition:stop-color 1.2s ease}
+/* velocity response: headlines breathe with speed */
+body.home main > section:not(.hero) h2{letter-spacing:calc(-0.01em + var(--vel,0) * 0.01em);transition:letter-spacing .25s ease}
+html{scroll-behavior:auto!important}

@@ -316,6 +316,19 @@
   </div>
 </footer>
 
+<div class="dock" id="dock" aria-label="Page navigator">
+  <button type="button" class="dock-ask" id="ask-open" aria-haspopup="dialog" data-ev="ask-open"><span class="spark" aria-hidden="true">✦</span> Ask</button>
+  <div class="dock-ch" id="dock-ch"></div>
+  <a class="dock-cta" href="pilot.html" data-ev="dock-pilot">Book</a>
+</div>
+<div class="asksheet" id="asksheet" role="dialog" aria-modal="true" aria-labelledby="ask-h" hidden>
+  <div class="ask-card">
+    <div class="ask-top"><p id="ask-h"><span class="spark">✦</span> What do you want to know?</p><button type="button" class="ask-x" id="ask-close" aria-label="Close">×</button></div>
+    <div class="ask-qs" id="ask-qs"></div>
+    <div class="ask-a" id="ask-a" aria-live="polite"></div>
+    <p class="ask-note">Written answers from the page. No AI, nothing you click is sent anywhere.</p>
+  </div>
+</div>
 <div class="sticky" hidden>
   <a class="btn btn-primary" href="pilot.html" data-ev="sticky-pilot">Book a pilot</a>
 </div>
