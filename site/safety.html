@@ -2,131 +2,184 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Safety and limits · Lull</title>
-<meta name="description" content="How Lull handles pain and symptoms, what it never claims, and where reviews stand, including what isn't done yet.">
-<meta name="theme-color" content="#F6F1E8">
+<meta name="description" content="Lull is a general movement break, not treatment or rehab. What happens when something hurts, the red flags that stop a session, and what has not been reviewed yet.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF8F3">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Safety and limits · Lull">
-<meta property="og:description" content="Fixed rules the AI can't override decide when a session stops. Here's how, and what isn't done yet.">
-<meta property="og:image" content="https://lull-hr.vercel.app/img/og.jpg">
-<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="home.css">
+<script data-goatcounter="/gc/count" async src="/gc/count.js"></script>
 </head>
-<body>
+<body class="home doc-page">
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav" id="nav">
-  <div class="wrap">
-    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="28" height="28">lull</a>
+  <div class="wrap nav-inner">
+    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="24" height="24">lull</a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#pain">Pain &amp; symptoms</a>
-      <a href="#claims">What it never claims</a>
-      <a href="#review">Review status</a>
-      <a class="btn btn-ghost" href="./">Back to Lull</a>
+      <a href="index.html#product">Product</a>
+      <a href="pilot.html">Pricing</a>
+      <a href="trust.html">Security</a>
+      <a href="index.html#company">Company</a>
     </nav>
-    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a class="btn btn-primary nav-cta" href="pilot.html">Book a pilot</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">☰</button>
   </div>
-<div class="menu-panel" id="menu-panel" hidden>
-  <nav aria-label="Menu">
-    <a href="./">Overview</a>
-    <a href="pilot.html">Pilot &amp; cost</a>
-    <a href="data.html">Data &amp; trust</a>
-    <a href="pm.html">For product people</a>
-    <a href="safety.html">Safety and limits</a>
-    <a href="mailto:rupakr2g@gmail.com">Contact</a>
+  <nav class="menu" id="menu-panel" aria-label="Menu">
+    <div class="wrap">
+      <a href="index.html#product">Product</a>
+      <a href="pilot.html">Pricing</a>
+      <a href="trust.html">Security</a>
+      <a href="index.html#company">Company</a>
+      <a href="mailto:rupakr2g@gmail.com">Email Rupak</a>
+    </div>
   </nav>
-  <button type="button" class="theme-btn" id="theme-btn">Dark mode</button>
-</div>
 </header>
 
-<main id="main" class="wrap">
-  <div class="page-head doc">
-    <p class="kicker">Safety and limits</p>
-    <h1>What Lull does, and what it doesn't.</h1>
-    <p class="lede">Lull suggests three-minute desk resets. It is not a medical device and can't see anyone. This page sets out how it handles pain, what it will never claim, and where reviews stand today, including the parts that aren't done yet.</p>
-    <p class="meta">Last reviewed October 2026 · Pilot-stage product</p>
+<main id="main">
+<section class="doc-hero">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="index.html">Home</a> / Safety and limits</p>
+    <h1>A movement break, not medical care.</h1>
+    <p class="lede">Lull is a seated 2:30 reset. It is not treatment, rehab, diagnosis, or injury management. This page is what happens when something hurts, who should check first, and what has not been reviewed yet.</p>
+    <p class="doc-meta">Updated 29 October 2026 · v1.0 · Pilot-stage product</p>
   </div>
+</section>
 
-  <article class="doc">
-    <h2 id="pain">When someone mentions pain or symptoms</h2>
-    <p>Lull checks for this before anything else, on the home screen and in the middle of a session. Safety always wins over any other request in the same message.</p>
-    <div class="cases">
-      <div class="case"><h3>Urgent symptoms</h3><p class="eg">For example: chest pain, trouble breathing, fainting, numbness, sudden or severe pain.</p><p>No session is offered. It says this needs urgent medical attention, not exercise, and asks the person to contact their local emergency number or urgent care now.</p></div>
-      <div class="case"><h3>Pain, injury or feeling unwell</h3><p class="eg">For example: "my back hurts", dizziness, a sprain, cramp, feeling sick.</p><p>It won't build a session around it, and suggests advice from a doctor or physiotherapist. Mid-session, the timer pauses, no more movements are offered, and the person decides whether to stop.</p></div>
-      <div class="case"><h3>Recovering or in rehab</h3><p class="eg">For example: "after surgery", "seeing a physio", "recovering from".</p><p>It says their clinician's advice comes first and that these sessions are not a rehab plan.</p></div>
+<section class="doc">
+  <div class="wrap doc-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <a href="#stops">When something hurts</a>
+      <a href="#redflags">Red flags</a>
+      <a href="#check">Check with a clinician</a>
+      <a href="#not">What Lull is not</a>
+      <a href="#reported">What is never reported</a>
+      <a href="#review">Review status</a>
+      <a href="#evidence">What the evidence says</a>
+    </nav>
+
+    <div class="doc-body">
+      <section class="doc-section" id="stops">
+        <h2>When something hurts</h2>
+        <p>The app pauses the timer. It does not try to work out what is wrong, and it does not build a session around pain.</p>
+        <div class="notice notice-warm">
+          <p><strong>If it is severe, or comes with any red flag below:</strong> stop. Seek urgent medical help. In India, call 112.</p>
+        </div>
+        <h3>Urgent symptoms</h3>
+        <p>Chest pain or pressure, trouble breathing, fainting, sudden severe headache, slurred speech, double vision, new weakness or numbness, severe dizziness, or a recent injury. No session is offered. The screen says to get urgent medical help.</p>
+        <h3>Pain, injury, or feeling unwell</h3>
+        <p>For example a sore back, a sprain, cramp, or dizziness. The session stops. The screen suggests rest and, if it continues, a clinician. It does not suggest another stretch.</p>
+        <h3>Recovering, pregnant, or seeing a physio</h3>
+        <p>A clinician's advice comes first. The app does not adjust around a diagnosis and does not act as a rehab plan.</p>
+      </section>
+
+      <section class="doc-section" id="redflags">
+        <h2>Red flags</h2>
+        <p>Stop and get medical advice if any of these appear during or after a reset:</p>
+        <ul>
+          <li>Chest pain or pressure, or trouble breathing.</li>
+          <li>Fainting, or feeling about to faint.</li>
+          <li>Sudden severe headache, or the worst headache you have had.</li>
+          <li>Slurred speech, difficulty swallowing, or double vision.</li>
+          <li>New weakness, numbness, or unsteady walking.</li>
+          <li>Severe dizziness, or a drop attack.</li>
+          <li>Pain after a fall or other recent injury.</li>
+          <li>Fever, night pain, or pain that is getting worse rather than settling.</li>
+        </ul>
+        <p class="small">This is a short list for a desk app, not a clinical checklist. If something feels wrong, stop and ask a clinician.</p>
+      </section>
+
+      <section class="doc-section" id="check">
+        <h2>Check with a clinician first</h2>
+        <p>Talk to a doctor or physiotherapist before using Lull if you:</p>
+        <ul>
+          <li>are pregnant, or recently gave birth;</li>
+          <li>have had recent surgery or an injury;</li>
+          <li>have an ongoing neck, back, or joint condition;</li>
+          <li>get dizzy, lose your balance, or have fainted before;</li>
+          <li>have been told to avoid certain movements;</li>
+          <li>are unsure whether a movement is safe for you.</li>
+        </ul>
+        <p>You can still use the breathing step on its own. Skip anything that does not feel right.</p>
+      </section>
+
+      <section class="doc-section" id="not">
+        <h2>What Lull is not</h2>
+        <ul>
+          <li><strong>Not treatment or rehab.</strong> It is a general movement break for people who have been sitting.</li>
+          <li><strong>Not a diagnosis.</strong> It cannot see you, examine you, or tell what is causing a symptom.</li>
+          <li><strong>Not injury management.</strong> HR should not use it as a workstation or injury-control programme.</li>
+          <li><strong>Not a source of health claims.</strong> No promises about pain relief, posture, productivity, weight, or sickness absence.</li>
+          <li><strong>Not a replacement for care.</strong> If you need a clinician, see a clinician.</li>
+        </ul>
+        <p class="small">This positioning matters. Stretching prescribed to treat a work injury can become medical treatment; a general, voluntary movement break is not. Lull stays on the general side.</p>
+      </section>
+
+      <section class="doc-section" id="reported">
+        <h2>What is never reported</h2>
+        <p>A safety stop is care, not a metric. When someone reports pain or a symptom:</p>
+        <ul>
+          <li>the stop is <strong>not counted</strong> in the weekly email;</li>
+          <li>it is <strong>not reported</strong> to HR, a manager, or anyone at the company;</li>
+          <li>it does <strong>not</strong> trigger a follow-up nudge from Lull.</li>
+        </ul>
+        <p>HR sees started and finished counts. Nothing about who stopped, or why. Read the <a href="trust.html#data">data map</a>.</p>
+      </section>
+
+      <section class="doc-section" id="review">
+        <h2>Review status</h2>
+        <p><strong>The four moves have not yet been reviewed by a physiotherapist.</strong> The red-flag copy is written conservatively from public clinical guidance, but it has not been signed off by a clinician either.</p>
+        <p>Until that changes, the copy stays cautious: slow, small ranges; no bouncing; stop at resistance; no claims about outcomes. The app's symptom detection is a keyword floor, not a medical screen. It can miss things.</p>
+        <div class="notice"><strong>If you are a physiotherapist and would review the four moves and this page,</strong> email <a href="mailto:rupakr2g@gmail.com?subject=Lull%20clinical%20review">rupakr2g@gmail.com</a>. I will publish the reviewer's name and date here when it happens.</div>
+      </section>
+
+      <section class="doc-section" id="evidence">
+        <h2>What the evidence says</h2>
+        <p>Short movement breaks are a reasonable thing to offer people who sit for long stretches. The evidence on pain and productivity is mixed, and many workplace studies are small or low quality.</p>
+        <p>So Lull claims only what it can keep: a short, optional break that is easy to take. It does not claim to reduce pain, fix posture, or improve performance.</p>
+        <p class="small">Published guidance we keep in mind: WHO physical-activity guidance; workplace microbreak reviews; and OSHA's 2024 guidance distinguishing general stretching from treatment of a work injury. None of these endorse Lull.</p>
+        <p class="doc-foot">Next: <a href="trust.html">Security and data →</a></p>
+      </section>
     </div>
-    <div class="note">
-      <p><strong>How it recognises this, and the honest limit.</strong> A fixed list of words and phrases always runs and can't be switched off. With the AI turned on, it also reads the message and can catch wording the list misses, like "my knee feels weird". The AI can only add caution, never remove it, and the safety wording people see is always Lull's own fixed text.</p>
-      <p>In our test of 44 realistic messages, the list alone missed 10 of 14 body concerns; the list plus the AI missed none. That is a small test, not proof. Either can miss unusual wording, and neither can judge how serious something is. This is a safety net, not an assessment.</p>
-    </div>
-    <p>With the AI on, typed messages are sent to Anthropic to be read. Taps and choices are not. Session cues ask people to move only in a range that feels comfortable, and to stop anything that doesn't feel right.</p>
-
-    <h2 id="claims">What it never claims</h2>
-    <ul>
-      <li><strong>That anyone exercised.</strong> Timers measure time on a page. The end-of-session record says how long timers ran, not what someone did.</li>
-      <li><strong>Weight loss or treatment.</strong> No promises about weight, pain relief, posture or health outcomes.</li>
-      <li><strong>That it can see or hear you.</strong> Text only. No camera, no microphone, no motion sensing.</li>
-      <li><strong>That you should keep a streak.</strong> No badges, no reminders you didn't ask for, no "you missed a day".</li>
-    </ul>
-
-    <h2 id="review">Content review</h2>
-    <p>Every movement and cue was written to be gentle, low impact and doable at a desk or in a small space. They have <strong>not yet</strong> been reviewed by a physiotherapist. That review is required before any paid pilot.</p>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Reset</th><th>Length</th><th>Written</th><th>Physio review</th></tr></thead>
-        <tbody>
-          <tr><td>Unknot neck & shoulders, seated</td><td>2:30</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Unknot neck & shoulders, standing</td><td>2:40</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Undo the sitting, seated</td><td>2:30</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Undo the sitting, standing</td><td>2:40</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Energy lift, seated</td><td>2:20</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Energy lift, standing</td><td>2:25</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Calm down, seated</td><td>2:30</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Calm down, standing</td><td>2:30</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Screen break, seated</td><td>2:30</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Screen break, standing</td><td>2:30</td><td>Done</td><td class="pending">Pending</td></tr>
-          <tr><td>Safety wording and trigger phrases</td><td>–</td><td>Done</td><td class="pending">Pending, plus clinical sign-off</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p>Lengths are the real totals of each session's timers, checked by an automated test.</p>
-
-    <h2 id="a11y">Accessibility</h2>
-    <p>The aim is WCAG 2.2 level AA.</p>
-    <p><strong>Checked:</strong></p>
-    <ul>
-      <li>Text contrast meets AA in light and evening themes, measured for every text and background pair.</li>
-      <li>A whole session runs from the keyboard. Covered by an automated test.</li>
-      <li>Timer changes are announced to screen readers, and focus moves to each new step.</li>
-      <li>Reduced-motion settings are respected, and the layout works on phone screens.</li>
-    </ul>
-    <p><strong>Not done yet:</strong></p>
-    <ul>
-      <li>Testing with people who use screen readers day to day.</li>
-      <li>A formal audit by an accessibility specialist.</li>
-      <li>Languages other than English (Hindi is next).</li>
-      <li>Every reset has a seated version, but none has yet been reviewed with wheelchair users or people with limited mobility.</li>
-    </ul>
-    <a class="btn btn-ghost back" href="./">← Back to Lull</a>
-  </article>
+  </div>
+</section>
 </main>
 
-<footer class="foot" style="margin-top:80px">
+<footer class="foot">
   <div class="wrap">
-    <div>
-      <p><strong style="color:var(--ink)">lull</strong> · Built by Rupak Ghanpathi</p>
-      <p>A pilot-stage product. Not a medical or mental-health service. If you feel unwell, stop and get help.</p>
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="./"><img src="favicon.svg" alt="" width="24" height="24">lull</a>
+        <p class="foot-note">An early-stage product. A general movement break, not medical care. Sample figures are illustrative, not a customer.</p>
+        <p class="foot-updated">Updated 29 Oct 2026 · v1.0</p>
+      </div>
+      <nav class="foot-links" aria-label="Trust">
+        <p class="foot-head">Trust</p>
+        <a href="trust.html">Security</a>
+        <a href="trust.html#dpa">DPA</a>
+        <a href="trust.html#subprocessors">Subprocessors</a>
+        <a href="trust.html#data">Data</a>
+        <a href="safety.html">Safety</a>
+        <a href="report.html">Sample report</a>
+      </nav>
+      <nav class="foot-links" aria-label="Company">
+        <p class="foot-head">Company</p>
+        <a href="pilot.html">Pilot &amp; pricing</a>
+        <a href="index.html#company">About</a>
+        <a href="privacy.html">Site privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:rupakr2g@gmail.com">Contact</a>
+      </nav>
     </div>
-    <div class="foot-links">
-      <a href="./">Home</a>
-      <a href="https://github.com/RUPAK30/Lull-B2B-workplace-wellbeing-product-for-HR-teams">GitHub</a>
-      <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a>
+    <div class="foot-legal">
+      <span>© <span id="year">2026</span> Lull · India</span>
+      <span>GST invoice on request · <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a></span>
     </div>
   </div>
 </footer>
-<script src="main.js"></script>
+<script src="home.js" defer></script>
 </body>
 </html>

@@ -212,20 +212,14 @@ document.addEventListener('keydown',e=>{
 });
 // The talk box grows with its text, up to a few lines.
 draft.addEventListener('input',()=>{draft.style.height='auto';draft.style.height=`${Math.min(draft.scrollHeight,140)}px`;});
-/** Feedback for the builder: would this person's team use it? Opens a 1-question form with the answer prefilled. */
-function teamAsk(){const box=el('div','','team-ask'),ref=new URLSearchParams(location.search).get('ref')??'';
-  box.append(el('p','Would your team use this?','feeling-q'));const row=el('div','','row choices');
-  for(const [v,t] of [['yes','Yes'],['maybe','Maybe'],['no','No']] as const){const a=el('a',t,'btn ghost');a.href=`https://tally.so/r/peex9E?cta=app-feedback&team=${v}${ref?`&ref=${encodeURIComponent(ref)}`:''}`;a.target='_blank';a.rel='noopener';a.addEventListener('click',e=>{track('team-ask',{value:v});if(v==='yes')return;e.preventDefault();box.replaceChildren(el('p','Thanks. What’s one thing you’d change before trying it with your team?','feeling-q'));const why=el('div','','row choices');
-    for(const [k,t] of [['busy','Too busy'],['privacy','Privacy worries'],['have-one','We already have something'],['not-needed','Not a real need'],['other','Something else']] as const)why.append(button(t,()=>{track('team-ask',{value:`${v}-${k}`});box.replaceChildren(el('p','Noted. Thank you.','feeling-thanks'));},'ghost'));box.append(why);});row.append(a);}
-  box.append(row);return box;}
 /** The one optional question at the end: self-reported, one tap, skippable, stored only here. */
 const felt=new Set<string>();
 function feelingCard(){const run=currentRun()??'none',n=el('section','','feeling');
-  if(felt.has(run)){n.append(el('p',pilotCounting.on?'Thanks. Only the answer counts toward your team’s total, never who gave it.':'Thanks. That’s noted on this device only.','feeling-thanks'),teamAsk());return n;}
+  if(felt.has(run)){n.append(el('p','Thanks. That stays on this device only.','feeling-thanks'));return n;}
   n.append(el('p','How did that feel?','feeling-q'));const row=el('div','','row choices');
   for(const [value,text] of [['lighter','Lighter'],['same','About the same'],['not-for-me','Not for me']] as const)row.append(button(text,()=>{felt.add(run);track('feeling',{value});renderKey='';render();}));
   row.append(button('Skip',()=>{felt.add(run);renderKey='';render();},'ghost'));
-  n.append(row,el('p',pilotCounting.on?'Optional. Counted anonymously for your team’s pilot.':'Optional. It helps decide what to build next.','micro'));return n;}
+  n.append(row,el('p','Optional. Stays on this device.','micro'));return n;}
 // Insights: the product numbers, from this device's log or the synthetic sample.
 let insightSource:Source='device';
 function showInsights(){renderInsights(byId('insights'),{events:insightSource==='sample'?sampleEvents():events(),source:insightSource,onSource:s=>{insightSource=s;showInsights();},onClose:closeInsights,onClear:()=>{clearEvents();showInsights();},onExport:()=>{const data=insightSource==='team'?{report:teamExport()}:{events:insightSource==='sample'?sampleEvents():events()};const url=URL.createObjectURL(new Blob([JSON.stringify({format:'lull-activity-v1',source:insightSource,...data},null,2)],{type:'application/json'}));const a=el('a');a.href=url;a.download=`lull-${insightSource}-activity.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}});}
@@ -250,12 +244,12 @@ byId('reminder-settings').append(reminderCard(true));
 // A reminder link marks itself so the pilot can see whether reminders bring people back.
 if(openedFromReminder){track('opened_from_reminder');history.replaceState(null,'',location.pathname);}
 /** In a pilot, the home screen says so plainly and links to the list of what has been sent. */
-function pilotNote(){const p=el('p','','micro pilot-note');p.append(`Part of the ${pilotTeam} team pilot. Your sessions count anonymously toward a team total, never by name. `,button('See what’s sent',()=>openDrawer('settings'),'link'));return p;}
-/** "What leaves this device": the exact anonymous counts sent, or a plain statement that nothing is. */
+function pilotNote(){const p=el('p','','micro pilot-note');p.append(`Part of the ${pilotTeam} team pilot. Your sessions count as team totals, never by name. `,button('See what’s sent',()=>openDrawer('settings'),'link'));return p;}
+/** "What leaves this device": the exact team counts sent, or a plain statement that nothing is. */
 function renderDeviceSends(){const box=byId('sent-box');box.replaceChildren();
   if(!pilotTeam){box.append(el('p','Nothing. This copy of Lull isn’t part of a team pilot, so nothing is sent anywhere.','micro'));return;}
   const toggle=el('label','','toggle'),input=el('input');input.type='checkbox';input.checked=pilotCounting.on;input.addEventListener('change',()=>{pilotCounting.on=input.checked;renderDeviceSends();renderKey='';render();});
-  const text=el('span');text.append(el('strong',`Count my sessions for the ${pilotTeam} team`),` Only these leave this device: session started or finished, a one-tap “How did that feel?”, the broad kind of need Lull heard (like “stiffness” or “short on time”, never your words), setting a reminder, joining a team reset, and coming back. No name, no device ID, nothing you type, and nothing about pain.`);
+  const text=el('span');text.append(el('strong',`Count my sessions for the ${pilotTeam} team`),` Only these leave this device: session started or finished, coming back, setting a reminder, opening one, and joining a team reset. No name, no device ID, nothing you type, how you felt, and nothing about pain.`);
   toggle.append(input,text);box.append(toggle);
   const log=sentLog().slice(-8).reverse();
   if(!log.length){box.append(el('p','Nothing sent yet.','micro'));return;}

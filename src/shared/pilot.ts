@@ -11,12 +11,7 @@ export function cleanTeam(raw: string | null | undefined): string | null {
   return team || null;
 }
 
-export type PilotEvent = 'session-started' | 'session-finished' | 'felt-lighter' | 'felt-same' | 'felt-not-for-me' | 'came-back' | 'reminder-set' | 'opened-from-reminder' | 'team-reset-joined' | `need-${NeedKey}`;
-
-/** Broad need categories HR may see per team. Never pain or safety, which are care, not needs. */
-export type NeedKey = 'neck' | 'back' | 'sitting' | 'stiff' | 'legs' | 'eyes' | 'time' | 'low' | 'restless' | 'energetic' | 'calm' | 'unsure' | 'fitness';
-const NEED_FROM_HEARD: Record<string, NeedKey> = { 'neck and shoulders': 'neck', 'a stiff back': 'back', 'tired eyes or wrists': 'eyes', 'a lot of sitting': 'sitting', 'some stiffness': 'stiff', 'tight legs': 'legs', 'not much time': 'time', 'low energy': 'low', 'restless energy': 'restless', 'wanting more energy': 'energetic', 'wanting something calm': 'calm', 'not sure where to start': 'unsure', 'general fitness': 'fitness' };
-const FELT: Record<string, PilotEvent> = { lighter: 'felt-lighter', same: 'felt-same', 'not-for-me': 'felt-not-for-me' };
+export type PilotEvent = 'session-started' | 'session-finished' | 'came-back' | 'reminder-set' | 'opened-from-reminder' | 'team-reset-joined';
 
 /**
  * Maps a local activity event to the anonymous pilot event it may be sent as, or null.
@@ -27,13 +22,11 @@ export function pilotEvent(type: string, data?: Record<string, unknown>): PilotE
   switch (type) {
     case 'session_loaded': return 'session-started';
     case 'session_finished': return data?.reason === 'finished' ? 'session-finished' : null;
-    case 'feeling': return FELT[String(data?.value)] ?? null;
     case 'returned': return 'came-back';
     case 'reminder_set': return 'reminder-set';
     case 'opened_from_reminder': return 'opened-from-reminder';
     case 'team_reset': return 'team-reset-joined';
-    // Only the first broad category Lull heard, from a fixed list. Never the words themselves.
-    case 'need': { const first = Array.isArray(data?.kinds) ? NEED_FROM_HEARD[String(data.kinds[0])] : undefined; return first ? `need-${first}` : null; }
+    // Feelings, needs and anything typed stay on the device. Only the counts above leave.
     default: return null;
   }
 }

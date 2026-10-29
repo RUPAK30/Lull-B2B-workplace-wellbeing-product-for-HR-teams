@@ -9,8 +9,6 @@ export function cleanTeam(raw) {
     const team = (raw ?? '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 24);
     return team || null;
 }
-const NEED_FROM_HEARD = { 'neck and shoulders': 'neck', 'a stiff back': 'back', 'tired eyes or wrists': 'eyes', 'a lot of sitting': 'sitting', 'some stiffness': 'stiff', 'tight legs': 'legs', 'not much time': 'time', 'low energy': 'low', 'restless energy': 'restless', 'wanting more energy': 'energetic', 'wanting something calm': 'calm', 'not sure where to start': 'unsure', 'general fitness': 'fitness' };
-const FELT = { lighter: 'felt-lighter', same: 'felt-same', 'not-for-me': 'felt-not-for-me' };
 /**
  * Maps a local activity event to the anonymous pilot event it may be sent as, or null.
  * Safety, unmatched requests, needs, adjustments and timers are never sent: who reported pain
@@ -20,16 +18,11 @@ export function pilotEvent(type, data) {
     switch (type) {
         case 'session_loaded': return 'session-started';
         case 'session_finished': return data?.reason === 'finished' ? 'session-finished' : null;
-        case 'feeling': return FELT[String(data?.value)] ?? null;
         case 'returned': return 'came-back';
         case 'reminder_set': return 'reminder-set';
         case 'opened_from_reminder': return 'opened-from-reminder';
         case 'team_reset': return 'team-reset-joined';
-        // Only the first broad category Lull heard, from a fixed list. Never the words themselves.
-        case 'need': {
-            const first = Array.isArray(data?.kinds) ? NEED_FROM_HEARD[String(data.kinds[0])] : undefined;
-            return first ? `need-${first}` : null;
-        }
+        // Feelings, needs and anything typed stay on the device. Only the counts above leave.
         default: return null;
     }
 }

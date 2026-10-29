@@ -3,224 +3,195 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Running a pilot · Lull</title>
-<meta name="description" content="Lull gives your team a 3-minute guided movement reset, matched to how they say they feel. HR sees team totals only, without ever seeing a person.">
-<meta name="theme-color" content="#F3EEE3">
+<title>Pilot and pricing · Lull</title>
+<meta name="description" content="One team, six weeks, free for the first six teams. What you get each week, what we need from you, and the price after the pilot.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF8F3">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Lull">
-<meta property="og:title" content="Proof without surveillance: building a wellbeing product HR can measure">
-<meta property="og:description" content="HR can't prove a wellbeing benefit is used; employees distrust tools that can see individuals. 6-week pilot.">
-<meta property="og:url" content="https://lull-hr.vercel.app/pilot.html">
-<meta property="og:image" content="https://lull-hr.vercel.app/img/og.jpg">
-<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Lull team view for HR, with sample data">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://lull-hr.vercel.app/pilot.html">
-<meta name="twitter:title" content="Proof without surveillance: building a wellbeing product HR can measure">
-<meta name="twitter:description" content="HR can't prove a wellbeing benefit is used; employees distrust tools that can see individuals. 6-week pilot.">
-<meta name="twitter:image" content="https://lull-hr.vercel.app/img/og.jpg">
 <link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="home.css">
 <script data-goatcounter="/gc/count" async src="/gc/count.js"></script>
 </head>
-
-<body>
-
+<body class="home doc-page">
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav" id="nav">
-  <div class="wrap">
-    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="26" height="26">lull</a>
-    <a class="nav-pilot" href="https://tally.so/r/peex9E?cta=pilot-nav" data-ev="cta-pilot-nav">Request a pilot</a>
+  <div class="wrap nav-inner">
+    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="24" height="24">lull</a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="./">Overview</a>
-      <a href="app/" data-ev="app-opened-nav">Try Lull</a>
-      <a href="#report">Week 6 report</a>
+      <a href="index.html#product">Product</a>
+      <a href="pilot.html" aria-current="page">Pricing</a>
+      <a href="trust.html">Security</a>
+      <a href="index.html#company">Company</a>
     </nav>
-    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a class="btn btn-primary nav-cta" href="#book">Book a pilot</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">☰</button>
   </div>
-<div class="menu-panel" id="menu-panel" hidden>
-  <nav aria-label="Menu">
-    <a href="./">Overview</a>
-    <a href="pilot.html">Pilot &amp; cost</a>
-    <a href="data.html">Data &amp; trust</a>
-    <a href="pm.html">For product people</a>
-    <a href="safety.html">Safety and limits</a>
-    <a href="mailto:rupakr2g@gmail.com">Contact</a>
+  <nav class="menu" id="menu-panel" aria-label="Menu">
+    <div class="wrap">
+      <a href="index.html#product">Product</a>
+      <a href="pilot.html">Pricing</a>
+      <a href="trust.html">Security</a>
+      <a href="index.html#company">Company</a>
+      <a href="mailto:rupakr2g@gmail.com">Email Rupak</a>
+    </div>
   </nav>
-  <button type="button" class="theme-btn" id="theme-btn">Dark mode</button>
-</div>
 </header>
 
 <main id="main">
-
-<section class="page-intro">
+<section class="doc-hero">
   <div class="wrap">
-    <p class="kicker">Running a pilot</p>
-    <h1>One team. Six weeks. Nothing to run.</h1>
-    <p class="lede">Three founding pilot slots. No annual contract.</p>
-    <ul class="stats">
-      <li><b>15 min</b><span>to set up</span></li>
-      <li><b>6 weeks</b><span>one team of 10–50</span></li>
-      <li><b>₹60–120</b><span>per person a month, indicative</span></li>
-      <li><b>0</b><span>names collected</span></li>
-    </ul>
+    <p class="breadcrumb"><a href="index.html">Home</a> / Pilot and pricing</p>
+    <h1>One team. Six weeks. A report that can say no.</h1>
+    <p class="lede">The pilot is free for the first six teams. No setup fee, no annual contract, no dashboard. If it doesn't work, the week-6 report says so and you stop.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:rupakr2g@gmail.com?subject=Lull%20pilot%20call%20%E2%80%94%2015%20minutes&body=Company%3A%20%0ATeam%20size%3A%20%0AWhat%20I%27d%20like%20to%20check%3A%20">Book a 15-minute call</a>
+      <a class="btn btn-ghost" href="report.html">See the sample report</a>
+    </div>
+    <p class="doc-meta">Free for the first six teams · India · Updated 29 October 2026</p>
   </div>
 </section>
 
-<section class="sec" id="calculator" aria-labelledby="cost-h">
-  <div class="wrap">
-    <h2 id="cost-h" class="sr">Work out the cost</h2>
-    <div class="calc reveal">
-      <div class="calc-top"><label for="size" id="size-label">Pilot team size</label>
-        <div class="seg seg-sm" id="calc-mode" role="group" aria-label="Price for"><button type="button" data-mode="pilot" aria-pressed="true">Pilot team</button><button type="button" data-mode="company" aria-pressed="false">Whole company</button></div></div>
-      <input type="range" id="size" min="10" max="50" step="5" value="20" aria-describedby="cost">
-      <div class="range-ends" aria-hidden="true"><span id="size-min">10</span><span id="size-max">50</span></div>
-      <output id="cost" for="size" aria-live="polite">20 people: ₹1,200–2,400 / month</output>
-      <p class="per" id="cost-note">6-week pilot total: ₹1,800–3,600. Indicative.</p>
-    </div>
-  </div>
-</section>
+<section class="doc">
+  <div class="wrap doc-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <a href="#offer">What you get</a>
+      <a href="#need">What we need</a>
+      <a href="#weeks">The six weeks</a>
+      <a href="#price">Price after</a>
+      <a href="#pack">The pilot pack</a>
+      <a href="#faq">Questions</a>
+      <a href="#book">Book</a>
+    </nav>
 
-<section class="sec big" id="how" aria-labelledby="how-h">
-  <div class="wrap">
-    <h2 id="how-h">How the six weeks go.</h2>
-    <ol class="steps3" aria-label="Pilot timeline">
-      <li><b>Week 0</b><span>Pick a team. Agree targets. Share a link.</span></li>
-      <li><b>Week 3</b><span>Check team totals together. Adjust.</span></li>
-      <li><b>Week 6</b><span>A written readout. Continue or stop.</span></li>
-    </ol>
-    <ul class="pillars">
-      <li><b>We hand you the rollout.</b><span>Launch email, manager message and a QR desk card, ready to send.</span></li>
-      <li><b>Your people get</b><span>A 3-minute reset between calls, seated or standing, in English or Hinglish, with an opt-in reminder.</span></li>
-      <li><b>You get</b><span>Team totals: who's taking breaks and what each team needs. Never a person.</span></li>
-    </ul>
-  </div>
-</section>
+    <div class="doc-body">
+      <section class="doc-section" id="offer">
+        <h2>What you get</h2>
+        <table class="data-table">
+          <caption>The pilot, in full</caption>
+          <tbody>
+            <tr><th scope="row">One link</th><td>A team link your people can open in any browser. No app, no account, no install.</td></tr>
+            <tr><th scope="row">Employee note</th><td>A short notice you can forward before the link goes out.</td></tr>
+            <tr><th scope="row">Weekly email</th><td>Friday, 9:00 IST. Started and finished per team. Teams under 10 hidden.</td></tr>
+            <tr><th scope="row">Week-3 check</th><td>Fifteen minutes. If the link or the note is the problem, we fix it while there is time.</td></tr>
+            <tr><th scope="row">Week-6 report</th><td>Use, return, cost, and a recommendation, including “stop” if that is the honest answer.</td></tr>
+            <tr><th scope="row">The paper</th><td>A DPA before the first link, and the subprocessor list on the <a href="trust.html">security page</a>.</td></tr>
+          </tbody>
+        </table>
+        <p class="small">Sample figures on the report are illustrative, not a customer. There are no customers yet.</p>
+      </section>
 
-<section class="sec big" id="fit" aria-labelledby="fit-h">
-  <div class="wrap">
-    <h2 id="fit-h">Is it right for you?</h2>
-    <div class="p-fit">
-      <div class="yes"><b>Good fit</b><span>50–500 person companies with desk-heavy teams of 10 or more.</span></div>
-      <div class="no"><b>Not a fit</b><span>If you need clinical mental-health support.</span></div>
-      <div><b>After you click</b><span>A 15-minute call, then launch within a week.</span></div>
-    </div>
-  </div>
-</section>
+      <section class="doc-section" id="need">
+        <h2>What we need from you</h2>
+        <ul>
+          <li><strong>One internal sender.</strong> Usually HR or the team lead. One person, one email.</li>
+          <li><strong>One team code.</strong> A word like <code>support</code> or <code>engineering</code>. Not a person's name.</li>
+          <li><strong>Fifteen minutes at kickoff.</strong> And fifteen at week 3 and week 6.</li>
+        </ul>
+        <p>No roster. No HRIS connection. No SSO. No IT ticket. Nothing to install on a laptop or phone.</p>
+      </section>
 
-<section class="sec big" id="targets" aria-labelledby="targets-h">
-  <div class="wrap">
-    <h2 id="targets-h">We stop if it isn't working.</h2>
-    <ul class="pillars">
-      <li><b>Under 30% try it by week 2.</b><span>Or under 1 in 5 come back within a week.</span></li>
-      <li><b>Any unresolved safety issue.</b><span>A pain report that wasn't stopped.</span></li>
-      <li><b>No decision changes.</b><span>If you can't name one thing you'd do differently, we say so.</span></li>
-    </ul>
-  </div>
-</section>
+      <section class="doc-section" id="weeks">
+        <h2>The six weeks</h2>
+        <table class="data-table">
+          <thead><tr><th scope="col">When</th><th scope="col">What happens</th><th scope="col">Who does what</th></tr></thead>
+          <tbody>
+            <tr><td>Week 0</td><td>Kickoff, 15 minutes. Team code agreed. DPA signed. You send the note and the link.</td><td>You: one sender. Me: link, note, DPA.</td></tr>
+            <tr><td>Weeks 1–5</td><td>People use it if they want. The Friday email goes to you. No follow-up to employees, ever.</td><td>You: forward the note once. Me: the weekly email.</td></tr>
+            <tr><td>Week 3</td><td>Check-in. Starts and finishes only. We change the note or the timing if needed.</td><td>You: 15 minutes. Me: a short note on what to change.</td></tr>
+            <tr><td>Week 6</td><td>Written report: use, return, cost, recommendation. Then you decide.</td><td>You: 15 minutes to read it. Me: the one-page report.</td></tr>
+          </tbody>
+        </table>
+        <p class="small">There is no automatic renewal. If you do nothing at week 6, the pilot ends and the counts are deleted.</p>
+      </section>
 
-<section class="sec" id="report" aria-labelledby="report-h">
-  <div class="wrap">
-    <div class="report-top">
-    <div class="sec-head reveal">
-      <h2 id="report-h">Sample week-6 readout (illustrative)</h2>
-      <p class="lede">Set the targets you'd agree on day one. The sample results are checked against them, honestly.</p>
-    </div>
-    <div class="targets-set reveal" role="group" aria-label="Your week 6 targets">
-      <div class="seg-row"><span class="seg-label">Tried it, at least</span><div class="seg" data-target="tried"><button type="button" data-v="0.5" aria-pressed="true">50%</button><button type="button" data-v="0.6" aria-pressed="false">60%</button><button type="button" data-v="0.75" aria-pressed="false">75%</button></div></div>
-      <div class="seg-row"><span class="seg-label">Still using in weeks 5–6, at least</span><div class="seg" data-target="stayed"><button type="button" data-v="0.3334" aria-pressed="true">1 in 3</button><button type="button" data-v="0.5" aria-pressed="false">1 in 2</button><button type="button" data-v="0.6667" aria-pressed="false">2 in 3</button></div></div>
-    </div>
-    </div>
-    <article class="slide reveal" id="slide" aria-label="Sample week 6 pilot review">
-      <header class="slide-head">
-        <p id="slide-title">Week 6 pilot review · sample company (64 people)</p>
-        <span class="slide-tag">Illustrative sample, not customer data.</span>
-      </header>
-      <div class="slide-stats">
-        <div><p class="big">44 <span>of 64</span></p><p class="cap">tried it</p><p class="verdict" id="v-tried"></p></div>
-        <div><p class="big">27 <span>of 44</span></p><p class="cap">still using it in weeks 5–6</p><p class="verdict" id="v-stayed"></p></div>
-      </div>
-      <div class="slide-body">
-        <figure class="chart">
-          <figcaption>People active each week</figcaption>
-          <ol class="bars" id="bars" aria-label="People active each week: 33, 34, 29, 21, 23, 22"></ol>
-        </figure>
-        <div class="slide-teams">
-          <p class="slide-sub">Active in week 6, by team</p>
-          <ul>
-            <li><span>Engineering</span><b>8 <small>of 24</small></b></li>
-            <li><span>Sales</span><b>6 <small>of 14</small></b></li>
-            <li><span>Product & Design</span><b>2 <small>of 11</small></b></li>
-            <li class="hid"><span>Customer support</span><b>Hidden · under 10</b></li>
-            <li class="hid"><span>People & Ops</span><b>Hidden · under 10</b></li>
-          </ul>
+      <section class="doc-section" id="price">
+        <h2>Price after the pilot</h2>
+        <table class="data-table">
+          <caption>Per person, per month · GST extra · billed monthly</caption>
+          <thead><tr><th scope="col">People</th><th scope="col">Price</th></tr></thead>
+          <tbody>
+            <tr><td>Up to 40</td><td><strong>₹120</strong> a person</td></tr>
+            <tr><td>Up to 120</td><td><strong>₹90</strong> a person</td></tr>
+            <tr><td>Up to 250</td><td><strong>₹60</strong> a person</td></tr>
+          </tbody>
+        </table>
+        <p>Monthly. Fifteen days' notice to stop. No setup fee, no annual lock-in, no charge for the pilot.</p>
+        <p class="small">Under 40 people? Ask. The pilot is the same; the price is a conversation. GST invoice on request.</p>
+      </section>
+
+      <section class="doc-section" id="pack">
+        <h2>The pilot pack</h2>
+        <p>Forward this to your boss, legal, and IT. Each page is dated and written to be read without a call.</p>
+        <div class="downloads">
+          <a class="download" href="report.html"><b>Sample week-6 report</b><span>What you get at the end.</span></a>
+          <a class="download" href="trust.html"><b>Security and data</b><span>Data map, subprocessors, DPA summary, notice.</span></a>
+          <a class="download" href="safety.html"><b>Safety and limits</b><span>Red flags, when not to use it, review status.</span></a>
+          <a class="download" href="index.html#product"><b>The product</b><span>The four moves and the real session screen.</span></a>
         </div>
-      </div>
-      <details class="fold slide-more" data-desktop-open>
-        <summary>More from this report: team needs, cost per session</summary>
-      <div class="slide-extra">
-        <div>
-          <p class="slide-sub">What each team asked for most</p>
-          <ul class="needs-list">
-            <li><span>Engineering</span><b>Not much time</b><small>12 of 36 requests</small></li>
-            <li><span>Sales</span><b>Not much time</b><small>10 of 31</small></li>
-            <li><span>Product & Design</span><b>A lot of sitting</b><small>8 of 22</small></li>
-          </ul>
+      </section>
+
+      <section class="doc-section" id="faq">
+        <h2>Questions</h2>
+        <div class="faq">
+          <details><summary>Do employees need to install anything?</summary><p>No. It opens in a browser from one link. No app, no account, no password.</p></details>
+          <details><summary>Does it connect to Slack or Teams?</summary><p>Not in the pilot. People can make their own Slack reminder or add a calendar reminder; the app gives them the text. Lull does not read any workspace.</p></details>
+          <details><summary>What does IT have to do?</summary><p>Nothing. It is a normal HTTPS site. No agent, no extension, no firewall change. Your security team can read the <a href="trust.html#subprocessors">subprocessor list</a>.</p></details>
+          <details><summary>Is this medical care or rehab?</summary><p>No. It is a general movement break. It does not diagnose, treat, or replace a clinician. Read <a href="safety.html">safety and limits</a>.</p></details>
+          <details><summary>What if someone is in pain?</summary><p>The app stops and tells them to rest and seek advice if needed. That stop is never counted and never reported to you.</p></details>
+          <details><summary>What happens to the data if we stop?</summary><p>It is deleted on request, within 30 days, with written confirmation. The counts are team totals, not employee records.</p></details>
+          <details><summary>Who else is using it?</summary><p>No one yet. Six teams get the first six weeks free. You would be early, and I will say so on the call.</p></details>
         </div>
-        <div class="cost-cell">
-          <p class="slide-sub">Cost per finished session</p>
-          <p class="cost-big">₹26–53</p>
-          <p class="cost-sub">219 finished sessions in 6 weeks, at the indicative price</p>
+      </section>
+
+      <section class="doc-section" id="book">
+        <h2>Book a 15-minute call</h2>
+        <p>Tell me the company, the team size, and what you want to check. I reply the same working day, and I run every pilot myself.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:rupakr2g@gmail.com?subject=Lull%20pilot%20call%20%E2%80%94%2015%20minutes&body=Company%3A%20%0ATeam%20size%3A%20%0AWhat%20I%27d%20like%20to%20check%3A%20">Email to book</a>
+          <a class="btn btn-ghost" href="app/?taster=1">Try the 2:30 first</a>
         </div>
-      </div>
-      <details class="why-hidden"><summary>Why are two teams hidden?</summary><p>Both have fewer than 10 people, so neither is shown. If only one team were that small, Lull would hide the next-smallest team too. Otherwise anyone could subtract the visible teams from the company total and work out the small one.</p></details>
-      </details>
-      <p class="slide-foot">HR saw team totals only. No names, no messages.</p>
-    </article>
-    <p class="slide-actions reveal"><button type="button" class="btn btn-ghost" id="dl-slide">Download this slide (PNG)</button><span class="tiny">Forward it to your founder as-is.</span></p>
+        <p class="small">No booking link yet; email is the honest version. If you would rather send your legal team the DPA first, ask and I will send the current draft.</p>
+        <p class="doc-foot">Next: <a href="trust.html">Security and data →</a></p>
+      </section>
+    </div>
   </div>
 </section>
-
-<section class="sec big" id="faq" aria-labelledby="faq-h">
-  <div class="wrap">
-    <h2 id="faq-h">Questions, answered.</h2>
-    <dl class="answers">
-      <div><dt>What if nobody uses it?</dt><dd>You'll know by week 3, not at renewal. People set their own reminders, and you'll see how many did.</dd></div>
-      <div><dt>Can HR see what someone typed?</dt><dd>No. Team totals only; teams under 10 are hidden. <a class="more" href="data.html">Every count, listed ›</a></dd></div>
-      <div><dt>We already have insurance wellness. Why this?</dt><dd>Keep it. That covers the serious moments; Lull covers an ordinary Tuesday afternoon.</dd></div>
-      <div><dt>Remote, field or shift teams?</dt><dd>Yes. It's a link on any phone or laptop, at any hour.</dd></div>
-    </dl>
-    <p class="cta-row"><a class="more" data-cta="pilot" data-ev="cta-pilot-page" href="https://tally.so/r/peex9E?cta=pilot">Request a pilot ›</a></p>
-  </div>
-</section>
-
 </main>
 
 <footer class="foot">
   <div class="wrap">
-    <p>Early-stage product. Report figures are a sample company. Not medical advice. <span class="updated">Updated 28 Oct 2026 · <a href="pm.html#changelog">What's changed</a></span></p>
-    <div class="foot-links">
-      <a href="data.html">Data & trust</a>
-      <a href="safety.html">Safety and limits</a>
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="./"><img src="favicon.svg" alt="" width="24" height="24">lull</a>
+        <p class="foot-note">An early-stage product. A general movement break, not medical care. Sample figures are illustrative, not a customer.</p>
+        <p class="foot-updated">Updated 29 Oct 2026 · v1.0</p>
+      </div>
+      <nav class="foot-links" aria-label="Trust">
+        <p class="foot-head">Trust</p>
+        <a href="trust.html">Security</a>
+        <a href="trust.html#dpa">DPA</a>
+        <a href="trust.html#subprocessors">Subprocessors</a>
+        <a href="trust.html#data">Data</a>
+        <a href="safety.html">Safety</a>
+        <a href="report.html">Sample report</a>
+      </nav>
+      <nav class="foot-links" aria-label="Company">
+        <p class="foot-head">Company</p>
+        <a href="pilot.html">Pilot &amp; pricing</a>
+        <a href="index.html#company">About</a>
+        <a href="privacy.html">Site privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:rupakr2g@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-legal">
+      <span>© <span id="year">2026</span> Lull · India</span>
+      <span>GST invoice on request · <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a></span>
     </div>
   </div>
 </footer>
-
-<div class="sticky" id="sticky">
-  <a class="btn btn-primary" data-ev="cta-try-sticky" href="./#try">Try it · 40 sec</a>
-</div>
-
-<dialog class="vid" id="vid" aria-label="Lull walkthrough video">
-  <div class="vid-top"><span>Lull in 2 minutes</span><button type="button" class="vid-close" id="vid-close" aria-label="Close video">×</button></div>
-  <video controls preload="none" playsinline poster="img/poster.jpg" width="1280" height="800">
-    <source data-src="lull-walkthrough.mp4" type="video/mp4">
-    <source data-src="lull-walkthrough.webm" type="video/webm">
-    <a href="lull-walkthrough.mp4">Download the walkthrough</a>
-  </video>
-</dialog>
-
-<script src="main.js"></script>
+<script src="home.js" defer></script>
 </body>
 </html>

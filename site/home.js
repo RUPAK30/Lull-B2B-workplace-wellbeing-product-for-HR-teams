@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   var nav = document.getElementById('nav');
   var menuBtn = document.getElementById('menu-btn');
 
@@ -15,7 +15,7 @@
     nav.classList.toggle('open', open);
     menuBtn.setAttribute('aria-expanded', String(open));
     menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
-    menuBtn.textContent = open ? '✕' : '☰';
+    menuBtn.textContent = open ? '\u2715' : '\u2630';
   }
   if (menuBtn) {
     menuBtn.addEventListener('click', function (e) {
@@ -166,3 +166,4 @@
   againBtn.addEventListener('click', resetAll);
   paint();
 })();
+

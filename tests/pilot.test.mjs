@@ -14,12 +14,10 @@ test('team codes are plain and short, so they cannot carry anything personal',()
 test('only allow-listed events can leave the device, and nothing about pain or what was typed',()=>{
   assert.equal(pilotEvent('session_loaded',{title:'Gentle mobility'}),'session-started');
   assert.equal(pilotEvent('session_finished',{reason:'finished'}),'session-finished');
-  assert.equal(pilotEvent('feeling',{value:'lighter'}),'felt-lighter');
-  assert.equal(pilotEvent('feeling',{value:'not-for-me'}),'felt-not-for-me');
   assert.equal(pilotEvent('reminder_set',{via:'slack'}),'reminder-set');
   assert.equal(pilotEvent('opened_from_reminder'),'opened-from-reminder');
   assert.equal(pilotEvent('returned'),'came-back');
-  for(const [type,data] of [['safety',{level:'pain'}],['session_finished',{reason:'safety'}],['session_finished',{reason:'stopped'}],['unmatched',{text:'my knee hurts'}],['need',{kinds:['stiff']}],['adjusted',{to:'gentle'}],['timer_started',{}],['visit',{}],['feeling',{value:'<script>'}]])
+  for(const [type,data] of [['safety',{level:'pain'}],['session_finished',{reason:'safety'}],['session_finished',{reason:'stopped'}],['unmatched',{text:'my knee hurts'}],['need',{kinds:['stiff']}],['feeling',{value:'lighter'}],['adjusted',{to:'gentle'}],['timer_started',{}],['visit',{}],['feeling',{value:'<script>'}],['need',{kinds:['a stiff back']}]])
     assert.equal(pilotEvent(type,data),null,`${type} must never be sent`);
   assert.equal(pilotPath('sales','session-started'),'pilot/sales/session-started');
 });
@@ -58,13 +56,9 @@ test('the local app still cannot send anything: its CSP only allows its own orig
 
 import {parseReset,teamResetInvite,resetFromTitle} from '../dist/shared/pilot.js';
 
-test('need categories: only the first broad category from a fixed list, never words or pain',()=>{
-  assert.equal(pilotEvent('need',{kinds:['some stiffness','not much time']}),'need-stiff');
-  assert.equal(pilotEvent('need',{kinds:['a lot of sitting']}),'need-sitting');
-  assert.equal(pilotEvent('need',{kinds:['wanting something calm']}),'need-calm');
-  assert.equal(pilotEvent('need',{kinds:['my back hurts']}),null,'free text never maps');
-  assert.equal(pilotEvent('need',{kinds:[]}),null);
-  assert.equal(pilotEvent('need',{}),null);
+test('feelings and needs never leave the device, even from the fixed lists',()=>{
+  for(const value of ['lighter','same','not-for-me']) assert.equal(pilotEvent('feeling',{value}),null);
+  for(const kinds of [['some stiffness'],['a stiff back'],['neck and shoulders'],['my back hurts']]) assert.equal(pilotEvent('need',{kinds}),null);
 });
 
 test('team reset links only open known resets',()=>{
@@ -84,8 +78,6 @@ test('a reset title maps back to its one-tap reset code',()=>{
   assert.equal(resetFromTitle('Something else'),null);
 });
 
-test('new need categories (neck, back, eyes) can be counted; free text never',()=>{
-  assert.equal(pilotEvent('need',{kinds:['neck and shoulders']}),'need-neck');
-  assert.equal(pilotEvent('need',{kinds:['a stiff back']}),'need-back');
-  assert.equal(pilotEvent('need',{kinds:['tired eyes or wrists']}),'need-eyes');
+test('new need categories are still never sent; free text never',()=>{
+  for(const kinds of [['neck and shoulders'],['a stiff back'],['tired eyes or wrists']]) assert.equal(pilotEvent('need',{kinds}),null);
 });

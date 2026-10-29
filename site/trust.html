@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Security and data · Lull</title>
+<meta name="description" content="What leaves a device, what HR sees, who processes it, how long it is kept, and what Lull does not have yet. The pilot trust centre.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF8F3">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="home.css">
+<script data-goatcounter="/gc/count" async src="/gc/count.js"></script>
+</head>
+<body class="home doc-page">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="24" height="24">lull</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="index.html#product">Product</a>
+      <a href="pilot.html">Pricing</a>
+      <a href="trust.html" aria-current="page">Security</a>
+      <a href="index.html#company">Company</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="pilot.html">Book a pilot</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">☰</button>
+  </div>
+  <nav class="menu" id="menu-panel" aria-label="Menu">
+    <div class="wrap">
+      <a href="index.html#product">Product</a>
+      <a href="pilot.html">Pricing</a>
+      <a href="trust.html">Security</a>
+      <a href="index.html#company">Company</a>
+      <a href="mailto:rupakr2g@gmail.com">Email Rupak</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+<section class="doc-hero">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="index.html">Home</a> / Security and data</p>
+    <h1>The data, the paper, and the limits.</h1>
+    <p class="lede">Lull is a small, pilot-stage product. This page is the whole data story: what leaves a device, what reaches HR, who processes it, how long it is kept, and what we do not have yet.</p>
+    <p class="doc-meta">Updated 29 October 2026 · v1.0 · Part of the pilot pack</p>
+  </div>
+</section>
+
+<section class="doc">
+  <div class="wrap doc-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <a href="#data">What is collected</a>
+      <a href="#small-numbers">Small numbers</a>
+      <a href="#roles">Who is responsible</a>
+      <a href="#subprocessors">Subprocessors</a>
+      <a href="#retention">Retention</a>
+      <a href="#ai">AI</a>
+      <a href="#dpa">DPA summary</a>
+      <a href="#employees">Employee notice</a>
+      <a href="#security">Security today</a>
+      <a href="#pack">Pilot pack</a>
+    </nav>
+
+    <div class="doc-body">
+      <div class="lane-grid">
+        <div class="lane"><h3>For HR</h3><p>What you get on Friday, and what you never see.</p><a href="#data">The data →</a></div>
+        <div class="lane"><h3>For legal</h3><p>Roles, notice, retention, and the DPA summary.</p><a href="#dpa">The paper →</a></div>
+        <div class="lane"><h3>For IT</h3><p>Architecture, subprocessors, and incident contact.</p><a href="#subprocessors">The stack →</a></div>
+      </div>
+
+      <section class="doc-section" id="data">
+        <h2>What is collected</h2>
+        <p><strong>Only counts leave a device.</strong> A pilot link carries a short team code. When someone starts or finishes a reset, the app adds one to that team's count. There is no row for a person and no session history.</p>
+        <table class="data-table">
+          <caption>Every event that can leave the device in a pilot</caption>
+          <thead><tr><th scope="col">Event</th><th scope="col">What it means</th></tr></thead>
+          <tbody>
+            <tr><td><code>session-started</code></td><td>Someone opened a reset.</td></tr>
+            <tr><td><code>session-finished</code></td><td>The reset reached the end.</td></tr>
+            <tr><td><code>came-back</code></td><td>Someone returned on a later day.</td></tr>
+            <tr><td><code>reminder-set</code></td><td>Someone made their own calendar or Slack reminder.</td></tr>
+            <tr><td><code>opened-from-reminder</code></td><td>A reset was opened from that reminder.</td></tr>
+            <tr><td><code>team-reset-joined</code></td><td>Someone opened a shared team-reset link.</td></tr>
+          </tbody>
+        </table>
+        <p class="small">The count path is <code>pilot/&lt;team&gt;/&lt;event&gt;</code>. Nothing else is in it.</p>
+
+        <h3>What the report contains</h3>
+        <p>Per team, per week: how many started, how many finished, and how many started but did not finish. That is the four-field row: team, week, started, finished.</p>
+
+        <h3>What is never collected</h3>
+        <ul>
+          <li>Names, email addresses, employee IDs, device IDs, or IP addresses in the report.</li>
+          <li>Individual sessions, timestamps per person, or a person's history.</li>
+          <li>What anyone typed, what they chose, or how they felt afterwards.</li>
+          <li>Anything about pain or a safety stop. Those are care, not a metric, and are never counted.</li>
+          <li>Location, contacts, camera, microphone, or health-app data.</li>
+        </ul>
+        <p class="small">There is no login, no profile, and nothing to install. Choose a team code, not a person's name.</p>
+      </section>
+
+      <section class="doc-section" id="small-numbers">
+        <h2>Small numbers are suppressed</h2>
+        <p>A team appears in a weekly email only when at least <strong>10 people started</strong> that week. We also hide the next-smallest team, so a hidden team cannot be worked out by subtracting the visible rows from a company total.</p>
+        <p><strong>We call this aggregated with small numbers suppressed. We do not call it anonymous.</strong> A team code can describe a group, and a group can be small. Suppression is what protects the group, not a promise that the data contains no person at all.</p>
+        <p>If too few teams pass the threshold, the week's email says so and shows no team rows.</p>
+      </section>
+
+      <section class="doc-section" id="roles">
+        <h2>Who is responsible</h2>
+        <div class="flow">
+          <div class="flow-box"><b>Your company</b>Data fiduciary. Decides why the pilot runs and sends the employee note.</div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-box"><b>Lull</b>Data processor. Counts team totals and sends the report, only on your instructions.</div>
+          <div class="flow-arrow" aria-hidden="true">→</div>
+          <div class="flow-box"><b>Subprocessors</b>Hosting, analytics, email, and optional AI. Listed in full below.</div>
+        </div>
+        <p class="small">Lull is built for India's Digital Personal Data Protection Act, 2023 and the Rules notified in November 2025. We do not claim “DPDP compliant”. We do claim purpose limitation, data minimisation, a notice template, a DPA, and deletion on request.</p>
+      </section>
+
+      <section class="doc-section" id="subprocessors">
+        <h2>Subprocessors</h2>
+        <table class="data-table sub-table">
+          <caption>Complete list · last updated 29 October 2026</caption>
+          <thead><tr><th scope="col">Vendor</th><th scope="col">Purpose</th><th scope="col">Data</th><th scope="col">Location</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Vercel</th><td data-label="Purpose">Hosting and delivery of the site and app</td><td data-label="Data">Short-lived access logs, which may include an IP address. Not exported and not used for reporting.</td><td data-label="Location">United States / global edge</td></tr>
+            <tr><th scope="row">GoatCounter</th><td data-label="Purpose">Aggregate page counts on the marketing site</td><td data-label="Data">No cookies, no persistent IP. A daily hash counts unique visits, then is discarded.</td><td data-label="Location">European Union</td></tr>
+            <tr><th scope="row">Google (Gmail)</th><td data-label="Purpose">Pilot correspondence</td><td data-label="Data">Only what you send in an email.</td><td data-label="Location">Global</td></tr>
+            <tr><th scope="row">Anthropic</th><td data-label="Purpose">Optional guided mode, only if you switch it on yourself</td><td data-label="Data">The text you type. Deleted within 30 days. Not used for training by default.</td><td data-label="Location">United States</td></tr>
+          </tbody>
+        </table>
+        <p class="small">That is the list. There is no HRIS sync, no Slack read access, no WhatsApp or SMS, no ad network, and no data broker. Lull does not sell data. We will tell you before adding a subprocessor.</p>
+      </section>
+
+      <section class="doc-section" id="retention">
+        <h2>Retention</h2>
+        <ul>
+          <li><strong>Team counts:</strong> kept for the pilot plus 30 days, then deleted. Deleted earlier on request.</li>
+          <li><strong>Pilot email:</strong> kept while the pilot and any contract run, then deleted on request.</li>
+          <li><strong>Host logs:</strong> short-lived (about an hour to three days, depending on the plan). We do not export them.</li>
+          <li><strong>Analytics:</strong> aggregate counts only. Raw IP addresses are not retained.</li>
+          <li><strong>AI:</strong> off in every pilot. If you switch it on yourself, Anthropic keeps the text for up to 30 days and Lull stores nothing.</li>
+        </ul>
+        <p class="small">These are the intended periods. A signed DPA sets the final ones for your pilot.</p>
+      </section>
+
+      <section class="doc-section" id="ai">
+        <h2>AI</h2>
+        <p><strong>AI is off by default, and off in every pilot.</strong> The public demo is scripted; no text is sent anywhere.</p>
+        <p>The local build has an optional guided mode. If you run it yourself with your own API key and switch it on, the text you type goes to Anthropic to choose a reset. It is not used to train models by default and is deleted within 30 days. Lull does not store it.</p>
+        <p>AI never decides whether someone is safe. Safety stops are fixed rules, not a model's judgement.</p>
+      </section>
+
+      <section class="doc-section" id="dpa">
+        <h2>DPA summary</h2>
+        <p>I sign a data processing agreement before the first pilot link goes out. This is the plain-language summary.</p>
+        <ul>
+          <li><strong>Roles:</strong> your company is the data fiduciary; Lull is the processor.</li>
+          <li><strong>Scope:</strong> team-level counts only, as listed above. No employee identifiers.</li>
+          <li><strong>Purpose:</strong> running and reporting the pilot. Nothing else.</li>
+          <li><strong>Subprocessors:</strong> the four listed above. Notice before any change.</li>
+          <li><strong>Security:</strong> HTTPS in transit, access limited to the founder, no employee-level store to breach.</li>
+          <li><strong>Deletion:</strong> on request, within 30 days, with written confirmation.</li>
+          <li><strong>Breach:</strong> tell you without undue delay, and within 72 hours of becoming aware.</li>
+          <li><strong>Audit:</strong> answer reasonable questions about this page and the code. No audit certificate yet.</li>
+        </ul>
+        <div class="notice"><strong>Not yet lawyer-reviewed.</strong> This summary and the DPA are drafts written by the founder. If your legal team needs changes, send them and I will work through them before the pilot starts.</div>
+        <p><a href="mailto:rupakr2g@gmail.com?subject=Lull%20DPA%20%E2%80%94%20please%20send%20the%20current%20draft">Ask for the current DPA</a></p>
+      </section>
+
+      <section class="doc-section" id="employees">
+        <h2>The employee notice</h2>
+        <p>You send this before the link. It is short on purpose.</p>
+        <div class="notice">
+          <p><strong>What this is.</strong> Lull is a three-minute seated movement break. It is optional. There is no login and nothing to install.</p>
+          <p><strong>What is counted.</strong> If our team joins the pilot, Lull counts how many people in the team started and finished a reset each week. It does not record who.</p>
+          <p><strong>What is not counted.</strong> What you type, how you feel, and anything about pain are never sent. If you stop or report pain, no one at the company is told.</p>
+          <p><strong>Your choice.</strong> You can ignore the link, turn counting off in the app, and clear the device log at any time.</p>
+          <p><strong>Questions.</strong> Ask <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a>.</p>
+        </div>
+        <p class="small">This is a template, not legal advice. Your company decides the final wording.</p>
+      </section>
+
+      <section class="doc-section" id="security">
+        <h2>Security today</h2>
+        <p>Being small means being precise about what exists.</p>
+        <ul>
+          <li>HTTPS everywhere. No accounts, passwords, or employee database.</li>
+          <li>Access to the deployment and email is limited to the founder.</li>
+          <li>No SOC 2, ISO 27001, or penetration test yet. We will not show a badge we have not earned.</li>
+          <li>Report a security issue to <a href="mailto:rupakr2g@gmail.com?subject=Lull%20security">rupakr2g@gmail.com</a>. I reply within two working days.</li>
+        </ul>
+        <p class="small">If your procurement process requires certifications Lull does not have, the honest answer is that this is not the right stage for that process yet.</p>
+      </section>
+
+      <section class="doc-section" id="pack">
+        <h2>The pilot pack</h2>
+        <p>Everything your legal, IT, and HR team needs, in one place.</p>
+        <div class="downloads">
+          <a class="download" href="report.html"><b>Sample week-6 report</b><span>What you get at the end, with illustrative figures.</span></a>
+          <a class="download" href="safety.html"><b>Safety and limits</b><span>Red flags, when not to use it, and review status.</span></a>
+          <a class="download" href="pilot.html"><b>Pilot and pricing</b><span>The six weeks, the price after, and how to book.</span></a>
+          <a class="download" href="privacy.html"><b>Site privacy notice</b><span>Cookies, analytics, and this website.</span></a>
+        </div>
+        <p class="doc-foot">Next: <a href="safety.html">Safety and limits →</a></p>
+      </section>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="./"><img src="favicon.svg" alt="" width="24" height="24">lull</a>
+        <p class="foot-note">An early-stage product. A general movement break, not medical care. Sample figures are illustrative, not a customer.</p>
+        <p class="foot-updated">Updated 29 Oct 2026 · v1.0</p>
+      </div>
+      <nav class="foot-links" aria-label="Trust">
+        <p class="foot-head">Trust</p>
+        <a href="trust.html">Security</a>
+        <a href="trust.html#dpa">DPA</a>
+        <a href="trust.html#subprocessors">Subprocessors</a>
+        <a href="trust.html#data">Data</a>
+        <a href="safety.html">Safety</a>
+        <a href="report.html">Sample report</a>
+      </nav>
+      <nav class="foot-links" aria-label="Company">
+        <p class="foot-head">Company</p>
+        <a href="pilot.html">Pilot &amp; pricing</a>
+        <a href="index.html#company">About</a>
+        <a href="privacy.html">Site privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:rupakr2g@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-legal">
+      <span>© <span id="year">2026</span> Lull · India</span>
+      <span>GST invoice on request · <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a></span>
+    </div>
+  </div>
+</footer>
+<script src="home.js" defer></script>
+</body>
+</html>

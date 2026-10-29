@@ -5,31 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Page not found · Lull</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#F3EEE3">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF8F3">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fonts.css">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="home.css">
 </head>
-<body>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="Lull home"><img src="/favicon.svg" alt="" width="26" height="26">lull</a>
+<body class="home doc-page">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="./" aria-label="Lull home"><img src="favicon.svg" alt="" width="24" height="24">lull</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="index.html#product">Product</a>
+      <a href="pilot.html">Pricing</a>
+      <a href="trust.html">Security</a>
+      <a href="index.html#company">Company</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="pilot.html">Book a pilot</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">☰</button>
   </div>
+  <nav class="menu" id="menu-panel" aria-label="Menu">
+    <div class="wrap">
+      <a href="index.html#product">Product</a>
+      <a href="pilot.html">Pricing</a>
+      <a href="trust.html">Security</a>
+      <a href="index.html#company">Company</a>
+      <a href="mailto:rupakr2g@gmail.com">Email Rupak</a>
+    </div>
+  </nav>
 </header>
-<main class="wrap done-page">
-  <p class="kicker">404</p>
-  <h1>This page took a break.</h1>
-  <p class="lede">The link doesn't lead anywhere. These probably do:</p>
-  <div class="done-wait">
-    <ul>
-      <li><a href="/">Lull for HR teams</a><span>The 2-minute overview, with the two-sided demo.</span></li>
-      <li><a href="/app/">Try the real Lull app</a><span>A 3-minute reset in your browser.</span></li>
-      <li><a href="/safety.html">Safety and limits</a><span>How pain is handled, and what isn't reviewed yet.</span></li>
-    </ul>
+
+<main id="main">
+<section class="doc-hero">
+  <div class="wrap">
+    <p class="breadcrumb">404</p>
+    <h1>This page took a break.</h1>
+    <p class="lede">The link doesn't lead anywhere. These do.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="./">Lull for teams</a>
+      <a class="btn btn-ghost" href="app/?taster=1">Try the 2:30</a>
+    </div>
   </div>
+</section>
+<section class="doc">
+  <div class="wrap">
+    <div class="lane-grid">
+      <div class="lane"><h3>Pilot and pricing</h3><p>Six weeks, free for the first six teams.</p><a href="pilot.html">The offer →</a></div>
+      <div class="lane"><h3>Security and data</h3><p>What is collected, who processes it, and the DPA.</p><a href="trust.html">The trust centre →</a></div>
+      <div class="lane"><h3>Safety and limits</h3><p>Red flags, and what Lull is not.</p><a href="safety.html">Read the limits →</a></div>
+    </div>
+  </div>
+</section>
 </main>
+
 <footer class="foot">
-  <div class="wrap"><p>Early-stage product. Report figures are a sample company. Not medical advice. <span class="updated">Updated 28 Oct 2026 · <a href="pm.html#changelog">What's changed</a></span></p></div>
+  <div class="wrap">
+    <div class="foot-legal">
+      <span>© <span id="year">2026</span> Lull · India</span>
+      <span><a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a></span>
+    </div>
+  </div>
 </footer>
+<script src="home.js" defer></script>
 </body>
 </html>
