@@ -16,6 +16,16 @@ No app, no account, no roster, no HRIS. The pilot is free for the first six team
 
 This is a general movement break, not treatment, rehab, or a medical device. The four moves have not yet been clinically reviewed.
 
+## The homepage experience
+
+- **Live try:** the real first move runs on the page (40 sec), no install.
+- **The break, shown:** a figure inside a progress ring plays the four moves on its own when in view; tap a move to jump, pause anytime.
+- **Never a person, shown:** in the Friday email, employee names dissolve into one team count. "Make it yours" lets HR type a team name and size; under 10 the team is visibly hidden, and the price updates.
+- **One breath across the page:** three scroll interludes between chapters — *Breathe in*, *Hold* (3·2·1), *And let it go* — each filling the screen with the next chapter's colour.
+- **Navigation:** a floating chapter dock with live progress, and **✦ Ask**: six written answers (no AI, nothing sent) that jump to the right section.
+- **Honesty:** "What usually goes wrong" (failure / what we did / what it costs us), a trust status table (In place / Partial / Not started / Not configured), a pilot pre-mortem, and report limits with Save as PDF.
+- Light and dark, reduced-motion support, WCAG 2.2 checks, 320px fit.
+
 ## The data contract
 
 The whole allow-list lives in `src/shared/pilot.ts`. In a pilot, only these counters can leave a device, under `pilot/<team>/<event>`:
