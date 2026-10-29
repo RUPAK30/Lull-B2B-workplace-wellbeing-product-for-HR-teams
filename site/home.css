@@ -427,3 +427,4 @@ p{margin:0}
 /* audit fixes */
 .doc-section a:not(.btn):not(.download){text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 .lane h2.lane-h{margin:0;font:600 .8125rem/1.4 var(--sans);letter-spacing:0}
+.breadcrumb a{text-decoration:underline;text-underline-offset:2px}
