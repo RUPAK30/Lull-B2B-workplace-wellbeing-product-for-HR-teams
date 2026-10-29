@@ -439,3 +439,31 @@ p{margin:0}
 .copy-mail{border:1px solid currentColor;background:none;color:inherit;border-radius:999px;padding:6px 12px;min-height:32px;font:600 .8rem inherit;cursor:pointer;margin-left:6px}
 .limits{border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:20px;margin-bottom:24px}
 @media print{.nav,.menu,.foot,footer,.skip,.limits button,.btn{display:none!important}body{background:#fff!important;color:#000!important}a{color:#000;text-decoration:none}main{padding:0!important}section{break-inside:avoid}}
+
+/* ===== UI/UX foundation pass ===== */
+/* Grain: subtle paper texture */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* Dark band: the "what usually goes wrong" section */
+.wrong{background:var(--dark);color:#EDEAE2;border-top:1px solid #000;border-bottom:1px solid #000}
+.wrong .eyebrow{color:#9FC7B0}.wrong h2{color:#F6F3EC}
+.wrong .data-table th,.wrong .data-table td{color:#E4E0D6;border-color:#2C342F}
+.wrong .data-table thead th{color:#9DA69F}
+.wrong .data-table tbody th{color:#F6F3EC}
+.wrong .small{color:#B9B4A8}
+/* Numbers */
+.demo-time,.email-stats,.week-table,.data-table,.price-line{font-variant-numeric:tabular-nums lining-nums}
+/* Type rhythm */
+h1,h2{text-wrap:balance}p,.lede,li{text-wrap:pretty}
+/* Scroll progress */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:60;transition:width .1s linear}
+/* Reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.progress{display:none}}
+/* Tap targets */
+.btn,.demo-btn,.menu-btn,.copy-mail,.menu a,.foot a{min-height:44px}
+.copy-mail{min-height:36px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Small screens */
+@media (max-width:360px){.wrap{padding-left:14px;padding-right:14px}h1{font-size:2rem!important}.data-table{font-size:.85rem}}
+html,body{overflow-x:hidden}
