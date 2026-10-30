@@ -1186,3 +1186,51 @@ section[id]{scroll-margin-top:136px}
 .foot-status a{min-height:0;display:inline}
 /* the spec sheet already closes the hero: less air before the argument */
 .hero{padding-bottom:clamp(22px,3vw,34px)}
+
+/* ============================================================
+   Interaction pass: read the email two ways; fold long copy
+   on phones instead of printing it all at once.
+   ============================================================ */
+
+/* email tabs */
+.email-tabs{display:flex;gap:4px;padding:6px;background:var(--paper-2);border-bottom:1px solid var(--rule)}
+.email-tabs button{flex:1;min-height:36px;border:0;border-radius:7px;background:transparent;font:500 .75rem/1 var(--sans);letter-spacing:.02em;color:var(--ink-3);cursor:pointer;transition:background .12s,color .12s,box-shadow .12s}
+.email-tabs button:hover{color:var(--ink)}
+.email-tabs button[aria-selected="true"]{background:var(--paper);color:var(--ink);box-shadow:0 1px 0 rgba(21,24,26,.06),0 1px 3px -1px rgba(21,24,26,.18)}
+.email-body.panel-in{animation:panelin .24s var(--ease)}
+@keyframes panelin{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+
+/* long rows: full text on desktop, a one-line summary plus a tap on phones */
+details.fold{border:0;min-width:0}
+details.fold>summary{list-style:none;cursor:pointer;display:none}
+details.fold>summary::-webkit-details-marker{display:none}
+.fold-body p{margin:0}
+.q-row>.q-price{grid-column:2;justify-self:start;margin-top:4px}
+
+/* the lockup, at full weight */
+.nav .brand img{width:30px;height:30px}
+.brand{font-size:1.4rem;letter-spacing:-.04em}
+.foot .brand img{width:34px;height:34px}
+
+@media(max-width:600px){
+  .nav .brand img{width:28px;height:28px}
+  .brand{font-size:1.3rem}
+  .q-row{display:block;padding:12px 0}
+  .q-label{margin-bottom:2px}
+  details.fold>summary{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:36px;font:500 .9375rem/1.35 var(--sans);color:var(--ink);letter-spacing:-.01em}
+  details.fold>summary::after{content:"";width:7px;height:7px;flex:none;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(45deg) translateY(-1px);transition:transform .18s var(--ease)}
+  details.fold[open]>summary::after{transform:rotate(-135deg) translateY(-1px)}
+  details.fold>.fold-body{margin-top:2px}
+  details.fold>.fold-body p{font-size:.8125rem;line-height:1.5;color:var(--ink-2)}
+  .q-row>.q-price{grid-column:auto;margin-top:0;font-size:.8125rem}
+  .founder-fold>summary{font-size:.8125rem;line-height:1.45}
+  .founder-fold>.fold-body p{font-size:.8125rem;line-height:1.5}
+  .email-tabs button{min-height:38px}
+}
+
+@media(max-width:600px){
+  .email-head{padding:11px 14px}
+  .email-head p:first-child,.email-head p:last-child{display:none}
+  .email-head p{font-size:.75rem}
+  .doors>span .sm{letter-spacing:.1em}
+}

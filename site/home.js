@@ -333,3 +333,42 @@ document.addEventListener('click',function(e){
   if(mq.addEventListener) mq.addEventListener('change',sync);
   else if(mq.addListener) mq.addListener(sync);
 })();
+
+/* Long copy folds open on desktop, stays folded on phones. */
+(function(){
+  var folds=[].slice.call(document.querySelectorAll('details.fold'));
+  if(!folds.length) return;
+  var mq=window.matchMedia('(max-width:600px)');
+  function sync(){folds.forEach(function(d){d.open=!mq.matches;});}
+  sync();
+  if(mq.addEventListener) mq.addEventListener('change',sync);
+  else if(mq.addListener) mq.addListener(sync);
+})();
+
+/* The Friday email: same data, read as HR or as Finance. */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.email-tabs [role="tab"]'));
+  if(!tabs.length) return;
+  var panels=[].slice.call(document.querySelectorAll('.email-body'));
+  function show(id){
+    tabs.forEach(function(t){
+      var on=t.getAttribute('aria-controls')===id;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+    });
+    panels.forEach(function(panel){
+      var on=panel.id===id;
+      panel.hidden=!on;
+      if(on){panel.classList.remove('panel-in');void panel.offsetWidth;panel.classList.add('panel-in');}
+    });
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t.getAttribute('aria-controls'));});
+    t.addEventListener('keydown',function(e){
+      if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
+      e.preventDefault();
+      var n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];
+      show(n.getAttribute('aria-controls'));n.focus();
+    });
+  });
+})();

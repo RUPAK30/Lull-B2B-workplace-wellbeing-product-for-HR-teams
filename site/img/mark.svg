@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sukoon">
   <title>Sukoon</title>
-  <rect x="7" y="5" width="6.5" height="22" rx="3.25" fill="#15181A"/>
-  <rect x="18.5" y="8.5" width="6.5" height="15" rx="3.25" fill="#1F4D3A"/>
+  <rect x="6.5" y="5" width="7.5" height="22" rx="3.75" fill="#15181A"/>
+  <rect x="18" y="5" width="7.5" height="22" rx="3.75" fill="#1F4D3A"/>
 </svg>
