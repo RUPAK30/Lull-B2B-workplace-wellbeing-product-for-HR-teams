@@ -1,7 +1,7 @@
 // Shows the app in English, Hindi or Marathi. The engine keeps speaking English internally (buttons still
 // send their English labels), and this layer translates every line on screen as it is drawn.
 // The language follows the person: typing in Devanagari switches it; Roman Hinglish/Marathi gets a one-tap offer.
-import { STRINGS } from './i18n-strings.js?v=mvvc2t1v';
+import { STRINGS } from './i18n-strings.js?v=mvvc8lmd';
 const table = new Map();
 for (const line of STRINGS.split('\n')) {
     const [en, hi, mr] = line.split(' || ').map(s => s?.trim());
@@ -92,15 +92,16 @@ export function tr(text) {
 const original = new WeakMap(), originalAttr = new WeakMap();
 const SKIP = 'textarea, input, script, style, #transcript, #state-json, .lang-switch, [data-no-tr]';
 let busy = false;
+// Remember both the English and what we last showed, so switching Hindi ↔ Marathi always starts from English.
 function translateNode(node) {
     if (node.nodeType === 3) {
         const parent = node.parentElement;
         if (!parent || parent.closest(SKIP))
             return;
         const now = node.nodeValue ?? '', known = original.get(node);
-        const en = known !== undefined && (now === tr(known) || now === known) ? known : now;
-        original.set(node, en);
+        const en = known && (now === known.shown || now === known.en) ? known.en : now;
         const next = tr(en);
+        original.set(node, { en, shown: next });
         if (next !== now)
             node.nodeValue = next;
     }
@@ -111,12 +112,10 @@ function translateNode(node) {
         for (const attr of ['placeholder', 'aria-label', 'title']) {
             if (!e.hasAttribute?.(attr))
                 continue;
-            const store = originalAttr.get(e) ?? {};
-            const now = e.getAttribute(attr);
-            const en = store[attr] !== undefined && now === tr(store[attr]) ? store[attr] : now;
-            store[attr] = en;
+            const store = originalAttr.get(e) ?? {}, now = e.getAttribute(attr), k = store[attr];
+            const en = k && (now === k.shown || now === k.en) ? k.en : now, next = tr(en);
+            store[attr] = { en, shown: next };
             originalAttr.set(e, store);
-            const next = tr(en);
             if (next !== now)
                 e.setAttribute(attr, next);
         }

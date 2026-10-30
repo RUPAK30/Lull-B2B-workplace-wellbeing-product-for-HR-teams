@@ -1,6 +1,6 @@
-import { serializeStatement } from '../shared/openui/serialize.js?v=mvvc2t1v';
-import { ScreenDocument } from '../shared/openui/document.js?v=mvvc2t1v';
-import * as lull from './lull.js?v=mvvc2t1v';
+import { serializeStatement } from '../shared/openui/serialize.js?v=mvvc8lmd';
+import { ScreenDocument } from '../shared/openui/document.js?v=mvvc8lmd';
+import * as lull from './lull.js?v=mvvc8lmd';
 const fence = (code) => '```openui\n' + code + '\n```';
 const CLEAR = fence('root = Screens([])');
 const HELP = 'Mock understands /lull to start, /reset [unknot|unsit|energy|calm|screen] [seated|standing] for a reset, /demo for the wiring sample, next, back and “change value to 6”. It does not read your skill or call an AI provider.';

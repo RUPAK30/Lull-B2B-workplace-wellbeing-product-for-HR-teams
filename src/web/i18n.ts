@@ -49,22 +49,24 @@ export function tr(text: string): string {
 }
 
 // Translate what is on screen, and keep the English so switching back is exact.
-const original = new WeakMap<Node, string>(), originalAttr = new WeakMap<Element, Record<string, string>>();
+const original = new WeakMap<Node, { en: string; shown: string }>(), originalAttr = new WeakMap<Element, Record<string, { en: string; shown: string }>>();
 const SKIP = 'textarea, input, script, style, #transcript, #state-json, .lang-switch, [data-no-tr]';
 let busy = false;
+// Remember both the English and what we last showed, so switching Hindi ↔ Marathi always starts from English.
 function translateNode(node: Node) {
   if (node.nodeType === 3) {
     const parent = node.parentElement; if (!parent || parent.closest(SKIP)) return;
     const now = node.nodeValue ?? '', known = original.get(node);
-    const en = known !== undefined && (now === tr(known) || now === known) ? known : now;
-    original.set(node, en); const next = tr(en); if (next !== now) node.nodeValue = next;
+    const en = known && (now === known.shown || now === known.en) ? known.en : now;
+    const next = tr(en); original.set(node, { en, shown: next }); if (next !== now) node.nodeValue = next;
   } else if (node.nodeType === 1) {
     const e = node as Element;
     if (e.matches?.(SKIP) && !e.matches('textarea, input')) return;
     for (const attr of ['placeholder', 'aria-label', 'title']) {
       if (!e.hasAttribute?.(attr)) continue;
-      const store = originalAttr.get(e) ?? {}; const now = e.getAttribute(attr)!; const en = store[attr] !== undefined && now === tr(store[attr]) ? store[attr] : now;
-      store[attr] = en; originalAttr.set(e, store); const next = tr(en); if (next !== now) e.setAttribute(attr, next);
+      const store = originalAttr.get(e) ?? {}, now = e.getAttribute(attr)!, k = store[attr];
+      const en = k && (now === k.shown || now === k.en) ? k.en : now, next = tr(en);
+      store[attr] = { en, shown: next }; originalAttr.set(e, store); if (next !== now) e.setAttribute(attr, next);
     }
     if (!e.matches?.('textarea, input')) e.childNodes.forEach(translateNode);
   }
