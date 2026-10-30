@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sukoon · Product case study</title>
+<meta name="description" content="How Sukoon was built: problem, bets, metrics, what we chose not to build, and what changed after feedback.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF8F3">
+<link rel="canonical" href="https://lull-hr.vercel.app/pm">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sukoon">
+<meta property="og:title" content="Changes — what we changed, and why">
+<meta property="og:url" content="https://lull-hr.vercel.app/changes">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="home.css">
+<script data-goatcounter="/gc/count" async src="/gc/count.js"></script>
+</head>
+
+<body class="home">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="./" aria-label="Sukoon home"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">sukoon</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#runs">How it runs</a>
+      <a href="pilot.html#price">Pricing</a>
+      <a href="trust.html">Trust</a>
+      <a href="changes.html" aria-current="page">Changelog</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="workspace.html">Open the demo</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">☰</button>
+  </div>
+  <nav class="menu" id="menu-panel" aria-label="Menu">
+    <div class="wrap">
+      <a href="index.html#runs">How it runs</a>
+      <a href="workspace.html">Workspace demo</a>
+      <a href="report.html">Week-6 report</a>
+      <a href="pilot.html#price">Pricing</a>
+      <a href="trust.html">Trust and data</a>
+      <a href="changes.html">Changelog</a>
+      <a href="mailto:rupakr2g@gmail.com">Email Rupak</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="pmx">
+<section class="pm-hero">
+  <div class="wrap">
+    <p class="eyebrow">For product managers · Case study</p>
+    <h1>Sukoon: proof of wellbeing usage, without surveillance.</h1>
+    <p class="lede">A B2B product for Indian HR teams, taken from problem to a live, pilot-ready product by one PM. This page is the reasoning: bets, metrics, trade-offs, and what changed after feedback.</p>
+    <dl class="pm-facts">
+      <div><dt>Role</dt><dd>Solo PM: discovery, requirements, build, launch</dd></div>
+      <div><dt>Stage</dt><dd>Pre-revenue · pilot-ready · testing with HR</dd></div>
+      <div><dt>Market</dt><dd>HR teams, 30–250 people, India</dd></div>
+      <div><dt>Shipped</dt><dd>Web app, workspace demo, Friday email, week-6 report, trust centre</dd></div>
+    </dl>
+    <p class="pm-cta"><a class="btn btn-primary" href="workspace.html">Open the product demo</a> <a class="link" href="https://github.com/RUPAK30/Lull-B2B-workplace-wellbeing-product-for-HR-teams">Code and docs on GitHub →</a></p>
+  </div>
+</section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>TL;DR</h2>
+  <ul class="pm-tldr">
+    <li><b>Problem.</b> Companies pay for wellbeing benefits that most employees don't use, and HR can't prove usage without tracking individuals.</li>
+    <li><b>Bet.</b> A 2:30 seated break sent as one link per team, with weekly team-level counts and no personal data, will get used and be defensible at renewal.</li>
+    <li><b>Status.</b> Live and pilot-ready. No customers yet; first HR feedback in progress.</li>
+  </ul>
+</div></section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>The problem, with evidence</h2>
+  <div class="pm-stats">
+    <div><b>38%</b><span>of employees use health check-ups even when offered (Plum, 2025, 6,000+ companies)</span></div>
+    <div><b>1 in 3</b><span>say they lack time for their health (Plum, 2025)</span></div>
+    <div><b>~0</b><span>measurable wellbeing effect from individual programmes like apps (Oxford, 46,336 workers, 2024)</span></div>
+  </div>
+  <p class="pm-insight"><b>Insight:</b> wellness fails on <em>reach</em> and <em>proof</em>, not content. So the product competes on effort-to-start and on a number HR can defend, not on more content.</p>
+</div></section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>Users, buyer, approver</h2>
+  <div class="pm-chain">
+    <div><b>Employee</b><span>Uses it</span><p>Needs: under 3 minutes, seated, nothing to install, nobody watching.</p></div>
+    <div><b>HR / TA lead</b><span>Champions it</span><p>Needs: proof of use, zero admin, no privacy risk under DPDP.</p></div>
+    <div><b>Finance / founder</b><span>Approves it</span><p>Needs: cost per person who used it, a clear stop rule.</p></div>
+  </div>
+</div></section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>Bets, and how each can fail</h2>
+  <table class="pm-table">
+    <thead><tr><th>Hypothesis</th><th>Signal</th><th>Kill if</th></tr></thead>
+    <tbody>
+      <tr><td>People take a 2:30 break if starting costs nothing</td><td>Share of seats that start in week 1–2</td><td>Under 30% by week 2</td></tr>
+      <tr><td>The habit holds past novelty</td><td>Return within 7 days</td><td>Under 1 in 5</td></tr>
+      <tr><td>HR will pay for proof without names</td><td>Pilot to paid conversion</td><td>HR can't name a decision the report changed</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>Metrics</h2>
+  <div class="pm-tree">
+    <div class="ns"><span>North star</span><b>Weekly finished resets per active team</b></div>
+    <div class="row">
+      <div><span>Activation</span><b>First finish within 48h of launch</b></div>
+      <div><span>Retention</span><b>Came back within 7 days</b></div>
+      <div><span>Value</span><b>Cost per person who started</b></div>
+    </div>
+    <div class="guard"><span>Guardrails</span><b>Zero individual data leaves a device · every safety stop handled · teams under 10 never shown</b></div>
+  </div>
+</div></section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>What I chose not to build</h2>
+  <table class="pm-table">
+    <thead><tr><th>Not built</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Manager or individual view</td><td>Kills trust, and adoption with it. The whole bet is "never a person".</td></tr>
+      <tr><td>Leaderboards, streaks, badges</td><td>Inflate early numbers, then fail; make the data less honest.</td></tr>
+      <tr><td>Dashboard as the main surface</td><td>HR doesn't log in weekly. A Friday email is the retention loop.</td></tr>
+      <tr><td>SSO, HRIS sync, roster upload</td><td>Each adds an IT approval. One link needs none.</td></tr>
+      <tr><td>AI by default</td><td>Typed text would leave the device. Rules-based by default; AI only on written opt-in.</td></tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>Iteration log</h2>
+  <ol class="pm-log">
+    <li><b>v0 · Workout companion.</b> Learned people between calls choose by problem ("stiff neck"), not workout type → rebuilt as desk resets.</li>
+    <li><b>v1 · Safety.</b> My own eval: a keyword list missed 10 of 14 body-pain cases → fixed safety rules the AI can't override, in English and Hinglish.</li>
+    <li><b>v2 · B2B layer.</b> HR needs proof, employees fear tracking → team totals only, teams under 10 hidden, plus the next-smallest.</li>
+    <li><b>v3 · Site.</b> Benchmarked against Apple, Headspace, Calm, Microsoft Viva → plain-language privacy, one primary action.</li>
+    <li><b>v4 · SaaS presentation.</b> Feedback: "it looks artistic, not like a product; I'm not the customer" → removed decorative motion, one product view with three tabs, a demo workspace.</li>
+  </ol>
+  <p class="small">Next entry: results from HR outreach.</p>
+</div></section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>Trade-offs and risks</h2>
+  <ul class="pm-tldr">
+    <li><b>Privacy vs detail.</b> HR gets less granularity than it may ask for. Accepted: detail without trust gets no usage.</li>
+    <li><b>Novelty decay.</b> Weeks 1–2 inflate. The week-3 check-in and 7-day return metric exist for this.</li>
+    <li><b>No clinical review yet.</b> Disclosed on the safety page; required before any paid pilot.</li>
+    <li><b>Single founder.</b> Pilots capped at six teams.</li>
+  </ul>
+</div></section>
+
+<section class="pm-sec"><div class="wrap">
+  <h2>Next 90 days</h2>
+  <ol class="pm-log">
+    <li><b>Weeks 1–3.</b> 20 HR conversations; one change from the top objection.</li>
+    <li><b>Weeks 4–9.</b> First 6-week pilot, measured against the kill criteria above.</li>
+    <li><b>Week 10+.</b> Kill, pivot, or price. Decided by the numbers, written up here.</li>
+  </ol>
+  <p class="pm-cta"><a class="btn btn-primary" href="workspace.html">Open the product demo</a> <a class="link" href="report.html">The week-6 report →</a> <a class="link" href="changes.html">Full changelog →</a></p>
+</div></section>
+</main>
+</main>
+
+<nav class="pager" aria-label="Continue">
+  <a class="pager-link" href="trust.html"><span>Previous</span><b>Security and data</b></a>
+  <a class="pager-link pager-next" href="index.html"><span>Next</span><b>Home</b></a>
+</nav>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="./"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">sukoon</span></a>
+        <p class="foot-note">An early-stage product. A general movement break, not medical care. Sample figures are illustrative, not a customer.</p>
+        <p class="foot-updated">Updated 30 Oct 2026 · v3.1</p>
+      </div>
+      <nav class="foot-links" aria-label="Trust">
+        <p class="foot-head">Trust</p>
+        <a href="trust.html">Security and data</a>
+        <a href="trust.html#status">Status</a>
+        <a href="trust.html#dpa">DPA</a>
+        <a href="trust.html#subprocessors">Subprocessors</a>
+        <a href="safety.html">Safety and limits</a>
+        <a href="report.html">Sample report</a>
+      </nav>
+      <nav class="foot-links" aria-label="Company">
+        <p class="foot-head">Company</p>
+        <a href="pilot.html">Pilot and pricing</a>
+        <a href="changes.html">Changelog</a>
+        <a href="changes.html">Changes</a>
+        <a href="privacy.html">Site privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:rupakr2g@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-legal">
+      <span>© <span id="year">2026</span> Sukoon · India</span>
+      <span>GST invoice on request · <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="home.js" defer></script>
+</body>
+</html>

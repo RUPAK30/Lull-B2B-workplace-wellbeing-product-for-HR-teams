@@ -4,7 +4,6 @@
     { "source": "/data", "destination": "/trust#data", "permanent": true },
     { "source": "/pilot-pack", "destination": "/pilot#pack", "permanent": true },
     { "source": "/product", "destination": "/", "permanent": true },
-    { "source": "/pm", "destination": "/", "permanent": true },
     { "source": "/thanks", "destination": "/pilot", "permanent": true },
     { "source": "/card", "destination": "/", "permanent": true },
     { "source": "/demo", "destination": "/workspace", "permanent": true },
