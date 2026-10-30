@@ -265,3 +265,71 @@ document.addEventListener('click',function(e){
   new IntersectionObserver(function(e){askVisible=e[0].isIntersecting;sync();},{threshold:0}).observe(ask);
   window.addEventListener('resize',sync);
 })();
+
+/* Reading progress: the page tells you where you are. */
+(function(){
+  var bar=document.getElementById('read-bar');
+  if(!bar) return;
+  var queued=false;
+  function paint(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?Math.min(100,Math.max(0,100*h.scrollTop/max)):0)+'%';
+    queued=false;
+  }
+  addEventListener('scroll',function(){if(!queued){queued=true;requestAnimationFrame(paint);}},{passive:true});
+  addEventListener('resize',paint);
+  paint();
+})();
+
+/* Contents: position readout and the sections already passed. */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.sec-nav a[data-sec]'));
+  var count=document.getElementById('sec-count');
+  if(!links.length) return;
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('data-sec'));});
+  function paint(){
+    var y=window.scrollY+170, at=0;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)at=i;});
+    links.forEach(function(a,i){
+      a.classList.toggle('past',i<at);
+      a.setAttribute('aria-current',i===at?'true':'false');
+    });
+    if(count) count.textContent=('0'+(at+1))+' / 0'+links.length;
+  }
+  addEventListener('scroll',paint,{passive:true});
+  addEventListener('resize',paint);
+  paint();
+})();
+
+/* Product menu: click, keyboard, escape, outside. Hover is CSS. */
+(function(){
+  var item=document.getElementById('product');
+  var btn=document.getElementById('product-btn');
+  if(!item||!btn) return;
+  function set(open){
+    item.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',String(open));
+  }
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    set(!item.classList.contains('open'));
+  });
+  item.querySelectorAll('.menu-panel a').forEach(function(a){a.addEventListener('click',function(){set(false);});});
+  document.addEventListener('click',function(e){if(!item.contains(e.target))set(false);});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&item.classList.contains('open')){set(false);btn.focus();}
+  });
+  document.addEventListener('focusin',function(e){if(!item.contains(e.target))set(false);});
+})();
+
+/* Footer groups: columns on desktop, accordion on phones. */
+(function(){
+  var groups=[].slice.call(document.querySelectorAll('.foot-group'));
+  if(!groups.length) return;
+  var mq=window.matchMedia('(max-width:600px)');
+  function sync(){groups.forEach(function(d){d.open=!mq.matches;});}
+  sync();
+  if(mq.addEventListener) mq.addEventListener('change',sync);
+  else if(mq.addListener) mq.addListener(sync);
+})();
