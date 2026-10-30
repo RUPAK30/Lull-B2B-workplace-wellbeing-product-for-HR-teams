@@ -573,3 +573,11 @@ body,button,input,textarea{font-family:var(--sans)}
 .preview ul + .choices button:first-child{background:var(--accent);color:#fff;border-color:var(--accent)}
 .block-body{color:var(--muted);font-size:14px}
 .talk-hint{display:none}
+
+/* Link out to the HR site: a back link when they came from it */
+.site-link{justify-self:start;margin-left:14px;font-size:13px;color:var(--muted);text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+.site-link:hover{color:var(--accent);border-color:var(--accent)}
+.site-link.back{color:var(--accent);background:var(--accent-soft);border-color:transparent;font-weight:600}
+.site-link .sm{display:none}
+@media(max-width:760px){.site-link{margin-left:6px;padding:5px 10px;font-size:12px}.site-link .lg{display:none}.site-link .sm{display:inline}}
+.topbar{grid-template-columns:auto auto minmax(0,1fr) auto!important}

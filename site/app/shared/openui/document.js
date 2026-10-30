@@ -1,5 +1,5 @@
-import { callArgsOf, linesById, reachableStatements } from './parse-document.js?v=mvvb3ryq';
-import { validateProgram } from './validate.js?v=mvvb3ryq';
+import { callArgsOf, linesById, reachableStatements } from './parse-document.js?v=mvvbagjl';
+import { validateProgram } from './validate.js?v=mvvbagjl';
 export function splitReply(reply) {
     const lines = reply.split('\n'), fences = [], prose = [];
     let inside = false, block = [];
