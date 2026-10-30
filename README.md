@@ -21,9 +21,9 @@ Not a demo request. Three mailto chips — **yes**, **no**, **already have one**
 | Path | What it is |
 | --- | --- |
 | `/` | One screen: why/how/when, the six-team demo, who-sees-what, the Friday email, and the one-word ask |
-| `/workspace` | Demo admin surface: teams, seats, quorum refusals, Friday digest, six-week history, week-6 report |
+| `/workspace` | Demo admin surface: teams, seats, hidden rows, Friday digest, six-week history, week-6 report |
 | `/pilot` | The offer, the six weeks, **the launch kit** (copyable messages), price, procurement, internal memo, pre-mortem, FAQ |
-| `/trust` | Data map, the quorum rule, roles, subprocessors, retention, DPA summary, employee notice, status table |
+| `/trust` | Data map, the ten-starter rule, roles, subprocessors, retention, DPA summary, employee notice, status table |
 | `/report` | Print-ready company week-6 report for the same six-team sample: 92 starters, 75 finished, ₹176 a starter, a recommendation, and two teams the report refuses to show |
 | `/safety` | Red flags, when not to use it, review status, what the evidence does and does not support |
 | `/changes` | Dated decisions with reasons, plus what is not built yet |
@@ -33,7 +33,7 @@ Not a demo request. Three mailto chips — **yes**, **no**, **already have one**
 
 - **One link.** No download, no account, no password, no HRIS, no SSO.
 - **2:30, seated, in work clothes.** Four moves: neck, shoulders, chest, breath.
-- **The quorum rule.** A team appears only at ten starters, and the next-smallest team is hidden with it, so a small team cannot be recovered by subtraction.
+- **The ten-starter rule.** A team appears only at ten starters, and the next-smallest team is hidden with it, so a small team cannot be recovered by subtraction.
 - **Six anonymous counts per team per week.** Session started, session finished, came back, reminder set, opened from reminder, team reset joined — the allow-list in `src/shared/pilot.ts`. The workspace shows four of them per team: starts, finishes, returns, and cost per starter. No person-level row exists in the schema.
 
 ## The app
@@ -51,7 +51,7 @@ Preview the marketing site with any static server rooted at `site/` (the pages u
 
 ## What is deliberately not here
 
-- **No manager view.** A manager view would make the quorum rule decorative.
+- **No manager view.** A manager view would make the ten-starter rule decorative.
 - **No voice input.** The browser speech API sends audio to Google, which would break "nothing leaves this page". A local model is the only honest version.
 - **No chatbot, cookie banner, dark-mode toggle, or mega-menu.**
 - **No aggregated team "brand" assets we have not earned** — no customer logos, no badges, no certification marks.

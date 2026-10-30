@@ -83,26 +83,30 @@
     </div>
 
     <div class="hero-shot">
-      <div class="ws-preview" aria-label="The Sukoon workspace, sample data">
+      <div class="ws-preview" aria-label="The Sukoon workspace. Sample data you can edit.">
         <div class="ws-preview-top">
           <span class="ws-dot" aria-hidden="true"></span>
           <b>Workspace</b>
-          <span class="ws-preview-meta">Week 6 · 6 teams · 180 seats</span>
+          <span class="ws-preview-meta"><span class="lg">Week 6 · </span>6 teams · 180 seats</span>
+          <button class="ws-reset" type="button">Reset</button>
         </div>
-        <div class="ws-metrics">
-          <div><strong>92</strong><span>started</span></div>
-          <div><strong>75</strong><span>finished</span></div>
-          <div><strong>₹176</strong><span>per starter</span></div>
+        <div class="ws-metrics" aria-live="polite">
+          <div><strong id="ws-started">92</strong><span>started</span></div>
+          <div><strong id="ws-finished">75</strong><span>finished</span></div>
+          <div><strong id="ws-cost">₹176</strong><span>per starter</span></div>
         </div>
         <table class="ws-mini">
           <thead><tr><th scope="col">Team</th><th scope="col">Seats</th><th scope="col">Started</th><th scope="col">Finished</th><th scope="col">Status</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Engineering</th><td>64</td><td>45</td><td>38</td><td><span class="st ok">Reporting</span></td></tr>
-            <tr><th scope="row">Operations</th><td>38</td><td>21</td><td>17</td><td><span class="st ok">Reporting</span></td></tr>
-            <tr><th scope="row">Design</th><td>8</td><td>—</td><td>—</td><td><span class="st na">Under quorum</span></td></tr>
+            <tr data-seats="64"><th scope="row">Engineering</th><td>64</td><td><input class="ws-num" type="number" min="0" max="64" value="45" inputmode="numeric" aria-label="Engineering, how many started this week"></td><td class="fin">37</td><td><span class="st ok">Reporting</span></td></tr>
+            <tr data-seats="38"><th scope="row">Operations</th><td>38</td><td><input class="ws-num" type="number" min="0" max="38" value="21" inputmode="numeric" aria-label="Operations, how many started this week"></td><td class="fin">17</td><td><span class="st ok">Reporting</span></td></tr>
+            <tr data-seats="34"><th scope="row">Sales</th><td>34</td><td><input class="ws-num" type="number" min="0" max="34" value="16" inputmode="numeric" aria-label="Sales, how many started this week"></td><td class="fin">13</td><td><span class="st ok">Reporting</span></td></tr>
+            <tr data-seats="30"><th scope="row">Support</th><td>30</td><td><input class="ws-num" type="number" min="0" max="30" value="10" inputmode="numeric" aria-label="Support, how many started this week"></td><td class="fin">8</td><td><span class="st ok">Reporting</span></td></tr>
+            <tr data-seats="8" class="off"><th scope="row">Design</th><td>8</td><td><input class="ws-num" type="number" min="0" max="8" value="0" inputmode="numeric" aria-label="Design, how many started this week"></td><td class="fin">—</td><td><span class="st na">Not shown</span></td></tr>
+            <tr data-seats="6" class="off"><th scope="row">Finance</th><td>6</td><td><input class="ws-num" type="number" min="0" max="6" value="0" inputmode="numeric" aria-label="Finance, how many started this week"></td><td class="fin">—</td><td><span class="st na">Not shown</span></td></tr>
           </tbody>
         </table>
-        <p class="ws-preview-foot"><span class="lg">Sample data. Design has eight people, so the screen says nothing rather than something you could undo.</span><span class="sm">Sample data. Design has eight people, so it shows nothing.</span> <a href="workspace.html">Open the demo →</a></p>
+        <p class="ws-preview-foot"><span class="lg">Type a number. A team under ten starters leaves the totals — and the Friday email.</span><span class="sm">Type a number. Under ten starters, a team leaves the totals.</span> <a href="workspace.html">Open the demo →</a></p>
       </div>
       <p class="shot-note">This is the whole admin surface. There is no manager view to switch to.</p>
     </div>

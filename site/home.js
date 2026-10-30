@@ -198,3 +198,43 @@ document.addEventListener('click',function(e){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,function(){prompt('Copy this',text);});}
   else{prompt('Copy this',text);}
 });
+
+// Live workspace table: type any number, the rule applies in front of you.
+(function(){
+  var card=document.querySelector('.ws-preview'); if(!card) return;
+  var inputs=[].slice.call(card.querySelectorAll('.ws-num'));
+  var startedOut=document.getElementById('ws-started');
+  var finishedOut=document.getElementById('ws-finished');
+  var costOut=document.getElementById('ws-cost');
+  var reset=card.querySelector('.ws-reset');
+  if(!inputs.length||!startedOut||!finishedOut||!costOut) return;
+  var initial=inputs.map(function(i){return i.value;});
+  var seats=inputs.reduce(function(n,i){return n+(parseInt(i.closest('tr').getAttribute('data-seats'),10)||0);},0);
+  var rate=seats>=250?60:seats>=120?90:120;
+  function render(){
+    var started=0,finished=0;
+    inputs.forEach(function(input){
+      var max=parseInt(input.getAttribute('max'),10)||0;
+      var n=parseInt(input.value,10); if(isNaN(n)) n=0;
+      if(n<0) n=0; if(n>max) n=max;
+      if(String(n)!==input.value) input.value=String(n);
+      var shown=n>=10, fin=shown?Math.round(n*0.82):0;
+      var row=input.closest('tr');
+      row.classList.toggle('off',!shown);
+      row.querySelector('.fin').textContent=shown?fin:'\u2014';
+      var st=row.querySelector('.st');
+      st.textContent=shown?'Reporting':'Not shown';
+      st.className='st '+(shown?'ok':'na');
+      if(shown){started+=n;finished+=fin;}
+    });
+    startedOut.textContent=String(started);
+    finishedOut.textContent=String(finished);
+    costOut.textContent=started?'\u20B9'+Math.round(seats*rate/started):'\u2014';
+  }
+  inputs.forEach(function(i){i.addEventListener('input',render);});
+  if(reset) reset.addEventListener('click',function(){
+    inputs.forEach(function(i,k){i.value=initial[k];});
+    render(); inputs[0].focus();
+  });
+  render();
+})();

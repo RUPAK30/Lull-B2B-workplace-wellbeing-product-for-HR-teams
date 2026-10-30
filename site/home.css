@@ -941,3 +941,30 @@ a{-webkit-tap-highlight-color:transparent}
   .ask{padding:36px 0}
   .hero{padding-bottom:32px}
 }
+
+/* ---------- live table: type a number, see the rule ---------- */
+.ws-preview-top{gap:8px}
+.ws-preview-meta{margin-left:auto;white-space:nowrap}
+.ws-reset{flex:none;min-height:26px;padding:0 9px;border:1px solid var(--rule-2);border-radius:999px;background:transparent;font:600 .5625rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);cursor:pointer;transition:color .12s,border-color .12s,background .12s}
+.ws-reset:hover{color:var(--ink);border-color:var(--ink-3);background:var(--paper)}
+.ws-num{width:3.8ch;min-height:26px;padding:0;border:0;border-bottom:1px dashed var(--rule-2);background:transparent;font:inherit;font-variant-numeric:tabular-nums;color:var(--ink);text-align:left;appearance:textfield;border-radius:0}
+.ws-num::-webkit-outer-spin-button,.ws-num::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.ws-num:focus{outline:none;border-bottom-color:var(--accent);background:rgba(31,77,58,.07)}
+.ws-mini tr.off th,.ws-mini tr.off td{color:var(--ink-3)}
+.ws-mini tr.off .ws-num{color:var(--ink-3);border-bottom-color:var(--rule)}
+.ws-mini tr.off .st.na{background:transparent;border-style:dashed}
+
+@media(max-width:600px){
+  .ws-mini th,.ws-mini td{padding:7px 8px}
+  .ws-num{min-height:30px;width:3.4ch}
+  .ws-reset{min-height:32px;padding:0 10px}
+  .ws-preview-top{padding:8px 10px}
+  .ws-preview-meta{font-size:.6875rem}
+  .ws-preview-top b{font-size:.75rem}
+  .ws-preview-foot{padding:8px 12px;font-size:.6875rem}
+}
+
+@media(max-width:600px){
+  .ws-preview-foot{display:block}
+  .ws-preview-meta{font-size:.625rem;letter-spacing:.02em}
+}
