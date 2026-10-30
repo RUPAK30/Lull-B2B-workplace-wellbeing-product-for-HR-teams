@@ -384,3 +384,9 @@ function lab(){t.querySelectorAll('tbody tr').forEach(function(r){[].forEach.cal
 /* Phones: fold long paragraphs to two lines with "More" */
 (function(){if(!matchMedia('(max-width:640px)').matches)return;document.querySelectorAll('main section:not(.hero) p').forEach(function(p){if(p.closest('.email,.demo,.ws,.ask,table,.pager,.toc,.ledger,.privacy,aside,[class*=callout],[class*=card],[class*=box],[class*=note],blockquote')||!p.parentElement.matches('.wrap,.wrap > div,section > div > div')||p.textContent.trim().length<150||p.querySelector('input,button'))return;
 p.classList.add('fold');var b=document.createElement('button');b.type='button';b.className='fold-btn';b.textContent='More';b.addEventListener('click',function(){var o=p.classList.toggle('open');b.textContent=o?'Less':'More';});p.after(b);});})();
+
+/* Product view tabs */
+(function(){var pv=document.getElementById('pv');if(!pv)return;var tabs=[].slice.call(pv.querySelectorAll('.pv-tabs > [role=tab]'));
+function sel(t,focus){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});if(focus)t.focus();try{window.goatcounter&&goatcounter.count({path:'home/pv-'+t.id,event:true});}catch(e){}}
+tabs.forEach(function(t,i){t.addEventListener('click',function(){sel(t);});t.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();sel(tabs[(i+d+tabs.length)%tabs.length],true);}});});
+document.querySelectorAll('[data-pv]').forEach(function(b){b.addEventListener('click',function(){sel(document.getElementById('pvt-'+b.dataset.pv));pv.scrollIntoView({behavior:'smooth',block:'center'});});});})();

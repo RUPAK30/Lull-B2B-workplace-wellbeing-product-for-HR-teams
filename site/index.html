@@ -114,6 +114,13 @@
     </div>
 
     <div class="hero-shot">
+      <div class="pv" id="pv">
+        <div class="pv-tabs" role="tablist" aria-label="Product view">
+          <button type="button" role="tab" id="pvt-dash" aria-controls="pv-dash" aria-selected="true">Dashboard</button>
+          <button type="button" role="tab" id="pvt-email" aria-controls="pv-email" aria-selected="false" tabindex="-1">Friday email</button>
+          <button type="button" role="tab" id="pvt-privacy" aria-controls="pv-privacy" aria-selected="false" tabindex="-1">Privacy</button>
+        </div>
+        <div class="pv-panel" id="pv-dash" role="tabpanel" aria-labelledby="pvt-dash">
       <div class="ws-preview" aria-label="The Sukoon workspace. Sample data you can edit.">
         <div class="ws-preview-top">
           <span class="ws-dot" aria-hidden="true"></span>
@@ -138,6 +145,61 @@
           </tbody>
         </table>
         <p class="ws-preview-foot"><span class="lg">Type a number. A team under ten starters leaves the totals — and the Friday email.</span><span class="sm">Type a number. Under ten starters, a team leaves the totals.</span> <a href="workspace.html">Open the demo →</a></p>
+      </div>
+        </div>
+        <div class="pv-panel" id="pv-email" role="tabpanel" aria-labelledby="pvt-email" hidden>
+    <div class="email">
+      <div class="email-tabs" role="tablist" aria-label="Read the email as">
+        <button type="button" role="tab" id="tab-hr" aria-controls="email-hr" aria-selected="true">For HR</button>
+        <button type="button" role="tab" id="tab-fin" aria-controls="email-fin" aria-selected="false" tabindex="-1">For Finance</button>
+      </div>
+      <div class="email-head">
+        <p><span>From</span> Sukoon &lt;rupakr2g@gmail.com&gt;</p>
+        <p><span>Subject</span> Week 6 · Northwind Logistics</p>
+        <p><span>Sent</span> Fri 30 Oct, 09:00 IST</p>
+      </div>
+      <div class="email-body" id="email-hr" role="tabpanel" aria-labelledby="tab-hr">
+        <p class="email-kicker">Week 6</p>
+        <p class="email-team">4 of 6 teams reporting</p>
+        <div class="email-stats">
+          <div><strong>92</strong><span>started</span></div>
+          <div><strong>75</strong><span>finished</span></div>
+          <div><strong>₹176</strong><span>per person who started</span></div>
+        </div>
+        <p class="email-note">Finance and Design are not in this email. Both had fewer than ten starters.</p>
+        <p class="email-note"><strong>Recommendation:</strong> continue at 180 seats. Sales is thinning — week 3 was 19 starters, this week is 12.</p>
+        <p class="email-link"><a href="report.html">The week-6 report →</a></p>
+      </div>
+      <div class="email-body" id="email-fin" role="tabpanel" aria-labelledby="tab-fin" hidden>
+        <p class="email-kicker">Week 6 · Finance</p>
+        <p class="email-team">₹16,200 this month</p>
+        <div class="email-stats">
+          <div><strong>₹90</strong><span>per seat</span></div>
+          <div><strong>180</strong><span>seats</span></div>
+          <div><strong>₹176</strong><span>per person who started</span></div>
+        </div>
+        <p class="email-note">92 of 180 started; 75 finished. Four teams report, two are under ten starters.</p>
+        <p class="email-note"><strong>Recommendation:</strong> continue at 180 seats. ₹16,200 a month, GST extra — ₹176 per person who started.</p>
+        <p class="email-link"><a href="pilot.html#price">How the price is built →</a></p>
+      </div>
+    </div>
+        </div>
+        <div class="pv-panel" id="pv-privacy" role="tabpanel" aria-labelledby="pvt-privacy" hidden>
+      <div class="ledger">
+        <div class="ledger-top"><span>Friday · Week 6</span><span>Northwind Logistics</span></div>
+        <table class="ledger-table">
+          <thead><tr><th scope="col">Team</th><th scope="col">Started</th><th scope="col">Finished</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Engineering</th><td>45</td><td>38</td></tr>
+            <tr><th scope="row">Operations</th><td>21</td><td>17</td></tr>
+            <tr class="gone"><th scope="row">Design</th><td>—</td><td>—</td></tr>
+            <tr class="gone"><th scope="row">Finance</th><td>—</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <div class="ledger-names"><span>Names</span><span class="blank"></span><span class="blank"></span><span class="blank"></span><b>not stored</b></div>
+        <p class="ledger-foot"><span class="lg">Design and Finance had fewer than ten starters. They are not shown — and neither is the next-smallest team, so they cannot be recovered by subtraction.</span><span class="sm">Design and Finance had under ten starters — hidden, and so is the next-smallest team.</span></p>
+      </div>
+        </div>
       </div>
       <p class="shot-note">This is the whole admin surface. There is no manager view to switch to.</p>
     </div>
@@ -192,20 +254,7 @@
     <h2>Who sees what</h2>
     <p class="priv-lede">Counts go to HR. People never do.</p>
     <div class="privacy">
-      <div class="ledger">
-        <div class="ledger-top"><span>Friday · Week 6</span><span>Northwind Logistics</span></div>
-        <table class="ledger-table">
-          <thead><tr><th scope="col">Team</th><th scope="col">Started</th><th scope="col">Finished</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Engineering</th><td>45</td><td>38</td></tr>
-            <tr><th scope="row">Operations</th><td>21</td><td>17</td></tr>
-            <tr class="gone"><th scope="row">Design</th><td>—</td><td>—</td></tr>
-            <tr class="gone"><th scope="row">Finance</th><td>—</td><td>—</td></tr>
-          </tbody>
-        </table>
-        <div class="ledger-names"><span>Names</span><span class="blank"></span><span class="blank"></span><span class="blank"></span><b>not stored</b></div>
-        <p class="ledger-foot"><span class="lg">Design and Finance had fewer than ten starters. They are not shown — and neither is the next-smallest team, so they cannot be recovered by subtraction.</span><span class="sm">Design and Finance had under ten starters — hidden, and so is the next-smallest team.</span></p>
-      </div>
+      <div class="pv-jump"><button type="button" class="btn btn-ghost" data-pv="privacy">See what HR sees, and doesn't ↑</button></div>
       <div class="priv-copy">
         <p class="priv-sum sm"><strong>Counts only.</strong> No names, emails or session records.</p>
         <p><strong>HR sees</strong> team, seats, started, finished, and cost per person who started.</p>
@@ -234,41 +283,7 @@
       <p class="small">Sample figures from a made-up company. Every page says so. <a href="changes.html">Why the numbers are labelled, not rounded up →</a></p>
     </div>
 
-    <div class="email">
-      <div class="email-tabs" role="tablist" aria-label="Read the email as">
-        <button type="button" role="tab" id="tab-hr" aria-controls="email-hr" aria-selected="true">For HR</button>
-        <button type="button" role="tab" id="tab-fin" aria-controls="email-fin" aria-selected="false" tabindex="-1">For Finance</button>
-      </div>
-      <div class="email-head">
-        <p><span>From</span> Sukoon &lt;rupakr2g@gmail.com&gt;</p>
-        <p><span>Subject</span> Week 6 · Northwind Logistics</p>
-        <p><span>Sent</span> Fri 30 Oct, 09:00 IST</p>
-      </div>
-      <div class="email-body" id="email-hr" role="tabpanel" aria-labelledby="tab-hr">
-        <p class="email-kicker">Week 6</p>
-        <p class="email-team">4 of 6 teams reporting</p>
-        <div class="email-stats">
-          <div><strong>92</strong><span>started</span></div>
-          <div><strong>75</strong><span>finished</span></div>
-          <div><strong>₹176</strong><span>per person who started</span></div>
-        </div>
-        <p class="email-note">Finance and Design are not in this email. Both had fewer than ten starters.</p>
-        <p class="email-note"><strong>Recommendation:</strong> continue at 180 seats. Sales is thinning — week 3 was 19 starters, this week is 12.</p>
-        <p class="email-link"><a href="report.html">The week-6 report →</a></p>
-      </div>
-      <div class="email-body" id="email-fin" role="tabpanel" aria-labelledby="tab-fin" hidden>
-        <p class="email-kicker">Week 6 · Finance</p>
-        <p class="email-team">₹16,200 this month</p>
-        <div class="email-stats">
-          <div><strong>₹90</strong><span>per seat</span></div>
-          <div><strong>180</strong><span>seats</span></div>
-          <div><strong>₹176</strong><span>per person who started</span></div>
-        </div>
-        <p class="email-note">92 of 180 started; 75 finished. Four teams report, two are under ten starters.</p>
-        <p class="email-note"><strong>Recommendation:</strong> continue at 180 seats. ₹16,200 a month, GST extra — ₹176 per person who started.</p>
-        <p class="email-link"><a href="pilot.html#price">How the price is built →</a></p>
-      </div>
-    </div>
+    <div class="pv-jump"><button type="button" class="btn btn-ghost" data-pv="email">See the Friday email in the product ↑</button></div>
   </div>
 </section>
 

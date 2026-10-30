@@ -1318,3 +1318,16 @@ main .wrap > *{max-width:100%}
 .hero-spec{border-left:0!important;border-right:0!important}
 .hero-spec > div{min-width:0}
 @media (max-width:640px){main section{padding-top:40px!important;padding-bottom:40px!important}.q{padding-top:8px!important}}
+
+/* ===== One product view, three tabs ===== */
+.pv{background:#fff;border:1px solid var(--rule);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(20,30,25,.05),0 24px 48px -24px rgba(20,30,25,.28)}
+.pv-tabs{display:flex;gap:4px;padding:6px;background:var(--paper-2);border-bottom:1px solid var(--rule)}
+.pv-tabs button{flex:1;border:0;background:transparent;border-radius:10px;padding:9px 8px;min-height:40px;font:600 .82rem var(--sans);color:var(--ink-3);cursor:pointer;transition:background .2s,color .2s}
+.pv-tabs button[aria-selected=true]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.pv-panel > .ws-preview,.pv-panel > .email,.pv-panel > .ledger{border:0!important;border-radius:0!important;box-shadow:none!important;margin:0!important}
+.pv-panel .email-tabs{margin:10px 10px 0}
+.pv-panel .ledger-table tbody tr:not(.gone){display:table-row}
+@media (max-width:640px){.pv-panel .ledger-table tbody tr:not(.gone){display:none}.pv-panel .ledger-table thead{display:none}}
+.proof-grid{grid-template-columns:1fr!important;max-width:760px}
+.pv-jump{margin-top:16px}
+.btn-ghost{border:1px solid var(--rule);background:#fff;color:var(--ink)}
