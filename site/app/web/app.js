@@ -1,19 +1,19 @@
-import { Conversation } from '../shared/controller.js?v=mvvbagjl';
-import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvbagjl';
-import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvbagjl';
-import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvbagjl';
-import { createRunNav } from '../shared/openui/run-nav.js?v=mvvbagjl';
-import { splitReply } from '../shared/openui/document.js?v=mvvbagjl';
-import { redactValue } from '../shared/redact.js?v=mvvbagjl';
-import { renderComponent } from './components.js?v=mvvbagjl';
-import { byId, el, button } from './dom.js?v=mvvbagjl';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvbagjl';
-import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvbagjl';
-import { reminderCard } from './reminder.js?v=mvvbagjl';
-import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvbagjl';
-import { renderInsights, teamExport } from './insights-view.js?v=mvvbagjl';
-import { sampleEvents } from '../shared/insights.js?v=mvvbagjl';
-import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvbagjl';
+import { Conversation } from '../shared/controller.js?v=mvvbkvq0';
+import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvbkvq0';
+import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvbkvq0';
+import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvbkvq0';
+import { createRunNav } from '../shared/openui/run-nav.js?v=mvvbkvq0';
+import { splitReply } from '../shared/openui/document.js?v=mvvbkvq0';
+import { redactValue } from '../shared/redact.js?v=mvvbkvq0';
+import { renderComponent } from './components.js?v=mvvbkvq0';
+import { byId, el, button } from './dom.js?v=mvvbkvq0';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvbkvq0';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvbkvq0';
+import { reminderCard } from './reminder.js?v=mvvbkvq0';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvbkvq0';
+import { renderInsights, teamExport } from './insights-view.js?v=mvvbkvq0';
+import { sampleEvents } from '../shared/insights.js?v=mvvbkvq0';
+import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvbkvq0';
 let config;
 const timers = new TimerLedger();
 let previousTimers = new Map(), updates = [];
@@ -509,8 +509,6 @@ async function start() {
             send('/reset unknot seated', 'taster');
             history.replaceState(null, '', location.pathname);
         }
-        else if (!c.document.screens.length && !openedFromReminder)
-            send('Start Sukoon', 'onboarding');
     }
     catch {
         byId('status').textContent = 'Sukoon couldn’t load. Check your connection and refresh the page.';
@@ -547,7 +545,7 @@ function renderDone(current) {
 function renderHome() {
     const mem = loadMemory(), hour = new Date().getHours(), hello = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
     const n = el('div', '', 'home');
-    n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', 'Between calls? Take 2½ minutes.', 'home-title'), el('p', 'Tell me how you feel — in English, Hindi, Hinglish or Marathi. I’ll suggest one 2½-minute break and stay quiet while you move.', 'home-lede'));
+    n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', 'Between calls? Take 2½ minutes.', 'home-title'), el('p', 'Tell me how you feel, in English, Hindi, Hinglish or Marathi. I’ll suggest one break and stay quiet while you move.', 'home-lede'));
     const begin = button('Start with Sukoon', () => send('Start Sukoon', 'onboarding'), 'primary home-start');
     begin.id = 'workout';
     // Opened from their own reminder: their usual session is one tap away.

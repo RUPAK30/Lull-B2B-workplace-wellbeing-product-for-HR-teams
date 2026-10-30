@@ -1,8 +1,8 @@
 // Sukoon: three-minute desk resets for people between calls. Everything an employee sees comes
 // from here: the five resets (each seated or standing), the screens that offer them, the
 // session itself, and the safety screens that always come first.
-import { serializeStatement as statement } from '../shared/openui/serialize.js?v=mvvbagjl';
-import { RESETS, RESET_NAMES, RESET_MOMENTS, POSTURES, POSTURE_LABELS, DEFAULT_POSTURE, fromTitle } from '../shared/resets.js?v=mvvbagjl';
+import { serializeStatement as statement } from '../shared/openui/serialize.js?v=mvvbkvq0';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, POSTURES, POSTURE_LABELS, DEFAULT_POSTURE, fromTitle } from '../shared/resets.js?v=mvvbkvq0';
 export { RESETS, RESET_NAMES, RESET_MOMENTS, POSTURES, POSTURE_LABELS, DEFAULT_POSTURE };
 const WHY = {
     unknot: 'Slow neck and shoulder release for after a run of calls.',
