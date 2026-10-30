@@ -844,3 +844,37 @@ html,body{overflow-x:hidden}
   .priv-copy>p:not(.priv-sum):not(.priv-dpdp){display:none}
   .priv-copy .priv-sum{margin-bottom:0}
 }
+
+/* phone: tighter measure, same content */
+@media(max-width:600px){
+  .hero .lede,.q-row p,.proof-grid .lede,.ask .lede,.founder-strip p{line-height:1.45}
+  .hero .lede{margin-top:12px}
+  .pm-line{margin-top:12px;font-size:.8125rem;line-height:1.4}
+  .word{margin-top:14px;padding-top:12px}
+  .hero-trust{font-size:.75rem;line-height:1.4;margin-top:14px}
+  .q-row{padding:14px 0}
+  .q-row p{font-size:.875rem}
+  .q-label{letter-spacing:.07em}
+  .privacy-band{padding:30px 0}
+  .priv-lede{font-size:.875rem;margin-top:6px}
+  .ledger-top{padding:8px 12px;font-size:.5625rem;letter-spacing:.07em}
+  .ledger-names{padding:8px 12px;font-size:.5625rem;gap:8px}
+  .ledger-foot{padding:8px 12px;font-size:.6875rem;line-height:1.45}
+  .priv-copy p{font-size:.875rem}
+  .priv-dpdp{margin-top:12px!important;padding:10px 12px!important;font-size:.8125rem!important;line-height:1.5}
+  .proof{padding:30px 0}
+  .proof-grid h2{font-size:1.5rem}
+  .ask{padding:30px 0}
+  .ask h2{font-size:1.5rem}
+  .ask .lede{font-size:.875rem}
+  .founder-strip{padding:12px!important;gap:10px!important}
+  .founder-strip p{font-size:.8125rem}
+  .founder-strip .small{font-size:.6875rem;line-height:1.4}
+  .sig{font-size:.9375rem;margin-top:6px}
+  .doors{font-size:.75rem;margin-top:14px;padding-top:12px}
+}
+
+@media(max-width:600px){
+  .hero .lede,.q-row p,.ask .lede{font-size:.9375rem}
+  .founder-strip p{font-size:.875rem}
+}
