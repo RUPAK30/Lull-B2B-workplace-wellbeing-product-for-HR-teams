@@ -207,7 +207,7 @@ document.addEventListener('click',function(e){
   var finishedOut=document.getElementById('ws-finished');
   var costOut=document.getElementById('ws-cost');
   var reset=card.querySelector('.ws-reset');
-  if(!inputs.length||!startedOut||!finishedOut||!costOut) return;
+  if(!inputs.length||!startedOut||!finishedOut) return;
   var initial=inputs.map(function(i){return i.value;});
   var seats=inputs.reduce(function(n,i){return n+(parseInt(i.closest('tr').getAttribute('data-seats'),10)||0);},0);
   var rate=seats>=250?60:seats>=120?90:120;
@@ -232,7 +232,7 @@ document.addEventListener('click',function(e){
     var narrow=matchMedia('(max-width:640px)').matches,pct=Math.round(100*started/seats),rateOut=document.getElementById('ws-rate'),doneOut=document.getElementById('ws-done');
     if(rateOut)rateOut.textContent=pct+'% of seats'+(pct<40?(narrow?' · low':' · low: the report will suggest fewer seats'):'');
     if(doneOut)doneOut.textContent=started?Math.round(100*finished/started)+'% of starters':'\u2014';
-    costOut.textContent=started?'\u2248 \u20B9'+Math.round(seats*rate/started)+(narrow?' per person':' per person who took a break'):'Nobody shown';
+    if(costOut)costOut.textContent=started?'\u2248 \u20B9'+Math.round(seats*rate/started)+(narrow?' per person':' per person who took a break'):'Nobody shown';
   }
   inputs.forEach(function(i){i.addEventListener('input',render);});
   if(reset) reset.addEventListener('click',function(){
