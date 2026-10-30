@@ -229,7 +229,7 @@ document.addEventListener('click',function(e){
     });
     startedOut.textContent=String(started);
     finishedOut.textContent=String(finished);
-    costOut.textContent=started?'\u20B9'+Math.round(seats*rate/started):'\u2014';
+    var narrow=matchMedia('(max-width:640px)').matches;costOut.textContent=started?'= \u20B9'+Math.round(seats*rate/started)+(narrow?' per person':' per person who started'):'Nobody shown';
   }
   inputs.forEach(function(i){i.addEventListener('input',render);});
   if(reset) reset.addEventListener('click',function(){
