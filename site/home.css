@@ -1298,3 +1298,23 @@ input,select,textarea{font-size:16px!important}
 .hero{min-height:auto}
 @supports (height:100dvh){.hero{max-height:none}}
 @media (max-width:640px){.doors{display:none}.hero{padding-bottom:24px!important}}
+
+/* ===== Brand lockup ===== */
+.brand{gap:10px!important;align-items:center}
+.brand img{width:36px!important;height:36px!important;border-radius:50%!important;box-shadow:0 6px 16px -8px rgba(18,59,42,.7)!important}
+.brand .wm{font:700 1.5rem/1 var(--sans);letter-spacing:-.055em;color:var(--ink)}
+@media (min-width:900px){.brand img{width:40px!important;height:40px!important}.brand .wm{font-size:1.7rem}}
+/* ===== Headline ===== */
+.hero h1{font-size:clamp(2.2rem,8.4vw,4.4rem)!important;line-height:1.02!important;letter-spacing:-.035em}
+.hero h1 .h1-em{display:block;margin-top:.25em;font-size:.5em;line-height:1.2;font-style:normal;font-family:var(--sans);font-weight:500;letter-spacing:-.01em;color:var(--accent)}
+/* ===== Trust row ===== */
+.trust-row{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.trust-row li{display:inline-flex;align-items:center;gap:6px;font:500 .8rem var(--sans);color:var(--ink-2);background:#fff;border:1px solid var(--rule);border-radius:999px;padding:6px 11px}
+.trust-row svg{width:14px;height:14px;color:var(--accent)}
+/* ===== Fit: nothing wider than the screen ===== */
+*,*::before,*::after{box-sizing:border-box}
+main .wrap > *{max-width:100%}
+.ws-preview,.hero-spec,.ledger,.email,.ws-table,.ledger-table{width:100%;max-width:100%;margin-left:0;margin-right:0}
+.hero-spec{border-left:0!important;border-right:0!important}
+.hero-spec > div{min-width:0}
+@media (max-width:640px){main section{padding-top:40px!important;padding-bottom:40px!important}.q{padding-top:8px!important}}
