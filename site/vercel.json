@@ -1,17 +1,75 @@
 {
   "cleanUrls": true,
   "redirects": [
-    { "source": "/data", "destination": "/trust#data", "permanent": true },
-    { "source": "/pilot-pack", "destination": "/pilot#pack", "permanent": true },
-    { "source": "/product", "destination": "/", "permanent": true },
-    { "source": "/thanks", "destination": "/pilot", "permanent": true },
-    { "source": "/card", "destination": "/", "permanent": true },
-    { "source": "/demo", "destination": "/workspace", "permanent": true },
-    { "source": "/admin", "destination": "/workspace", "permanent": true },
-    { "source": "/changelog", "destination": "/changes", "permanent": true }
+    {
+      "source": "/data",
+      "destination": "/trust#data",
+      "permanent": true
+    },
+    {
+      "source": "/pilot-pack",
+      "destination": "/pilot#pack",
+      "permanent": true
+    },
+    {
+      "source": "/product",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/thanks",
+      "destination": "/pilot",
+      "permanent": true
+    },
+    {
+      "source": "/card",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/demo",
+      "destination": "/workspace",
+      "permanent": true
+    },
+    {
+      "source": "/admin",
+      "destination": "/workspace",
+      "permanent": true
+    },
+    {
+      "source": "/changelog",
+      "destination": "/changes",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/gc/count.js", "destination": "https://gc.zgo.at/count.js" },
-    { "source": "/gc/count", "destination": "https://lull.goatcounter.com/count" }
+    {
+      "source": "/gc/count.js",
+      "destination": "https://gc.zgo.at/count.js"
+    },
+    {
+      "source": "/gc/count",
+      "destination": "https://lull.goatcounter.com/count"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/app/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(js|css)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, must-revalidate"
+        }
+      ]
+    }
   ]
 }
