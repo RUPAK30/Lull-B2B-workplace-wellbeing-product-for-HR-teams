@@ -229,7 +229,10 @@ document.addEventListener('click',function(e){
     });
     startedOut.textContent=String(started);
     finishedOut.textContent=String(finished);
-    var narrow=matchMedia('(max-width:640px)').matches;costOut.textContent=started?'= \u20B9'+Math.round(seats*rate/started)+(narrow?' per person':' per person who started'):'Nobody shown';
+    var narrow=matchMedia('(max-width:640px)').matches,pct=Math.round(100*started/seats),rateOut=document.getElementById('ws-rate'),doneOut=document.getElementById('ws-done');
+    if(rateOut)rateOut.textContent=pct+'% of seats'+(pct<40?(narrow?' · low':' · low: the report will suggest fewer seats'):'');
+    if(doneOut)doneOut.textContent=started?Math.round(100*finished/started)+'% of starters':'\u2014';
+    costOut.textContent=started?'\u2248 \u20B9'+Math.round(seats*rate/started)+(narrow?' per person':' per person who took a break'):'Nobody shown';
   }
   inputs.forEach(function(i){i.addEventListener('input',render);});
   if(reset) reset.addEventListener('click',function(){

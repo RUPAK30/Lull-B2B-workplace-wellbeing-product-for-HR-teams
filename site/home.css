@@ -1427,3 +1427,4 @@ body::before{inset:-10%;background:
 .ws-metrics strong small{font-size:.55em;font-family:var(--sans);color:var(--ink-3);margin-left:2px}
 .ws-metrics .ws-per{display:block;margin-top:4px;font-style:normal;font-size:.72rem;color:var(--accent);font-weight:600;letter-spacing:0;text-transform:none}
 @media (max-width:640px){.ws-metrics .ws-per{font-size:.68rem}}
+.ws-metrics strong span{display:inline!important;font:inherit!important;letter-spacing:inherit!important;text-transform:none!important;color:inherit!important;margin:0!important}
