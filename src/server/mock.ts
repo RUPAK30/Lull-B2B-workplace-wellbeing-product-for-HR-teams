@@ -79,7 +79,7 @@ function sessionTurn(doc: ScreenDocument, raw: string, last: string, understood?
   const apply = (reset: lull.Reset, posture: lull.Posture) => {
     const blocks = lull.planOf(reset, posture).blocks, oldIndex = plan.findIndex(b => b.key === block);
     const target = blocks.find(b => b.key === block)?.key ?? blocks[Math.min(Math.max(oldIndex, 0), blocks.length - 1)].key;
-    return { reply: `Done: ${lull.RESET_NAMES[reset].toLowerCase()}, ${posture}, from where you are. Start the timer when you’re ready.\n` + fence(lull.sessionProgram(reset, posture, current.ctx, target)) };
+    return { reply: `Done: ${lull.RESET_NAMES[reset].toLowerCase()}, ${posture}, from where you are. Start the timer when you’re ready.\n` + fence(lull.sessionProgram(reset, posture, reset === current.reset ? current.ctx : { name: '', need: null }, target)) };
   };
   const chosenPosture = last.match(/^switch to (seated|standing)$/)?.[1] as lull.Posture | undefined;
   if (chosenPosture) return apply(current.reset, chosenPosture);
@@ -93,7 +93,14 @@ function sessionTurn(doc: ScreenDocument, raw: string, last: string, understood?
   if (request.kind === 'tip') return offer(request.text, ['Keep going', 'End the session']);
   if (request.kind === 'stop') return offer('Want to stop here? That’s completely fine.', ['End the session', 'Keep going']);
   if (request.kind === 'switch') return request.reset && request.reset !== current.reset ? offer(`Switch to ${lull.RESET_NAMES[request.reset].toLowerCase()}?`, [`Switch to ${lull.RESET_NAMES[request.reset].toLowerCase()}`, 'Keep this one']) : offer('Switch to which reset?', lull.RESETS.filter(r => r !== current.reset).map(r => `Switch to ${lull.RESET_NAMES[r].toLowerCase()}`).concat('Keep this one'));
-  return { reply: 'I didn’t catch a change in that. You can ask for seated or standing, a different reset, or to stop.' };
+  // A new need mid-session (any language) becomes an offer to switch; nothing changes without a yes.
+  const need = lull.interpretNeed(raw);
+  if (need.kind === 'suggest' && need.heard.length) {
+    if (need.reset === current.reset) return offer(`${need.ack.replace(/ I’d suggest.*$/, '')} This break already fits that. Carry on when you’re ready.`, ['Keep going', 'End the session']);
+    const name = lull.RESET_NAMES[need.reset].toLowerCase();
+    return offer(`${need.ack.replace(/ I’d suggest.*$/, '')} Switch to ${name}? I’ll keep your place.`, [`Switch to ${name}`, 'Keep this one']);
+  }
+  return { reply: 'I didn’t catch a change in that. You can ask for seated or standing, a different break, or to stop.' };
 }
 export function mockTurn(request: RequestData, input: string | MockFixtures, options: MockOptions = {}): Turn {
   const wiring = typeof input === 'string' ? input : input.wiring;
