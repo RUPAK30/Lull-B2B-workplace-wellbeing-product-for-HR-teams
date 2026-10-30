@@ -24,10 +24,7 @@ export function forgetMemory() { try {
 catch { /* nothing stored */ } }
 export function applyTheme() {
     const root = document.documentElement;
-    if (prefs.theme === 'auto')
-        delete root.dataset.theme;
-    else
-        root.dataset.theme = prefs.theme;
+    root.dataset.theme = prefs.theme === 'dark' ? 'dark' : 'light';
 }
 // A soft two-note chime, created only after the person enables it (a user gesture).
 let audio;

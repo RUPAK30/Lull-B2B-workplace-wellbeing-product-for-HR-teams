@@ -202,7 +202,7 @@ byId('menu').addEventListener('click',()=>byId('drawer').hidden?openDrawer():clo
 for(const t of document.querySelectorAll<HTMLElement>('[role=tab]'))t.addEventListener('click',()=>selectTab(t.dataset.tab!));
 document.querySelector('[role=tablist]')!.addEventListener('keydown',e=>{const ev=e as KeyboardEvent;if(ev.key!=='ArrowRight'&&ev.key!=='ArrowLeft')return;const tabs=[...document.querySelectorAll<HTMLElement>('[role=tab]')],i=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true'),next=tabs[(i+(ev.key==='ArrowRight'?1:tabs.length-1))%tabs.length];selectTab(next.dataset.tab!);next.focus();});
 // Settings.
-const THEMES:Theme[]=['auto','light','dark'],THEME_LABEL:Record<Theme,string>={auto:'automatic',light:'day',dark:'evening'};
+const THEMES:Theme[]=['light','dark'],THEME_LABEL:Record<Theme,string>={auto:'automatic',light:'day',dark:'evening'};
 function syncSettings(){byId<HTMLInputElement>('pref-ready').checked=prefs.ready;byId<HTMLInputElement>('pref-chime').checked=prefs.chime;byId<HTMLInputElement>('pref-remember').checked=prefs.remember;for(const r of document.querySelectorAll<HTMLInputElement>('input[name=theme]'))r.checked=r.value===prefs.theme;byId('theme').setAttribute('aria-label',`Theme: ${THEME_LABEL[prefs.theme]}`);byId('theme').textContent=prefs.theme==='dark'?'☾':prefs.theme==='light'?'☀':'◐';applyTheme();}
 function setTheme(theme:Theme){prefs.theme=theme;savePrefs();syncSettings();}
 byId('theme').addEventListener('click',()=>setTheme(THEMES[(THEMES.indexOf(prefs.theme)+1)%THEMES.length]));

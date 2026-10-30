@@ -611,7 +611,7 @@ for (const t of document.querySelectorAll('[role=tab]'))
 document.querySelector('[role=tablist]').addEventListener('keydown', e => { const ev = e; if (ev.key !== 'ArrowRight' && ev.key !== 'ArrowLeft')
     return; const tabs = [...document.querySelectorAll('[role=tab]')], i = tabs.findIndex(t => t.getAttribute('aria-selected') === 'true'), next = tabs[(i + (ev.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length]; selectTab(next.dataset.tab); next.focus(); });
 // Settings.
-const THEMES = ['auto', 'light', 'dark'], THEME_LABEL = { auto: 'automatic', light: 'day', dark: 'evening' };
+const THEMES = ['light', 'dark'], THEME_LABEL = { auto: 'automatic', light: 'day', dark: 'evening' };
 function syncSettings() { byId('pref-ready').checked = prefs.ready; byId('pref-chime').checked = prefs.chime; byId('pref-remember').checked = prefs.remember; for (const r of document.querySelectorAll('input[name=theme]'))
     r.checked = r.value === prefs.theme; byId('theme').setAttribute('aria-label', `Theme: ${THEME_LABEL[prefs.theme]}`); byId('theme').textContent = prefs.theme === 'dark' ? '☾' : prefs.theme === 'light' ? '☀' : '◐'; applyTheme(); }
 function setTheme(theme) { prefs.theme = theme; savePrefs(); syncSettings(); }

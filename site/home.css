@@ -1420,3 +1420,4 @@ body::before{inset:-10%;background:
 .nav,.toc{background:rgba(250,248,243,.72)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .foot,.pager{background:transparent!important}
 .ask,.privacy-band{background:transparent!important}
+@media (max-width:899px){.toc-in{display:flex!important;justify-content:center!important;gap:4px!important;padding:6px 8px}.toc a{padding:8px 14px!important}}
