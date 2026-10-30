@@ -1,6 +1,6 @@
 # Sukoon
 
-A seated 2:30 movement reset for HR teams and the founder still doing HR at 30–120 person companies in India (250 is the ceiling). One link per team, no app, no roster, no accounts. Every Friday: one line per team — how many started, how many finished — and never who.
+A seated 2:30 movement reset for HR teams and the founder still doing HR at 30–250 person companies in India (250 is the ceiling). One link per team, no app, no roster, no accounts. Every Friday: one line per team — how many started, how many finished — and never who.
 
 [Site](https://lull-hr.vercel.app/) · [Workspace](https://lull-hr.vercel.app/workspace) · [Pricing](https://lull-hr.vercel.app/pilot) · [Security](https://lull-hr.vercel.app/trust) · [Changes](https://lull-hr.vercel.app/changes)
 
