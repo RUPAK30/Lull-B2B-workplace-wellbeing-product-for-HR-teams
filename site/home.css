@@ -1395,3 +1395,19 @@ footer.foot .foot-list a{display:block;min-height:0;padding:5px 0;line-height:1.
 }
 .q-row .q-head{font-size:1.45rem}
 @media (min-width:900px){footer.foot .foot-top{align-items:stretch}}
+
+/* ===== calm background: a new soft palette each visit ===== */
+:root{--calm-a:#DCEFE3;--calm-b:#F4E9D8;--calm-c:#E2ECF2}
+body{background:var(--paper)}
+body::before{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(40% 38% at 18% 12%,var(--calm-a) 0%,transparent 70%),
+    radial-gradient(45% 40% at 85% 30%,var(--calm-c) 0%,transparent 72%),
+    radial-gradient(50% 45% at 40% 95%,var(--calm-b) 0%,transparent 70%);
+  opacity:1;animation:calmDrift 40s ease-in-out infinite alternate}
+@keyframes calmDrift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-3%,2%,0) scale(1.06)}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}}
+main section,.hero,.q,.privacy-band{background-color:transparent}
+html{background:var(--paper)}
+body{background:transparent!important}
+.ask,.privacy-band{background:rgba(255,255,255,.35)}
