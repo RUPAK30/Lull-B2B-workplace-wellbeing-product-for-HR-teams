@@ -53,6 +53,15 @@
   </nav>
 </header>
 
+<nav class="sec-nav" aria-label="Sections">
+  <div class="wrap">
+    <a href="#runs" data-sec="runs"><span>01</span> Why, how, when</a>
+    <a href="#privacy" data-sec="privacy"><span>02</span> Privacy</a>
+    <a href="#proof" data-sec="proof"><span>03</span> The Friday email</a>
+    <a href="#ask" data-sec="ask"><span>04</span> One word</a>
+  </div>
+</nav>
+
 <main id="main">
 
 <!-- WHY — one screen ---------------------------------------------------->
@@ -64,7 +73,7 @@
       <p class="lede"><span class="lg">A seated reset you send as one link per team. No app, no accounts, no roster. Every Friday you get one line per team — how many started, how many finished. Never who.</span><span class="sm">One link per team. Friday: started and finished, per team. Never who.</span></p>
 
       <div class="hero-actions">
-        <a class="btn btn-primary" href="workspace.html" data-ev="hero-demo">See the six-team demo</a>
+        <a class="btn btn-primary" href="workspace.html" data-ev="hero-demo">Try the demo</a>
         <a class="link" href="report.html" data-ev="hero-report">or the week-6 report →</a>
       </div>
 
@@ -157,7 +166,7 @@
       </div>
       <div class="priv-copy">
         <p class="priv-sum sm"><strong>Counts only.</strong> No names, emails or session records.</p>
-        <p><strong>HR sees</strong> team, seats, started, finished, cost per starter.</p>
+        <p><strong>HR sees</strong> team, seats, started, finished, and cost per person who started.</p>
         <p><strong>HR never sees</strong> a person, an email, a session record, a safety stop.</p>
         <p class="priv-dpdp"><strong>No employee personal data is collected or stored.</strong> There is no record to protect, export or delete under the DPDP Act. <a href="trust.html#data">The full data map →</a></p>
       </div>
@@ -174,7 +183,7 @@
 </section>
 
 <!-- PROOF — the one artifact that gets forwarded ------------------------>
-<section class="proof">
+<section class="proof" id="proof">
   <div class="wrap proof-grid">
     <div>
       <p class="eyebrow">The Friday email</p>
@@ -206,7 +215,7 @@
 </section>
 
 <!-- ASK ---------------------------------------------------------------->
-<section class="ask">
+<section class="ask" id="ask">
   <div class="wrap ask-grid">
     <div>
       <h2>One word is enough.</h2>
@@ -231,6 +240,11 @@
 </section>
 
 </main>
+
+<nav class="pager" aria-label="Continue">
+  <a class="pager-link" href="changes.html"><span>Previous</span><b>What changed</b></a>
+  <a class="pager-link pager-next" href="workspace.html"><span>Next</span><b>The demo workspace</b></a>
+</nav>
 
 <footer class="foot">
   <div class="wrap">
@@ -265,6 +279,13 @@
     </div>
   </div>
 </footer>
+
+<div class="reply-bar" id="reply-bar" hidden>
+  <span>One word?</span>
+  <a href="mailto:rupakr2g@gmail.com?subject=Sukoon%20%E2%80%94%20yes" data-ev="bar-yes">yes</a>
+  <a href="mailto:rupakr2g@gmail.com?subject=Sukoon%20%E2%80%94%20no" data-ev="bar-no">no</a>
+  <a href="mailto:rupakr2g@gmail.com?subject=Sukoon%20%E2%80%94%20already%20have%20one" data-ev="bar-have">already have one</a>
+</div>
 
 <script src="home.js" defer></script>
 </body>
