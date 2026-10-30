@@ -1411,3 +1411,12 @@ main section,.hero,.q,.privacy-band{background-color:transparent}
 html{background:var(--paper)}
 body{background:transparent!important}
 .ask,.privacy-band{background:rgba(255,255,255,.35)}
+.ask .word-chips + .small{margin-top:20px}
+:root{--calm-a:#C9E6D3;--calm-b:#F2DFC4;--calm-c:#CFE1EC}
+body::before{inset:-10%;background:
+    radial-gradient(55% 50% at 12% 8%,var(--calm-a) 0%,transparent 70%),
+    radial-gradient(55% 50% at 92% 35%,var(--calm-c) 0%,transparent 70%),
+    radial-gradient(60% 55% at 35% 100%,var(--calm-b) 0%,transparent 70%)!important}
+.nav,.toc{background:rgba(250,248,243,.72)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.foot,.pager{background:transparent!important}
+.ask,.privacy-band{background:transparent!important}
