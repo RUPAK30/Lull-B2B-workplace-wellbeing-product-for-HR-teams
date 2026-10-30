@@ -43,3 +43,15 @@ test('every ready choice on the feel screen leads to a suggested break',()=>{
 test('feeling unwell, in any language, is treated as care, not ignored',()=>{
   for(const t of ['not feeling okay','I feel unwell','not well today','tabiyat theek nahi','bara vatat nahi','बरं वाटत नाही','तबीयत ठीक नहीं है']) assert.equal(interpretNeed(t).kind,'care',t);
 });
+import {interpretSessionRequest as during} from '../dist/server/lull.js';
+test('mid-session control phrases work in all four languages',()=>{
+  const k=t=>during(t).kind;
+  for(const t of ['stop','I want to stop','bas karo','ruko','thamba','bas zala','बस करो','रुको','थांबा','मला नको']) assert.equal(k(t),'stop',t);
+  for(const t of ['too hard','slow down','aaram se','dheere','halu','sopa kara','धीरे','आराम से','हळू','जास्त होतंय']) assert.equal(k(t),'seated',t);
+  for(const t of ['too easy','a bit more','thoda aur','ajun thoda','थोड़ा और','अजून']) assert.equal(k(t),'standing',t);
+  for(const t of ['I am on a call','baith ke','basun','बैठकर','बसून']) assert.equal(k(t),'seated',t);
+  for(const t of ['stand up','khade hokar','ubhe rahun','खड़े होकर','उभे राहून']) assert.equal(k(t),'standing',t);
+  for(const t of ['something else','kuch aur','badlo','दूसरा','बदला','हे नको']) assert.equal(k(t),'switch',t);
+  for(const t of ['how long','kitna time','किती वेळ','thank you','dhanyavad','धन्यवाद','feeling better','bara vatla','बरं वाटलं','kaise karu','समजलं नाही']) assert.equal(k(t),'tip',t);
+  for(const t of ['not feeling well','बरं वाटत नाही','seene mein dard']) assert.equal(k(t),'safety',t);
+});

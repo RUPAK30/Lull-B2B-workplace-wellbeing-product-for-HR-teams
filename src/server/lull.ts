@@ -309,16 +309,36 @@ export const careLevel = (doc: ScreenDocument) => { const node = doc.screens.fla
 // change is offered and waits for an explicit yes. Nothing restarts the session or a timer.
 export const blockChildren = (key: string) => [`${key}_rail`, `${key}_title`, `${key}_text`, `${key}_timer`, `${key}_steps`, `${key}_ask`, `${key}_cue`];
 export type SessionRequest = { kind: 'safety'; level: 'urgent' | 'pain' | 'rehab' } | { kind: 'standing' | 'seated' | 'stop' | 'unclear' } | { kind: 'switch'; reset: Reset | null } | { kind: 'tip'; text: string };
+// What people say mid-session, in English, Hinglish, Hindi and Marathi (Roman and Devanagari).
+const fold = (w: string) => w.normalize('NFC').replace(/\u093C/g, '').replace(/\u0901/g, '\u0902');
+const phrases = (words: string[]) => new RegExp(`(?:^| )(?:${words.map(fold).join('|')})(?= |$)`);
+const SAY = {
+  stop: phrases(['stop', 'stop it', 'quit', 'end it', 'end the session', 'finish', 'enough', 'call it', 'i am done', 'done for now', 'that is enough', 'no more', 'cannot continue', 'can not continue', 'want to stop', 'let me stop', 'i want to stop', 'bas karo', 'bas karte', 'bas ho gaya', 'bas ho gayi', 'ruko', 'rehne do', 'chhodo', 'band karo', 'nahi karna', 'aur nahi', 'thamba', 'thambu', 'thambuya', 'bas zala', 'bas jhala', 'pure zala', 'nako', 'mala nako', 'बस', 'बस करो', 'बस हो गया', 'रुको', 'रहने दो', 'छोड़ो', 'बंद करो', 'नहीं करना', 'और नहीं', 'थांबा', 'थांबूया', 'बस झालं', 'बस झाले', 'पुरे', 'मला नको']),
+  seated: phrases(['seated', 'sitting down', 'sit', 'sit down', 'in my chair', 'in my seat', 'on a call', 'on the call', 'in a meeting', 'joining a call', 'joining a meeting', 'call is starting', 'meeting is starting', 'cannot stand', 'can not stand', 'baith ke', 'baithkar', 'baith kar', 'baithe baithe', 'kursi par', 'kursi pe', 'call pe hoon', 'meeting mein hoon', 'basun', 'basunach', 'khurchit', 'call var', 'meeting madhe', 'बैठकर', 'बैठ के', 'बैठे बैठे', 'कुर्सी पर', 'कॉल पर', 'मीटिंग में', 'बसून', 'खुर्चीत', 'मीटिंगमध्ये']),
+  standing: phrases(['standing', 'stand up', 'stand', 'on my feet', 'khade hokar', 'khade ho ke', 'khada hoke', 'ubhe rahun', 'ubha rahun', 'ubhe', 'खड़े होकर', 'खड़े हो के', 'उभे राहून', 'उभं राहून', 'उभे']),
+  switch: phrases(['switch', 'change', 'change it', 'something else', 'different', 'swap', 'another one', 'another break', 'not this one', 'kuch aur', 'kuchh aur', 'dusra', 'doosra', 'badlo', 'badal do', 'ye nahi', 'yeh nahi', 'dusre', 'vegla', 'dusra kahi', 'dusra kahitari', 'he nako', 'बदलो', 'बदल दो', 'कुछ और', 'दूसरा', 'ये नहीं', 'बदला', 'दुसरं', 'वेगळं', 'हे नको']),
+  harder: phrases(['too easy', 'harder', 'step it up', 'more challenging', 'more intense', 'bit more', 'a bit more', 'not enough', 'push me', 'thoda aur', 'aur tez', 'bahut aasan', 'bahut asaan', 'aasan hai', 'asaan hai', 'zyada karo', 'ajun', 'ajun thoda', 'jasta kara', 'khup sopa', 'थोड़ा और', 'और तेज़', 'बहुत आसान', 'आसान है', 'अजून', 'अजून थोडं', 'जास्त करा', 'खूप सोपं']),
+  easier: phrases(['too hard', 'too intense', 'too much', 'too fast', 'easier', 'slow down', 'slow it down', 'slower', 'lighter', 'gentler', 'tone it down', 'less', 'smaller', 'make it easy', 'zyada ho gaya', 'bahut zyada', 'bahut mushkil', 'mushkil hai', 'aaram se', 'aram se', 'dheere', 'dheere dheere', 'dhire', 'halka', 'halu', 'halu halu', 'sopa', 'sopa kara', 'kami', 'kami kara', 'jast hotay', 'jaast hotay', 'avghad', 'ज़्यादा हो गया', 'बहुत ज़्यादा', 'मुश्किल', 'आराम से', 'धीरे', 'धीरे धीरे', 'हल्का', 'हळू', 'सोपं', 'सोपे करा', 'कमी', 'कमी करा', 'जास्त होतंय', 'अवघड']),
+  howlong: phrases(['how long', 'how much longer', 'how much time', 'time left', 'kitna time', 'kitna samay', 'kitni der', 'kab khatam', 'kiti vel', 'kiti vela', 'kevha sampel', 'कितना समय', 'कितनी देर', 'कब खत्म', 'किती वेळ', 'कधी संपेल']),
+  better: phrases(['feel better', 'feeling better', 'feels good', 'feel good', 'that helps', 'this helps', 'much better', 'lighter now', 'acha lag raha', 'achha lag raha', 'accha lag raha', 'behtar', 'aaram mila', 'bara vatla', 'bara vatatay', 'chhan vatatay', 'mast vatatay', 'अच्छा लग रहा', 'बेहतर', 'आराम मिला', 'बरं वाटलं', 'छान वाटतंय', 'मस्त वाटतंय']),
+  thanks: phrases(['thanks', 'thank you', 'thx', 'ty', 'dhanyavad', 'dhanyawad', 'shukriya', 'thank u', 'aabhari', 'abhari', 'धन्यवाद', 'शुक्रिया', 'आभारी']),
+  what: phrases(['what do i do', 'what should i do', 'how do i do this', 'how to do', 'i do not understand', 'not sure how', 'kaise karu', 'kaise karna', 'samajh nahi aaya', 'kasa karu', 'kase karaych', 'samajla nahi', 'कैसे करूं', 'कैसे करना', 'समझ नहीं आया', 'कसं करू', 'समजलं नाही']),
+};
 export function interpretSessionRequest(raw: string): SessionRequest {
   const need = interpretNeed(raw);
   if (need.kind === 'care') return { kind: 'safety', level: need.level };
-  const t = normalise(raw), named = detectReset(t), posture = detectPosture(t);
-  if (/\b(stop|quit|end( it| the session)?|finish|enough|call it)\b|\bi am done\b|\bbas (karo|karte|ho gaya|ho gayi)\b|\bruko\b/.test(t)) return { kind: 'stop' };
-  if (posture) return { kind: posture };
-  if (/\bswitch|\bchange|something else|\bdifferent\b|\bswap\b/.test(t) || named) return { kind: 'switch', reset: named };
+  const t = normalise(raw), named = detectReset(t), on = (k: keyof typeof SAY) => SAY[k].test(t);
+  if (on('stop')) return { kind: 'stop' };
   // At a desk, "more" means standing and fuller; "less" means seated and smaller.
-  if (/too easy|harder|step it up|more (challeng|intense)|bit more|not enough|thoda aur|aur tez|bahut aasan/.test(t)) return { kind: 'standing' };
-  if (/too (hard|intense|much|fast)|easier|slow (it )?down|lighter|gentler|tone it down|less|zyada ho gaya|bahut (zyada|mushkil)|aaram se|dheere|(on|in|joining|join|starting) (a |the )?(call|meeting)|call (is )?starting|meeting (is )?starting/.test(t)) return { kind: 'seated' };
+  if (on('easier')) return { kind: 'seated' };
+  if (on('harder')) return { kind: 'standing' };
+  const posture = detectPosture(t) ?? (on('seated') ? 'seated' : on('standing') ? 'standing' : null);
+  if (posture) return { kind: posture };
+  if (on('switch') || named) return { kind: 'switch', reset: named };
+  if (on('howlong')) return { kind: 'tip', text: 'Each step has its own timer, shown on the dial. The whole break is about 2½ minutes, and you can stop any time.' };
+  if (on('what')) return { kind: 'tip', text: 'Follow the short lines under the timer, and keep every move small and comfortable. If a move doesn’t suit you, skip the step.' };
+  if (on('better')) return { kind: 'tip', text: 'Good to hear. Carry on, or finish here if that feels like enough.' };
+  if (on('thanks')) return { kind: 'tip', text: 'You’re welcome. Carry on whenever you’re ready.' };
   return { kind: 'unclear' };
 }
 /** The current session as the document shows it: the reset, the posture and the need it was built for. */
