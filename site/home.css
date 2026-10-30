@@ -1331,3 +1331,10 @@ main .wrap > *{max-width:100%}
 .proof-grid{grid-template-columns:1fr!important;max-width:760px}
 .pv-jump{margin-top:16px}
 .btn-ghost{border:1px solid var(--rule);background:#fff;color:var(--ink)}
+.toc .s{display:none}
+@media (max-width:640px){
+  .toc-in{display:grid!important;grid-template-columns:repeat(5,1fr);gap:2px;padding:6px 8px;overflow:visible}
+  .toc a{justify-content:center;padding:8px 2px;font-size:.78rem;min-height:36px;white-space:nowrap}
+  .toc .l{display:none}.toc .s{display:inline}
+}
+@media (max-width:640px){.toc-in{align-items:center}.toc{padding:0}}
