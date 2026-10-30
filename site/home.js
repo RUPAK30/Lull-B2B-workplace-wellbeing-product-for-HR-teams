@@ -192,7 +192,7 @@ if(/report\.html$/.test(location.pathname))c('report-view');})();
 document.addEventListener('click',function(e){
   var b=e.target.closest('[data-copy-target]');if(!b)return;
   var src=document.getElementById(b.getAttribute('data-copy-target'));if(!src)return;
-  var text=src.innerText.replace(/\s+\n/g,'\n').trim();
+  var text=(src.hidden?src.textContent:src.innerText).replace(/\s+\n/g,'\n').trim();
   var old=b.textContent;
   function ok(){b.textContent='Copied';setTimeout(function(){b.textContent=old;},2000);}
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,function(){prompt('Copy this',text);});}
