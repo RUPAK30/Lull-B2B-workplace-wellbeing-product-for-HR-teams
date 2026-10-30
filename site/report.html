@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="home.css">
 <style>
-  @page{size:A4 landscape;margin:0}
+  @page{size:A4;margin:0}
   body{background:var(--paper-2)}
   .rep-tools{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;max-width:1080px;margin:0 auto;padding:20px var(--gut)}
   .rep-tools a{color:var(--ink-2);text-decoration:none;font-size:.875rem}
@@ -60,8 +60,20 @@
     .rep-meta{text-align:left}
     .rep-grid,.rep-body{grid-template-columns:1fr}
   }
+  .print-only{display:none}
+  @page{size:A4;margin:0}
   @media print{
-    body{background:#fff}
+    html,body{background:#fff!important}
+    body::before,body::after,.nav,.toc,.foot,.pager,.skip-link{display:none!important}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .print-only{display:flex}
+    .pr-band{justify-content:space-between;align-items:center;padding:7mm 16mm;background:#1F4D3A;color:#fff;font:500 9pt var(--sans);letter-spacing:.06em;text-transform:uppercase}
+    .pr-band b{font:600 13pt var(--sans);letter-spacing:-.02em;text-transform:none;display:flex;align-items:center;gap:8px}
+    .pr-band img{width:22px;height:22px}
+    .pr-foot{justify-content:space-between;gap:12mm;padding:5mm 16mm;border-top:1px solid #DDD6C8;font:8pt var(--sans);color:#555}
+    .rep{padding-top:8mm!important;width:auto!important;max-width:none!important;min-height:0!important}
+    .pr-foot{position:fixed;bottom:0;left:0;right:0;background:#fff}
+    .rep-top .rep-brand{display:none}
     .rep-tools,.how{display:none}
     .rep{width:297mm;max-width:297mm;min-height:210mm;margin:0;border:0;border-radius:0;box-shadow:none;padding:14mm 16mm}
   }
@@ -77,6 +89,7 @@
   </div>
 </div>
 
+<div class="print-only pr-band"><b><img src="img/mark.svg" alt="">sukoon</b><span>Week-6 report · For HR and Finance · Team totals only</span></div>
 <main id="main">
 <article class="rep" aria-labelledby="r-title">
   <header class="rep-top">
@@ -159,6 +172,7 @@
   <p>If your team has fewer than 10 starters in a week, the report says so and shows no team row. <a href="trust.html#data">The full data map</a>.</p>
 </section>
 </main>
+<div class="print-only pr-foot"><span><strong>Privacy:</strong> no names, emails or individual records exist in this report. Teams under 10 people taking part, and the next-smallest, are hidden.</span><span>Sample data from a made-up company · <span id="pr-date"></span> · lull-hr.vercel.app/report</span></div>
 
 <script>
 (function () {
@@ -168,6 +182,6 @@
   }).join('');
 })();
 </script>
-<script>if(/[?&]pdf=1/.test(location.search))addEventListener("load",function(){setTimeout(function(){window.print()},400)});</script>
+<script>document.getElementById("pr-date").textContent="Generated "+new Date().toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});document.title="Sukoon week-6 report - Northwind Logistics (sample)";if(/[?&]pdf=1/.test(location.search))addEventListener("load",function(){setTimeout(function(){window.print()},400)});</script>
 </body>
 </html>
