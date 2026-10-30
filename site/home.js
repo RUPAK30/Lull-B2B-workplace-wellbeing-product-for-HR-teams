@@ -372,3 +372,15 @@ document.addEventListener('click',function(e){
     });
   });
 })();
+
+/* Contents bar: active section, centered chip; nav height var */
+(function(){var nav=document.getElementById('nav'),toc=document.getElementById('toc');function nh(){if(nav)document.documentElement.style.setProperty('--navh',nav.offsetHeight+'px');}nh();addEventListener('resize',nh);
+if(!toc)return;var L=[].slice.call(toc.querySelectorAll('a')),S=L.map(function(a){return document.querySelector(a.getAttribute('href'));});
+function upd(){var y=innerHeight*0.35,k=0;S.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<y)k=i;});L.forEach(function(a,i){var on=i===k;if(on&&!a.classList.contains('on')){var c=a.parentNode;c.scrollTo({left:a.offsetLeft-c.clientWidth/2+a.clientWidth/2,behavior:'smooth'});}a.classList.toggle('on',on);});}
+addEventListener('scroll',upd,{passive:true});upd();})();
+/* Workspace table: label cells for phone layout */
+(function(){var t=document.getElementById('ws-table');if(!t)return;var h=[].map.call(t.querySelectorAll('thead th'),function(x){return x.textContent.trim();});
+function lab(){t.querySelectorAll('tbody tr').forEach(function(r){[].forEach.call(r.children,function(c,i){if(i>0&&h[i])c.setAttribute('data-label',h[i]);});});}lab();new MutationObserver(lab).observe(t,{childList:true,subtree:true});})();
+/* Phones: fold long paragraphs to two lines with "More" */
+(function(){if(!matchMedia('(max-width:640px)').matches)return;document.querySelectorAll('main section:not(.hero) p').forEach(function(p){if(p.closest('.email,.demo,.ws,.ask,table,.pager,.toc')||p.textContent.trim().length<150||p.querySelector('input,button'))return;
+p.classList.add('fold');var b=document.createElement('button');b.type='button';b.className='fold-btn';b.textContent='More';b.addEventListener('click',function(){var o=p.classList.toggle('open');b.textContent=o?'Less':'More';});p.after(b);});})();
