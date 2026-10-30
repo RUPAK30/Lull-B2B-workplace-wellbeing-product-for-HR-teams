@@ -165,7 +165,7 @@ const describe=(reset:Reset,posture:Posture)=>`${RESET_NAMES[reset]}, ${posture}
 /** Home: a greeting, one clear way in, quick picks, and (if remembered) the last session. */
 function renderHome(){
   const mem=loadMemory(),hour=new Date().getHours(),hello=hour<12?'Good morning':hour<18?'Good afternoon':'Good evening';
-  const n=el('div','','home');n.append(el('p',`${hello}${mem.name?`, ${mem.name}`:''}`,'home-hello'),el('h2','Between calls? Take three minutes.','home-title'),el('p','Tell me how you feel, even in Hinglish, or pick a moment below. I’ll suggest one short reset and stay quiet while you move.','home-lede'));
+  const n=el('div','','home');n.append(el('p',`${hello}${mem.name?`, ${mem.name}`:''}`,'home-hello'),el('h2','Between calls? Take 2½ minutes.','home-title'),el('p','Tell me how you feel, even in Hinglish, or pick a moment below. I’ll suggest one short reset and stay quiet while you move.','home-lede'));
   const begin=button('Start with Sukoon',()=>send('Start Sukoon','onboarding'),'primary home-start');begin.id='workout';
   // Opened from their own reminder: their usual session is one tap away.
   const usual=openedFromReminder?usualReset():null;

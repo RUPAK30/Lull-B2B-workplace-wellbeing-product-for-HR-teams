@@ -1,8 +1,8 @@
 # Sukoon
 
-A seated 2:30 movement reset for HR teams and the founder still doing HR at 30–250 person companies in India (250 is the ceiling). One link per team, no app, no roster, no accounts. Every Friday: one line per team — how many started, how many finished — and never who.
+A 2½-minute desk break for teams of 30–250 people in India. HR shares one link per team; people follow a guided, seated movement break between calls. Every Friday, HR gets one email showing how many people in each team started and finished — never who.
 
-[Site](https://lull-hr.vercel.app/) · [Workspace](https://lull-hr.vercel.app/workspace) · [Pricing](https://lull-hr.vercel.app/pilot) · [Security](https://lull-hr.vercel.app/trust) · [Changes](https://lull-hr.vercel.app/changes)
+[Site](https://lull-hr.vercel.app/) · [Workspace](https://lull-hr.vercel.app/workspace) · [Pricing](https://lull-hr.vercel.app/pilot) · [Security](https://lull-hr.vercel.app/trust) · [Changes](https://lull-hr.vercel.app/changes) · [Try the break](https://lull-hr.vercel.app/app/?taster=1) · [For product managers](https://lull-hr.vercel.app/pm)
 
 > The domain is still `lull-hr.vercel.app` and the contact is still a personal inbox. Both are listed as open items in [`/trust#status`](site/trust.html) rather than hidden.
 
@@ -14,13 +14,15 @@ Privacy is a peer of price, not a footer link. No employee personal data is coll
 
 ## The ask
 
-Not a demo request. Three mailto chips — **yes**, **no**, **already have one** — each opening a pre-filled subject. One word is a complete reply. The deeper question ("what is the one thing that makes this a no?") sits once, at the foot.
+Not a demo request. Three mailto chips — **yes**, **no**, **we already use something** — each opening a pre-filled subject. One tap is a complete reply; a yes gets team links within a day. The deeper question ("what would make it a no?") sits once, at the foot.
 
 ## Site map
 
 | Path | What it is |
 | --- | --- |
-| `/` | One screen: why/how/when, the six-team demo, who-sees-what, the Friday email, and the one-word ask |
+| `/` | Headline, the product view (dashboard · Friday email · privacy tabs, sample data), why/how/when at a glance, who sees what, and the one-tap ask |
+| `/app/?taster=1` | The real employee break, in demo mode — what your team actually sees |
+| `/pm` | Product case study for PMs: problem, bets with kill criteria, metrics, what was not built, iteration log |
 | `/workspace` | Demo admin surface: teams, seats, hidden rows, Friday digest, six-week history, week-6 report |
 | `/pilot` | The offer, the six weeks, **the launch kit** (copyable messages), price, procurement, internal memo, pre-mortem, FAQ |
 | `/trust` | Data map, the ten-starter rule, roles, subprocessors, retention, DPA summary, employee notice, status table |
@@ -32,9 +34,9 @@ Not a demo request. Three mailto chips — **yes**, **no**, **already have one**
 ## The product
 
 - **One link.** No download, no account, no password, no HRIS, no SSO.
-- **2:30, seated, in work clothes.** Four moves: neck, shoulders, chest, breath.
+- **2½ minutes, seated, in work clothes.** Four moves: neck, shoulders, chest, breath.
 - **The ten-starter rule.** A team appears only at ten starters, and the next-smallest team is hidden with it, so a small team cannot be recovered by subtraction.
-- **Six anonymous counts per team per week.** Session started, session finished, came back, reminder set, opened from reminder, team reset joined — the allow-list in `src/shared/pilot.ts`. The workspace shows four of them per team: starts, finishes, returns, and cost per starter. No person-level row exists in the schema.
+- **Six team-level counts per team per week** (aggregated with small numbers suppressed — deliberately not called anonymous). Session started, session finished, came back, reminder set, opened from reminder, team reset joined — the allow-list in `src/shared/pilot.ts`. The workspace shows four of them per team: starts, finishes, returns, and cost per starter. No person-level row exists in the schema.
 
 ## The app
 

@@ -234,7 +234,7 @@ const NEED_ACK: Record<NeedKind, string> = {
   stiff: 'For stiffness, slow and easy range fits well.',
   legs: 'Tight legs after sitting: some easy movement for the hips and calves fits.',
   eyes: 'Your eyes and wrists could use a proper break from the screen.',
-  time: 'Short on time is fine; every reset is about three minutes.',
+  time: 'Short on time is fine; every break is about 2½ minutes.',
   low: 'Low on energy, so a quiet lift fits.',
   restless: 'Restless energy does well with a bit of easy rhythm.',
   energetic: 'A quick lift, then.',
