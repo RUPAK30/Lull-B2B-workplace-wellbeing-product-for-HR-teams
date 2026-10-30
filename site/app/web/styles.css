@@ -590,3 +590,4 @@ body,button,input,textarea{font-family:var(--sans)}
 .lang-offer{display:flex;gap:8px;align-items:center;justify-content:center;margin:0 0 12px;padding:8px;border-radius:14px;background:var(--accent-soft)}
 .lang-offer button{min-height:36px;padding:6px 14px;border-radius:999px}
 @media(max-width:760px){.lang-switch button{padding:2px 7px;font-size:12px}#theme{display:none}}
+.boot{opacity:.55}

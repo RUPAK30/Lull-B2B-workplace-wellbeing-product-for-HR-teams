@@ -2,7 +2,8 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Sukoon · A 2½-minute break between calls</title>
 <meta name="description" content="A 2½-minute guided desk break between calls, matched to how you say you feel. Private: your company sees team totals only.">
 <meta name="theme-color" content="#2A5444"><link rel="icon" href="./web/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./web/icon-192.png">
-<link rel="stylesheet" href="./web/styles.css?v=mvvcfo3w"><script type="module" src="./shim.js?v=mvvcfo3w"></script><script type="module" src="./web/app.js?v=mvvcfo3w"></script><style>#tab-dev,#panel-dev{display:none!important}</style><link rel="stylesheet" href="../fonts.css"></head>
+<script>try{var t=JSON.parse(localStorage.getItem("sw.prefs")||"{}").theme;document.documentElement.dataset.theme=t==="dark"?"dark":"light";}catch(e){document.documentElement.dataset.theme="light";}</script>
+<link rel="stylesheet" href="./web/styles.css?v=mvvcpoop"><script type="module" src="./shim.js?v=mvvcpoop"></script><script type="module" src="./web/app.js?v=mvvcpoop"></script><style>#tab-dev,#panel-dev{display:none!important}</style><link rel="stylesheet" href="../fonts.css"></head>
 <body data-phase="idle">
 <a class="skip-link" href="#screen">Skip to the session</a>
 <header class="topbar">
@@ -20,7 +21,7 @@
     <div id="pending" class="notice" hidden>Sukoon is thinking…</div>
     <div id="paused" class="notice" hidden>Paused. Your place is kept.</div>
     <p id="caption" class="caption" hidden></p>
-    <div id="screen" tabindex="-1"></div>
+    <div id="screen" tabindex="-1"><div class="home boot" aria-hidden="true"><p class="home-hello">&nbsp;</p><h2 class="home-title">Between calls? Take 2½ minutes.</h2></div></div>
     <nav id="navigation" class="row" hidden aria-label="Session steps"><button id="back">← Back</button><span id="position" class="micro"></span><button id="next" class="primary">Next →</button></nav>
     <section class="spoken" aria-label="Sukoon says"><p id="spoken"></p></section>
   </section>
