@@ -11,7 +11,7 @@ test('home offers one clear way in, quick picks with real durations, and accepts
   await expect(page.locator('.quick')).toHaveText([/After back-to-back calls.*Unknot neck & shoulders · 2:30/, /Stiff from sitting.*Undo the sitting · 2:40/, /Post-lunch slump.*Energy lift · 2:25/, /Stressed, can’t switch off.*Calm down · 2:30/, /Tired eyes and wrists.*Screen break · 2:30/]);
   await expect(page.locator('#pause')).toBeHidden();
   await send(page, 'I only have five minutes before my next call');
-  await expect(page.locator('#screen')).toContainText('Try: Unknot neck & shoulders');
+  await expect(page.locator('#screen')).toContainText('Suggested: Unknot neck & shoulders');
   await page.getByRole('button', { name: 'Start seated · 2:30' }).click();
   await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4');
 });

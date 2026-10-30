@@ -10,7 +10,7 @@ function read<T extends object>(key: string, fallback: T): T {
 }
 function write(key: string, value: unknown) { try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* private mode: keep in memory only */ } }
 
-export const prefs: Prefs = read<Prefs>(PREFS, { ready: true, chime: false, remember: false, theme: 'auto' });
+export const prefs: Prefs = read<Prefs>(PREFS, { ready: true, chime: false, remember: false, theme: 'light' });
 export const savePrefs = () => write(PREFS, prefs);
 
 /** Memory is opt-in: nothing is read or written unless the person turned it on. */

@@ -114,13 +114,13 @@ export const FEEL_GROUPS = [
     ['In your language', ['Gardan akad gayi hai', 'बहुत थकान है', 'कामाचा ताण आहे']],
 ];
 const FEEL_KEYS = ['feel_actions', 'feel_energy', 'feel_mind', 'feel_time', 'feel_lang'];
-export function feelStatements(note = 'Tap what fits, or say it in your own words — English, Hindi, Hinglish or Marathi.') {
+export function feelStatements(note = 'Tap what fits, or type it below in English, Hindi, Hinglish or Marathi.') {
     const groups = FEEL_GROUPS.flatMap(([label, chips], i) => [statement(`${FEEL_KEYS[i]}_label`, 'Text', [label, 'subtitle']), statement(FEEL_KEYS[i], 'FollowUps', [chips])]);
-    return [screen('feel', ['feel_title', 'feel_text', ...FEEL_KEYS.flatMap(k => [`${k}_label`, k]), 'feel_ask', 'feel_cue']),
+    return [screen('feel', ['feel_title', 'feel_text', ...FEEL_KEYS.flatMap(k => [`${k}_label`, k]), 'feel_privacy', 'feel_cue']),
         statement('feel_title', 'Text', ['How are you feeling right now?', 'title']),
         statement('feel_text', 'Text', [note, 'description']),
         ...groups,
-        statement('feel_ask', 'TextInput', ['Or in your own words', 'e.g. kamar akad gayi']),
+        statement('feel_privacy', 'Text', ['Nothing you type leaves this device. Your company only ever sees team totals, never names.', 'body']),
         statement('feel_cue', 'Cue', ['2½ minutes, then back to your day.']),
     ];
 }
@@ -130,9 +130,9 @@ export function pickStatements(reset, need) {
     const first = need?.posture ?? DEFAULT_POSTURE[reset], second = first === 'seated' ? 'standing' : 'seated';
     const start = (p) => `Start ${p} · ${clock(planOf(reset, p).total)}`;
     return [screen('pick', ['pick_title', ...(need?.heard.length ? ['pick_need'] : []), 'pick_text', 'pick_plan', 'pick_actions', 'pick_cue']),
-        ...(need?.heard.length ? [statement('pick_need', 'Text', [`Heard: ${need.heard.map(k => HEARD[k]).join(' · ')}`, 'subtitle'])] : []),
-        statement('pick_title', 'Text', [`Try: ${RESET_NAMES[reset]}`, 'title']),
-        statement('pick_text', 'Text', [need?.ack || WHY[reset], 'description']),
+        ...(need?.heard.length ? [statement('pick_need', 'Text', [`For ${need.heard.map(k => HEARD[k]).join(' · ')}`, 'subtitle'])] : []),
+        statement('pick_title', 'Text', [`Suggested: ${RESET_NAMES[reset]}`, 'title']),
+        statement('pick_text', 'Text', [(need?.ack || WHY[reset]).replace(/ I’d suggest.*$/, '').split(/(?<=\.) /)[0], 'description']),
         ...list('pick_plan', planOf(reset, first).blocks.map(b => `${b.title} · ${clock(b.seconds)}`)),
         statement('pick_actions', 'FollowUps', [[start(first), start(second), 'Something else']]),
         statement('pick_cue', 'Cue', ['Seated works on a call with the camera off. Standing works beside your desk.']),
@@ -156,7 +156,7 @@ export const readContext = (_doc) => ({ name: '' });
 /** The reset offered on the pick screen, read from its title. */
 export function readOffered(doc) {
     const title = String(doc.screens.flatMap(childrenOf).find(n => n.key === 'pick_title')?.props.text ?? '');
-    return RESETS.find(r => title === `Try: ${RESET_NAMES[r]}`) ?? null;
+    return RESETS.find(r => title === `Suggested: ${RESET_NAMES[r]}`) ?? null;
 }
 export const isOnboarding = (doc) => ONBOARDING.includes(doc.screens[0]?.key ?? '');
 // Intent parsing: one clear match wins; anything ambiguous is asked about.
@@ -208,7 +208,7 @@ const NEED_ACK = {
     energetic: 'A quick lift, then.',
     calm: 'Something quieter, then.',
     unsure: 'No need to know. Let’s start with the one most people like.',
-    fitness: 'Sukoon is for short resets at your desk, not a fitness plan. An energy lift is the closest fit.',
+    fitness: 'Sukoon is for short breaks at your desk, not a fitness plan. An energy lift is the closest fit.',
 };
 const NEED_RAIL = { neck: 'after calls', back: 'for your back', sitting: 'after sitting', stiff: 'for stiffness', legs: 'for tight legs', eyes: 'for eyes and wrists', time: 'short and sweet', low: 'kept light', restless: 'for restless energy', calm: 'to unwind' };
 const NEED_INTRO = { neck: 'Built for after a run of calls.', back: 'Built around a stiff back.', sitting: 'Built for a break from sitting.', stiff: 'Built around easing stiffness.', legs: 'Built for tight legs.', eyes: 'Built to rest your eyes and wrists.', time: 'Built to fit a short window.', low: 'Kept light for a low-energy moment.', restless: 'Built to give restless energy somewhere to go.', energetic: 'Built as a quick lift.', calm: 'Built to be quiet.', unsure: 'An easy place to start.' };
@@ -216,8 +216,8 @@ const NEED_CLOSE = { neck: 'A little room for the neck and shoulders between cal
 const ORDER = ['fitness', 'eyes', 'neck', 'back', 'legs', 'sitting', 'stiff', 'time', 'low', 'restless', 'energetic', 'calm', 'unsure'];
 export const CARE_ACK = {
     urgent: 'That sounds like it needs urgent medical attention, not movement. Please stop and contact your local emergency number or urgent care now.',
-    pain: 'I can’t assess pain or injuries, so I won’t pick a reset around it. Getting advice from a doctor or physiotherapist before moving that area is the safe call.',
-    rehab: 'If you’re recovering, your clinician’s advice and restrictions come first. These resets aren’t a rehab plan.',
+    pain: 'I can’t assess pain or injuries, so I won’t suggest a movement around it. Getting advice from a doctor or physiotherapist before moving that area is the safe call.',
+    rehab: 'If you’re recovering, your clinician’s advice and restrictions come first. These breaks aren’t a rehab plan.',
 };
 // Idioms that name pain without describing the body are removed before matching.
 const IDIOMS = / ?\b(a |such a |what a )?pain in the (neck|backside|butt|bum|arse|ass)\b/g;
@@ -258,13 +258,13 @@ export function careStatements(level) {
     if (rest)
         return [screen('feel', ['care_title', 'care_text', ...(urgent ? [] : ['care_actions']), 'care_cue']),
             statement('care_title', 'Text', [urgent ? 'Please look after that first.' : 'That’s a good call.', 'title']),
-            statement('care_text', 'Text', [urgent ? 'Get help now. Sukoon will be here another time, when you’re ready.' : 'Look after yourself. If you change your mind, the resets are still here.', 'description']),
+            statement('care_text', 'Text', [urgent ? 'Get help now. Sukoon will be here another time, when you’re ready.' : 'Look after yourself. If you change your mind, the breaks are still here.', 'description']),
             ...(urgent ? [] : [statement('care_actions', 'FollowUps', [['Show the resets']])]),
             statement('care_cue', 'Cue', ['Take care.'])];
     return [screen('feel', ['care_title', 'care_alert', 'care_text', 'care_actions', 'care_cue']),
-        statement('care_title', 'Text', [urgent ? 'Please get help first.' : 'Let’s not work around pain.', 'title']),
+        statement('care_title', 'Text', [urgent ? 'Please get help first.' : 'Let’s look after that first.', 'title']),
         statement('care_alert', 'Alert', [urgent ? 'danger' : 'warning', CARE_ACK[level]]),
-        statement('care_text', 'Text', [urgent ? 'This isn’t something Sukoon can help with, and it isn’t a time to move.' : 'If you’d still like a reset today, choose one that leaves that area alone, and stop if anything hurts.', 'description']),
+        statement('care_text', 'Text', [urgent ? 'This isn’t something Sukoon can help with, and it isn’t a time to move.' : 'If you’d still like a break today, choose one that leaves that area alone, and stop if anything hurts.', 'description']),
         statement('care_actions', 'FollowUps', [urgent ? ['I understand'] : ['Not today', 'Show the resets']]),
         statement('care_cue', 'Cue', [urgent ? 'Please look after yourself first.' : 'No pressure either way.'])];
 }
@@ -311,7 +311,7 @@ export function safetyStatements(key, level) {
     return [screen(key, ['safety_title', 'safety_alert', 'safety_text', 'safety_actions', `${key}_timer`, 'safety_cue']),
         statement('safety_title', 'Text', [urgent ? 'Stop here and get help.' : 'Let’s stop and rest.', 'title']),
         statement('safety_alert', 'Alert', [urgent ? 'danger' : 'warning', urgent ? CARE_ACK.urgent : 'I’ve paused the timer. I can’t tell what’s causing this, so please don’t push through it. If it’s severe, or comes with chest pain or trouble breathing, get urgent medical help.']),
-        statement('safety_text', 'Text', [urgent ? 'Don’t continue this reset.' : 'Take a break. You don’t need to finish the rest, and I won’t suggest another movement in its place.', 'description']),
+        statement('safety_text', 'Text', [urgent ? 'Don’t continue this break.' : 'Take a break. You don’t need to finish the rest, and I won’t suggest another movement in its place.', 'description']),
         statement('safety_actions', 'FollowUps', [urgent ? ['End the session'] : ['End the session', 'I’ve rested and feel okay']]),
         statement('safety_cue', 'Cue', [urgent ? 'Please look after yourself first.' : 'No pressure. Stopping is a perfectly good choice.'])];
 }
@@ -320,5 +320,5 @@ export function earlyFinishStatements(safety) {
     return [statement('finish_title', 'Text', [safety ? 'Let’s leave it there.' : 'That’s enough for now.', 'title']),
         statement('finish_text', 'Text', [safety ? 'Stopping was the right call. Take it easy, and if it doesn’t settle, check in with a doctor or physiotherapist.' : 'Stopping early is fine. Even a minute away from the screen counts.', 'description']),
         ...(safety ? [statement('finish_breath', 'Text', ['Rest for as long as you need.', 'body']), statement('finish_again', 'Text', ['Come back whenever you feel ready. There’s no rush.', 'body'])] : []),
-        statement('finish_cue', 'Cue', [safety ? 'Take care of yourself.' : 'Whenever you’re ready, there’s a reset that fits.'])];
+        statement('finish_cue', 'Cue', [safety ? 'Take care of yourself.' : 'Whenever you’re ready, there’s a break that fits.'])];
 }

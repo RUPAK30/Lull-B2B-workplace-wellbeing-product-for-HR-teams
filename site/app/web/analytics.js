@@ -72,7 +72,7 @@ else
     store.del('sw.exp.' + experiment); }
 /** Reads what Sukoon just did from its reply, so the log reflects product moments, not clicks. */
 export function observeTurn(said, reply) {
-    const heard = reply.match(/pick_need = Text\("Heard: ([^"]+)"/);
+    const heard = reply.match(/pick_need = Text\("For ([^"]+)"/);
     if (heard)
         track('need', { kinds: heard[1].split(' · ') });
     if (/feel_text = Text\("(Tell me a little more|Low on energy but)/.test(reply) || reply.startsWith('I didn’t catch a change'))

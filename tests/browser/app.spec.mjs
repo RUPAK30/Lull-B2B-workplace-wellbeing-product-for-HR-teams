@@ -13,7 +13,7 @@ test('Sukoon opens on how you feel: one question, one suggested reset, then seat
  await page.setViewportSize({width:1440,height:1000});await page.locator('#workout').click();await expect(page.locator('#screen')).toContainText('How are you feeling right now?');await expect(page.locator('#spoken')).toContainText('Three minutes, then back');
  await expect(page.locator('#next')).toBeDisabled();await expect(page.locator('#next')).toHaveText('Answer above');await expect(page.locator('#position')).toHaveText('1 / 1');
  for(const moment of ['After back-to-back calls','Stiff from sitting','Post-lunch slump','Stressed, can’t switch off','Tired eyes and wrists'])await expect(page.getByRole('button',{name:moment})).toBeVisible();
- await page.getByRole('button',{name:'After back-to-back calls'}).click();await expect(page.locator('#screen')).toContainText('Try: Unknot neck & shoulders');await expect(page.locator('#position')).toHaveText('2 / 2');
+ await page.getByRole('button',{name:'After back-to-back calls'}).click();await expect(page.locator('#screen')).toContainText('Suggested: Unknot neck & shoulders');await expect(page.locator('#position')).toHaveText('2 / 2');
  await page.getByRole('button',{name:'Start seated · 2:30'}).click();await expect(page.locator('#position')).toHaveText('2 / 6');await expect(page.locator('#screen')).toContainText('Neck side release');
  await expect(page.locator('.workout-intent')).toContainText('Unknot neck & shoulders · seated');await expect(page.locator('.workout-next-title')).toHaveText('Shoulder rolls');await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4');
  await page.locator('#back').click();await expect(page.locator('#screen')).toContainText('Unknot neck & shoulders · Seated');await expect(page.locator('#screen')).toContainText('4 short steps · 2:30');
@@ -32,7 +32,7 @@ test('reset recap separates a full timer, an early finish, an open timer and a s
 });
 test('a need typed in their own words, even in Hinglish, shapes the suggestion and leads into the reset',async({page})=>{
  await page.locator('#workout').click();const field=page.getByLabel('Or in your own words');await expect(field).toBeVisible();
- await field.fill('kamar akad gayi hai, baithe baithe');await field.press('Enter');await expect(page.locator('#screen')).toContainText('Try: Undo the sitting');await expect(page.locator('#screen')).toContainText('Heard:');
+ await field.fill('kamar akad gayi hai, baithe baithe');await field.press('Enter');await expect(page.locator('#screen')).toContainText('Suggested: Undo the sitting');await expect(page.locator('#screen')).toContainText('Heard:');
  await expect(page.locator('#next')).toHaveText('Answer above');await page.getByRole('button',{name:'Start standing · 2:40'}).click();await expect(page.locator('#screen')).toContainText('Standing spine waves');
  await expect(page.locator('.workout-intent')).toContainText('Undo the sitting · standing');await expect(page.locator('#position')).toHaveText('2 / 6');await page.locator('#back').click();await expect(page.locator('#screen')).toContainText('Undo the sitting · Standing');
 });

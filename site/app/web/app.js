@@ -186,7 +186,7 @@ function updatePhase() {
         document.body.dataset.phase = phase;
     // In a movement, Next honestly says Skip until its timer has finished.
     if (isWorkout(c.document.current) && !byId('next').disabled) {
-        const label = status === 'done' ? 'Next →' : 'Skip →';
+        const label = status === 'done' ? 'Next →' : 'Skip step →';
         if (byId('next').textContent !== label)
             byId('next').textContent = label;
     }
@@ -509,9 +509,11 @@ async function start() {
             send('/reset unknot seated', 'taster');
             history.replaceState(null, '', location.pathname);
         }
+        else if (!c.document.screens.length && !openedFromReminder)
+            send('Start Sukoon', 'onboarding');
     }
     catch {
-        byId('status').textContent = 'Could not connect. Restart the local server and reload.';
+        byId('status').textContent = 'Sukoon couldn’t load. Check your connection and refresh the page.';
     }
 }
 /** Jump to a movement from the session overview (never while safety holds the session). */
@@ -535,7 +537,9 @@ function renderDone(current) {
     const mins = total >= 60 ? `${Math.floor(total / 60)} min ${total % 60 ? `${total % 60} sec` : ''}`.trim() : `${total} sec`;
     n.append(mark, el('p', 'Session complete', 'done-kicker'), el('h2', 'Nicely done. That was time well spent.', 'done-title'), el('p', `${say('finish_text')} ${total >= 20 ? `You moved for ${mins} — that counts, even on a busy day.` : 'Even a short pause away from the screen counts.'}`, 'done-text'), el('p', say('finish_breath'), 'done-breath'));
     const row = el('div', '', 'done-actions');
-    row.append(button('Back to your day', () => byId('reset').click(), 'primary home-start'), button('Another 2½ minutes', () => { byId('reset').click(); setTimeout(() => send('Start Sukoon', 'onboarding'), 50); }, 'home-start'));
+    row.append(button('Back to your day', () => { for (const sib of [...(n.parentElement?.children ?? [])])
+        if (sib !== n)
+            sib.remove(); window.scrollTo({ top: 0, behavior: 'smooth' }); n.replaceChildren(mark, el('p', 'All done', 'done-kicker'), el('h2', 'Enjoy the rest of your day.', 'done-title'), el('p', 'You can close this tab. Whenever the next long call ends, Sukoon will be here.', 'done-text'), button('Start another break', () => { byId('reset').click(); setTimeout(() => send('Start Sukoon', 'onboarding'), 50); }, 'quiet')); }, 'primary home-start'), button('Another 2½ minutes', () => { byId('reset').click(); setTimeout(() => send('Start Sukoon', 'onboarding'), 50); }, 'home-start'));
     n.append(row, el('p', say('finish_again'), 'done-again'));
     queueMicrotask(() => { byId('navigation').hidden = true; });
     return n;
@@ -543,7 +547,7 @@ function renderDone(current) {
 function renderHome() {
     const mem = loadMemory(), hour = new Date().getHours(), hello = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
     const n = el('div', '', 'home');
-    n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', 'Between calls? Take 2½ minutes.', 'home-title'), el('p', 'Tell me how you feel — in English, Hindi, Hinglish or Marathi — or pick a moment below. I’ll suggest one short reset and stay quiet while you move.', 'home-lede'));
+    n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', 'Between calls? Take 2½ minutes.', 'home-title'), el('p', 'Tell me how you feel — in English, Hindi, Hinglish or Marathi. I’ll suggest one 2½-minute break and stay quiet while you move.', 'home-lede'));
     const begin = button('Start with Sukoon', () => send('Start Sukoon', 'onboarding'), 'primary home-start');
     begin.id = 'workout';
     // Opened from their own reminder: their usual session is one tap away.

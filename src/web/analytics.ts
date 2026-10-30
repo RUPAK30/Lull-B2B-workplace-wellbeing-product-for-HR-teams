@@ -51,7 +51,7 @@ export function setOverride(experiment: string, value: string) { if (value === '
 
 /** Reads what Sukoon just did from its reply, so the log reflects product moments, not clicks. */
 export function observeTurn(said: string, reply: string) {
-  const heard = reply.match(/pick_need = Text\("Heard: ([^"]+)"/);
+  const heard = reply.match(/pick_need = Text\("For ([^"]+)"/);
   if (heard) track('need', { kinds: heard[1].split(' · ') });
   if (/feel_text = Text\("(Tell me a little more|Low on energy but)/.test(reply) || reply.startsWith('I didn’t catch a change')) track('unmatched', { text: said.slice(0, 120), where: reply.startsWith('I didn’t') ? 'during' : 'before' });
   const safety = reply.match(/(care|safety)_alert = Alert\("(warning|danger)"/);

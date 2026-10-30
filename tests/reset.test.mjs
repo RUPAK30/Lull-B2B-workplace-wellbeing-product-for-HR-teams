@@ -40,7 +40,7 @@ test('the flow: how are you feeling, one suggested reset, then a session that en
   assert.equal(text(doc,'feel_title'),'How are you feeling right now?');
   assert.deepEqual(actions(doc,'feel_actions'),['Stiff neck after calls','Back tight from sitting','Tired eyes and wrists','Legs stiff from sitting']);
   say(doc,'After back-to-back calls');
-  assert.equal(doc.cursor,'pick');assert.equal(text(doc,'pick_title'),'Try: Unknot neck & shoulders');
+  assert.equal(doc.cursor,'pick');assert.equal(text(doc,'pick_title'),'Suggested: Unknot neck & shoulders');
   assert.deepEqual(actions(doc,'pick_actions'),['Start seated · 2:30','Start standing · 2:40','Something else']);
   say(doc,'Start seated · 2:30');
   assert.equal(text(doc,'intro_title'),'Unknot neck & shoulders · Seated');
@@ -82,7 +82,7 @@ test('free text is read for the body part and the moment, and context sets the p
 
 test('safety first: pain or symptoms replace the choices, before or during a reset',()=>{
   const doc=new ScreenDocument();say(doc,'/lull');say(doc,'my neck hurts after calls');
-  assert.equal(text(doc,'care_title'),'Let’s not work around pain.');
+  assert.equal(text(doc,'care_title'),'Let’s look after that first.');
   assert.deepEqual(actions(doc,'care_actions'),['Not today','Show the resets']);
   say(doc,'Show the resets');assert.equal(text(doc,'feel_title'),'How are you feeling right now?');
   const urgent=new ScreenDocument();say(urgent,'/lull');say(urgent,'chest feels tight');
@@ -118,7 +118,7 @@ test('the app’s one-tap moments state the real reset lengths',async()=>{
 
 test('the pick screen offers one reset with its reason, and Something else goes back',()=>{
   const lines=pickStatements('calm').join('\n');
-  assert.match(lines,/Try: Calm down/);assert.match(lines,/Start seated · 2:30/);assert.match(lines,/Something else/);
+  assert.match(lines,/Suggested: Calm down/);assert.match(lines,/Start seated · 2:30/);assert.match(lines,/Something else/);
   const doc=new ScreenDocument();say(doc,'/lull');say(doc,'Stressed, can’t switch off');say(doc,'Something else');
   assert.equal(doc.cursor,'feel');
 });

@@ -33,7 +33,7 @@ function onboardingTurn(doc, raw, last, understood) {
             if (care && last === 'not today')
                 return { reply: 'That’s a good call. Take care.\n' + fence(lull.careStatements('rest').join('\n')) };
             if (care && last === 'show the resets')
-                return { reply: 'Here they are. Only pick one that leaves that area alone.\n' + reveal('feel', lull.feelStatements('Only choose a reset that leaves that area alone, and stop if anything hurts.')) };
+                return { reply: 'Here they are. Pick one that leaves that area alone.\n' + reveal('feel', lull.feelStatements('Only choose a reset that leaves that area alone, and stop if anything hurts.')) };
             const need = understood ?? lull.interpretNeed(raw);
             if (need.kind === 'care')
                 return { reply: need.ack + '\n' + reveal('feel', lull.careStatements(need.level)) };
@@ -133,7 +133,7 @@ export function mockTurn(request, input, options = {}) {
     if (command)
         return session(command.reset, command.posture, { name: '' }, `${lull.RESET_NAMES[command.reset]}, ${command.posture}:`);
     if (['/lull', '/start', 'start lull', 'start sukoon'].includes(last))
-        return { reply: 'Hey, I’m Sukoon. 2½ minutes, then back to your day. (Mock mode: this flow is scripted and stays on this page.)\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
+        return { reply: 'How are you feeling right now?\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
     const doc = new ScreenDocument();
     if (request.state.ui_state)
         doc.apply(fence(request.state.ui_state));

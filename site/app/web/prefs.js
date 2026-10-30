@@ -12,7 +12,7 @@ function write(key, value) { try {
     localStorage.setItem(key, JSON.stringify(value));
 }
 catch { /* private mode: keep in memory only */ } }
-export const prefs = read(PREFS, { ready: true, chime: false, remember: false, theme: 'auto' });
+export const prefs = read(PREFS, { ready: true, chime: false, remember: false, theme: 'light' });
 export const savePrefs = () => write(PREFS, prefs);
 /** Memory is opt-in: nothing is read or written unless the person turned it on. */
 export const loadMemory = () => prefs.remember ? read(MEMORY, {}) : {};

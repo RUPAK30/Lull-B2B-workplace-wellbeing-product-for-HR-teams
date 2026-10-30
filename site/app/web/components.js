@@ -24,7 +24,7 @@ export const renderers = {
         bar.append(fill);
         face.append(value, status);
         const row = el('div', '', 'row timer-controls'), done = el('div', '', 'timer-done'), doneText = el('p', '', '');
-        const start = button('Start', () => c.timerAction(key, 'start'), 'primary'), pause = button('Pause timer', () => c.timerAction(key, 'pause')), reset = button('Reset timer', () => c.timerAction(key, 'reset'), 'quiet'), finish = button('Finish now', () => c.timerAction(key, 'finish'), 'quiet');
+        const start = button('Start', () => c.timerAction(key, 'start'), 'primary'), pause = button('Pause', () => c.timerAction(key, 'pause')), reset = button('Restart', () => c.timerAction(key, 'reset'), 'quiet'), finish = button('I’m done with this step', () => c.timerAction(key, 'finish'), 'quiet');
         const next = button('', () => { next.disabled = true; c.advance(key); }, 'primary');
         done.append(doneText, next);
         row.append(start, pause, reset, finish);
@@ -35,7 +35,7 @@ export const renderers = {
                 return;
             const seconds = Math.ceil(entry.remaining);
             value.textContent = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
-            status.textContent = entry.status;
+            status.textContent = { stopped: 'Ready', running: 'Moving', paused: 'Paused', done: 'Done' }[entry.status] ?? '';
             n.dataset.status = entry.status;
             fill.style.width = `${Math.min(100, Math.max(0, 100 * (1 - entry.remaining / entry.seconds)))}%`;
             const counting = entry.status === 'stopped' ? c.countdown(key) : 0;
@@ -44,7 +44,7 @@ export const renderers = {
             start.textContent = counting ? 'Cancel countdown' : entry.status === 'done' ? 'Restart' : 'Start';
             start.className = entry.status === 'done' || counting ? '' : 'primary';
             pause.hidden = entry.status === 'stopped' || entry.status === 'done';
-            pause.textContent = entry.status === 'paused' ? 'Resume timer' : 'Pause timer';
+            pause.textContent = entry.status === 'paused' ? 'Resume' : 'Pause';
             finish.hidden = entry.status === 'done';
             const upNext = c.upNext(key), position = c.timers.list().findIndex(t => t.id === key);
             done.hidden = entry.status !== 'done';
