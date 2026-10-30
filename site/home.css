@@ -1181,3 +1181,8 @@ section[id]{scroll-margin-top:136px}
   .foot-list a{min-height:38px;display:flex;align-items:center;line-height:1.3}
   .foot-legal{margin-top:20px;padding-top:14px}
 }
+
+/* status link is inline, not a 44px tap row; the dot should sit on the baseline */
+.foot-status a{min-height:0;display:inline}
+/* the spec sheet already closes the hero: less air before the argument */
+.hero{padding-bottom:clamp(22px,3vw,34px)}
