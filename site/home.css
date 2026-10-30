@@ -1370,3 +1370,8 @@ main .wrap > *{max-width:100%}
 .pm-tree .guard{background:var(--paper-2)}
 .pm-log{margin:0;padding-left:20px}.pm-log li{margin-bottom:10px;line-height:1.5}
 @media (max-width:640px){.pm-table thead{display:none}.pm-table tr{display:block;padding:10px 12px;border-top:1px solid var(--rule)}.pm-table td{display:block;border:0;padding:3px 0}.pm-table td:first-child{font-weight:600}}
+.pm-grid{display:grid;gap:10px}@media (min-width:760px){.pm-grid{grid-template-columns:repeat(3,1fr)}}
+.pm-grid div{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:16px}
+.pm-grid span{display:block;font:600 .7rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.pm-grid b{font-weight:500;font-size:.95rem;line-height:1.45}
+.pm-hero h1{font-size:clamp(1.9rem,5.4vw,3rem)}
