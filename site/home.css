@@ -878,3 +878,66 @@ html,body{overflow-x:hidden}
   .hero .lede,.q-row p,.ask .lede{font-size:.9375rem}
   .founder-strip p{font-size:.875rem}
 }
+
+/* ============================================================
+   Craft pass: one grid, one frame, one change of surface
+   ============================================================ */
+body.home{font:400 1rem/1.6 var(--sans);font-optical-sizing:auto}
+h1{letter-spacing:-.035em}
+h2{letter-spacing:-.03em}
+p,.lede{text-wrap:pretty;hanging-punctuation:first}
+section[id]{scroll-margin-top:88px}
+a{-webkit-tap-highlight-color:transparent}
+.lede{max-width:34em}
+
+/* nav: one line, quiet */
+.nav-inner{height:68px;max-width:1240px}
+.brand{font-size:1.25rem}
+.nav-links a{transition:color .12s}
+.nav-cta{border-radius:8px}
+
+/* buttons and chips feel like objects */
+.btn{border-radius:8px;transition:background .12s,border-color .12s,color .12s,transform .12s}
+.btn:active{transform:translateY(1px)}
+.chip-link{background:var(--paper);border-color:var(--ink-3);transition:background .12s,border-color .12s,color .12s,transform .12s}
+.chip-link:active{transform:translateY(1px)}
+.hero-actions .link{font-size:.9375rem}
+
+/* one frame for every artifact */
+.ws-preview,.email,.ledger,.ask .founder-strip{border-radius:12px;box-shadow:none}
+
+/* spacing scale: more air between ideas, less inside them */
+.hero{padding:clamp(52px,7vw,92px) 0 clamp(40px,5vw,64px)}
+.q{padding:clamp(40px,5vw,64px) 0}
+.privacy-band{padding:clamp(48px,7vw,88px) 0;background:var(--paper)}
+.proof{padding:clamp(48px,7vw,88px) 0}
+.ask{padding:clamp(48px,7vw,88px) 0;background:var(--paper-2)}
+.q-row{padding:22px 0}
+.privacy-band .privacy{margin-top:28px}
+.proof-grid h2{margin-top:14px}
+
+/* footer as a colophon */
+.foot{padding:44px 0 36px}
+.foot-note{max-width:26em;line-height:1.6}
+
+@media(max-width:600px){
+  .nav-inner{height:60px}
+  .chip-link{border-color:var(--ink-3)}
+  .doors{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;align-items:center}
+  .doors>span{grid-column:1/-1;margin-bottom:4px}
+  .doors a{min-height:40px;display:flex;align-items:center}
+}
+
+@media(max-width:600px){
+  .doors{display:flex;flex-wrap:wrap;gap:0 18px;align-items:center}
+  .doors>span{width:100%;margin-bottom:2px}
+  .doors a{min-height:40px;display:inline-flex;align-items:center}
+}
+
+@media(max-width:600px){
+  .q{padding:32px 0}
+  .privacy-band{padding:36px 0}
+  .proof{padding:36px 0}
+  .ask{padding:36px 0}
+  .hero{padding-bottom:32px}
+}
