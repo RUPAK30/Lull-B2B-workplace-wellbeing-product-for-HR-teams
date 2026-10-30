@@ -805,3 +805,42 @@ html,body{overflow-x:hidden}
   .foot-top{grid-template-columns:1fr 1fr;gap:20px}
   .foot-top>div:first-child{grid-column:1/-1}
 }
+
+/* ---------- the ledger: the one memorable object ---------- */
+.priv-lede{margin:10px 0 0;font-size:.9375rem;color:var(--ink-2)}
+.privacy-band .privacy{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);align-items:start;gap:clamp(24px,4vw,48px)}
+.ledger{border:1px solid var(--rule);border-radius:10px;background:var(--paper);overflow:hidden}
+.ledger-top{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--rule);background:var(--paper-2);font:600 .625rem/1.4 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.ledger-table{width:100%;border-collapse:collapse;font-size:.875rem;font-variant-numeric:tabular-nums}
+.ledger-table th,.ledger-table td{padding:9px 14px;text-align:left;border-top:1px solid var(--rule);white-space:nowrap}
+.ledger-table thead th{border-top:0;font:600 .625rem/1.4 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.ledger-table tbody th{font-weight:500;color:var(--ink)}
+.ledger-table td{color:var(--ink-2)}
+.ledger-table .gone th,.ledger-table .gone td{color:var(--ink-3)}
+.ledger-table .gone th{font-weight:400;text-decoration:line-through;text-decoration-thickness:1px;text-decoration-color:var(--rule-2)}
+.ledger-names{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--rule);font:600 .625rem/1.4 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.blank{flex:1;height:12px;border-bottom:2px solid var(--ink-3);opacity:.45}
+.ledger-names b{font:600 .625rem/1.4 var(--sans);letter-spacing:.09em;color:var(--accent)}
+.ledger-foot{margin:0;padding:10px 14px;border-top:1px solid var(--rule);background:var(--paper-2);font-size:.75rem;line-height:1.5;color:var(--ink-3)}
+.priv-copy p{margin:0;font-size:.9375rem;line-height:1.6;color:var(--ink-2)}
+.priv-copy p+p{margin-top:12px}
+.priv-copy strong{color:var(--ink);font-weight:500}
+.priv-copy .priv-dpdp{margin-top:16px;font-size:.875rem}
+.sig{margin:10px 0 0;font-family:var(--serif);font-style:italic;font-size:1.0625rem;color:var(--ink-2)}
+
+@media(max-width:900px){
+  .privacy-band .privacy{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .privacy-band .privacy{grid-template-columns:1fr;gap:18px}
+  .ledger-table th,.ledger-table td{padding:8px 12px}
+  .ledger-foot{font-size:.75rem}
+  .priv-copy p{font-size:.9375rem}
+  .sig{font-size:1rem}
+}
+
+.blank{flex:0 0 38px}
+@media(max-width:600px){
+  .priv-copy>p:not(.priv-sum):not(.priv-dpdp){display:none}
+  .priv-copy .priv-sum{margin-bottom:0}
+}
