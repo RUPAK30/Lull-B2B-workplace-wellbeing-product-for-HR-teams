@@ -179,7 +179,7 @@ function renderHome(){
   const begin=button('Start with Sukoon',()=>send('Start Sukoon','onboarding'),'primary home-start');begin.id='workout';
   // Opened from their own reminder: their usual session is one tap away.
   const usual=openedFromReminder?usualReset():null;
-  if(usual){n.append(el('p','Your reset time. Same as usual?','home-label'));const one=button(`Start ${describe(usual.reset,usual.posture).toLowerCase().replace(/^./,ch=>ch.toUpperCase())}`,()=>send(`/reset ${usual.reset} ${usual.posture}`,'reminder'),'primary home-start');n.append(one);begin.className='home-start';begin.textContent='Something different';}
+  if(usual){n.append(el('p','Your break time. Same as usual?','home-label'));const one=button(`Start ${describe(usual.reset,usual.posture).toLowerCase().replace(/^./,ch=>ch.toUpperCase())}`,()=>send(`/reset ${usual.reset} ${usual.posture}`,'reminder'),'primary home-start');n.append(one);begin.className='home-start';begin.textContent='Something different';}
   const quick=el('div','','home-quick');
   const last=mem.last&&RESETS.includes(mem.last.reset as Reset)?mem.last:null;
   if(last){const again=button('',()=>send(`/reset ${last.reset} ${last.posture}`,'again'),'quick again');again.append(el('strong','Same as last time'),el('span',last.title));quick.append(again);}

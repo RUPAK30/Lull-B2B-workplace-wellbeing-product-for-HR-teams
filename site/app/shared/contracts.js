@@ -1,4 +1,4 @@
-import { list, obj, str, valid } from './schema.js?v=mvvdqt02';
+import { list, obj, str, valid } from './schema.js?v=mvve2ps1';
 export const APP_VERSION = '3.0.0';
 export const SCHEMA_VERSION = '3';
 export const providers = ['mock', 'claude-guided', 'openai-api', 'claude-cli', 'codex-cli'];

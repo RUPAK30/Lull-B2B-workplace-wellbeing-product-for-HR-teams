@@ -280,7 +280,7 @@ export function interpretNeed(raw: string): Need {
     : has('back') || has('legs') || has('sitting') ? 'unsit' : has('stiff') || has('time') || has('unsure') ? 'unknot' : null);
   if (!reset) return { kind: 'clarify', ack: 'Tell me a little more: is it your neck and shoulders, your back from sitting, your energy, your eyes, or just a lot on your mind?' };
   const posture = detectPosture(t);
-  const lines = [...(outside ? ['Running, weights and jumping are outside what Sukoon does; these are short, quiet resets you can do at your desk.'] : []), ...heard.map(k => NEED_ACK[k])];
+  const lines = [...(outside ? ['Running, weights and jumping are outside what Sukoon does; these are short, quiet breaks you can do at your desk.'] : []), ...heard.map(k => NEED_ACK[k])];
   const plan = planOf(reset, posture ?? DEFAULT_POSTURE[reset]);
   const pick = `I’d suggest ${RESET_NAMES[reset].toLowerCase()} (${clock(plan.total)}).`;
   if (!lines.length) return { kind: 'suggest', reset, posture, ack: `${WHY[reset]} ${pick}`, plain: true, heard: [] };
@@ -294,13 +294,13 @@ export function careStatements(level: 'urgent' | 'pain' | 'rehab' | 'rest' | 're
   if (rest) return [screen('feel', ['care_title', 'care_text', ...(urgent ? [] : ['care_actions']), 'care_cue']),
     statement('care_title', 'Text', [urgent ? 'Please look after that first.' : 'That’s a good call.', 'title']),
     statement('care_text', 'Text', [urgent ? 'Get help now. Sukoon will be here another time, when you’re ready.' : 'Look after yourself. If you change your mind, the breaks are still here.', 'description']),
-    ...(urgent ? [] : [statement('care_actions', 'FollowUps', [['Show the resets']])]),
+    ...(urgent ? [] : [statement('care_actions', 'FollowUps', [['Show the breaks']])]),
     statement('care_cue', 'Cue', ['Take care.'])];
   return [screen('feel', ['care_title', 'care_alert', 'care_text', 'care_actions', 'care_cue']),
     statement('care_title', 'Text', [urgent ? 'Please get help first.' : 'Let’s look after that first.', 'title']),
     statement('care_alert', 'Alert', [urgent ? 'danger' : 'warning', CARE_ACK[level as 'urgent' | 'pain' | 'rehab']]),
     statement('care_text', 'Text', [urgent ? 'This isn’t something Sukoon can help with, and it isn’t a time to move.' : 'If you’d still like a break today, choose one that leaves that area alone, and stop if anything hurts.', 'description']),
-    statement('care_actions', 'FollowUps', [urgent ? ['I understand'] : ['Not today', 'Show the resets']]),
+    statement('care_actions', 'FollowUps', [urgent ? ['I understand'] : ['Not today', 'Show the breaks']]),
     statement('care_cue', 'Cue', [urgent ? 'Please look after yourself first.' : 'No pressure either way.'])];
 }
 export const careLevel = (doc: ScreenDocument) => { const node = doc.screens.flatMap(childrenOf).find(n => n.key === 'care_alert' || n.key === 'care_title'); if (!node) return null; const alert = doc.screens.flatMap(childrenOf).find(n => n.key === 'care_alert'); return alert ? (alert.props.tone === 'danger' ? 'urgent' : 'pain') : (doc.screens.flatMap(childrenOf).some(n => n.key === 'care_actions') ? 'rest' : 'rest-urgent'); };

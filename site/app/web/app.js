@@ -1,20 +1,20 @@
-import { Conversation } from '../shared/controller.js?v=mvvdqt02';
-import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvdqt02';
-import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvdqt02';
-import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvdqt02';
-import { createRunNav } from '../shared/openui/run-nav.js?v=mvvdqt02';
-import { splitReply } from '../shared/openui/document.js?v=mvvdqt02';
-import { redactValue } from '../shared/redact.js?v=mvvdqt02';
-import { renderComponent } from './components.js?v=mvvdqt02';
-import { byId, el, button } from './dom.js?v=mvvdqt02';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvdqt02';
-import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvdqt02';
-import { reminderCard } from './reminder.js?v=mvvdqt02';
-import { initI18n } from './i18n.js?v=mvvdqt02';
-import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvdqt02';
-import { renderInsights, teamExport } from './insights-view.js?v=mvvdqt02';
-import { sampleEvents } from '../shared/insights.js?v=mvvdqt02';
-import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvdqt02';
+import { Conversation } from '../shared/controller.js?v=mvve2ps1';
+import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvve2ps1';
+import { TimerLedger } from '../shared/openui/timer-store.js?v=mvve2ps1';
+import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvve2ps1';
+import { createRunNav } from '../shared/openui/run-nav.js?v=mvve2ps1';
+import { splitReply } from '../shared/openui/document.js?v=mvve2ps1';
+import { redactValue } from '../shared/redact.js?v=mvve2ps1';
+import { renderComponent } from './components.js?v=mvve2ps1';
+import { byId, el, button } from './dom.js?v=mvve2ps1';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvve2ps1';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvve2ps1';
+import { reminderCard } from './reminder.js?v=mvve2ps1';
+import { initI18n } from './i18n.js?v=mvve2ps1';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvve2ps1';
+import { renderInsights, teamExport } from './insights-view.js?v=mvve2ps1';
+import { sampleEvents } from '../shared/insights.js?v=mvve2ps1';
+import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvve2ps1';
 let config;
 const timers = new TimerLedger();
 let previousTimers = new Map(), updates = [];
@@ -558,7 +558,7 @@ function renderHome() {
     // Opened from their own reminder: their usual session is one tap away.
     const usual = openedFromReminder ? usualReset() : null;
     if (usual) {
-        n.append(el('p', 'Your reset time. Same as usual?', 'home-label'));
+        n.append(el('p', 'Your break time. Same as usual?', 'home-label'));
         const one = button(`Start ${describe(usual.reset, usual.posture).toLowerCase().replace(/^./, ch => ch.toUpperCase())}`, () => send(`/reset ${usual.reset} ${usual.posture}`, 'reminder'), 'primary home-start');
         n.append(one);
         begin.className = 'home-start';

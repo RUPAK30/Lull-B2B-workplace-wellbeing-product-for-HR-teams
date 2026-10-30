@@ -89,7 +89,7 @@ A quick lift, then. || तो फिर, एक छोटा-सा उत्स
 Something quieter, then. || तो फिर, कुछ शांत। || मग, काहीतरी शांत.
 No need to know. Let’s start with the one most people like. || जानना ज़रूरी नहीं। वही शुरू करते हैं जो ज़्यादातर लोगों को पसंद है। || माहीत असण्याची गरज नाही. बहुतेकांना आवडतो तोच सुरू करूया.
 Sukoon is for short breaks at your desk, not a fitness plan. An energy lift is the closest fit. || सुकून डेस्क पर छोटे ब्रेक के लिए है, फ़िटनेस प्लान नहीं। ऊर्जा बढ़ाने वाला ब्रेक सबसे क़रीब है। || सुकून डेस्कवरच्या छोट्या ब्रेकसाठी आहे, फिटनेस प्लॅन नाही. ऊर्जा वाढवणारा ब्रेक सगळ्यात जवळचा आहे.
-Running, weights and jumping are outside what Sukoon does; these are short, quiet resets you can do at your desk. || दौड़ना, वज़न उठाना और कूदना सुकून में नहीं है; ये डेस्क पर किए जाने वाले छोटे, शांत ब्रेक हैं। || धावणं, वजन उचलणं आणि उड्या सुकूनमध्ये नाहीत; हे डेस्कवर करता येणारे छोटे, शांत ब्रेक आहेत.
+Running, weights and jumping are outside what Sukoon does; these are short, quiet breaks you can do at your desk. || दौड़ना, वज़न उठाना और कूदना सुकून में नहीं है; ये डेस्क पर किए जाने वाले छोटे, शांत ब्रेक हैं। || धावणं, वजन उचलणं आणि उड्या सुकूनमध्ये नाहीत; हे डेस्कवर करता येणारे छोटे, शांत ब्रेक आहेत.
 Slow neck and shoulder release for after a run of calls. || लगातार कॉल्स के बाद गर्दन और कंधों को धीरे से ढीला करें। || सलग कॉल्सनंतर मान आणि खांदे हळूहळू मोकळे करा.
 Gentle movement for the back and hips after a long stretch of sitting. || देर तक बैठने के बाद कमर और कूल्हों की हल्की हरकत। || खूप वेळ बसल्यानंतर पाठ आणि कंबरेची हलकी हालचाल.
 A quiet lift for a heavy afternoon. No sweat, nothing on the floor. || भारी दोपहर के लिए हल्का उत्साह। न पसीना, न ज़मीन पर कुछ। || जड दुपारसाठी हलकी उभारी. घाम नाही, जमिनीवर काही नाही.
@@ -339,7 +339,7 @@ If you’d still like a break today, choose one that leaves that area alone, and
 This isn’t something Sukoon can help with, and it isn’t a time to move. || इसमें सुकून मदद नहीं कर सकता, और यह हरकत करने का समय नहीं है। || यात सुकून मदत करू शकत नाही, आणि ही हालचाल करण्याची वेळ नाही.
 I understand || मैं समझ गया/गई || मला समजलं
 Not today || आज नहीं || आज नाही
-Show the resets || ब्रेक दिखाएँ || ब्रेक दाखवा
+Show the breaks || ब्रेक दिखाएँ || ब्रेक दाखवा
 Please look after yourself first. || कृपया पहले अपना ध्यान रखें। || कृपया आधी स्वतःची काळजी घ्या.
 No pressure either way. || किसी भी तरह कोई दबाव नहीं। || कोणत्याही प्रकारे दबाव नाही.
 Please look after that first. || कृपया पहले उसका ध्यान रखें। || कृपया आधी त्याची काळजी घ्या.
@@ -348,7 +348,7 @@ Get help now. Sukoon will be here another time, when you’re ready. || अभ�
 Look after yourself. If you change your mind, the breaks are still here. || अपना ध्यान रखें। मन बदले तो ब्रेक यहीं हैं। || स्वतःची काळजी घ्या. विचार बदलला तर ब्रेक इथेच आहेत.
 Take care. || ध्यान रखें। || काळजी घ्या.
 Here they are. Pick one that leaves that area alone. || ये रहे। ऐसा चुनें जिसमें वह हिस्सा न हिले। || हे घ्या. तो भाग न हलवणारा निवडा.
-Only choose a reset that leaves that area alone, and stop if anything hurts. || सिर्फ़ ऐसा ब्रेक चुनें जिसमें वह हिस्सा न हिले, और कहीं दर्द हो तो रुक जाएँ। || फक्त तो भाग न हलवणारा ब्रेक निवडा, आणि कुठे दुखलं तर थांबा.
+Only choose a break that leaves that area alone, and stop if anything hurts. || सिर्फ़ ऐसा ब्रेक चुनें जिसमें वह हिस्सा न हिले, और कहीं दर्द हो तो रुक जाएँ। || फक्त तो भाग न हलवणारा ब्रेक निवडा, आणि कुठे दुखलं तर थांबा.
 Let’s stop and rest. || रुकते हैं और आराम करते हैं। || थांबूया आणि आराम करूया.
 Stop here and get help. || यहीं रुकें और मदद लें। || इथेच थांबा आणि मदत घ्या.
 I’ve paused the timer. I can’t tell what’s causing this, so please don’t push through it. If it’s severe, or comes with chest pain or trouble breathing, get urgent medical help. || मैंने टाइमर रोक दिया है। मैं नहीं बता सकता कि यह क्यों हो रहा है, इसलिए ज़ोर लगाकर जारी न रखें। अगर यह गंभीर है, या साथ में सीने में दर्द या साँस लेने में दिक्कत है, तो तुरंत डॉक्टरी मदद लें। || मी टायमर थांबवला आहे. हे कशामुळे होतंय ते मी सांगू शकत नाही, म्हणून जोर लावून चालू ठेवू नका. हे गंभीर असेल, किंवा सोबत छातीत दुखणं किंवा श्वास घ्यायला त्रास असेल, तर तातडीने वैद्यकीय मदत घ्या.
@@ -375,7 +375,7 @@ Keep going || जारी रखें || चालू ठेवा
 Keep this one || यही रखें || हाच ठेवा
 Switch to seated || बैठकर वाले पर जाएँ || बसून करायच्यावर जा
 Switch to standing || खड़े होकर वाले पर जाएँ || उभे राहून करायच्यावर जा
-Switch to which reset? || किस ब्रेक पर जाएँ? || कोणत्या ब्रेकवर जायचं?
+Switch to which break? || किस ब्रेक पर जाएँ? || कोणत्या ब्रेकवर जायचं?
 Sure. Carry on whenever you’re ready. || ठीक है। जब तैयार हों, जारी रखें। || ठीक आहे. तयार असाल तेव्हा चालू ठेवा.
 Want a little more? The standing version uses more of the body. I’ll keep your place. || थोड़ा और चाहिए? खड़े होकर वाले में शरीर ज़्यादा काम करता है। आपकी जगह सुरक्षित रहेगी। || थोडं आणखी हवं? उभे राहून करायच्यात शरीर जास्त वापरलं जातं. तुमची जागा जपली जाईल.
 This is already the standing version. Take each move a little slower, through a comfortable range. || यह पहले से खड़े होकर वाला है। हर हरकत थोड़ा धीमे, आरामदायक दायरे में करें। || हा आधीच उभे राहून करायचा आहे. प्रत्येक हालचाल थोडी हळू, आरामदायक मर्यादेत करा.
@@ -434,7 +434,7 @@ Outlook or Apple (.ics) || Outlook या Apple (.ics) || Outlook किंव�
 Pick a time and add it to your own calendar or Slack. Skip any day you like: Sukoon won’t follow up. || एक समय चुनें और अपने कैलेंडर या Slack में जोड़ें। कोई भी दिन छोड़ें: सुकून पीछे नहीं पड़ेगा। || एक वेळ निवडा आणि तुमच्या कॅलेंडर किंवा Slack मध्ये जोडा. हवा तो दिवस सोडा: सुकून मागे लागणार नाही.
 Or do it together: paste this into a recurring meeting invite, and end it with a 2½-minute break together. || या साथ में करें: इसे किसी रोज़ की मीटिंग के इनवाइट में डालें, और मीटिंग 2½ मिनट के ब्रेक के साथ ख़त्म करें। || किंवा एकत्र करा: हे रोजच्या मीटिंगच्या इनवाइटमध्ये टाका, आणि मीटिंग 2½ मिनिटांच्या ब्रेकने संपवा.
 What the timers recorded || टाइमर ने क्या दर्ज किया || टायमरने काय नोंदवलं
-Your reset time. Same as usual? || आपके ब्रेक का समय। हमेशा जैसा? || तुमच्या ब्रेकची वेळ. नेहमीसारखा?
+Your break time. Same as usual? || आपके ब्रेक का समय। हमेशा जैसा? || तुमच्या ब्रेकची वेळ. नेहमीसारखा?
 Something different || कुछ अलग || काहीतरी वेगळं
 Sukoon couldn’t load. Check your connection and refresh the page. || सुकून लोड नहीं हो पाया। अपना इंटरनेट देखें और पेज रिफ़्रेश करें। || सुकून लोड झालं नाही. इंटरनेट तपासा आणि पान रिफ्रेश करा.
 Previous reply interrupted. Your messages are kept. || पिछला जवाब बीच में रुक गया। आपके संदेश सुरक्षित हैं। || मागचं उत्तर मध्येच थांबलं. तुमचे संदेश जपले आहेत.

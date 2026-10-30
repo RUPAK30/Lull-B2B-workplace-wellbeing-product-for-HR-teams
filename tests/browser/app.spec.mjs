@@ -73,7 +73,7 @@ test('pain changes the interface: a calm safety screen, no reset choices, and a 
  const field=page.getByLabel('Or in your own words');await field.fill('My neck hurts but I still want something');await field.press('Enter');
  await expect(page.locator('#screen .alert-warning')).toContainText('physiotherapist');await expect(page.locator('.preview')).toHaveAttribute('data-phase','care');
  await expect(page.getByRole('button',{name:'After back-to-back calls'})).toHaveCount(0);await expect(page.locator('#screen')).toHaveClass(/enter/);
- await page.getByRole('button',{name:'Show the resets'}).click();await expect(page.getByRole('button',{name:'After back-to-back calls'})).toBeVisible();await expect(page.locator('#screen')).toContainText('leaves that area alone');
+ await page.getByRole('button',{name:'Show the breaks'}).click();await expect(page.getByRole('button',{name:'After back-to-back calls'})).toBeVisible();await expect(page.locator('#screen')).toContainText('leaves that area alone');
 });
 test('in a reset: a safety report pauses the running timer and holds; seated or standing keeps your place',async({page})=>{
  await page.setViewportSize({width:1440,height:1000});await send(page,'/reset unknot seated');await page.locator('#next').click();await expect(page.locator('#screen')).toContainText('Neck side release');

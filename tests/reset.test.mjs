@@ -83,8 +83,8 @@ test('free text is read for the body part and the moment, and context sets the p
 test('safety first: pain or symptoms replace the choices, before or during a reset',()=>{
   const doc=new ScreenDocument();say(doc,'/lull');say(doc,'my neck hurts after calls');
   assert.equal(text(doc,'care_title'),'Let’s look after that first.');
-  assert.deepEqual(actions(doc,'care_actions'),['Not today','Show the resets']);
-  say(doc,'Show the resets');assert.equal(text(doc,'feel_title'),'How are you feeling right now?');
+  assert.deepEqual(actions(doc,'care_actions'),['Not today','Show the breaks']);
+  say(doc,'Show the breaks');assert.equal(text(doc,'feel_title'),'How are you feeling right now?');
   const urgent=new ScreenDocument();say(urgent,'/lull');say(urgent,'chest feels tight');
   assert.deepEqual(actions(urgent,'care_actions'),['I understand'],'no route into a reset');
   const s=new ScreenDocument();say(s,'/reset unknot seated');say(s,'next');say(s,'kamar mein dard ho raha');
@@ -105,7 +105,7 @@ test('in session: less means seated, more means standing, both offered and keepi
 });
 
 test('scripted buttons never go to the live model; free text does',()=>{
-  for(const label of [...RESETS.map(r=>RESET_MOMENTS[r]),'Start seated · 2:30','Switch to standing','Switch to calm down','Show the resets'])
+  for(const label of [...RESETS.map(r=>RESET_MOMENTS[r]),'Start seated · 2:30','Switch to standing','Switch to calm down','Show the breaks'])
     assert.equal(guideTarget(req(label)),null,label);
   assert.equal(guideTarget(req('my shoulders are up by my ears')).phase,'need');
 });

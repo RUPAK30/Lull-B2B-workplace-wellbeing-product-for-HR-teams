@@ -32,7 +32,7 @@ function onboardingTurn(doc: ScreenDocument, raw: string, last: string, understo
       if (care === 'rest-urgent' || care === 'urgent' && last !== 'i understand') return { reply: 'Please look after yourself first.' };
       if (care === 'urgent') return { reply: 'Take care of yourself.\n' + fence(lull.careStatements('rest-urgent').join('\n')) };
       if (care && last === 'not today') return { reply: 'That’s a good call. Take care.\n' + fence(lull.careStatements('rest').join('\n')) };
-      if (care && last === 'show the resets') return { reply: 'Here they are. Pick one that leaves that area alone.\n' + reveal('feel', lull.feelStatements('Only choose a reset that leaves that area alone, and stop if anything hurts.')) };
+      if (care && last === 'show the breaks') return { reply: 'Here they are. Pick one that leaves that area alone.\n' + reveal('feel', lull.feelStatements('Only choose a break that leaves that area alone, and stop if anything hurts.')) };
       const need = understood ?? lull.interpretNeed(raw);
       if (need.kind === 'care') return { reply: need.ack + '\n' + reveal('feel', lull.careStatements(need.level)) };
       if (need.kind === 'clarify') return { reply: need.ack + '\n' + fence(serializeStatement('feel_text', 'Text', [need.ack, 'description'])) };
@@ -92,7 +92,7 @@ function sessionTurn(doc: ScreenDocument, raw: string, last: string, understood?
   if (request.kind === 'seated') return current.posture === 'standing' ? offer('Let’s make it smaller. The seated version works on a call, with the camera off. I’ll keep your place.', ['Switch to seated', 'Keep this one']) : offer('This is already the seated version. Make each move smaller, pause, or stop here; all are fine.', ['Keep this one', 'End the session']);
   if (request.kind === 'tip') return offer(request.text, ['Keep going', 'End the session']);
   if (request.kind === 'stop') return offer('Want to stop here? That’s completely fine.', ['End the session', 'Keep going']);
-  if (request.kind === 'switch') return request.reset && request.reset !== current.reset ? offer(`Switch to ${lull.RESET_NAMES[request.reset].toLowerCase()}?`, [`Switch to ${lull.RESET_NAMES[request.reset].toLowerCase()}`, 'Keep this one']) : offer('Switch to which reset?', lull.RESETS.filter(r => r !== current.reset).map(r => `Switch to ${lull.RESET_NAMES[r].toLowerCase()}`).concat('Keep this one'));
+  if (request.kind === 'switch') return request.reset && request.reset !== current.reset ? offer(`Switch to ${lull.RESET_NAMES[request.reset].toLowerCase()}?`, [`Switch to ${lull.RESET_NAMES[request.reset].toLowerCase()}`, 'Keep this one']) : offer('Switch to which break?', lull.RESETS.filter(r => r !== current.reset).map(r => `Switch to ${lull.RESET_NAMES[r].toLowerCase()}`).concat('Keep this one'));
   // A new need mid-session (any language) becomes an offer to switch; nothing changes without a yes.
   const need = lull.interpretNeed(raw);
   if (need.kind === 'suggest' && need.heard.length) {
@@ -122,13 +122,13 @@ export function mockTurn(request: RequestData, input: string | MockFixtures, opt
     if (need.kind === 'clarify') return { reply: need.ack + '\n' + fence([...lull.feelStatements(need.ack), only('feel')].join('\n')) };
     return { reply: need.ack + '\n' + fence([...pickFor(need), only('pick')].join('\n')) };
   }
-  if (screens[0]?.key === 'intro') { const turn = sessionTurn(doc, raw, last, options.understood?.session); if (turn) return turn; return { reply: 'This reset moves with the Next and Back buttons and the timer controls. ' + HELP }; }
+  if (screens[0]?.key === 'intro') { const turn = sessionTurn(doc, raw, last, options.understood?.session); if (turn) return turn; return { reply: 'This break moves with the Next and Back buttons and the timer controls. ' + HELP }; }
   return { reply: HELP };
 }
 
 // Exact button labels and commands are already unambiguous: only free text goes to the model.
 const LABELS = [...lull.RESETS.map(r => lull.RESET_MOMENTS[r].toLowerCase()), ...lull.RESETS.map(r => `switch to ${lull.RESET_NAMES[r].toLowerCase()}`)].map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-const SCRIPTED = new RegExp(`^(\\/.*|next|back|start (seated|standing).*|switch to (seated|standing)|keep this one|keep going|end the session|not today|show the resets|i understand|something else|start sukoon|i’ve rested and feel okay|${LABELS.join('|')})$`);
+const SCRIPTED = new RegExp(`^(\\/.*|next|back|start (seated|standing).*|switch to (seated|standing)|keep this one|keep going|end the session|not today|show the breaks|i understand|something else|start sukoon|i’ve rested and feel okay|${LABELS.join('|')})$`);
 /** Where a live interpretation of the latest message would be used, and with what context. */
 export function guideTarget(request: RequestData): { raw: string; phase: 'need' | 'session'; current?: { reset: lull.Reset; posture: lull.Posture; block: lull.Block } } | null {
   const raw = request.messages.at(-1)?.content.trim() ?? '', last = raw.toLowerCase();
