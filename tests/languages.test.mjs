@@ -40,3 +40,6 @@ import {FEEL_GROUPS} from '../dist/server/lull.js';
 test('every ready choice on the feel screen leads to a suggested break',()=>{
   for(const [,chips] of FEEL_GROUPS) for(const t of chips) assert.equal(interpretNeed(t).kind,'suggest',t);
 });
+test('feeling unwell, in any language, is treated as care, not ignored',()=>{
+  for(const t of ['not feeling okay','I feel unwell','not well today','tabiyat theek nahi','bara vatat nahi','बरं वाटत नाही','तबीयत ठीक नहीं है']) assert.equal(interpretNeed(t).kind,'care',t);
+});

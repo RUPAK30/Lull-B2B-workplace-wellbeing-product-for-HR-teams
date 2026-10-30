@@ -122,7 +122,7 @@ function sessionTurn(doc, raw, last, understood) {
         const name = lull.RESET_NAMES[need.reset].toLowerCase();
         return offer(`${need.ack.replace(/ I’d suggest.*$/, '')} Switch to ${name}? I’ll keep your place.`, [`Switch to ${name}`, 'Keep this one']);
     }
-    return { reply: 'I didn’t catch a change in that. You can ask for seated or standing, a different break, or to stop.' };
+    return offer('I didn’t quite catch that. You can ask for seated or standing, a different break, or to stop. If anything hurts or you feel unwell, say so and I’ll pause.', ['Keep going', 'End the session']);
 }
 export function mockTurn(request, input, options = {}) {
     const wiring = typeof input === 'string' ? input : input.wiring;
