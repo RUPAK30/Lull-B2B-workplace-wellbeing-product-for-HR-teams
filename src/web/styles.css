@@ -581,3 +581,12 @@ body,button,input,textarea{font-family:var(--sans)}
 .site-link .sm{display:none}
 @media(max-width:760px){.site-link{margin-left:6px;padding:5px 10px;font-size:12px}.site-link .lg{display:none}.site-link .sm{display:inline}}
 .topbar{grid-template-columns:auto auto minmax(0,1fr) auto!important}
+/* Languages */
+:root{--sans:"Inter","Noto Sans Devanagari","Nirmala UI",system-ui,-apple-system,"Segoe UI",sans-serif}
+.preview h2,.preview h3.block-title,.home-title,.done-title{font-family:"Fraunces","Noto Serif Devanagari","Noto Sans Devanagari","Nirmala UI",Georgia,serif}
+.lang-switch{display:inline-flex;gap:2px;padding:2px;border:1px solid var(--line);border-radius:999px;margin-right:6px}
+.lang-switch button{min-height:30px;padding:2px 10px;border:0;border-radius:999px;background:transparent;font-size:13px;color:var(--muted);box-shadow:none}
+.lang-switch button[aria-pressed=true]{background:var(--accent);color:#fff}
+.lang-offer{display:flex;gap:8px;align-items:center;justify-content:center;margin:0 0 12px;padding:8px;border-radius:14px;background:var(--accent-soft)}
+.lang-offer button{min-height:36px;padding:6px 14px;border-radius:999px}
+@media(max-width:760px){.lang-switch button{padding:2px 7px;font-size:12px}#theme{display:none}}

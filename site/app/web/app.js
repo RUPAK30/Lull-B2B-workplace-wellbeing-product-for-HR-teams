@@ -1,19 +1,20 @@
-import { Conversation } from '../shared/controller.js?v=mvvbkvq0';
-import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvbkvq0';
-import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvbkvq0';
-import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvbkvq0';
-import { createRunNav } from '../shared/openui/run-nav.js?v=mvvbkvq0';
-import { splitReply } from '../shared/openui/document.js?v=mvvbkvq0';
-import { redactValue } from '../shared/redact.js?v=mvvbkvq0';
-import { renderComponent } from './components.js?v=mvvbkvq0';
-import { byId, el, button } from './dom.js?v=mvvbkvq0';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvbkvq0';
-import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvbkvq0';
-import { reminderCard } from './reminder.js?v=mvvbkvq0';
-import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvbkvq0';
-import { renderInsights, teamExport } from './insights-view.js?v=mvvbkvq0';
-import { sampleEvents } from '../shared/insights.js?v=mvvbkvq0';
-import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvbkvq0';
+import { Conversation } from '../shared/controller.js?v=mvvc2t1v';
+import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvc2t1v';
+import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvc2t1v';
+import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvc2t1v';
+import { createRunNav } from '../shared/openui/run-nav.js?v=mvvc2t1v';
+import { splitReply } from '../shared/openui/document.js?v=mvvc2t1v';
+import { redactValue } from '../shared/redact.js?v=mvvc2t1v';
+import { renderComponent } from './components.js?v=mvvc2t1v';
+import { byId, el, button } from './dom.js?v=mvvc2t1v';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvc2t1v';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvc2t1v';
+import { reminderCard } from './reminder.js?v=mvvc2t1v';
+import { initI18n } from './i18n.js?v=mvvc2t1v';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvc2t1v';
+import { renderInsights, teamExport } from './insights-view.js?v=mvvc2t1v';
+import { sampleEvents } from '../shared/insights.js?v=mvvc2t1v';
+import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvc2t1v';
 let config;
 const timers = new TimerLedger();
 let previousTimers = new Map(), updates = [];
@@ -479,6 +480,7 @@ catch {
 } });
 byId('export').addEventListener('click', () => { const label = byId('run-label').value; const payload = { format: 'lull-workout-run-v1', label, appVersion: APP_VERSION, schemaVersion: SCHEMA_VERSION, selectedProvider: c.provider, note: byId('note').value, events: c.events, state: { ui_state: c.document.echo(), client_events: c.clientEvents }, timers: timers.list() }; const url = URL.createObjectURL(new Blob([JSON.stringify(redactValue(payload), null, 2)], { type: 'application/json' })); const link = el('a'); link.href = url; link.download = label + '.json'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); byId('export-status').textContent = `Downloaded ${label}.json. Review and move it into runs/.`; });
 async function start() {
+    initI18n();
     render();
     try {
         const response = await fetch('/api/config');
