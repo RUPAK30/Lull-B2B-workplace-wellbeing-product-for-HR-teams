@@ -36,3 +36,7 @@ test('Everyday words that only look like pain are not treated as pain',()=>{
   assert.notEqual(kind('neend lag gayi thi kal'),'care');
   assert.notEqual(kind('pair programming all day'),'care');
 });
+import {FEEL_GROUPS} from '../dist/server/lull.js';
+test('every ready choice on the feel screen leads to a suggested break',()=>{
+  for(const [,chips] of FEEL_GROUPS) for(const t of chips) assert.equal(interpretNeed(t).kind,'suggest',t);
+});

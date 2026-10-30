@@ -105,13 +105,22 @@ const list = (key, items) => [`${key} = List([${items.map((_, i) => `${key}_${i 
 /** Reveal `step` after the first screens already present (a session may start from home). */
 export const revealRootIn = (existing, step) => { const order = ONBOARDING.filter(k => existing.includes(k) || k === step); return `root = Screens([${order.slice(0, order.indexOf(step) + 1).join(', ')}], ${step})`; };
 export const revealRoot = (step) => `root = Screens([${ONBOARDING.slice(0, ONBOARDING.indexOf(step) + 1).join(', ')}], ${step})`;
-/** "How are you feeling right now?": the work moments, or the person's own words. */
-export function feelStatements(note = 'Tap the moment that fits, or say it in your own words.') {
-    return [screen('feel', ['feel_title', 'feel_text', 'feel_actions', 'feel_ask', 'feel_cue']),
+/** "How are you feeling right now?": grouped the way people actually feel at work, in their own language too. */
+export const FEEL_GROUPS = [
+    ['Body', ['Stiff neck after calls', 'Back tight from sitting', 'Tired eyes and wrists', 'Legs stiff from sitting']],
+    ['Energy', ['Post-lunch slump', 'Sleepy and slow', 'Restless, can’t sit still']],
+    ['Mind', ['Stressed, can’t switch off', 'Too many meetings', 'Need a quiet minute']],
+    ['Time', ['Only a couple of minutes', 'Not sure, you pick']],
+    ['In your language', ['Gardan akad gayi hai', 'बहुत थकान है', 'कामाचा ताण आहे']],
+];
+const FEEL_KEYS = ['feel_actions', 'feel_energy', 'feel_mind', 'feel_time', 'feel_lang'];
+export function feelStatements(note = 'Tap what fits, or say it in your own words — English, Hindi, Hinglish or Marathi.') {
+    const groups = FEEL_GROUPS.flatMap(([label, chips], i) => [statement(`${FEEL_KEYS[i]}_label`, 'Text', [label, 'subtitle']), statement(FEEL_KEYS[i], 'FollowUps', [chips])]);
+    return [screen('feel', ['feel_title', 'feel_text', ...FEEL_KEYS.flatMap(k => [`${k}_label`, k]), 'feel_ask', 'feel_cue']),
         statement('feel_title', 'Text', ['How are you feeling right now?', 'title']),
         statement('feel_text', 'Text', [note, 'description']),
-        statement('feel_actions', 'FollowUps', [RESETS.map(r => RESET_MOMENTS[r])]),
-        statement('feel_ask', 'TextInput', ['Or in your own words', 'e.g. stiff neck after back-to-back calls']),
+        ...groups,
+        statement('feel_ask', 'TextInput', ['Or in your own words', 'e.g. kamar akad gayi']),
         statement('feel_cue', 'Cue', ['2½ minutes, then back to your day.']),
     ];
 }

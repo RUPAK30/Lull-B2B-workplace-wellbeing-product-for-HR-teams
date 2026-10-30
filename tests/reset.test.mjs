@@ -38,7 +38,7 @@ test('the flow: how are you feeling, one suggested reset, then a session that en
   const doc=new ScreenDocument();
   assert.match(say(doc,'/lull'),/2½ minutes, then back to your day/);
   assert.equal(text(doc,'feel_title'),'How are you feeling right now?');
-  assert.deepEqual(actions(doc,'feel_actions'),RESETS.map(r=>RESET_MOMENTS[r]));
+  assert.deepEqual(actions(doc,'feel_actions'),['Stiff neck after calls','Back tight from sitting','Tired eyes and wrists','Legs stiff from sitting']);
   say(doc,'After back-to-back calls');
   assert.equal(doc.cursor,'pick');assert.equal(text(doc,'pick_title'),'Try: Unknot neck & shoulders');
   assert.deepEqual(actions(doc,'pick_actions'),['Start seated · 2:30','Start standing · 2:40','Something else']);
