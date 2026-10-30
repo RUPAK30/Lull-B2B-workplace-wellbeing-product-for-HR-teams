@@ -1376,3 +1376,22 @@ main .wrap > *{max-width:100%}
 .pm-grid b{font-weight:500;font-size:.95rem;line-height:1.45}
 .pm-hero h1{font-size:clamp(1.9rem,5.4vw,3rem)}
 .privacy-band .priv-copy a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+
+/* ===== v3.2 glanceable polish ===== */
+.ledger-table .gone th{text-decoration:none;color:var(--ink-3)}
+.ledger-table .hid{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;color:var(--accent);background:#E8F1EB;border:1px solid #D3E5D9;border-radius:999px;padding:3px 10px}
+.ledger-table .hid::before{content:"";width:9px;height:10px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 10'%3E%3Cpath d='M2 4V3a2.5 2.5 0 015 0v1h.5a.5.5 0 01.5.5v5a.5.5 0 01-.5.5h-6A.5.5 0 011 9.5v-5a.5.5 0 01.5-.5zm1 0h3V3a1.5 1.5 0 00-3 0z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 10'%3E%3Cpath d='M2 4V3a2.5 2.5 0 015 0v1h.5a.5.5 0 01.5.5v5a.5.5 0 01-.5.5h-6A.5.5 0 011 9.5v-5a.5.5 0 01.5-.5zm1 0h3V3a1.5 1.5 0 00-3 0z'/%3E%3C/svg%3E") center/contain no-repeat}
+.toc a.on{background:#E3EFE7;color:var(--accent);box-shadow:inset 0 0 0 1px #CFE2D6}
+.q-body{min-width:0}
+.q-head{margin:0 0 12px;font:500 1.25rem/1.35 var(--serif);color:var(--ink);letter-spacing:-.01em}
+.q-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.q-chips li{font-size:.85rem;color:var(--ink-2);background:#fff;border:1px solid var(--rule);border-radius:999px;padding:6px 12px;line-height:1.3}
+.q-body .q-price{display:inline-block;margin-top:14px}
+footer.foot .foot-list{gap:0}
+footer.foot .foot-list a{display:block;min-height:0;padding:5px 0;line-height:1.35}
+@media (min-width:900px){
+  footer.foot .foot-top{align-items:start}
+  footer.foot .foot-group{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:18px 20px}
+}
+.q-row .q-head{font-size:1.45rem}
+@media (min-width:900px){footer.foot .foot-top{align-items:stretch}}
