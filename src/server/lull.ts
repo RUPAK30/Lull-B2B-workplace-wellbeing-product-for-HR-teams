@@ -123,7 +123,7 @@ export function feelStatements(note = 'Tap the moment that fits, or say it in yo
     statement('feel_text', 'Text', [note, 'description']),
     statement('feel_actions', 'FollowUps', [RESETS.map(r => RESET_MOMENTS[r])]),
     statement('feel_ask', 'TextInput', ['Or in your own words', 'e.g. stiff neck after back-to-back calls']),
-    statement('feel_cue', 'Cue', ['Three minutes, then back to your day.']),
+    statement('feel_cue', 'Cue', ['2½ minutes, then back to your day.']),
   ];
 }
 export function feelProgram() { return [revealRoot('feel'), ...feelStatements()].join('\n'); }
@@ -201,22 +201,22 @@ export type Need =
 const INTENTS = {
   urgent: ['chest pain', 'chest hurts', 'chest feels tight', 'cannot breathe', 'short of breath', 'trouble breathing', 'struggling to breathe', 'faint', 'fainted', 'fainting', 'blacked out', 'passed out', 'numb', 'numbness', 'severe pain', 'sudden pain', 'seene mein dard', 'seene me dard', 'chhati mein dard', 'chati me dard', 'saans nahi aa rahi', 'saans lene mein dikkat', 'saans phool rahi', 'behosh', 'sunn ho gaya', 'sunn pad gaya'],
   rehab: ['rehab', 'rehabilitation', 'recovering from', 'recovery from', 'post op', 'after surgery', 'surgery', 'physio', 'physiotherapy', 'physical therapy', 'operation hua', 'operation ke baad'],
-  pain: ['pain', 'painful', 'dizzy', 'dizziness', 'lightheaded', 'light headed', 'nauseous', 'nausea', 'feel sick', 'feeling sick', 'felt sick', 'cramp', 'something feels wrong', 'hurt', 'hurts', 'hurting', 'injury', 'injured', 'sprain', 'sprained', 'strain', 'strained', 'torn', 'broken', 'fracture', 'swollen', 'sore knee', 'bad back', 'pulled a muscle', 'dard', 'dukh raha', 'dukh rahi', 'dukhta', 'dukhti', 'chot', 'moch', 'chakkar', 'ulti', 'matli', 'sujan', 'soojan'],
+  pain: ['pain', 'painful', 'dizzy', 'dizziness', 'lightheaded', 'light headed', 'nauseous', 'nausea', 'feel sick', 'feeling sick', 'felt sick', 'cramp', 'something feels wrong', 'hurt', 'hurts', 'hurting', 'injury', 'injured', 'sprain', 'sprained', 'strain', 'strained', 'torn', 'broken', 'fracture', 'swollen', 'sore knee', 'bad back', 'pulled a muscle', 'dard', 'dard ho raha', 'dard hai', 'sar dard', 'sir dard', 'kamar dard', 'dukh raha', 'dukh rahi', 'dukhta', 'dukhti', 'chot', 'moch', 'chakkar', 'ulti', 'matli', 'sujan', 'soojan'],
   outside: ['run', 'running', 'jog', 'jogging', 'weights', 'lift', 'lifting', 'dumbbell', 'dumbbells', 'barbell', 'swim', 'swimming', 'cycling', 'bike', 'hiit', 'jump', 'jumping', 'push ups', 'pushups', 'sit ups', 'situps', 'sprint', 'sprints', 'jumps', 'box jumps', 'burpee', 'burpees', 'skipping', 'gym'],
   fitness: ['lose weight', 'weight loss', 'losing weight', 'burn calories', 'burn fat', 'fat burning', 'calories', 'slim down', 'get fit', 'fit', 'fitness', 'fitter', 'get in shape', 'stamina', 'endurance', 'more active', 'tone up'],
   sitting: ['sitting', 'sat', 'not moved', 'sedentary', 'couch', 'sofa', 'desk', 'computer', 'laptop', 'screen all day', 'office', 'commute', 'long drive', 'long flight', 'baithe baithe', 'baith baith ke', 'kursi pe', 'kursi par', 'screen pe'],
-  stiff: ['stiff', 'stiffness', 'tight', 'tightness', 'tense', 'achy', 'knots', 'hunched', 'locked up', 'loosen', 'creaky', 'akad', 'akadna', 'akdi', 'akda', 'jakad', 'jakdan', 'jakda', 'jakdi'],
+  stiff: ['stiff', 'stiffness', 'tight', 'tightness', 'tense', 'achy', 'knots', 'hunched', 'locked up', 'loosen', 'creaky', 'akad', 'akadna', 'akdan', 'akad gayi', 'akad gaya', 'akdi hui', 'akda hua', 'jakdi hui', 'akdi', 'akda', 'jakad', 'jakdan', 'jakda', 'jakdi'],
   legs: ['leg', 'legs', 'hamstring', 'hamstrings', 'calf', 'calves', 'thighs', 'pairon', 'taange', 'taangein', 'tange'],
   time: ['quick', 'short on time', 'in a hurry', 'no time', 'not much time', 'busy', 'few minutes', 'couple of minutes', 'something short', 'jaldi', 'time nahi', 'time kam', 'thoda time', 'do minute', 'paanch minute'],
-  low: ['tired', 'exhausted', 'drained', 'sluggish', 'sleepy', 'no energy', 'low energy', 'low on energy', 'worn out', 'wiped', 'burnt out', 'burned out', 'foggy', 'fried', 'knackered', 'thak', 'thaka', 'thaki', 'thakan', 'thakaan', 'thakawat', 'sust', 'susti', 'aalas', 'neend aa rahi', 'energy nahi', 'slump', 'post lunch', 'after lunch', 'lunch', 'sleepy after lunch', 'heavy'],
+  low: ['tired', 'exhausted', 'drained', 'sluggish', 'sleepy', 'no energy', 'low energy', 'low on energy', 'worn out', 'wiped', 'burnt out', 'burned out', 'foggy', 'fried', 'knackered', 'thak', 'thaka', 'thaki', 'thakan', 'thakaan', 'thakawat', 'sust', 'susti', 'aalas', 'neend aa rahi', 'neend', 'energy nahi', 'sar bhaari', 'sir bhaari', 'sar bhari', 'sir bhari', 'thaka hua', 'thaki hui', 'man nahi kar raha', 'mood off', 'slump', 'post lunch', 'after lunch', 'lunch', 'sleepy after lunch', 'heavy'],
   restless: ['restless', 'fidgety', 'antsy', 'wired', 'pent up', 'cannot sit still', 'stir crazy', 'need to move', 'itching to move', 'bechain', 'bechaini', 'man nahi lag raha', 'move', 'want to move', 'stand up and move', 'get up and move'],
   energetic: ['energetic', 'energised', 'energized', 'get moving', 'sweat', 'sweaty', 'harder', 'intense', 'heart rate', 'heart pumping', 'wake me up', 'pumped', 'motivated', 'challenge', 'push myself'],
-  calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'overwhelmed', 'quiet', 'stress', 'tension', 'pareshan', 'dimaag thak', 'dimag thak', 'sukoon', 'shaanti chahiye', 'shanti chahiye', 'anxious', 'anxiety', 'nervous', 'on edge', 'racing', 'mind is racing'],
+  calm: ['reset', 'need a break', 'calm', 'unwind', 'relax', 'decompress', 'wind down', 'de stress', 'destress', 'stressed', 'overwhelmed', 'quiet', 'stress', 'tension', 'pareshan', 'pareshaan', 'tension hai', 'dimaag kharab', 'dimag kharab', 'bahut kaam', 'kaam ka load', 'ghabrahat', 'dimaag thak', 'dimag thak', 'sukoon', 'shaanti chahiye', 'shanti chahiye', 'anxious', 'anxiety', 'nervous', 'on edge', 'racing', 'mind is racing'],
   unsure: ['do not know', 'not sure', 'no idea', 'whatever', 'anything', 'surprise me', 'you choose', 'you pick', 'you decide', 'up to you', 'get started', 'help me start', 'where to start', 'where to begin', 'feels right'],
-  neck: ['neck', 'gardan', 'shoulder', 'shoulders', 'kandha', 'kandhe', 'hunched', 'hunching', 'slouch', 'slouching', 'slouched'],
-  back: ['my back', 'lower back', 'upper back', 'stiff back', 'back is stiff', 'back feels', 'back stiff', 'hips', 'hip', 'kamar'],
+  neck: ['neck', 'gardan', 'gardan mein', 'shoulder', 'shoulders', 'kandha', 'kandhe', 'hunched', 'hunching', 'slouch', 'slouching', 'slouched'],
+  back: ['my back', 'lower back', 'upper back', 'stiff back', 'back is stiff', 'back feels', 'back stiff', 'hips', 'hip', 'kamar', 'peeth', 'pith', 'reedh'],
   calls: ['calls', 'call', 'meeting', 'meetings', 'zoom', 'on calls', 'teams call'],
-  eyes: ['eyes', 'eye', 'eye strain', 'screen', 'screens', 'staring', 'wrist', 'wrists', 'typing', 'mouse', 'keyboard', 'aankh', 'aankhen', 'aankhon'],
+  eyes: ['eyes', 'eye', 'eye strain', 'screen', 'screens', 'staring', 'wrist', 'wrists', 'typing', 'mouse', 'keyboard', 'aankh', 'aankhen', 'aankhein', 'aankhon', 'aankhon mein', 'kalai', 'ungliyan'],
 } as const;
 type Intent = keyof typeof INTENTS;
 const PATTERNS = Object.fromEntries(Object.entries(INTENTS).map(([k, words]) => [k, new RegExp(`(?:^| )(?:${(words as readonly string[]).join('|')})(?= |$)`)])) as Record<Intent, RegExp>;

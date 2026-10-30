@@ -2,7 +2,7 @@
 
 A 2½-minute desk break for teams of 30–250 people in India. HR shares one link per team; people follow a guided, seated movement break between calls. Every Friday, HR gets one email showing how many people in each team started and finished — never who.
 
-[Site](https://lull-hr.vercel.app/) · [Workspace](https://lull-hr.vercel.app/workspace) · [Pricing](https://lull-hr.vercel.app/pilot) · [Security](https://lull-hr.vercel.app/trust) · [Changes](https://lull-hr.vercel.app/changes) · [Try the break](https://lull-hr.vercel.app/app/?taster=1) · [For product managers](https://lull-hr.vercel.app/pm)
+[Site](https://lull-hr.vercel.app/) · [Workspace](https://lull-hr.vercel.app/workspace) · [Pricing](https://lull-hr.vercel.app/pilot) · [Security](https://lull-hr.vercel.app/trust) · [Changes](https://lull-hr.vercel.app/changes) · [Try the break](https://lull-hr.vercel.app/app/) · [For product managers](https://lull-hr.vercel.app/pm)
 
 > The domain is still `lull-hr.vercel.app` and the contact is still a personal inbox. Both are listed as open items in [`/trust#status`](site/trust.html) rather than hidden.
 

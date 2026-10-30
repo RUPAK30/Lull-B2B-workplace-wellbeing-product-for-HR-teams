@@ -36,7 +36,7 @@ test('office-safe content: nothing on the floor, no jumping, no workout or fitne
 
 test('the flow: how are you feeling, one suggested reset, then a session that ends back at work',()=>{
   const doc=new ScreenDocument();
-  assert.match(say(doc,'/lull'),/Three minutes, then back to your day/);
+  assert.match(say(doc,'/lull'),/2½ minutes, then back to your day/);
   assert.equal(text(doc,'feel_title'),'How are you feeling right now?');
   assert.deepEqual(actions(doc,'feel_actions'),RESETS.map(r=>RESET_MOMENTS[r]));
   say(doc,'After back-to-back calls');

@@ -42,7 +42,13 @@ function onboardingTurn(doc: ScreenDocument, raw: string, last: string, understo
       if (last === 'something else') return { reply: 'Sure. What would help more?\n' + reveal('feel', lull.feelStatements()) };
       const offered = lull.readOffered(doc), posture = lull.detectPosture(last), other = lull.detectReset(last);
       if (other && other !== offered) return { reply: `Switching to ${lull.RESET_NAMES[other].toLowerCase()}.\n` + reveal('pick', lull.pickStatements(other)) };
-      if (!posture || !offered) return { reply: 'Choose seated or standing. Seated works on a call; standing works beside your desk.' };
+      // Anything typed that is not a posture is read as a fresh need: pain, a new body area, Hinglish — never ignored.
+      if (!posture || !offered) {
+        const need = understood ?? lull.interpretNeed(raw);
+        if (need.kind === 'care') return { reply: need.ack + '\n' + reveal('feel', lull.careStatements(need.level)) };
+        if (need.kind === 'suggest' && (need.reset !== offered || need.heard.length)) return { reply: need.ack + '\n' + reveal('pick', pickFor(need)) };
+        return { reply: 'Choose seated or standing below, or tell me what you need instead. Seated works on a call; standing works beside your desk.' };
+      }
       const heardNode = doc.screens.flatMap(s => s.props.children as { key: string; props: Record<string, unknown> }[]).find(n => n.key === 'pick_need');
       const need = lull.readHeard(String(heardNode?.props.text ?? ''))[0] ?? null;
       return session(offered, posture, { name: '', need }, `${lull.RESET_NAMES[offered]}, ${posture}:`, true);
@@ -95,7 +101,7 @@ export function mockTurn(request: RequestData, input: string | MockFixtures, opt
   if (last === 'load wiring sample' || last === '/demo') return { reply: 'Wiring fixture loaded. This is deterministic, not a model interpreting your skill.\n' + CLEAR + '\n' + fence(wiring) };
   const command = resetCommand(last);
   if (command) return session(command.reset, command.posture, { name: '' }, `${lull.RESET_NAMES[command.reset]}, ${command.posture}:`);
-  if (['/lull', '/start', 'start lull'].includes(last)) return { reply: 'Hey, I’m Sukoon. Three minutes, then back to your day. (Mock mode: this flow is scripted and stays on this page.)\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
+  if (['/lull', '/start', 'start lull', 'start sukoon'].includes(last)) return { reply: 'Hey, I’m Sukoon. 2½ minutes, then back to your day. (Mock mode: this flow is scripted and stays on this page.)\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
   const doc = new ScreenDocument(); if (request.state.ui_state) doc.apply(fence(request.state.ui_state));
   // Typed next/back still navigate on the first screens.
   if (lull.isOnboarding(doc) && !['next', 'back'].includes(last)) { const turn = onboardingTurn(doc, raw, last, options.understood?.need); if (turn) return turn; }
@@ -115,14 +121,14 @@ export function mockTurn(request: RequestData, input: string | MockFixtures, opt
 
 // Exact button labels and commands are already unambiguous: only free text goes to the model.
 const LABELS = [...lull.RESETS.map(r => lull.RESET_MOMENTS[r].toLowerCase()), ...lull.RESETS.map(r => `switch to ${lull.RESET_NAMES[r].toLowerCase()}`)].map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-const SCRIPTED = new RegExp(`^(\\/.*|next|back|start (seated|standing).*|switch to (seated|standing)|keep this one|keep going|end the session|not today|show the resets|i understand|something else|i’ve rested and feel okay|${LABELS.join('|')})$`);
+const SCRIPTED = new RegExp(`^(\\/.*|next|back|start (seated|standing).*|switch to (seated|standing)|keep this one|keep going|end the session|not today|show the resets|i understand|something else|start sukoon|i’ve rested and feel okay|${LABELS.join('|')})$`);
 /** Where a live interpretation of the latest message would be used, and with what context. */
 export function guideTarget(request: RequestData): { raw: string; phase: 'need' | 'session'; current?: { reset: lull.Reset; posture: lull.Posture; block: lull.Block } } | null {
   const raw = request.messages.at(-1)?.content.trim() ?? '', last = raw.toLowerCase();
   if (!raw || SCRIPTED.test(last)) return null;
   const doc = new ScreenDocument(); if (request.state.ui_state) doc.apply(fence(request.state.ui_state));
   if (!doc.screens.length) return { raw, phase: 'need' };
-  if (lull.isOnboarding(doc)) return doc.cursor === 'feel' && !lull.careLevel(doc) ? { raw, phase: 'need' } : null;
+  if (lull.isOnboarding(doc)) return (doc.cursor === 'feel' && !lull.careLevel(doc)) || (doc.cursor === 'pick' && !lull.detectPosture(last)) ? { raw, phase: 'need' } : null;
   if (doc.screens[0]?.key !== 'intro') return null;
   const current = lull.readSession(doc), nodes = doc.screens.flatMap(s => s.props.children as { key: string }[]);
   if (!current || nodes.some(n => n.key === 'safety_alert')) return null;

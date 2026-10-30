@@ -368,7 +368,7 @@ function render() {
     transcript.scrollTop = transcript.scrollHeight;
     syncTimers();
     holdForSafety();
-    const screens = c.document.screens, index = screens.findIndex(s => s.key === c.document.cursor), key = c.document.echo() + String(paused);
+    const screens = c.document.screens, index = screens.findIndex(s => s.key === c.document.cursor), key = c.document.echo() + String(paused) + String(closedRun);
     if (key !== renderKey || !byId('screen').childNodes.length) {
         renderKey = key;
         updates = [];
@@ -397,7 +397,13 @@ function render() {
                 for (const node of current.props.children)
                     if (node.name !== 'Cue')
                         surface.append(renderComponent(node, ctx));
-            if (current.props.children.some(n => n.name === 'Recap')) {
+            if (closedRun && current.props.children.some(n => n.name === 'Recap') && lastFinishReason() !== 'safety') {
+                surface.replaceChildren(renderDone(current));
+                if (logging.on || pilotCounting.on)
+                    surface.append(feelingCard());
+                surface.append(reminderCard());
+            }
+            else if (current.props.children.some(n => n.name === 'Recap')) {
                 if (logging.on || pilotCounting.on)
                     surface.append(feelingCard());
                 if (lastFinishReason() !== 'safety')
@@ -425,7 +431,7 @@ function render() {
     byId('pause').textContent = paused ? 'Resume' : 'Pause';
     byId('paused').hidden = !paused;
     const cues = (c.document.current?.props.children ?? []).filter(n => n.name === 'Cue').map(n => String(n.props.text));
-    byId('spoken').textContent = (closedRun && index === screens.length - 1 ? 'Take care. Whenever you feel like another few minutes, I’ll be here with something that fits.' : '') || cues.join(' ') || '';
+    byId('spoken').textContent = closedRun && index === screens.length - 1 ? '' : cues.join(' ');
     byId('state-json').textContent = JSON.stringify({ ui_state: c.document.echo(), client_events: c.clientEvents, timers: timers.list() }, null, 2);
     byId('export').disabled = c.pending || !c.events.length;
     updatePhase();
@@ -517,6 +523,23 @@ const SECONDS = { unknot: '2:30', unsit: '2:40', energy: '2:25', calm: '2:30', s
 const QUICK = RESETS.map(r => ({ label: RESET_MOMENTS[r], detail: `${RESET_NAMES[r]} · ${SECONDS[r]}`, cmd: `/reset ${r} ${DEFAULT_POSTURE[r]}` }));
 const describe = (reset, posture) => `${RESET_NAMES[reset]}, ${posture}`;
 /** Home: a greeting, one clear way in, quick picks, and (if remembered) the last session. */
+/** The moment a session ends: its own screen, a human sentence, and two clear ways on. */
+function renderDone(current) {
+    const kids = current.props.children, say = (k) => String(kids.find(n => n.key === k)?.props.text ?? ''), total = timers.list().reduce((a, t) => a + (t.status === 'done' ? t.seconds : Math.max(0, t.seconds - Math.ceil(t.remaining))), 0);
+    const n = el('div', '', 'done');
+    const mark = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    mark.setAttribute('viewBox', '0 0 64 64');
+    mark.setAttribute('class', 'done-mark');
+    mark.setAttribute('aria-hidden', 'true');
+    mark.innerHTML = '<circle cx="32" cy="32" r="29"/><path d="M20 33l8 8 16-18"/>';
+    const mins = total >= 60 ? `${Math.floor(total / 60)} min ${total % 60 ? `${total % 60} sec` : ''}`.trim() : `${total} sec`;
+    n.append(mark, el('p', 'Session complete', 'done-kicker'), el('h2', 'Nicely done. That was time well spent.', 'done-title'), el('p', `${say('finish_text')} ${total >= 20 ? `You moved for ${mins} — that counts, even on a busy day.` : 'Even a short pause away from the screen counts.'}`, 'done-text'), el('p', say('finish_breath'), 'done-breath'));
+    const row = el('div', '', 'done-actions');
+    row.append(button('Back to your day', () => byId('reset').click(), 'primary home-start'), button('Another 2½ minutes', () => { byId('reset').click(); setTimeout(() => send('Start Sukoon', 'onboarding'), 50); }, 'home-start'));
+    n.append(row, el('p', say('finish_again'), 'done-again'));
+    queueMicrotask(() => { byId('navigation').hidden = true; });
+    return n;
+}
 function renderHome() {
     const mem = loadMemory(), hour = new Date().getHours(), hello = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
     const n = el('div', '', 'home');
