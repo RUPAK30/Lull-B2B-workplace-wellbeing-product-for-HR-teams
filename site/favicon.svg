@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Sukoon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sukoon">
   <title>Sukoon</title>
-  <rect width="64" height="64" rx="14" fill="#15181A"/>
-  <rect x="19" y="14" width="10" height="36" rx="5" fill="#FAF8F3"/>
-  <rect x="35" y="14" width="10" height="36" rx="5" fill="#9BD0B4"/>
+  <rect width="32" height="32" rx="9" fill="#1F4D3A"/>
+  <rect x="9.5" y="8" width="4.6" height="16" rx="2.3" fill="#F6F1E6"/>
+  <rect x="17.9" y="11" width="4.6" height="13" rx="2.3" fill="#A9D4B8"/>
 </svg>

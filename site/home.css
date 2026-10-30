@@ -1276,3 +1276,25 @@ main section[id]{scroll-margin-top:calc(var(--navh,64px) + 56px)}
 }
 .sec-nav{display:none!important}
 @media (max-width:640px){.ws-table{display:block}.ws-table caption,.ws-cap{display:block!important;width:100%!important}.ws-table tbody{display:block}}
+
+/* ===== Logo: a mark with presence ===== */
+.brand{gap:12px!important;font-weight:600!important;letter-spacing:-.03em!important}
+.brand img{width:34px!important;height:34px!important;border-radius:9px;box-shadow:0 4px 12px -6px rgba(31,77,58,.6)}
+@media (min-width:900px){.nav-inner .brand{font-size:1.75rem!important}.brand img{width:38px!important;height:38px!important}}
+@media (max-width:899px){.nav-inner .brand{font-size:1.45rem!important}}
+/* ===== Remove repetition ===== */
+.hero .word{display:none!important}
+@media (max-width:640px){
+  .ledger-table tbody tr:not(.gone){display:none}
+  .ledger-table thead{display:none}
+}
+/* ===== iPhone fit ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{-webkit-tap-highlight-color:transparent}
+input,select,textarea{font-size:16px!important}
+.nav{padding-top:env(safe-area-inset-top)}
+.reply-bar,.dock,.sticky{padding-bottom:max(10px,env(safe-area-inset-bottom))!important}
+.wrap{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+.hero{min-height:auto}
+@supports (height:100dvh){.hero{max-height:none}}
+@media (max-width:640px){.doors{display:none}.hero{padding-bottom:24px!important}}
