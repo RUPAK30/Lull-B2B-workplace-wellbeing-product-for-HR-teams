@@ -396,3 +396,7 @@ document.querySelectorAll('[data-pv]').forEach(function(b){b.addEventListener('c
 
 /* Calm background: one of four soft palettes per visit (breath, dawn, mist, sage). */
 (function(){var p=[['#C9E6D3','#F2DFC4','#CFE1EC'],['#F3D5C2','#D3E8D9','#E3D5EC'],['#CBDFEC','#D6EBD9','#F0E2C6'],['#D2E8CF','#E8DCC6','#C8E3DE']];var c;try{var last=+sessionStorage.getItem('calm');}catch(e){}do{c=Math.floor(Math.random()*p.length);}while(c===last&&p.length>1);try{sessionStorage.setItem('calm',c);}catch(e){}var r=document.documentElement.style;r.setProperty('--calm-a',p[c][0]);r.setProperty('--calm-b',p[c][1]);r.setProperty('--calm-c',p[c][2]);})();
+
+/* Greeting by the visitor's own clock */
+(function(){var g=document.getElementById('greet');if(!g)return;var h=new Date().getHours();
+g.textContent=(h<5?'Up late':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Working late')+' · ';})();

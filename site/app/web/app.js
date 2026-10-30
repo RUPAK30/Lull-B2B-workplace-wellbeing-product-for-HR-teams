@@ -1,20 +1,20 @@
-import { Conversation } from '../shared/controller.js?v=mvvdj7cr';
-import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvdj7cr';
-import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvdj7cr';
-import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvdj7cr';
-import { createRunNav } from '../shared/openui/run-nav.js?v=mvvdj7cr';
-import { splitReply } from '../shared/openui/document.js?v=mvvdj7cr';
-import { redactValue } from '../shared/redact.js?v=mvvdj7cr';
-import { renderComponent } from './components.js?v=mvvdj7cr';
-import { byId, el, button } from './dom.js?v=mvvdj7cr';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvdj7cr';
-import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvdj7cr';
-import { reminderCard } from './reminder.js?v=mvvdj7cr';
-import { initI18n } from './i18n.js?v=mvvdj7cr';
-import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvdj7cr';
-import { renderInsights, teamExport } from './insights-view.js?v=mvvdj7cr';
-import { sampleEvents } from '../shared/insights.js?v=mvvdj7cr';
-import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvdj7cr';
+import { Conversation } from '../shared/controller.js?v=mvvdqt02';
+import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvdqt02';
+import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvdqt02';
+import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvdqt02';
+import { createRunNav } from '../shared/openui/run-nav.js?v=mvvdqt02';
+import { splitReply } from '../shared/openui/document.js?v=mvvdqt02';
+import { redactValue } from '../shared/redact.js?v=mvvdqt02';
+import { renderComponent } from './components.js?v=mvvdqt02';
+import { byId, el, button } from './dom.js?v=mvvdqt02';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvdqt02';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvdqt02';
+import { reminderCard } from './reminder.js?v=mvvdqt02';
+import { initI18n } from './i18n.js?v=mvvdqt02';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvdqt02';
+import { renderInsights, teamExport } from './insights-view.js?v=mvvdqt02';
+import { sampleEvents } from '../shared/insights.js?v=mvvdqt02';
+import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvdqt02';
 let config;
 const timers = new TimerLedger();
 let previousTimers = new Map(), updates = [];
@@ -550,9 +550,9 @@ function renderDone(current) {
     return n;
 }
 function renderHome() {
-    const mem = loadMemory(), hour = new Date().getHours(), hello = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+    const mem = loadMemory(), hour = new Date().getHours(), hello = hour < 5 ? 'Up late' : hour < 9 ? 'Early start' : hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : hour < 21 ? 'Good evening' : 'Working late';
     const n = el('div', '', 'home');
-    n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', 'Between calls? Take 2½ minutes.', 'home-title'), el('p', 'Tell me how you feel, in English, Hindi, Hinglish or Marathi. I’ll suggest one break and stay quiet while you move.', 'home-lede'));
+    n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', hour < 5 || hour >= 21 ? 'Before you log off, take 2½ minutes.' : hour < 9 ? 'Ease into the day: take 2½ minutes.' : hour >= 13 && hour < 16 ? 'Afternoon slump? Take 2½ minutes.' : 'Between calls? Take 2½ minutes.', 'home-title'), el('p', 'Tell me how you feel, in English, Hindi, Hinglish or Marathi. I’ll suggest one break and stay quiet while you move.', 'home-lede'));
     const begin = button('Start with Sukoon', () => send('Start Sukoon', 'onboarding'), 'primary home-start');
     begin.id = 'workout';
     // Opened from their own reminder: their usual session is one tap away.

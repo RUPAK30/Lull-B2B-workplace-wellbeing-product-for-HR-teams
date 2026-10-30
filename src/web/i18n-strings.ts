@@ -446,6 +446,12 @@ Stiff from sitting || बैठे-बैठे जकड़न || बसून 
 Same as last time || पिछली बार जैसा || मागच्या वेळेसारखं
 About Sukoon || सुकून के बारे में || सुकूनबद्दल
 About || परिचय || माहिती
+Up late || इतनी रात तक जागे हैं || इतक्या रात्रीपर्यंत जागे आहात
+Early start || जल्दी शुरुआत || लवकर सुरुवात
+Working late || देर तक काम || उशिरापर्यंत काम
+Before you log off, take 2½ minutes. || लॉग ऑफ़ करने से पहले, 2½ मिनट निकालें। || लॉग ऑफ करण्यापूर्वी, 2½ मिनिटं काढा.
+Ease into the day: take 2½ minutes. || दिन की आराम से शुरुआत करें: 2½ मिनट निकालें। || दिवसाची आरामात सुरुवात करा: 2½ मिनिटं काढा.
+Afternoon slump? Take 2½ minutes. || दोपहर की सुस्ती? 2½ मिनट निकालें। || दुपारची सुस्ती? 2½ मिनिटं काढा.
 `;
 // Patterns for lines that carry names, numbers or times. Each returns null when it doesn't apply.
 export type Lang = 'en' | 'hi' | 'mr';
