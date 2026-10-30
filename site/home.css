@@ -1422,3 +1422,5 @@ body::before{inset:-10%;background:
 .ask,.privacy-band{background:transparent!important}
 @media (max-width:899px){.toc-in{display:flex!important;justify-content:center!important;gap:4px!important;padding:6px 8px}.toc a{padding:8px 14px!important}}
 .link-btn{background:none;border:0;padding:0;font:inherit;color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.ws-table .ws-seat-input{width:76px;min-height:36px}.ws-table tr.is-new{background:#F3F8F4}.ws-actions{align-items:center}
+.ws-table .hid{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-style:normal;color:var(--accent);background:#E8F1EB;border:1px solid #D3E5D9;border-radius:999px;padding:3px 10px}

@@ -80,13 +80,13 @@
         <div class="ws-bill">
           <p class="ws-bill-label">Next invoice</p>
           <p class="ws-bill-value">₹<span id="ws-total">16,200</span> <span class="ws-bill-gst">+ ₹<span id="ws-gst">2,916</span> GST</span></p>
-          <p class="ws-bill-note">₹90 a person at 180 seats</p>
+          <p class="ws-bill-note" id="ws-note">₹90 a person at 180 seats</p>
         </div>
       </div>
 
       <h2 class="ws-h">Teams</h2>
       <table class="ws-table" id="ws-table">
-        <caption class="ws-cap">Teams under ten starters are hidden before the table is drawn.</caption>
+        <caption class="ws-cap">Teams with fewer than 10 people taking part are hidden from HR, plus the next-smallest.</caption>
         <thead>
           <tr>
             <th scope="col">Team</th>
@@ -115,11 +115,11 @@
             <td><span class="st ok">Reporting</span></td>
           </tr>
           <tr data-seats="16" class="is-hidden-team">
-            <th scope="row">Finance</th><td>16</td><td colspan="3" class="ws-hidden-cell">Not reported</td>
+            <th scope="row">Finance</th><td>16</td><td colspan="3" class="ws-hidden-cell"><span class="hid">Hidden · under 10 taking part</span></td>
             <td><span class="st na">Not shown</span></td>
           </tr>
           <tr data-seats="8" class="is-hidden-team">
-            <th scope="row">Design</th><td>8</td><td colspan="3" class="ws-hidden-cell">Not reported</td>
+            <th scope="row">Design</th><td>8</td><td colspan="3" class="ws-hidden-cell"><span class="hid">Hidden · under 10 taking part</span></td>
             <td><span class="st na">Not shown</span></td>
           </tr>
         </tbody>
@@ -127,9 +127,7 @@
 
       <div class="ws-actions">
         <button type="button" class="btn btn-ghost" id="ws-add">Add a team</button>
-        <label class="ws-seat-label" for="ws-seats">Seats</label>
-        <input class="ws-seat-input" id="ws-seats" type="number" min="10" max="250" step="1" value="180" inputmode="numeric">
-        <p class="small ws-hint">Change the seat count and the invoice recalculates. Nothing is saved.</p>
+        <p class="small ws-hint">Add a team and set its seats: the total and the invoice update. Nothing is saved.</p>
       </div>
 
       <div class="ws-cols">
@@ -267,32 +265,36 @@
     });
   });
 
-  var seats = document.getElementById('ws-seats');
   var seatCount = document.getElementById('seat-count');
   var total = document.getElementById('ws-total');
   var gst = document.getElementById('ws-gst');
-
+  var note = document.getElementById('ws-note');
+  var rows = document.getElementById('ws-rows');
   function rate(n) { return n >= 250 ? 60 : n >= 120 ? 90 : 120; }
   function money(n) { return n.toLocaleString('en-IN'); }
   function paint() {
-    var n = Math.min(250, Math.max(10, Number(seats.value) || 10));
-    var sub = n * rate(n);
+    var n = 0, teams = 0;
+    rows.querySelectorAll('tr').forEach(function (tr) { teams++; var i = tr.querySelector('input.ws-seat-input'); n += i ? Math.max(0, Number(i.value) || 0) : Number(tr.dataset.seats) || 0; });
+    var billed = Math.max(n, 10), sub = billed * rate(billed);
     seatCount.textContent = String(n);
+    document.querySelector('.ws-sub').firstChild.textContent = teams + ' teams · ';
     total.textContent = money(sub);
     gst.textContent = money(Math.round(sub * 0.18));
+    note.textContent = '₹' + rate(billed) + ' a person at ' + n + ' seats' + (n > 250 ? ' · above 250, talk to us' : '');
   }
-  seats.addEventListener('input', paint);
-
   var add = document.getElementById('ws-add');
   add.addEventListener('click', function () {
     var tr = document.createElement('tr');
     tr.className = 'is-new';
-    tr.innerHTML = '<th scope="row">New team</th><td>0</td><td colspan="3" class="ws-hidden-cell">No data yet</td><td><span class="st na">Empty</span></td>';
-    document.getElementById('ws-rows').appendChild(tr);
+    tr.innerHTML = '<th scope="row">New team</th><td><input class="ws-seat-input" type="number" min="0" max="250" step="1" value="12" inputmode="numeric" aria-label="Seats in the new team"></td><td colspan="3" class="ws-hidden-cell">No breaks yet this week</td><td><span class="st na">Waiting</span></td>';
+    rows.appendChild(tr);
+    var input = tr.querySelector('input');
+    input.addEventListener('input', paint);
+    input.focus(); input.select();
     add.disabled = true;
-    add.textContent = 'Team added (demo)';
+    add.textContent = 'Team added';
+    paint();
   });
-
   paint();
 })();
 </script>
