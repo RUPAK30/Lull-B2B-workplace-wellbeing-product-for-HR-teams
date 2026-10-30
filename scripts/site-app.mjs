@@ -23,7 +23,7 @@ const html = (await readFile(join(root, 'src/web/index.html'), 'utf8'))
   // Developer tools (provider switch, patch builder, run capture) stay in the local app only.
   .replace('</head>', '<style>#tab-dev,#panel-dev{display:none!important}</style></head>')
   .replace('<script type="module" src="./web/app.js"></script>', '<script type="module" src="./shim.js"></script><script type="module" src="./web/app.js"></script>')
-  .replaceAll('href="/teams"', 'href="../"').replaceAll('href="/safety"', 'href="../safety.html"').replaceAll('href="/"', 'href="./"').replace('href="./" class="brand"', 'href="../" class="brand"').replace('</head>', '<link rel="stylesheet" href="../fonts.css"></head>');
+  .replaceAll('href="/teams"', 'href="../"').replaceAll('href="/safety"', 'href="../safety.html"').replaceAll('href="/"', 'href="./"').replace('<h2>Session</h2>', '<p class="micro" style="margin:0 0 14px"><a href="../">Sukoon for HR teams →</a></p><h2>Session</h2>').replace('</head>', '<link rel="stylesheet" href="../fonts.css"></head>');
 await writeFile(join(out, 'index.html'), html);
 
 await writeFile(join(out, 'shim.js'), `// Stands in for the local server's API in the hosted demo. Mock mode only: no network calls.

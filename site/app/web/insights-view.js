@@ -1,9 +1,9 @@
 // The Insights screen: product numbers from this device's private log, or from a clearly
 // labelled synthetic sample. Plain DOM bars; every chart has a table view.
-import { el, button } from './dom.js?v=mvvatlft';
-import { summarize } from '../shared/insights.js?v=mvvatlft';
-import { EXPERIMENTS } from './analytics.js?v=mvvatlft';
-import { teamReport, teamSample } from '../shared/team.js?v=mvvatlft';
+import { el, button } from './dom.js?v=mvvb3ryq';
+import { summarize } from '../shared/insights.js?v=mvvb3ryq';
+import { EXPERIMENTS } from './analytics.js?v=mvvb3ryq';
+import { teamReport, teamSample } from '../shared/team.js?v=mvvb3ryq';
 const P = (x) => `${Math.round(x * 100)}%`;
 const ROUTES = { quick: 'Quick pick on home', typed: 'Typed a need on home', onboarding: 'Full welcome', again: 'Same as last time' };
 const FEELINGS = { lighter: 'Lighter', same: 'About the same', 'not-for-me': 'Not for me' };

@@ -1,6 +1,6 @@
-import { el, button } from './dom.js?v=mvvatlft';
-import { recapLine, recapSummary } from '../shared/openui/recap.js?v=mvvatlft';
-import { validateName, nameMessage } from '../shared/openui/name-input.js?v=mvvatlft';
+import { el, button } from './dom.js?v=mvvb3ryq';
+import { recapLine, recapSummary } from '../shared/openui/recap.js?v=mvvb3ryq';
+import { validateName, nameMessage } from '../shared/openui/name-input.js?v=mvvb3ryq';
 const afterBlock = ['Done. Take whatever pause you need.', 'That one is done. No rush into the next.', 'Good. Shake it out if you like, then carry on.'];
 // Drafts and focus survive re-renders, so a reply arriving mid-sentence never wipes what someone is typing.
 const drafts = new Map();
