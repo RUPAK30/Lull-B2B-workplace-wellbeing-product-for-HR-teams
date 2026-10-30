@@ -36,7 +36,7 @@ const json = (status, body) => new Response(JSON.stringify(body), { status, head
 const config = { defaultProvider: 'mock', token: 'hosted', appVersion: APP_VERSION,
   providers: [{ id: 'mock', label: 'Offline (no AI)', enabled: true, model: 'wiring-fixture-v1', message: 'Runs entirely in this browser on Lull\\u2019s fixed rules. Nothing is sent anywhere.' }] };
 // The local app's service worker isn't part of the hosted demo.
-if ('serviceWorker' in navigator) navigator.serviceWorker.register = () => Promise.resolve();
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register = () => Promise.resolve(); navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {}); }
 const native = window.fetch.bind(window);
 window.fetch = async (input, init = {}) => {
   const path = new URL(typeof input === 'string' ? input : input.url, location.href).pathname;
@@ -58,3 +58,10 @@ window.fetch = async (input, init = {}) => {
 };
 `);
 console.log('Copied the app into site/app (Mock mode, no server).');
+
+// Cache-bust every module: a returning visitor can never run a mix of old and new files.
+const V = Date.now().toString(36);
+async function walk(dir) { for (const e of await readdir(dir, { withFileTypes: true })) { const f = join(dir, e.name); if (e.isDirectory()) await walk(f); else if (f.endsWith('.js')) { const src = await readFile(f, 'utf8'); await writeFile(f, src.replace(/(from\s*|import\s*\(\s*|import\s+)(['"])(\.{1,2}\/[^'"]+?\.js)\2/g, `$1$2$3?v=${V}$2`)); } } }
+await walk(out);
+const page = join(out, 'index.html');
+await writeFile(page, (await readFile(page, 'utf8')).replace(/(src|href)="(\.\/(?:web\/)?[^"]+?\.(?:js|css))"/g, `$1="$2?v=${V}"`));

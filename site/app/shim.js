@@ -1,14 +1,14 @@
 // Stands in for the local server's API in the hosted demo. Mock mode only: no network calls.
-import { mockTurn } from './server/mock.js';
-import { isTurn, APP_VERSION, SCHEMA_VERSION } from './shared/contracts.js';
-import { redactValue } from './shared/redact.js';
+import { mockTurn } from './server/mock.js?v=mvvak7t3';
+import { isTurn, APP_VERSION, SCHEMA_VERSION } from './shared/contracts.js?v=mvvak7t3';
+import { redactValue } from './shared/redact.js?v=mvvak7t3';
 
 const wiring = fetch(new URL('./examples/wiring.openui', import.meta.url)).then(r => r.text());
 const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 const config = { defaultProvider: 'mock', token: 'hosted', appVersion: APP_VERSION,
   providers: [{ id: 'mock', label: 'Offline (no AI)', enabled: true, model: 'wiring-fixture-v1', message: 'Runs entirely in this browser on Lull\u2019s fixed rules. Nothing is sent anywhere.' }] };
 // The local app's service worker isn't part of the hosted demo.
-if ('serviceWorker' in navigator) navigator.serviceWorker.register = () => Promise.resolve();
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register = () => Promise.resolve(); navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {}); }
 const native = window.fetch.bind(window);
 window.fetch = async (input, init = {}) => {
   const path = new URL(typeof input === 'string' ? input : input.url, location.href).pathname;
