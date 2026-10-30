@@ -1,121 +1,65 @@
 # Sukoon
 
-**A three-minute movement break for teams, with proof and no surveillance.**
+A seated 2:30 movement reset for HR teams and the founder still doing HR at 30–120 person companies in India (250 is the ceiling). One link per team, no app, no roster, no accounts. Every Friday: one line per team — how many started, how many finished — and never who.
 
-[Live site](https://lull-hr.vercel.app/) · [Product](https://lull-hr.vercel.app/#product) · [Security and data](https://lull-hr.vercel.app/trust) · [Pilot and pricing](https://lull-hr.vercel.app/pilot) · [Sample report](https://lull-hr.vercel.app/report) · [Safety](https://lull-hr.vercel.app/safety) · [Try the 2:30](https://lull-hr.vercel.app/app/?taster=1)
+[Site](https://lull-hr.vercel.app/) · [Workspace](https://lull-hr.vercel.app/workspace) · [Pricing](https://lull-hr.vercel.app/pilot) · [Security](https://lull-hr.vercel.app/trust) · [Changes](https://lull-hr.vercel.app/changes)
 
-Sukoon is an early-stage product for HR and TA leads at 10–250 person companies in India. An employee opens one link, takes a seated 2:30 reset, and closes it. HR gets one line per team per week: how many started, how many finished. Never who.
+> The domain is still `lull-hr.vercel.app` and the contact is still a personal inbox. Both are listed as open items in [`/trust#status`](site/trust.html) rather than hidden.
 
-No app, no account, no roster, no HRIS. The pilot is free for the first six teams.
+## The position
 
-## What it is
+Sukoon has no customers. That is stated on the site, not hidden from it. The first six team pilots are free, the report at week 6 is written so it can recommend stopping, and every certification we do not hold is listed on the status page.
 
-- **For the employee:** a guided four-move reset that fits between calls. Seated, in work clothes, no mat. English or Hinglish free text. A safety stop for pain or red-flag symptoms. Optional reminders on their own calendar or Slack.
-- **For HR:** a Friday email with team totals, a week-3 check-in, and a week-6 report that can recommend stopping. Small teams are suppressed.
-- **For legal and IT:** a public [trust centre](https://lull-hr.vercel.app/trust): data map, subprocessor list, retention, DPA summary, employee notice, and what is not yet in place.
+Privacy is a peer of price, not a footer link. No employee personal data is collected or stored, so there is no employee record to protect, export or delete under the DPDP Act — no field exists to put one in. The homepage shows what HR sees, what it never sees, and the two teams it refuses to show.
 
-This is a general movement break, not treatment, rehab, or a medical device. The four moves have not yet been clinically reviewed.
+## The ask
 
-## The data contract
-
-The whole allow-list lives in `src/shared/pilot.ts`. In a pilot, only these counters can leave a device, under `pilot/<team>/<event>`:
-
-`session-started` · `session-finished` · `came-back` · `reminder-set` · `opened-from-reminder` · `team-reset-joined`
-
-Never sent: names, emails, employee or device IDs, IP addresses in reports, individual sessions, typed text, needs, feelings, pain, or safety stops. Safety is care, not a metric.
-
-Teams appear only at 10 starters, and the next-smallest team is suppressed so a hidden team cannot be worked out by subtraction. The site calls this **aggregated with small numbers suppressed**, not anonymous.
+Not a demo request. Three mailto chips — **yes**, **no**, **already have one** — each opening a pre-filled subject. One word is a complete reply. The deeper question ("what is the one thing that makes this a no?") sits once, at the foot.
 
 ## Site map
 
 | Path | What it is |
-|---|---|
-| `/` | Product, the real 2:30, the Friday email, the six weeks, pricing, company |
-| `/trust` | Trust centre: data, small numbers, roles, subprocessors, retention, AI, DPA summary, employee notice, security, pack |
-| `/pilot` | The offer, what we need, the six weeks, price after, FAQ, booking |
-| `/report` | Illustrative week-6 report, with how it is calculated and print styles |
-| `/safety` | Pain handling, red flags, when to check with a clinician, what Sukoon is not, review status |
-| `/privacy` | This website's notice: cookieless analytics, short-lived logs, email |
-| `/terms` | Site, demo, and pilot terms |
-| `/404` | Not found |
+| --- | --- |
+| `/` | One screen: why/how/when, the six-team demo, who-sees-what, the Friday email, and the one-word ask |
+| `/workspace` | Demo admin surface: teams, seats, quorum refusals, Friday digest, six-week history, week-6 report |
+| `/pilot` | The offer, the six weeks, **the launch kit** (copyable messages), price, procurement, internal memo, pre-mortem, FAQ |
+| `/trust` | Data map, the quorum rule, roles, subprocessors, retention, DPA summary, employee notice, status table |
+| `/report` | Print-ready company week-6 report for the same six-team sample: 92 starters, 75 finished, ₹176 a starter, a recommendation, and two teams the report refuses to show |
+| `/safety` | Red flags, when not to use it, review status, what the evidence does and does not support |
+| `/changes` | Dated decisions with reasons, plus what is not built yet |
+| `/privacy`, `/terms` | Founder drafts, marked as drafts |
 
-Old pages are gone. `vercel.json` redirects `/data` and `/data.html` to `/trust#data`, `/pilot-pack` to `/pilot#pack`, and `/product`, `/pm`, `/thanks`, `/card` to `/` or `/pilot`.
+## The product
 
-Everything a buyer needs to forward is linked from the homepage and `/pilot`. There is no Tally form, no survey, and no second CTA.
+- **One link.** No download, no account, no password, no HRIS, no SSO.
+- **2:30, seated, in work clothes.** Four moves: neck, shoulders, chest, breath.
+- **The quorum rule.** A team appears only at ten starters, and the next-smallest team is hidden with it, so a small team cannot be recovered by subtraction.
+- **Six anonymous counts per team per week.** Session started, session finished, came back, reminder set, opened from reminder, team reset joined — the allow-list in `src/shared/pilot.ts`. The workspace shows four of them per team: starts, finishes, returns, and cost per starter. No person-level row exists in the schema.
 
-## Repo map
+## The app
 
-| Path | What |
-|---|---|
-| `src/` | The app: TypeScript, local server, rules-first understanding, optional Claude guided mode |
-| `site/` | The public site on Vercel: eight pages, one stylesheet, one script, self-hosted fonts |
-| `site/app/` | The built browser app, generated by `npm run site:app`; do not edit by hand |
-| `tests/` | `npm test`: privacy contract, Hinglish safety, HTTP journeys, site syntax |
-| `eval/` | Safety evaluation of the pain-detection rules |
-| `docs/` | Internal product notes, sources, and the build harness |
+`src/` is the product. `scripts/site-app.mjs` copies a Mock-mode build into `site/app/` so the demo on the marketing site is the real interface, not a video.
 
-All report figures are a made-up 64-person company (`src/shared/team.ts`). They are labelled as illustrative everywhere they appear.
-
-## Run it
-
-Requires **Node.js 22.18 or later** and npm.
-
-```sh
-npm ci --ignore-scripts
-npm start
+```bash
+npm run build        # typecheck + build
+npm run site:app     # rebuild the demo into site/app
+npm test             # build + test suite
+npm start            # local server on 127.0.0.1 (Mock mode)
 ```
 
-Open http://127.0.0.1:4319. Stop with Ctrl+C. Copy `.env.example` to `.env` to change the port or enable a model route.
+Preview the marketing site with any static server rooted at `site/` (the pages use `.html` paths locally; Vercel `cleanUrls` strips them in production).
 
-- App: http://127.0.0.1:4319/
-- Team view (sample): http://127.0.0.1:4319/#team-view
-- Safety and limits: http://127.0.0.1:4319/safety
-- Public site: open `site/index.html` through any static server, or deploy `site/` to Vercel.
+## What is deliberately not here
 
-The local app never sends pilot counts: its Content Security Policy allows only its own origin.
+- **No manager view.** A manager view would make the quorum rule decorative.
+- **No voice input.** The browser speech API sends audio to Google, which would break "nothing leaves this page". A local model is the only honest version.
+- **No chatbot, cookie banner, dark-mode toggle, or mega-menu.**
+- **No aggregated team "brand" assets we have not earned** — no customer logos, no badges, no certification marks.
 
-## How it understands people
+## Privacy
 
-People type how they feel, in English or Hinglish. **Claude can read that; Sukoon's own code draws every screen.** Claude returns a checked interpretation, so it cannot invent a movement, a duration, or medical wording.
+Aggregate page counts only (GoatCounter, cookieless, no persistent IP). The app stores session state in the browser and, in a pilot, sends six team-level events. Events are allow-listed in `src/shared/pilot.ts`. Nothing about pain, mood, or typed text is ever counted, and safety stops are never reported.
 
-- **Safety has a floor.** A fixed word and phrase list always runs. Claude can add caution, never remove it. If Claude is unavailable, the list answers and the app says so.
-- **AI is off by default, and off in every pilot.** The public demo is scripted. The optional guided mode sends typed text to Anthropic, which deletes it within 30 days and does not train on it by default.
-- **Tested.** `npm run eval` runs 44 realistic messages. The keyword layer alone missed 10 of 14 body concerns; keyword plus Claude missed none in the 2026-10-11 live run. The list has since been extended, including Hinglish pain words.
+## Status
 
-## Product tour
-
-1. **Start.** One question: “How are you feeling right now?” Tap a work moment or type it.
-2. **One reset.** Sukoon says what it heard and suggests one reset with its reason and real length. Seated or standing.
-3. **The reset.** Four steps, dial timer, real time. “Too easy” offers standing; “joining a call” offers seated. “My shoulder hurts” or “kamar mein dard” triggers the safety hold.
-4. **End.** “Back to your day.” Optional “How did that feel?”, and an opt-in weekday reminder on the person's own calendar or Slack.
-
-## How it's built
-
-- **Declarative UI.** Every screen is OpenUI data with a validated component catalogue and trusted local renderers. No generated code, no HTML injection.
-- **Server** (`src/server/`): `lull.ts` holds the resets and safety; `mock.ts` routes the scripted path; `guide.ts` is the optional Claude layer with the safety floor.
-- **Browser** (`src/web/`): the reset stage, transitions, safety hold, pilot counting, and reminders.
-- **Shared** (`src/shared/`): reset catalogue, the pilot privacy contract, conversation controller, timers, and recap wording.
-- **Site** (`site/`): static HTML, `home.css`, `home.js`, Fraunces and Inter self-hosted, GoatCounter proxied through the site.
-
-## Checks
-
-```sh
-npm run check                  # typecheck, safety lint, unit + HTTP tests
-npx playwright install chromium
-npm run test:ui                # browser journeys
-npm run eval                   # keyword layer vs Claude on 44 messages
-```
-
-On Windows, four tests are skipped with a stated reason: three need the full-screen Claude CLI runner (macOS/Linux only), one needs symlinks. The guided plan route works on Windows.
-
-## Status and honest limits
-
-- **No customers yet.** The first six team pilots are free. The site says so.
-- **Not clinically reviewed.** The four moves and red-flag copy still need a physiotherapist's sign-off. Until then, the copy stays conservative and says it is not reviewed.
-- **Not lawyer-reviewed.** The DPA summary, privacy notice, and terms are founder drafts. A reviewed version will replace them before any paid contract.
-- **No certifications.** No SOC 2, ISO 27001, or penetration test. The trust centre says exactly what exists instead.
-- **Booking is email.** There is no Cal.com link yet; `mailto:rupakr2g@gmail.com` is the honest route.
-- **No HRIS, SSO, WhatsApp, or Slack read access.** Reminders are the person's own. There are no live-activity counters.
-- **Timers measure time on a page, not movement.** The evidence on microbreaks is mixed; Sukoon claims only a short, optional break, not pain relief or productivity gains.
-
-The internal product notes, sources, and decisions are in `docs/`.
+`site/trust.html#status` is the single source of truth for what exists. It is updated whenever reality changes, including when a row gets worse. `site/changes.html` is the dated record of what changed and why.

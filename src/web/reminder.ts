@@ -41,7 +41,7 @@ export function reminderCard(compact = false) {
   const actions = el('div', '', 'row reminder-actions'); actions.append(google, ics, slack);
   // Team reset: the same 3 minutes together, as the last item of a recurring meeting.
   const together = el('div', '', 'reminder-together');
-  together.append(el('p', 'Or do it together: paste this into a recurring meeting invite, and end it with a 3-minute reset.', 'micro'),
+  together.append(el('p', 'Or do it together: paste this into a recurring meeting invite, and end it with a 2:30 reset.', 'micro'),
     button('Copy team reset invite', () => {
       const text = teamResetInvite(teamResetLink());
       const copied = () => { done.textContent = 'Copied. Paste it into your stand-up or team meeting invite.'; track('team_reset_shared'); };

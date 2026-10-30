@@ -44,7 +44,7 @@ test('calendar and Slack reminders recur on weekdays and link back with the team
   assert.equal(google.searchParams.get('recur'),'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR');
   assert.equal(google.searchParams.get('dates'),'20261026T154000/20261026T154500');
   assert.equal(google.searchParams.get('ctz'),'Asia/Kolkata');
-  assert.equal(reminderSlack('15:40',link),`/remind me "Take a 3-minute Sukoon reset: ${link}" every weekday at 3:40pm`);
+  assert.equal(reminderSlack('15:40',link),`/remind me "Take a 2:30 Sukoon reset: ${link}" every weekday at 3:40pm`);
   assert.equal(reminderSlack('09:05',link).endsWith('every weekday at 9:05am'),true);
   assert.equal(reminderSlack('12:00',link).endsWith('at 12:00pm'),true);
 });

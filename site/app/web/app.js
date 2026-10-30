@@ -113,7 +113,7 @@ function renderWorkout(current, ctx) {
     arc.setAttribute('class', 'dial-arc');
     arc.style.strokeDasharray = String(C);
     svg.append(ring, arc);
-    const face = timer.querySelector('.timer-face'), dial = el('div', '', 'dial'), count = el('span', '', 'dial-count'), breath = el('span', '', 'dial-breath'), breathing = /breath|exhale/i.test(String(timerNode.props.label));
+    const face = timer.querySelector('.timer-face'), dial = el('div', '', 'dial'), count = el('span', '', 'dial-count'), breath = el('span', '', 'dial-breath');
     count.setAttribute('aria-hidden', 'true');
     if (face) {
         face.replaceWith(dial);
@@ -168,16 +168,9 @@ function renderWorkout(current, ctx) {
         const cd = countdowns.get(timerNode.key)?.n ?? 0;
         count.textContent = cd ? String(cd) : '';
         dial.dataset.counting = cd ? 'true' : '';
-        // The pacer follows the real timer: 4 s in, 6 s out.
-        if (breathing && e?.status === 'running') {
-            const phase = (e.seconds - e.remaining) % 10 < 4 ? 'in' : 'out';
-            dial.dataset.breath = phase;
-            breath.textContent = phase === 'in' ? 'Breathe in' : 'Breathe out';
-        }
-        else {
-            delete dial.dataset.breath;
-            breath.textContent = '';
-        }
+        // No breathing pacer. The card is readable the moment it appears; the timer is optional.
+        delete dial.dataset.breath;
+        breath.textContent = '';
     };
     updates.push(update);
     update();

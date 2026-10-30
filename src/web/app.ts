@@ -67,7 +67,7 @@ function renderWorkout(current:StatementNode,ctx:Context){
   svg.setAttribute('viewBox','0 0 120 120');svg.setAttribute('class','dial-ring');svg.setAttribute('aria-hidden','true');
   for(const circle of [ring,arc]){circle.setAttribute('cx','60');circle.setAttribute('cy','60');circle.setAttribute('r','54');}
   ring.setAttribute('class','dial-track');arc.setAttribute('class','dial-arc');arc.style.strokeDasharray=String(C);svg.append(ring,arc);
-  const face=timer.querySelector('.timer-face'),dial=el('div','','dial'),count=el('span','','dial-count'),breath=el('span','','dial-breath'),breathing=/breath|exhale/i.test(String(timerNode.props.label));count.setAttribute('aria-hidden','true');if(face){face.replaceWith(dial);dial.append(svg,face,count);face.append(breath);}
+  const face=timer.querySelector('.timer-face'),dial=el('div','','dial'),count=el('span','','dial-count'),breath=el('span','','dial-breath');count.setAttribute('aria-hidden','true');if(face){face.replaceWith(dial);dial.append(svg,face,count);face.append(breath);}
   hero.append(words,timer);if(cues){const list=renderComponent(cues,ctx);list.classList.add('workout-cues');hero.append(list);}
   // Below the stage: what comes next, and Sukoon (guidance, any offer, and the way to tell it something).
   const lower=el('div','','workout-lower'),next=el('div','','workout-next'),companion=el('div','','workout-companion'),offer=el('div','','workout-offer');
@@ -89,8 +89,8 @@ function renderWorkout(current:StatementNode,ctx:Context){
     const e=list.find(x=>x.id===timerNode.key);if(e)arc.style.strokeDashoffset=String(C*(e.remaining/e.seconds));
     marks.forEach((m,i)=>{const cl=dots[i].classList;m.textContent=cl.contains('done')?'Done':cl.contains('early')?'Marked done':cl.contains('open')?'Started':'';});
     const cd=countdowns.get(timerNode.key)?.n??0;count.textContent=cd?String(cd):'';dial.dataset.counting=cd?'true':'';
-    // The pacer follows the real timer: 4 s in, 6 s out.
-    if(breathing&&e?.status==='running'){const phase=(e.seconds-e.remaining)%10<4?'in':'out';dial.dataset.breath=phase;breath.textContent=phase==='in'?'Breathe in':'Breathe out';}else{delete dial.dataset.breath;breath.textContent='';}};
+    // No breathing pacer. The card is readable the moment it appears; the timer is optional.
+    delete dial.dataset.breath;breath.textContent='';};
   updates.push(update);update();return stage;
 }
 function updatePhase(){const kids=c.document.current?.props.children as StatementNode[]|undefined,timer=kids?.find(n=>n.name==='Timer'),status=timer?timers.list().find(t=>t.id===timer.key)?.status:undefined;

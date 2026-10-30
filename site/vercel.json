@@ -6,7 +6,10 @@
     { "source": "/product", "destination": "/", "permanent": true },
     { "source": "/pm", "destination": "/", "permanent": true },
     { "source": "/thanks", "destination": "/pilot", "permanent": true },
-    { "source": "/card", "destination": "/", "permanent": true }
+    { "source": "/card", "destination": "/", "permanent": true },
+    { "source": "/demo", "destination": "/workspace", "permanent": true },
+    { "source": "/admin", "destination": "/workspace", "permanent": true },
+    { "source": "/changelog", "destination": "/changes", "permanent": true }
   ],
   "rewrites": [
     { "source": "/gc/count.js", "destination": "https://gc.zgo.at/count.js" },

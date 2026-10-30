@@ -49,7 +49,7 @@ const plusMinutes = (stamp, minutes) => {
     const h = Number(stamp.slice(9, 11)), m = Number(stamp.slice(11, 13)) + minutes;
     return `${stamp.slice(0, 9)}${pad(h + Math.floor(m / 60))}${pad(m % 60)}00`;
 };
-const TITLE = 'Sukoon: 3-minute reset';
+const TITLE = 'Sukoon: 2:30 reset';
 const details = (link) => `A short guided movement break. Open Sukoon: ${link}\nSkip any day you like. Sukoon won't follow up.`;
 /** A recurring weekday event in iCalendar format, for Outlook, Apple Calendar or Google import. */
 export function reminderIcs(time, link, from, uid) {
@@ -68,7 +68,7 @@ export function reminderGoogle(time, link, from, zone) {
 /** Slack's own /remind command: no app to install, and the reminder belongs to the person. */
 export function reminderSlack(time, link) {
     const { h, m } = parseTime(time), hour = h % 12 || 12;
-    return `/remind me "Take a 3-minute Sukoon reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
+    return `/remind me "Take a 2:30 Sukoon reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
 }
 export function parseReset(raw) {
     const match = new RegExp(`^(${RESETS.join('|')})-(seated|standing)$`).exec((raw ?? '').trim().toLowerCase());

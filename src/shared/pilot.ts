@@ -56,7 +56,7 @@ const plusMinutes = (stamp: string, minutes: number) => {
   return `${stamp.slice(0, 9)}${pad(h + Math.floor(m / 60))}${pad(m % 60)}00`;
 };
 
-const TITLE = 'Sukoon: 3-minute reset';
+const TITLE = 'Sukoon: 2:30 reset';
 const details = (link: string) => `A short guided movement break. Open Sukoon: ${link}\nSkip any day you like. Sukoon won't follow up.`;
 
 /** A recurring weekday event in iCalendar format, for Outlook, Apple Calendar or Google import. */
@@ -78,7 +78,7 @@ export function reminderGoogle(time: string, link: string, from: Date, zone: str
 /** Slack's own /remind command: no app to install, and the reminder belongs to the person. */
 export function reminderSlack(time: string, link: string): string {
   const { h, m } = parseTime(time), hour = h % 12 || 12;
-  return `/remind me "Take a 3-minute Sukoon reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
+  return `/remind me "Take a 2:30 Sukoon reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
 }
 
 /** Team reset: a meeting link that opens one known reset for everyone. Anything else is ignored. */
