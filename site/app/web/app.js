@@ -1,20 +1,20 @@
-import { Conversation } from '../shared/controller.js?v=mvvd41zs';
-import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvd41zs';
-import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvd41zs';
-import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvd41zs';
-import { createRunNav } from '../shared/openui/run-nav.js?v=mvvd41zs';
-import { splitReply } from '../shared/openui/document.js?v=mvvd41zs';
-import { redactValue } from '../shared/redact.js?v=mvvd41zs';
-import { renderComponent } from './components.js?v=mvvd41zs';
-import { byId, el, button } from './dom.js?v=mvvd41zs';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvd41zs';
-import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvd41zs';
-import { reminderCard } from './reminder.js?v=mvvd41zs';
-import { initI18n } from './i18n.js?v=mvvd41zs';
-import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvd41zs';
-import { renderInsights, teamExport } from './insights-view.js?v=mvvd41zs';
-import { sampleEvents } from '../shared/insights.js?v=mvvd41zs';
-import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvd41zs';
+import { Conversation } from '../shared/controller.js?v=mvvdj7cr';
+import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvvdj7cr';
+import { TimerLedger } from '../shared/openui/timer-store.js?v=mvvdj7cr';
+import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvvdj7cr';
+import { createRunNav } from '../shared/openui/run-nav.js?v=mvvdj7cr';
+import { splitReply } from '../shared/openui/document.js?v=mvvdj7cr';
+import { redactValue } from '../shared/redact.js?v=mvvdj7cr';
+import { renderComponent } from './components.js?v=mvvdj7cr';
+import { byId, el, button } from './dom.js?v=mvvdj7cr';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvvdj7cr';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvvdj7cr';
+import { reminderCard } from './reminder.js?v=mvvdj7cr';
+import { initI18n } from './i18n.js?v=mvvdj7cr';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvvdj7cr';
+import { renderInsights, teamExport } from './insights-view.js?v=mvvdj7cr';
+import { sampleEvents } from '../shared/insights.js?v=mvvdj7cr';
+import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvvdj7cr';
 let config;
 const timers = new TimerLedger();
 let previousTimers = new Map(), updates = [];
@@ -539,7 +539,10 @@ function renderDone(current) {
     const mins = total >= 60 ? `${Math.floor(total / 60)} min ${total % 60 ? `${total % 60} sec` : ''}`.trim() : `${total} sec`;
     n.append(mark, el('p', 'Session complete', 'done-kicker'), el('h2', 'Nicely done. That was time well spent.', 'done-title'), el('p', `${say('finish_text')} ${total >= 20 ? `You moved for ${mins} — that counts, even on a busy day.` : 'Even a short pause away from the screen counts.'}`, 'done-text'), el('p', say('finish_breath'), 'done-breath'));
     const row = el('div', '', 'done-actions');
-    row.append(button('Back to your day', () => { for (const sib of [...(n.parentElement?.children ?? [])])
+    row.append(button('Back to your day', () => { try {
+        window.close();
+    }
+    catch { } for (const sib of [...(n.parentElement?.children ?? [])])
         if (sib !== n)
             sib.remove(); window.scrollTo({ top: 0, behavior: 'smooth' }); n.replaceChildren(mark, el('p', 'All done', 'done-kicker'), el('h2', 'Enjoy the rest of your day.', 'done-title'), el('p', 'You can close this tab. Whenever the next long call ends, Sukoon will be here.', 'done-text'), button('Start another break', () => { byId('reset').click(); setTimeout(() => send('Start Sukoon', 'onboarding'), 50); }, 'quiet')); }, 'primary home-start'), button('Another 2½ minutes', () => { byId('reset').click(); setTimeout(() => send('Start Sukoon', 'onboarding'), 50); }, 'home-start'));
     n.append(row, el('p', say('finish_again'), 'done-again'));

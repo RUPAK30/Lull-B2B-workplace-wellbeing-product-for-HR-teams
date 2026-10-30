@@ -6,7 +6,7 @@ import { track } from './analytics.js';
 import { reminderLink, teamResetLink } from './pilot.js';
 
 const TIME = 'sw.reminder.time', SET = 'sw.reminder.set';
-const saved = () => { try { return localStorage.getItem(TIME) ?? '15:40'; } catch { return '15:40'; } };
+const saved = () => { try { return localStorage.getItem(TIME) ?? '15:30'; } catch { return '15:30'; } };
 const save = (value: string) => { try { localStorage.setItem(TIME, value); } catch { /* storage blocked */ } };
 
 /** The reminder card shown after a finished session and in Settings. */

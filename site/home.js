@@ -223,7 +223,7 @@ document.addEventListener('click',function(e){
       row.classList.toggle('off',!shown);
       row.querySelector('.fin').textContent=shown?fin:'\u2014';
       var st=row.querySelector('.st');
-      st.textContent=shown?'Reporting':'Not shown';
+      st.textContent=shown?'Reporting':'Hidden · under 10';
       st.className='st '+(shown?'ok':'na');
       if(shown){started+=n;finished+=fin;}
     });

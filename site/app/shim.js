@@ -1,7 +1,7 @@
 // Stands in for the local server's API in the hosted demo. Mock mode only: no network calls.
-import { mockTurn } from './server/mock.js?v=mvvd41zs';
-import { isTurn, APP_VERSION, SCHEMA_VERSION } from './shared/contracts.js?v=mvvd41zs';
-import { redactValue } from './shared/redact.js?v=mvvd41zs';
+import { mockTurn } from './server/mock.js?v=mvvdj7cr';
+import { isTurn, APP_VERSION, SCHEMA_VERSION } from './shared/contracts.js?v=mvvdj7cr';
+import { redactValue } from './shared/redact.js?v=mvvdj7cr';
 
 const wiring = fetch(new URL('./examples/wiring.openui', import.meta.url)).then(r => r.text());
 const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });

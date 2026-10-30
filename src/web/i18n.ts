@@ -16,6 +16,18 @@ const word = (en: string) => table.get(en)?.[lang as 'hi' | 'mr'] ?? table.get(e
 const W = { hi: { suggested: 'सुझाव', for: 'आपके लिए', seated: 'बैठकर शुरू करें', standing: 'खड़े होकर शुरू करें', suggest: 'मेरा सुझाव', another: 'अगली बार आज़माएँ', switchTo: 'इस पर जाएँ', steps: 'छोटे स्टेप', moved: (m: string) => `आपने ${m} हरकत की — व्यस्त दिन में भी यह मायने रखता है।`, min: 'मिनट', sec: 'सेकंड', planned: 'तय', recorded: 'टाइमर ने क्या दर्ज किया', of: 'में से', switching: 'इस पर बदल रहे हैं' },
   mr: { suggested: 'सुचवलेले', for: 'तुमच्यासाठी', seated: 'बसून सुरू करा', standing: 'उभे राहून सुरू करा', suggest: 'माझा सुझाव', another: 'पुढच्या वेळी करून पाहा', switchTo: 'यावर जा', steps: 'छोट्या स्टेप', moved: (m: string) => `तुम्ही ${m} हालचाल केली — धावपळीच्या दिवशीही हे महत्त्वाचं आहे.`, min: 'मिनिटं', sec: 'सेकंद', planned: 'ठरलेलं', recorded: 'टायमरने काय नोंदवलं', of: 'पैकी', switching: 'यावर बदलतोय' } };
 
+// Recap pieces: "0 of 4 timers ran to zero", "4 marked finished early", …
+function piece(p: string): string | null {
+  const hi = lang === 'hi'; let m: RegExpMatchArray | null;
+  if ((m = p.match(/^(\d+) of (\d+) timers? ran to zero$/))) return hi ? `${m[2]} में से ${m[1]} टाइमर पूरे चले` : `${m[2]} पैकी ${m[1]} टायमर पूर्ण चालले`;
+  if ((m = p.match(/^(\d+) marked finished early$/))) return hi ? `${m[1]} पहले ही पूरे माने गए` : `${m[1]} आधीच पूर्ण केले`;
+  if ((m = p.match(/^(\d+) paused for safety$/))) return hi ? `${m[1]} सुरक्षा के लिए रोके गए` : `${m[1]} सुरक्षेसाठी थांबवले`;
+  if ((m = p.match(/^(\d+) still open$/))) return hi ? `${m[1]} अभी चल रहे` : `${m[1]} अजून चालू`;
+  if ((m = p.match(/^(\d+) reset$/))) return hi ? `${m[1]} दोबारा शुरू किए` : `${m[1]} पुन्हा सुरू केले`;
+  if ((m = p.match(/^(\d+) not started$/))) return hi ? `${m[1]} शुरू नहीं हुए` : `${m[1]} सुरू झाले नाहीत`;
+  if ((m = p.match(/^([\d:]+) planned$/))) return hi ? `${m[1]} तय` : `${m[1]} ठरलेले`;
+  return null;
+}
 function sentence(s: string): string | null {
   const t = s.trim(); if (!t) return s;
   const direct = word(t); if (direct) return direct;
@@ -35,7 +47,7 @@ function sentence(s: string): string | null {
   if ((m = t.match(/^([\d:]+) on the timer$/))) return lang === 'hi' ? `टाइमर पर ${m[1]}` : `टायमरवर ${m[1]}`;
   if ((m = t.match(/^Last step\. (.+)$/))) { const rest = sentence(m[1]) ?? m[1]; return (lang === 'hi' ? 'आख़िरी स्टेप। ' : 'शेवटची स्टेप. ') + rest; }
   if ((m = t.match(/^(\d+) of (\d+) timers? ran to zero(?: · (\d+) not started)?\.?$/))) return lang === 'hi' ? `${m[2]} में से ${m[1]} टाइमर पूरे चले${m[3] ? ` · ${m[3]} शुरू नहीं हुए` : ''}।` : `${m[2]} पैकी ${m[1]} टायमर पूर्ण चालले${m[3] ? ` · ${m[3]} सुरू झाले नाहीत` : ''}.`;
-  if (t.includes(' · ')) { const parts = t.split(' · ').map(p => word(p) ?? (/^[\d:/½ ]+$/.test(p) ? p : null)); if (parts.every(Boolean)) return parts.join(' · '); }
+  if (t.includes(' · ')) { const parts = t.split(' · ').map(p => word(p) ?? piece(p.replace(/\.$/, '')) ?? (/^[\d:/½ ]+$/.test(p) ? p : null)); if (parts.every(Boolean)) return parts.join(' · '); }
   return null;
 }
 /** Translates one line; unknown pieces stay as they are rather than breaking the line. */

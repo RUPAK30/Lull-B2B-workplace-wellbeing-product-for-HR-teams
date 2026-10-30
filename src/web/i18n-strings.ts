@@ -444,6 +444,8 @@ Or pick up where you left off || या जहाँ छोड़ा था व�
 After back-to-back calls || लगातार कॉल्स के बाद || सलग कॉल्सनंतर
 Stiff from sitting || बैठे-बैठे जकड़न || बसून बसून आखडलं
 Same as last time || पिछली बार जैसा || मागच्या वेळेसारखं
+About Sukoon || सुकून के बारे में || सुकूनबद्दल
+About || परिचय || माहिती
 `;
 // Patterns for lines that carry names, numbers or times. Each returns null when it doesn't apply.
 export type Lang = 'en' | 'hi' | 'mr';
