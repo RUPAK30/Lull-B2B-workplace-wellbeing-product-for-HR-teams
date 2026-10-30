@@ -3,7 +3,7 @@
 // allow-list below is the only thing that can be sent, and it never includes who, what was typed,
 // or anything about pain or safety. It also builds the opt-in reminder the employee sets for
 // themselves, so coming back is their choice, on their own calendar or Slack.
-import { RESETS, fromTitle } from './resets.js?v=mvvcpoop';
+import { RESETS, fromTitle } from './resets.js?v=mvvd41zs';
 /** Team codes are short, lower-case and plain, so they can't carry anything personal. */
 export function cleanTeam(raw) {
     const team = (raw ?? '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 24);

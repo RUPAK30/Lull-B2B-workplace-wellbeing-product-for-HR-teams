@@ -1,5 +1,5 @@
 // Adapted from a starter harness provided for a take-home exercise; see docs/HARNESS.md.
-import { OPENUI_LIBRARY } from "./openui-library.js?v=mvvcpoop";
+import { OPENUI_LIBRARY } from "./openui-library.js?v=mvvd41zs";
 const PUNCT = new Set(["(", ")", "[", "]", "{", "}", ",", ":", "="]);
 /** Thrown to abandon a line. Never escapes `parseLine`. `why` is read only by
  *  the dev drop report. */
