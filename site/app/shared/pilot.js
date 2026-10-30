@@ -3,7 +3,7 @@
 // allow-list below is the only thing that can be sent, and it never includes who, what was typed,
 // or anything about pain or safety. It also builds the opt-in reminder the employee sets for
 // themselves, so coming back is their choice, on their own calendar or Slack.
-import { RESETS, fromTitle } from './resets.js?v=mvve4uw9';
+import { RESETS, fromTitle } from './resets.js?v=mvve6tcf';
 /** Team codes are short, lower-case and plain, so they can't carry anything personal. */
 export function cleanTeam(raw) {
     const team = (raw ?? '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 24);
@@ -55,7 +55,7 @@ const details = (link) => `A short guided movement break. Open Sukoon: ${link}\n
 export function reminderIcs(time, link, from, uid) {
     const start = nextStart(time, from), stamp = from.toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
     const esc = (s) => s.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/[,;]/g, m => '\\' + m);
-    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Lull//Reset reminder//EN', 'BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${stamp}`,
+    return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Sukoon//Reset reminder//EN', 'BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${stamp}`,
         `DTSTART:${start}`, `DTEND:${plusMinutes(start, 5)}`, `RRULE:FREQ=WEEKLY;BYDAY=${WEEKDAYS}`, `SUMMARY:${esc(TITLE)}`,
         `DESCRIPTION:${esc(details(link))}`, `URL:${link}`, 'TRANSP:TRANSPARENT', 'END:VEVENT', 'END:VCALENDAR', ''].join('\r\n');
 }

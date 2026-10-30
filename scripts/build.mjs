@@ -6,5 +6,5 @@ await Promise.all(assets.map(async file => { try { await access(`src/web/${file}
 await mkdir('dist/web/img', { recursive: true });
 for (const file of await readdir('src/web/img').catch(() => [])) await copyFile(`src/web/img/${file}`, `dist/web/img/${file}`);
 // The one-page pilot proposal, offered as a download on the page for teams.
-await copyFile('docs/Lull - Pilot Proposal.pdf', 'dist/web/lull-pilot-proposal.pdf').catch(() => {});
+await copyFile('docs/Sukoon - Pilot Proposal.pdf', 'dist/web/lull-pilot-proposal.pdf').catch(() => {});
 console.log('Built local server and browser assets.');

@@ -1,4 +1,4 @@
-// Copies the built app into site/app so the public site can host the real Lull in Mock mode.
+// Copies the built app into site/app so the public site can host the real Sukoon in Mock mode.
 // The browser answers the app's two API calls itself (site/app/shim.js) with the same mockTurn
 // the local server uses, so no server, account or model is involved. Run `npm run build` first.
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
@@ -34,7 +34,7 @@ import { redactValue } from './shared/redact.js';
 const wiring = fetch(new URL('./examples/wiring.openui', import.meta.url)).then(r => r.text());
 const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 const config = { defaultProvider: 'mock', token: 'hosted', appVersion: APP_VERSION,
-  providers: [{ id: 'mock', label: 'Offline (no AI)', enabled: true, model: 'wiring-fixture-v1', message: 'Runs entirely in this browser on Lull\\u2019s fixed rules. Nothing is sent anywhere.' }] };
+  providers: [{ id: 'mock', label: 'Offline (no AI)', enabled: true, model: 'wiring-fixture-v1', message: 'Runs entirely in this browser on Sukoon\\u2019s fixed rules. Nothing is sent anywhere.' }] };
 // The local app's service worker isn't part of the hosted demo.
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register = () => Promise.resolve(); navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {}); }
 const native = window.fetch.bind(window);

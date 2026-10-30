@@ -1,6 +1,6 @@
-import { OPENUI_LIBRARY } from './openui-library.js?v=mvve4uw9';
-import { callArgsOf, linesById, parseDocument, reachableStatements } from './parse-document.js?v=mvve4uw9';
-import { isStatementNode } from './openui-model.js?v=mvve4uw9';
+import { OPENUI_LIBRARY } from './openui-library.js?v=mvve6tcf';
+import { callArgsOf, linesById, parseDocument, reachableStatements } from './parse-document.js?v=mvve6tcf';
+import { isStatementNode } from './openui-model.js?v=mvve6tcf';
 const text = (v) => typeof v === 'string' && v.length <= 1200;
 const oneOf = (v, allowed) => typeof v === 'string' && allowed.includes(v);
 const optional = (v, check) => v === undefined || v === null || check(v);

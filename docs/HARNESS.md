@@ -2,7 +2,7 @@
 
 ## Origin
 
-Lull was built on top of a **starter harness provided for a take-home product exercise**. The starter supplied the plumbing:
+Sukoon was built on top of a **starter harness provided for a take-home product exercise**. The starter supplied the plumbing:
 - the OpenUI parser and screen document;
 - base component signatures, validation and the timer ledger;
 - run navigation and event phrasing;

@@ -4,7 +4,7 @@ Every browser session starts in Mock. Selecting a provider alone does not invoke
 
 ## Claude (guided), recommended
 
-Claude reads what you type: needs before a session, and safety concerns and requests during one. It returns a schema-checked interpretation (structured outputs, `skills/guide.md`). Lull's trusted local code still draws every screen, so the model never writes UI, durations or safety wording.
+Claude reads what you type: needs before a session, and safety concerns and requests during one. It returns a schema-checked interpretation (structured outputs, `skills/guide.md`). Sukoon's trusted local code still draws every screen, so the model never writes UI, durations or safety wording.
 
 - **Safety floor.** The keyword layer always runs too. Claude can raise a concern ("my knee feels weird" → pain) but never lower one the keywords found.
 - **Guarded words.** The model's sentence is shown only if it's short, makes no duration claim, and has no exclamation marks, links or markup. Otherwise the scripted wording is used.
@@ -13,7 +13,7 @@ Claude reads what you type: needs before a session, and safety concerns and requ
 
 Two ways to run it:
 
-- **Your Claude plan (Pro or Max).** Set `ALLOW_CLAUDE_PLAN=true`. Lull runs the official `claude` CLI (or `CLAUDE_CLI_PATH`) with your existing login: `claude -p --json-schema …` with no tools, no settings, no saved session, an empty temporary working directory, the message passed on stdin, and no API keys in its environment. It works on Windows, macOS and Linux. Each typed message takes a few seconds and counts toward your plan's usage limits.
+- **Your Claude plan (Pro or Max).** Set `ALLOW_CLAUDE_PLAN=true`. Sukoon runs the official `claude` CLI (or `CLAUDE_CLI_PATH`) with your existing login: `claude -p --json-schema …` with no tools, no settings, no saved session, an empty temporary working directory, the message passed on stdin, and no API keys in its environment. It works on Windows, macOS and Linux. Each typed message takes a few seconds and counts toward your plan's usage limits.
 - **An API key.** Set `ALLOW_CLAUDE_API=true` and `ANTHROPIC_API_KEY` (optionally `ANTHROPIC_MODEL`, default `claude-opus-5-5`). This uses the Anthropic SDK directly and takes priority when both are set.
 
 Then restart, choose **Claude (guided)** and consent before sending. `npm run eval` scores the keyword layer and Claude on 44 realistic phrasings and writes `eval/RESULTS.md`.

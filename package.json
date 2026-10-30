@@ -1,6 +1,7 @@
 {
   "name": "sukoon",
   "version": "3.0.0",
+  "description": "Sukoon: a 2½-minute desk break for Indian teams, with weekly team-level proof for HR and no employee names. English, Hindi, Hinglish and Marathi.",
   "private": true,
   "type": "module",
   "engines": {

@@ -1,9 +1,9 @@
 ---
 name: reset
-description: Lull, three-minute desk resets between calls, for people at work. Text only; the screen guides one short reset.
+description: Sukoon, three-minute desk resets between calls, for people at work. Text only; the screen guides one short reset.
 ---
 
-# Lull: three-minute desk resets
+# Sukoon: three-minute desk resets
 
 The protocol above always wins. This skill is for providers that draw the whole screen. The
 recommended live mode, Claude (guided), uses `skills/guide.md` instead and lets trusted local code
@@ -49,8 +49,8 @@ to try another time, then `Recap(...)` and a short goodbye. No FollowUps.
   m:ss", "Something else"). Root lists only the screens reached so far.
 - A reset: `intro`, one screen per step, `finish`. Each step screen starts with `Rail(intent,
   next)`, then a title "n of N · name", `Timer(label, seconds)`, a description, a List of 2–3
-  cues, a `TextInput` for "Tell Lull", and a Cue. After a choice on `pick`, open on the first step
-  with `intro` one step back. The intro carries an info Alert: Lull can't see you; do only what
+  cues, a `TextInput` for "Tell Sukoon", and a Cue. After a choice on `pick`, open on the first step
+  with `intro` one step back. The intro carries an info Alert: Sukoon can't see you; do only what
   feels comfortable.
 - Mid-reset posture or reset changes replace the document (`root = Screens([])` in its own fence,
   then the new reset).

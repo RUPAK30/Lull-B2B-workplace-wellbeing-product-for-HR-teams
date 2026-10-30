@@ -1,7 +1,7 @@
 // Shows the app in English, Hindi or Marathi. The engine keeps speaking English internally (buttons still
 // send their English labels), and this layer translates every line on screen as it is drawn.
 // The language follows the person: typing in Devanagari switches it; Roman Hinglish/Marathi gets a one-tap offer.
-import { STRINGS } from './i18n-strings.js?v=mvve4uw9';
+import { STRINGS } from './i18n-strings.js?v=mvve6tcf';
 const table = new Map();
 for (const line of STRINGS.split('\n')) {
     const [en, hi, mr] = line.split(' || ').map(s => s?.trim());
