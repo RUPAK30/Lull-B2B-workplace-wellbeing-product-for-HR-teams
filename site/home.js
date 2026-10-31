@@ -404,7 +404,7 @@ g.textContent=(h<5?'Up late':h<12?'Good morning':h<17?'Good afternoon':h<21?'Goo
 /* Hero card: a live 10-second taste of the close — countdown, one breath, then the phases */
 (function(){var d=document.getElementById('cc-dial');if(!d)return;var n=document.getElementById('cc-n'),l=document.getElementById('cc-l'),li=[].slice.call(document.querySelectorAll('#cc-steps li'));
 if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var timer=0,running=false;
-var P=['Breathe in… a small extra sip… long breath out','Tilt one ear toward your shoulder','Roll your shoulders back','Circle your wrists','Look across the room, blink slowly','Your first step after this?'];
+var P=['Breathe in… a small extra sip… long breath out','Tilt one ear toward your shoulder','Roll your shoulders back','Circle your wrists','Look across the room, blink slowly','Your first task after the meeting?'];
 function run(){if(running)return;running=true;var t=7;n.textContent='0:0'+t;l.textContent='Everyone starts together';li.forEach(function(x){x.classList.remove('on');});d.classList.remove('breathing');
  timer=setInterval(function(){t--;if(t>0){n.textContent='0:0'+t;return;}clearInterval(timer);var i=0;d.classList.add('breathing');
   var step=function(){li.forEach(function(x,k){x.classList.toggle('on',k===i);});n.textContent=(i+1)+'/'+P.length;l.textContent=P[i];i++;if(i<P.length)timer=setTimeout(step,i===1?4200:1800);else timer=setTimeout(function(){running=false;d.classList.remove('breathing');n.textContent='Done';l.textContent='Back at 10:15';timer=setTimeout(run,3500);},2200);};step();},1000);}
