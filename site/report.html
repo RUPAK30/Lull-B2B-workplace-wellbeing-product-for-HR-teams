@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Week 6 report — Northwind Logistics (sample) · Sukoon</title>
-<meta name="description" content="An illustrative company-wide week-6 report: 92 of 180 seats took part, 75 finished, cost per person who took part, a recommendation, and two teams the report refuses to show.">
+<meta name="description" content="An illustrative company-wide week-6 report: 141 of 180 team-days run, 84 people on an average day, cost per team-day, a recommendation, and two teams the report refuses to show.">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#FAF8F3">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -104,8 +104,8 @@
   <div class="rep-grid">
     <section>
       <h2 id="r-goals-h">Targets we agree before day one</h2>
-      <div class="goal"><p>Tried it in the first two weeks</p><strong id="g-tried">At least 60 people take part</strong><p id="g-tried-sub">Of 180 seats. A third of the company opening the link once.</p></div>
-      <div class="goal"><p>Came back within a week</p><strong>At least 1 in 3</strong><p>Of people who finish one session, how many use it again within a week.</p></div>
+      <div class="goal"><p>Kept it up past week 2</p><strong id="g-tried">At least 3 of 5 days per team</strong><p id="g-tried-sub">Each team that starts it runs it on at least three weekdays out of five.</p></div>
+      <div class="goal"><p>People who join</p><strong>At least half the team</strong><p>On an average day, of the people in each team that runs it.</p></div>
       <div class="goal"><p>Safe, every time</p><strong>No exceptions</strong><p>Any report of pain or a symptom ends the session without offering more movement.</p></div>
       <p class="rep-note" id="r-size-note">Proposed targets. Final targets are agreed with you in writing before the pilot starts.</p>
     </section>
@@ -113,32 +113,32 @@
     <section>
       <h2>What happened · Northwind Logistics (sample)</h2>
       <div class="rep-stats">
-        <div><p class="rep-big">92 <span>of 180</span></p><p class="rep-cap">started at least once</p></div>
-        <div><p class="rep-big">75 <span>of 92</span></p><p class="rep-cap">finished the full 2½ minutes</p></div>
+        <div><p class="rep-big">141 <span>of 180</span></p><p class="rep-cap">team-days the close ran</p></div>
+        <div><p class="rep-big">84 <span>of 180</span></p><p class="rep-cap">people on an average day</p></div>
       </div>
       <div class="rep-body">
         <figure style="margin:0">
-          <figcaption class="rep-cap" style="margin-bottom:10px">People active each week</figcaption>
+          <figcaption class="rep-cap" style="margin-bottom:10px">Team-days run each week (of 30)</figcaption>
           <ol class="rep-bars" id="bars"></ol>
         </figure>
         <div>
-          <p class="rep-cap" style="margin-bottom:6px">Six weeks, by team · started / finished</p>
+          <p class="rep-cap" style="margin-bottom:6px">Six weeks, by team · days run / avg joined</p>
           <ul class="rep-teams">
-            <li><span>Engineering <small>64 seats</small></span><b>45 / 38</b></li>
-            <li><span>Operations <small>38</small></span><b>21 / 17</b></li>
-            <li><span>Customer success <small>26</small></span><b>14 / 11</b></li>
-            <li><span>Sales <small>28</small></span><b>12 / 9</b></li>
+            <li><span>Engineering <small>64 people</small></span><b>29 / 41</b></li>
+            <li><span>Operations <small>38</small></span><b>25 / 19</b></li>
+            <li><span>Customer success <small>26</small></span><b>28 / 13</b></li>
+            <li><span>Sales <small>28</small></span><b>17 / 11</b></li>
             <li class="hid"><span>Finance <small>16</small></span><b>Hidden · under 10 taking part</b></li>
             <li class="hid"><span>Design <small>8</small></span><b>Hidden · under 10 taking part</b></li>
           </ul>
         </div>
       </div>
-      <p class="rep-insight"><b>Cost per person who took part ₹98.</b> Cost per finished session ₹120, at 6 teams and ₹8,994 a month.<br><b>Recommendation:</b> continue at 180 seats. Sales is thinning — week 3 had 19 people taking part, week 6 was 12.<br><b>Not in this report:</b> anything about pain, what anyone typed, or how they felt.</p>
+      <p class="rep-insight"><b>Cost per team-day run ₹64.</b> ₹8,994 a month for 6 teams, 141 team-days in six weeks.<br><b>Recommendation:</b> continue with 5 teams. Sales has run it 2 of 5 days for two weeks; pause it there unless the Sales lead wants to keep going.</p>
     </section>
   </div>
 
   <nav class="pager" aria-label="Continue">
-  <a class="pager-link" href="workspace.html"><span>Previous</span><b>The HR dashboard</b></a>
+  <a class="pager-link" href="workspace.html"><span>Previous</span><b>The HR view</b></a>
   <a class="pager-link pager-next" href="pilot.html"><span>Next</span><b>Pilot and price</b></a>
 </nav>
 
@@ -166,7 +166,7 @@
     <li><strong>Started:</strong> a break was opened from the team link.</li>
     <li><strong>Finished:</strong> the break reached the end. A stop is not a finish.</li>
     <li><strong>Came back:</strong> a start on a later day, after a finished session.</li>
-    <li><strong>Cost per person who took part:</strong> the monthly invoice divided by people who started at least once. Cost per finished session divides it by finished sessions instead.</li>
+    <li><strong>Cost per team-day run:</strong> the invoice for the period divided by the number of days teams actually ran the close.</li>
     <li><strong>Safety stops:</strong> never counted, never included, never reported.</li>
   </ul>
   <p>If your team has fewer than 10 people taking part in a week, the report says so and shows no team row. <a href="trust.html#data">The full data map</a>.</p>
@@ -176,7 +176,7 @@
 
 <script>
 (function () {
-  var W = [71, 108, 96, 89, 94, 92];
+  var W = [22, 26, 25, 23, 24, 21];
   document.getElementById('bars').innerHTML = W.map(function (n, i) {
     return '<li style="--h:' + Math.round(n / 108 * 88) + 'px"><span class="v">' + n + '</span><span class="b"></span><span class="w">W' + (i + 1) + '</span></li>';
   }).join('');

@@ -28,7 +28,8 @@
   <div class="wrap nav-inner">
     <a class="brand" href="./" aria-label="Sukoon home"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">sukoon</span></a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="index.html#runs">How it runs</a>
+      <a href="close/">The close</a>
+      <a href="start.html">Create your link</a>
       <a href="pilot.html#price">Pricing</a>
       <a href="trust.html">Trust</a>
     </nav>
@@ -37,8 +38,9 @@
   </div>
   <nav class="menu" id="menu-panel" aria-label="Menu">
     <div class="wrap">
-      <a href="index.html#runs">How it runs</a>
-      <a href="workspace.html">HR dashboard</a>
+      <a href="close/">The close</a>
+      <a href="start.html">Create your link</a>
+      <a href="workspace.html">The HR view</a>
       <a href="report.html">Week-6 report</a>
       <a href="pilot.html#price">Pricing</a>
       <a href="trust.html">Trust and data</a>
@@ -51,10 +53,10 @@
 
 <section class="doc-hero">
   <div class="wrap">
-    <p class="breadcrumb"><a href="index.html">Home</a> / HR dashboard</p>
-    <h1>This is what you'd log into.</h1>
-    <p class="lede">Six teams, 180 seats, one Friday digest and six weeks of history. It is the whole HR dashboard — there is no second view of it, no dashboard, and no manager view to switch to.</p>
-    <p class="doc-meta">HR dashboard · sample data · nothing here is real, and there is no backend</p>
+    <p class="breadcrumb"><a href="index.html">Home</a> / The HR view</p>
+    <h1>What HR sees: which teams ran the close.</h1>
+    <p class="lede">Six teams, 180 people. How many days each team ran the close, and how many joined on average. Never who. There is nothing here to manage.</p>
+    <p class="doc-meta">The HR view · sample data · nothing here is real, and there is no backend</p>
   </div>
 </section>
 
@@ -75,7 +77,7 @@
       <div class="ws-bar">
         <div>
           <p class="ws-co">Northwind Logistics</p>
-          <p class="ws-sub">6 teams · <span id="seat-count">180</span> seats · billed monthly</p>
+          <p class="ws-sub">6 teams · <span id="seat-count">180</span> people · billed monthly</p>
         </div>
         <div class="ws-bill">
           <p class="ws-bill-label">Next invoice</p>
@@ -90,29 +92,29 @@
         <thead>
           <tr>
             <th scope="col">Team</th>
-            <th scope="col">Seats</th>
-            <th scope="col">Started</th>
-            <th scope="col">Finished</th>
-            <th scope="col">Returned</th>
+            <th scope="col">People</th>
+            <th scope="col">Days run</th>
+            <th scope="col">Joined (avg)</th>
+            <th scope="col">Trend</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody id="ws-rows">
           <tr data-seats="64">
-            <th scope="row">Engineering</th><td>64</td><td>45</td><td>38</td><td>84%</td>
-            <td><span class="st ok">Reporting</span></td>
+            <th scope="row">Engineering</th><td>64</td><td>5 of 5</td><td>41</td><td>Steady</td>
+            <td><span class="st ok">Running</span></td>
           </tr>
           <tr data-seats="38">
-            <th scope="row">Operations</th><td>38</td><td>21</td><td>17</td><td>81%</td>
-            <td><span class="st ok">Reporting</span></td>
+            <th scope="row">Operations</th><td>38</td><td>4 of 5</td><td>19</td><td>Steady</td>
+            <td><span class="st ok">Running</span></td>
           </tr>
           <tr data-seats="28">
-            <th scope="row">Sales</th><td>28</td><td>12</td><td>9</td><td>75%</td>
-            <td><span class="st part">Thin</span></td>
+            <th scope="row">Sales</th><td>28</td><td>2 of 5</td><td>11</td><td>Fading</td>
+            <td><span class="st part">Fading</span></td>
           </tr>
           <tr data-seats="26">
-            <th scope="row">Customer success</th><td>26</td><td>14</td><td>11</td><td>79%</td>
-            <td><span class="st ok">Reporting</span></td>
+            <th scope="row">Customer success</th><td>26</td><td>5 of 5</td><td>13</td><td>Steady</td>
+            <td><span class="st ok">Running</span></td>
           </tr>
           <tr data-seats="16" class="is-hidden-team">
             <th scope="row">Finance</th><td>16</td><td colspan="3" class="ws-hidden-cell"><span class="hid">Hidden · under 10 taking part</span></td>
@@ -132,7 +134,7 @@
 
       <div class="ws-cols">
         <div class="ws-digest">
-          <p class="ws-h">The Friday email, as it was sent</p>
+          <p class="ws-h">HR's line, as it was sent</p>
           <div class="email">
             <div class="email-head">
               <p><span>From</span> Sukoon &lt;rupakr2g@gmail.com&gt;</p>
@@ -141,14 +143,14 @@
             </div>
             <div class="email-body">
               <p class="email-kicker">Week 6</p>
-              <p class="email-team">4 of 6 teams reporting</p>
+              <p class="email-team">4 teams ran the close this week</p>
               <div class="email-stats">
-                <div><strong>92</strong><span>started</span></div>
-                <div><strong>75</strong><span>finished</span></div>
-                <div><strong>₹98</strong><span>per person who took part</span></div>
+                <div><strong>16 of 20</strong><span>team-days run</span></div>
+                <div><strong>84</strong><span>people on an average day</span></div>
+                <div><strong>₹1,499</strong><span>per team a month</span></div>
               </div>
               <p class="email-note">Finance and Design are not in this email. Both had fewer than 10 people taking part, and the next-smallest team is hidden with them.</p>
-              <p class="email-note"><strong>Recommendation:</strong> continue at 180 seats. Sales is thinning — week 3 had 19 people taking part, this week is 12.</p>
+              <p class="email-note"><strong>No action needed.</strong> Sales ran it 2 of 5 days, down from 5 in week 3; the Sales lead gets the same note.</p>
               <p class="email-link"><a href="report.html" data-ev="ws-report">The week-6 report →</a></p>
             </div>
           </div>
@@ -157,12 +159,12 @@
         <div class="ws-side">
           <p class="ws-h">Six weeks</p>
           <ul class="ws-weeks">
-            <li><span>Week 1</span><b>71</b><span class="ws-w-note">starts</span></li>
-            <li><span>Week 2</span><b>108</b><span class="ws-w-note">starts</span></li>
-            <li><span>Week 3</span><b>96</b><span class="ws-w-note">starts · Sales 19</span></li>
-            <li><span>Week 4</span><b>89</b><span class="ws-w-note">starts</span></li>
-            <li><span>Week 5</span><b>94</b><span class="ws-w-note">starts</span></li>
-            <li class="is-now"><span>Week 6</span><b>92</b><span class="ws-w-note">starts · Sales 12</span></li>
+            <li><span>Week 1</span><b>22</b><span class="ws-w-note">of 30 team-days</span></li>
+            <li><span>Week 2</span><b>26</b><span class="ws-w-note">of 30</span></li>
+            <li><span>Week 3</span><b>25</b><span class="ws-w-note">of 30 · Sales 5/5</span></li>
+            <li><span>Week 4</span><b>23</b><span class="ws-w-note">of 30</span></li>
+            <li><span>Week 5</span><b>24</b><span class="ws-w-note">of 30</span></li>
+            <li class="is-now"><span>Week 6</span><b>21</b><span class="ws-w-note">of 30 · Sales 2/5</span></li>
           </ul>
 
           <div class="notice notice-warm">
@@ -176,20 +178,20 @@
 
     <div id="panel-report" role="tabpanel" aria-labelledby="tab-report" hidden>
       <h2 class="ws-h">What week 6 adds</h2>
-      <p class="doc-lede">The weekly email answers "is anyone using it". The week-6 report answers the question your CFO actually asks: what did we get for the money, and should we continue.</p>
+      <p class="doc-lede">The weekly line answers "is the close still running". The week-6 report answers what Finance asks: did teams keep it up, what did it cost, and should we continue.</p>
 
       <div class="rep-facts">
-        <div><b>92</b><span>people taking part, six weeks</span></div>
-        <div><b>75</b><span>finished the full 2½ minutes</span></div>
-        <div><b>₹98</b><span>cost per person who took part</span></div>
+        <div><b>141 of 180</b><span>team-days run, six weeks</span></div>
+        <div><b>84</b><span>people on an average day</span></div>
+        <div><b>₹8,994</b><span>a month, 6 teams</span></div>
         <div><b>4 of 6</b><span>teams shown</span></div>
       </div>
 
       <h3 class="ws-sub-h">What it contains</h3>
       <ul class="ws-list">
         <li>Targets agreed in week 0 — and whether they were met, in those words.</li>
-        <li>Starts, finishes, returns and cost per team, with the under-10 rule applied.</li>
-        <li>The one number a finance team will ask for: cost per finished session.</li>
+        <li>Days run and average joined per team, with the under-10 rule applied.</li>
+        <li>The one number a finance team will ask for: cost per team-day run.</li>
         <li>A recommendation that can say stop, and the reasons it would.</li>
         <li>A box headed <em>what this report cannot tell you</em> — no health outcome, no individual, no benchmark, because there are no other customers yet.</li>
       </ul>
@@ -217,7 +219,7 @@
     <div class="foot-top">
       <div>
         <a class="brand" href="./"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">sukoon</span></a>
-        <p class="foot-note">An early-stage product. A general movement break, not medical care. Sample figures are illustrative, not a customer.</p>
+        <p class="foot-note">An early-stage product: the last 2½ minutes of a team's standup. A movement break, not medical care. Sample figures are illustrative, not a customer.</p>
         <p class="foot-updated">Updated 30 Oct 2026 · v3.1</p>
       </div>
       <nav class="foot-links" aria-label="Trust">
@@ -231,9 +233,10 @@
       </nav>
       <nav class="foot-links" aria-label="Company">
         <p class="foot-head">Company</p>
+        <a href="close/">The close</a>
+        <a href="start.html">Create your team's link</a>
         <a href="pilot.html">Pilot and pricing</a>
         <a href="changes.html">Changelog</a>
-        <a href="changes.html">Changes</a>
         <a href="privacy.html">Site privacy</a>
         <a href="terms.html">Terms</a>
         <a href="mailto:rupakr2g@gmail.com">Contact</a>
