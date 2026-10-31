@@ -2,10 +2,18 @@
 @font-face{font-family:"Fraunces";font-style:normal;font-weight:300 700;font-display:swap;src:url("fonts/fraunces-latin.woff2") format("woff2")}
 @font-face{font-family:"Inter";font-style:normal;font-weight:400 600;font-display:swap;src:url("fonts/inter-latin.woff2") format("woff2")}
 @font-face{font-family:"Tiro Devanagari Hindi";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/tiro-devanagari.woff2") format("woff2");unicode-range:U+0900-097F,U+1CD0-1CF9,U+200C-200D,U+20A8,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF}
-/* Wordmark: viraam ⇄ विराम, one word in two scripts */
-.wm2{display:inline-grid;align-items:center;line-height:1;vertical-align:middle}
-.wm2>span{grid-area:1/1;white-space:nowrap;animation:wmSwap 9s ease-in-out infinite}
-.wm2 .en{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:500;letter-spacing:-.03em;font-variation-settings:"SOFT" 100,"WONK" 1}
-.wm2 .dv{font-family:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif;font-weight:400;letter-spacing:0;font-size:1.04em;transform:translateY(.04em);animation-delay:-4.5s}
-@keyframes wmSwap{0%,40%{opacity:1;filter:blur(0)}50%,90%{opacity:0;filter:blur(3px)}100%{opacity:1;filter:blur(0)}}
-@media (prefers-reduced-motion:reduce){.wm2>span{animation:none}.wm2 .dv{opacity:0}}
+/* Viraam lockup: the word, three dots trailing off, then the full stop "।".
+   The word changes script (viraam ⇄ विराम) with a slow crossfade. */
+.vm{display:inline-flex;line-height:1;color:var(--ink,#17241E);font-size:1.62rem}
+.vm-w{display:inline-grid;justify-items:start;align-items:center}
+.vm-w>span{grid-area:1/1;display:inline-flex;align-items:center;gap:.16em;white-space:nowrap;animation:vmSwap 12s ease-in-out infinite}
+.vm .en{font-family:"Fraunces",Georgia,serif;font-weight:560;letter-spacing:-.035em;font-variation-settings:"opsz" 48,"SOFT" 100,"WONK" 0}
+.vm .dv{font-family:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif;font-weight:400;font-size:1.06em;letter-spacing:0;animation-delay:-6s}
+.vm-t{display:inline-flex;align-items:center;gap:.13em;font-size:1em}
+.vm .dv .vm-t{font-size:.943em}
+.vm-t i{width:.13em;height:.13em;border-radius:50%;background:#2E7A58}
+.vm-t i:nth-child(1){opacity:.3}.vm-t i:nth-child(2){opacity:.55}.vm-t i:nth-child(3){opacity:.85}
+.vm-t b{width:.14em;height:.78em;margin-left:.1em;border-radius:.07em;background:#1F5A40}
+/* each word holds ~4.6s, then a 1.4s overlapping fade with a small rise */
+@keyframes vmSwap{0%,38%{opacity:1;transform:none}50%,88%{opacity:0;transform:translateY(-.12em)}88.01%{opacity:0;transform:translateY(.12em)}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.vm-w>span{animation:none}.vm .dv{visibility:hidden}}
