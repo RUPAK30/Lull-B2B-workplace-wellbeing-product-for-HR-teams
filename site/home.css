@@ -1461,3 +1461,6 @@ body::before{inset:-10%;background:
 .cc-breath{position:absolute;width:44%;aspect-ratio:1;border-radius:50%;background:#1F4D3A14;transform:scale(.6);transition:transform 4s ease-in-out}
 .cc-dial.breathing .cc-breath{transform:scale(1.15)}
 .cc-steps li{transition:background .3s,color .3s}.cc-steps li.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* Hero card: progress dashes like the real close, not buttons */
+.cc-steps.cc-bars{flex-wrap:nowrap;gap:5px;margin:16px 0}.cc-steps.cc-bars li{flex:1;height:4px;padding:0;border:0;border-radius:2px;background:var(--rule);font-size:0}.cc-steps.cc-bars li.on{background:var(--accent)}
