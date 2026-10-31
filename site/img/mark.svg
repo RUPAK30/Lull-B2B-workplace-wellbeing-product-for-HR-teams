@@ -2,6 +2,8 @@
   <title>Hard Stop</title>
   <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2E7A58"/><stop offset="1" stop-color="#123B2A"/></linearGradient></defs>
   <circle cx="20" cy="20" r="19" fill="url(#g)"/>
-  <rect x="8.5" y="18.3" width="16" height="3.4" rx="1.7" fill="#9FD8B6"/>
-  <rect x="25.6" y="11" width="4.4" height="18" rx="2.2" fill="#F7F2E8"/>
+  <circle cx="10" cy="20" r="2" fill="#9FD8B6" opacity=".45"/>
+  <circle cx="16" cy="20" r="2.2" fill="#9FD8B6" opacity=".7"/>
+  <circle cx="22" cy="20" r="2.4" fill="#9FD8B6"/>
+  <rect x="27" y="11" width="4.4" height="18" rx="2.2" fill="#F7F2E8"/>
 </svg>
