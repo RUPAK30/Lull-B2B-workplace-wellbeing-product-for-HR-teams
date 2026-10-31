@@ -28,11 +28,11 @@ Sukoon is the last 2½ minutes of a meeting a team already holds. A team lead pa
 
 | Time | Phase | On screen | Evidence |
 |---|---|---|---|
-| 0:00–0:15 | Breathe | One physiological sigh | Cyclic sighing trial (Balban et al., 2023) |
-| 0:15–1:15 | Neck · shoulders · wrists | 20 seconds each, seated, small | Micro-break meta-analysis (Albulescu et al., 2022) |
-| 1:15–1:45 | Eyes | Look across the room, blink slowly | 20-20-20 study (Aston University) |
-| 1:45–2:15 | Next step | "Your first step after this?" (never stored) | Ready-to-resume plan (Leroy & Glomb) |
-| 2:15–2:30 | Done | "Back at 10:15." | — |
+| 0:00–0:20 | Stand · breathe | "Stand up if you can", one slow sigh | Active > passive seated breaks (systematic review, 2022) |
+| 0:20–1:20 | Neck · shoulders · wrists | 20 seconds each, small | Micro-break meta-analysis (Albulescu et al., 2022) |
+| 1:20–1:40 | Eyes | Look across the room, blink slowly | 20-20-20 study (Aston University) |
+| 1:40–2:20 | Plan | "When this ends, I'll first…" (never stored) | If-then plans, 94 tests, d = .65 (Gollwitzer & Sheeran, 2006) |
+| 2:20–2:30 | Done | "Back at 10:15." · "Leaving with:" card | — |
 
 4. **Safety:** "Something hurts" stops it for that person, says to rest, and points to 112 for red flags.
 5. **Friday:** one line to the lead: how many days it ran, never who. A team appears only when 10 or more took part.
