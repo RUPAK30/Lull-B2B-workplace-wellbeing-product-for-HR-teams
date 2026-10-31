@@ -93,6 +93,34 @@ mr:{team:'तुमची टीम',land_k:'क्लोज',startTitle:'तु
  safeT:'इथेच थांबा आणि आराम करा.',safeA:'दुखणं सहन करत चालू ठेवू नका. छातीत दुखणं, श्वास घ्यायला त्रास, चक्कर येऊन पडणं, अचानक अशक्तपणा किंवा बधिरपणा असेल तर लगेच मदत घ्या: 112 वर कॉल करा.',safeB:'विराम हा छोटा हालचाल ब्रेक आहे, उपचार नाही.',ok:'मी ठीक आहे',late:'हा क्लोज संपला:',lateSub:'आत्ता एकट्याने एक सुरू करा.'}};
 // Phase ends in seconds from the shared start.
 var ENDS=[20,40,60,80,100,140,150],TOTAL=150;
+/* Weekday moves: the shape of the close never changes; the 60-second move block does. Day is read on the device in Indian time, so a team sees the same set. Sat/Sun use Monday's. */
+var SETS={en:[
+ [['Neck','Tilt one ear toward your shoulder.','Slow. Let your jaw unclench. Switch sides halfway.'],['Shoulders','Roll your shoulders back, slowly.','Shoulders down, away from your ears.'],['Wrists','Circle your wrists both ways.','Then shake your hands out.']],
+ [['Shoulder blades','Squeeze your shoulder blades together.','Hold for a breath, then let go. Chest open.'],['Side reach','Reach one arm up and over.','Long side, easy breath. Switch sides halfway.'],['Chest','Clasp your hands behind you and lift gently.','Only as far as feels easy. Seated is fine.']],
+ [['Calves','Rise onto your toes, then lower.','Hold the desk if you like. Seated: lift your heels.'],['March','March on the spot.','Seated: lift one knee, then the other.'],['Ankles','Circle one ankle, then the other.','Both directions.']],
+ [['Fingers','Spread your fingers wide, then a soft fist.','Slowly, both hands.'],['Palms','Turn your palms up, then down.','Elbows soft, shoulders low.'],['Shake out','Shake your hands out loosely.','Let your arms hang.']],
+ [['Reach up','Reach both arms up, long and tall.','Breathe out as you lower. Seated is fine.'],['Twist','Turn gently to one side, then the other.','From the waist, slow. Hips stay still.'],['Shoulders','Roll your shoulders back, slowly.','Let the week drop off them.']]],
+hi:[
+ [['गर्दन','एक कान को कंधे की ओर धीरे से झुकाएँ।','धीरे से। जबड़ा ढीला छोड़ें। आधे समय पर तरफ़ बदलें।'],['कंधे','कंधों को धीरे-धीरे पीछे घुमाएँ।','कंधे कानों से दूर, नीचे ढीले।'],['कलाई','कलाइयों को दोनों दिशाओं में घुमाएँ।','फिर हाथ झटक लें।']],
+ [['कंधे की हड्डियाँ','कंधे की हड्डियों को पीछे की ओर पास लाएँ।','एक साँस रोकें, फिर छोड़ दें। सीना खुला।'],['बगल में खिंचाव','एक हाथ ऊपर उठाकर दूसरी ओर झुकाएँ।','आराम से साँस लें। आधे समय पर तरफ़ बदलें।'],['सीना','हाथ पीछे जोड़ें और धीरे से ऊपर उठाएँ।','जितना आराम से हो। बैठे-बैठे भी ठीक है।']],
+ [['पिंडलियाँ','पंजों पर उठें, फिर नीचे आएँ।','चाहें तो डेस्क पकड़ लें। बैठे हों तो एड़ियाँ उठाएँ।'],['कदमताल','अपनी जगह पर कदमताल करें।','बैठे हों तो एक घुटना उठाएँ, फिर दूसरा।'],['टखने','एक टखना घुमाएँ, फिर दूसरा।','दोनों दिशाओं में।']],
+ [['उँगलियाँ','उँगलियाँ पूरी फैलाएँ, फिर हल्की मुट्ठी बाँधें।','धीरे से, दोनों हाथ।'],['हथेलियाँ','हथेलियाँ ऊपर करें, फिर नीचे।','कोहनियाँ ढीली, कंधे नीचे।'],['हाथ झटकें','हाथों को ढीला छोड़कर झटकें।','बाँहें नीचे लटकने दें।']],
+ [['ऊपर खिंचाव','दोनों हाथ ऊपर उठाएँ, लंबे होकर।','नीचे लाते हुए साँस छोड़ें। बैठे-बैठे भी ठीक है।'],['मोड़','धीरे से एक ओर मुड़ें, फिर दूसरी ओर।','कमर से, धीरे। कूल्हे स्थिर।'],['कंधे','कंधों को धीरे-धीरे पीछे घुमाएँ।','हफ़्ते का बोझ उतरने दें।']]],
+mr:[
+ [['मान','एक कान खांद्याकडे हळूच झुकवा.','हळू. जबडा सैल सोडा. अर्ध्या वेळेत बाजू बदला.'],['खांदे','खांदे हळूहळू मागे फिरवा.','खांदे कानांपासून दूर, खाली सैल.'],['मनगट','मनगटं दोन्ही दिशांनी फिरवा.','मग हात झटका.']],
+ [['खांद्याची हाडं','खांद्याची हाडं मागे एकमेकांजवळ आणा.','एक श्वास थांबा, मग सोडा. छाती मोकळी.'],['बाजूला ताण','एक हात वर उचलून दुसऱ्या बाजूला झुका.','सहज श्वास. अर्ध्या वेळेत बाजू बदला.'],['छाती','हात मागे जोडा आणि हळूच वर उचला.','जितकं सहज जमेल तितकंच. बसूनही चालेल.']],
+ [['पोटऱ्या','चवड्यांवर उभे राहा, मग खाली या.','हवं तर डेस्क धरा. बसला असाल तर टाचा उचला.'],['जागेवर चाला','जागेवरच पावलं उचला.','बसला असाल तर एक गुडघा उचला, मग दुसरा.'],['घोटे','एक घोटा फिरवा, मग दुसरा.','दोन्ही दिशांनी.']],
+ [['बोटं','बोटं पूर्ण पसरा, मग हलकी मूठ करा.','हळू, दोन्ही हात.'],['तळवे','तळवे वर करा, मग खाली.','कोपर सैल, खांदे खाली.'],['हात झटका','हात सैल सोडून झटका.','हात खाली लोंबू द्या.']],
+ [['वर ताण','दोन्ही हात वर उचला, उंच होऊन.','खाली आणताना श्वास सोडा. बसूनही चालेल.'],['वळण','हळूच एका बाजूला वळा, मग दुसऱ्या.','कमरेतून, हळू. कंबर स्थिर.'],['खांदे','खांदे हळूहळू मागे फिरवा.','आठवड्याचा भार उतरू द्या.']]]};
+var KIND=[['side','roll','circle'],['hold','side','hold'],['updown','side','circle'],['hold','updown','circle'],['updown','side','roll']];
+var CU2={en:['UP','DOWN','HOLD','LET GO'],hi:['ऊपर','नीचे','रोकें','छोड़ें'],mr:['वर','खाली','थांबा','सोडा']};
+var THEME={en:['neck and shoulders','upper back','legs','hands','whole body'],hi:['गर्दन और कंधे','पीठ का ऊपरी हिस्सा','पैर','हाथ','पूरा शरीर'],mr:['मान आणि खांदे','पाठीचा वरचा भाग','पाय','हात','संपूर्ण शरीर']};
+var TMR={en:['Tomorrow: ','Monday: '],hi:['कल: ','सोमवार: '],mr:['उद्या: ','सोमवारी: ']};
+function dayNum(){return new Date(Date.now()+19800000).getUTCDay();}
+function dayIdx(){var d=dayNum();return d>=1&&d<=5?d-1:0;}
+function P(i){return (i>=1&&i<=3)?SETS[lang][dayIdx()][i-1]:T[lang].p[i];}
+function tomorrowLine(){var d=dayNum(),fri=d>=5||d===0,nx=fri?0:d;return (fri?TMR[lang][1]:TMR[lang][0])+THEME[lang][nx];}
+
 var q=new URLSearchParams(location.search),team=(q.get('team')||'').replace(/[^\p{L}\p{N} .&-]/gu,'').slice(0,40),code=team.toLowerCase().replace(/[^a-z0-9-]/g,'').slice(0,24);
 var lang=(function(){try{var v=localStorage.getItem('sukoon.lang');return T[v]?v:'en';}catch(e){return 'en';}})();
 var tallyN=0,start=null,mode='idle',nextText='',raf=0,view=document.getElementById('view'),foot=document.getElementById('foot');
@@ -125,13 +153,13 @@ function draw(force){
   if(mode==='hold'||now<start){var s=Math.ceil((start-now)/1000);var key='hold'+lang;if(key!==lastKey||force){lastKey=key;foot.hidden=true;view.innerHTML='<p class="kicker">'+esc(greet())+'</p><div class="wait"><i class="orb2"></i><div class="big" id="cd"></div></div><h1 class="h-hold">'+esc(t('hold'))+' '+hhmm(start)+'</h1><p class="sub">'+esc(t('shared'))+'<br>'+esc(t('promise'))+'</p><button class="btn ghost" id="early">'+esc(t('startEarly'))+'</button><br>'+cueBtn();document.getElementById('early').onclick=function(){begin(Date.now());};wireCue();}
     var cd=document.getElementById('cd');if(cd)cd.textContent=s>59?Math.floor(s/60)+':'+('0'+s%60).slice(-2):String(s);if(now>=start){mode='run';send('team-reset-joined');send('session-started');foot.hidden=false;}return;}
   var e=(now-start)/1000;if(e>=TOTAL){mode='done';send('session-finished');done();return;}
-  var i=0;while(e>=ENDS[i])i++;var p0=i?ENDS[i-1]:0,left=Math.ceil(ENDS[i]-e),frac=(e-p0)/(ENDS[i]-p0),ph=T[lang].p[i].slice();if(personal&&i===0)ph[1]=t('me').land;
+  var i=0;while(e>=ENDS[i])i++;var p0=i?ENDS[i-1]:0,left=Math.ceil(ENDS[i]-e),frac=(e-p0)/(ENDS[i]-p0),ph=P(i).slice();if(personal&&i===0)ph[1]=t('me').land;
   if(i!==lastPhase){if(lastPhase>=0||i===0)ping();lastPhase=i;}
   var key='run'+i+lang,cu=t('cue');
   if(key!==lastKey||force){lastKey=key;foot.hidden=i>=6;
     var bar='<div class="bar">'+[0,1,2,3,4,5].map(function(k){return '<i class="'+(k===i?'on':k<i?'past':'')+'"></i>';}).join('')+'</div>';
     var top='<div class="top"><span>'+(i+1)+' · '+esc(ph[0])+'</span><span id="tl"></span></div>'+bar;
-    var nxt=i<5?'<p class="upnext">'+esc(t('upnext'))+' · '+esc(T[lang].p[i+1][0])+'</p>':'';
+    var nxt=i<5?'<p class="upnext">'+esc(t('upnext'))+' · '+esc(P(i+1)[0])+'</p>':'';
     var mid=i===5?'<p class="do big2">'+esc(nextPrompt())+'</p><input class="next" id="nx" maxlength="80" placeholder="'+esc(t('nextPh'))+'" value="'+esc(nextText)+'"><div class="row2"><button class="copy" id="cp" type="button">'+esc(t('copy'))+'</button><span class="tiny">'+esc(ph[2])+'</span></div>'
       :'<div class="guide g'+i+'" id="gd"><i class="orb" id="orb"></i><b id="cw"></b><svg viewBox="0 0 100 100" class="arc"><circle class="bg" cx="50" cy="50" r="47"/><circle class="fg" id="fg" cx="50" cy="50" r="47" stroke-dasharray="295.3" stroke-dashoffset="295.3"/></svg></div><p class="do big2">'+esc(ph[1])+'</p><p class="how">'+esc(ph[2])+'</p>';
     view.innerHTML=top+mid+nxt;
@@ -140,14 +168,17 @@ function draw(force){
   var fg=document.getElementById('fg');if(fg)fg.setAttribute('stroke-dashoffset',String(295.3*(1-frac)));
   var pe=e-p0,cw=document.getElementById('cw'),orb=document.getElementById('orb'),word='',sc=1,ang=null;
   if(i===0){var c=pe%11;word=c<4?cu[0]:c<5?cu[1]:cu[2];sc=c<4?0.7+0.12*c:c<5?1.22:1.22-0.09*(c-5);}
-  else if(i===1){word=pe<10?cu[3]:cu[4];ang=pe<10?-28:28;}
-  else if(i===2){word=cu[5];ang=(pe*72)%360;}
-  else if(i===3){word=cu[6];ang=(pe*180)%360;}
+  else if(i>=1&&i<=3){var k=KIND[dayIdx()][i-1],c2=CU2[lang];
+    if(k==='side'){word=pe<10?cu[3]:cu[4];ang=pe<10?-28:28;}
+    else if(k==='roll'){word=cu[5];ang=(pe*72)%360;}
+    else if(k==='circle'){word=cu[6];ang=(pe*180)%360;}
+    else if(k==='updown'){var u=pe%4;word=u<2?c2[0]:c2[1];sc=u<2?1.2:0.8;}
+    else{var h=pe%6;word=h<3?c2[2]:c2[3];sc=h<3?1.15:0.85;}}
   else if(i===4){var bl=pe>=6&&(pe%8)<1.2;word=bl?cu[8]:cu[7];sc=bl?0.92:1;}
   if(cw&&cw.textContent!==word)cw.textContent=word;
   if(orb){orb.style.transform=ang===null?'scale('+sc+')':'rotate('+ang+'deg) translateY(calc(min(58vw,230px)*-0.38))';orb.classList.toggle('dot',ang!==null);}
 }
-function done(){foot.hidden=true;cancelAnimationFrame(raf);ping();if(!tallyN)tallyN=bumpTally();var back=hhmm((start||Date.now())+TOTAL*1000+30000);view.innerHTML='<div class="settle"><i class="orb2"></i></div><p class="kicker">'+esc(t('nice'))+(team?', '+esc(team):'')+'</p><h1>'+(personal?esc(T[lang].p[6][1]):esc(t('back'))+' '+back+'.')+'</h1>'+(nextText?'<div class="taskcard"><span>'+esc(t('yours'))+'</span><p>'+esc(nextText)+'</p><button class="copy" id="cp2" type="button">'+esc(t('copy'))+'</button></div>':'')+'<p class="sub">'+esc(t('closeTab'))+'</p>'+(tallyN?'<p class="tiny">'+esc(t('me').tally(tallyN))+'</p>':'')+(personal?'<br><button class="link" id="again" type="button" style="background:none;border:0;cursor:pointer;font-family:inherit">'+esc(t('again'))+'</button>':'');var c2=document.getElementById('cp2');if(c2)c2.onclick=function(){if(navigator.clipboard)navigator.clipboard.writeText(nextText).then(function(){c2.textContent=t('copied');},function(){});};var ag=document.getElementById('again');if(ag)ag.onclick=function(){nextText='';lastPhase=-1;tallyN=0;begin(Date.now()+3000);};}
+function done(){foot.hidden=true;cancelAnimationFrame(raf);ping();if(!tallyN)tallyN=bumpTally();var back=hhmm((start||Date.now())+TOTAL*1000+30000);view.innerHTML='<div class="settle"><i class="orb2"></i></div><p class="kicker">'+esc(t('nice'))+(team?', '+esc(team):'')+'</p><h1>'+(personal?esc(T[lang].p[6][1]):esc(t('back'))+' '+back+'.')+'</h1>'+(nextText?'<div class="taskcard"><span>'+esc(t('yours'))+'</span><p>'+esc(nextText)+'</p><button class="copy" id="cp2" type="button">'+esc(t('copy'))+'</button></div>':'')+'<p class="sub">'+esc(t('closeTab'))+'</p>'+(team?'<p class="tiny">'+esc(tomorrowLine())+'</p>':'')+(tallyN?'<p class="tiny">'+esc(t('me').tally(tallyN))+'</p>':'')+(personal?'<br><button class="link" id="again" type="button" style="background:none;border:0;cursor:pointer;font-family:inherit">'+esc(t('again'))+'</button>':'');var c2=document.getElementById('cp2');if(c2)c2.onclick=function(){if(navigator.clipboard)navigator.clipboard.writeText(nextText).then(function(){c2.textContent=t('copied');},function(){});};var ag=document.getElementById('again');if(ag)ag.onclick=function(){nextText='';lastPhase=-1;tallyN=0;begin(Date.now()+3000);};}
 function late(){foot.hidden=true;view.innerHTML='<p class="kicker">'+esc(team||t('team'))+'</p><h1>'+esc(t('late'))+' '+hhmm(at+TOTAL*1000)+'.</h1><p class="sub">'+esc(t('lateSub'))+'</p><button class="btn" id="go">'+esc(t('startNow'))+'</button>';document.getElementById('go').onclick=function(){begin(Date.now()+3000);};}
 function stopped(){foot.hidden=true;cancelAnimationFrame(raf);view.innerHTML='<h1>'+esc(t('stopped'))+'</h1><p class="sub">'+esc(t('stoppedSub'))+'</p><button class="btn ghost" id="again">'+esc(t('again'))+'</button>';document.getElementById('again').onclick=function(){begin(Date.now()+3000);};}
 function safe(){foot.hidden=true;cancelAnimationFrame(raf);view.innerHTML='<h1>'+esc(t('safeT'))+'</h1><div class="alert">'+esc(t('safeA'))+'</div><p class="sub">'+esc(t('safeB'))+'</p><button class="btn ghost" id="ok">'+esc(t('ok'))+'</button>';document.getElementById('ok').onclick=function(){mode='stopped';stopped();};}

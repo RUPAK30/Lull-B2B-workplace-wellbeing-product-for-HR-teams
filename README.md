@@ -38,10 +38,12 @@ Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pa
 | Time | Phase | On screen | Evidence |
 |---|---|---|---|
 | 0:00–0:20 | Stand · breathe | "Stand up if you can", one slow sigh | Active > passive seated breaks (systematic review, 2022) |
-| 0:20–1:20 | Neck · shoulders · wrists | 20 seconds each, small | Micro-break meta-analysis (Albulescu et al., 2022) |
+| 0:20–1:20 | Move: a different set each weekday | Mon neck/shoulders/wrists · Tue upper back · Wed legs · Thu hands · Fri whole body; 20 s each | Micro-break meta-analysis (Albulescu et al., 2022) |
 | 1:20–1:40 | Eyes | Look across the room, blink slowly | 20-20-20 study (Aston University) |
 | 1:40–2:20 | Plan | "When this ends, I'll first…" (never stored) | If-then plans, 94 tests, d = .65 (Gollwitzer & Sheeran, 2006) |
-| 2:20–2:30 | Done | "Back at 10:15." · "Leaving with:" card | — |
+| 2:20–2:30 | Done | "Back at 10:15." · "Leaving with:" card · "Tomorrow: legs" | — |
+
+The shape never changes; only the move block does. The page reads the day itself (Indian time), so everyone on a team gets the same set; weekends use Monday's.
 
 4. **Safety:** "Something hurts" stops it for that person, says to rest, and points to 112 for red flags.
 5. **Friday:** one line to the lead: how many days it ran, never who. A team appears only when 10 or more took part.
