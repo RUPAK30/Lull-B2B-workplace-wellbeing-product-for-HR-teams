@@ -10,7 +10,7 @@ for (const line of STRINGS.split('\n')) {
         table.set(en.toLowerCase(), { hi, mr });
     }
 }
-const KEY = 'sukoon.lang';
+const KEY = 'sukoon-archive.lang';
 let lang = (() => { try {
     const v = localStorage.getItem(KEY);
     return v === 'hi' || v === 'mr' ? v : 'en';
