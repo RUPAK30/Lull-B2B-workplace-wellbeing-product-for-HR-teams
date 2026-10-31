@@ -73,7 +73,7 @@
   var $=function(i){return document.getElementById(i)},qr=null;
   function at(end){var p=end.split(':'),m=(+p[0])*60+(+p[1])-3;if(m<0)m+=1440;return ('0'+Math.floor(m/60)).slice(-2)+('0'+m%60).slice(-2);}
   function paint(){
-    var team=($('g-team').value.trim()||'Our team').replace(/[^\w .&-]/g,''),end=$('g-end').value||'10:15',a=at(end),
+    var team=($('g-team').value.trim()||'Our team').replace(/[^\w .&-]/g,''),end=$('g-end').value||'10:15',a=at(end);
     var url='https://lull-hr.vercel.app/close/?team='+encodeURIComponent(team)+'&at='+a;
     var line='Last 2½ minutes: a seated break together, camera off. Open at '+a.slice(0,2)+':'+a.slice(2)+' → '+url;
     $('g-line').textContent=line;$('g-at').textContent=a.slice(0,2)+':'+a.slice(2);
