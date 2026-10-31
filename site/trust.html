@@ -82,10 +82,10 @@
           <caption>Last checked 30 October 2026</caption>
           <thead><tr><th scope="col">Area</th><th scope="col">Status</th><th scope="col">Detail</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Personal data collected</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">No names, emails or device IDs. Anonymous team counts only.</td></tr>
-            <tr><th scope="row">Hindi and Marathi screens</th><td data-label="Status"><span class="st part">In review</span></td><td data-label="Detail">The app reads and replies in English, Hindi and Marathi. Translations are written in plain everyday language; a native-speaker review of the safety screens is due before a paid pilot.</td></tr>
+            <tr><th scope="row">Personal data collected</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">No names, emails or device IDs. Team counts only.</td></tr>
+            <tr><th scope="row">Hindi and Marathi screens</th><td data-label="Status"><span class="st part">In review</span></td><td data-label="Detail">The close is shown in English, Hindi and Marathi. Translations are written in plain everyday language; a native-speaker review of the safety screens is due before a paid pilot.</td></tr>
             <tr><th scope="row">Small-number suppression</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Teams under 10 are hidden, plus a second team if subtraction could reveal one.</td></tr>
-            <tr><th scope="row">HR dashboard data</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Company name, team names, seats and weekly counts. No person, no email, no employee ID, no session record.</td></tr>
+            <tr><th scope="row">HR view data</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Company name, team names, team sizes, and how many days each team ran the close. No person, no email, no employee ID, no session record.</td></tr>
             <tr><th scope="row">Subprocessor list</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Complete list below, with location and data.</td></tr>
             <tr><th scope="row">Incident response</th><td data-label="Status"><span class="st part">Partial</span></td><td data-label="Detail">Named contact and a two-working-day reply. No formal runbook yet.</td></tr>
             <tr><th scope="row">Accessibility</th><td data-label="Status"><span class="st part">Partial</span></td><td data-label="Detail">Keyboard and reduced motion tested; automated checks run. No independent WCAG audit.</td></tr>
@@ -99,23 +99,20 @@
       <section class="doc-section" id="data">
         <p><strong>The HR dashboard holds four things and nothing else:</strong> your company name, your team names, the seat count per team, and the weekly counts. There is no field for a person, an email address, an employee ID, a device ID, or a session record, so none can be stored by accident.</p>
         <h2>What is collected</h2>
-        <p><strong>Only counts leave a device.</strong> A pilot link carries a short team code. When someone starts or finishes a break, the app adds one to that team's count. There is no row for a person and no session history.</p>
+        <p><strong>Only counts leave a device.</strong> A team link carries a short team code. When someone joins the close and when it reaches the end, one is added to that team's count. There is no row for a person and no history per person.</p>
         <table class="data-table">
-          <caption>Every event that can leave the device in a pilot</caption>
+          <caption>Every event the close can send</caption>
           <thead><tr><th scope="col">Event</th><th scope="col">What it means</th></tr></thead>
           <tbody>
-            <tr><td><code>session-started</code></td><td>Someone opened a break.</td></tr>
-            <tr><td><code>session-finished</code></td><td>The break reached the end.</td></tr>
-            <tr><td><code>came-back</code></td><td>Someone returned on a later day.</td></tr>
-            <tr><td><code>reminder-set</code></td><td>Someone made their own calendar or Slack reminder.</td></tr>
-            <tr><td><code>opened-from-reminder</code></td><td>A break was opened from that reminder.</td></tr>
-            <tr><td><code>team-reset-joined</code></td><td>Someone opened a shared team-break link.</td></tr>
+            <tr><td><code>team-reset-joined</code></td><td>Someone opened the team's link.</td></tr>
+            <tr><td><code>session-started</code></td><td>The close started on that screen.</td></tr>
+            <tr><td><code>session-finished</code></td><td>The close reached the end on that screen.</td></tr>
           </tbody>
         </table>
         <p class="small">The count path is <code>pilot/&lt;team&gt;/&lt;event&gt;</code>. Nothing else is in it.</p>
 
         <h3>What the report contains</h3>
-        <p>Per team, per week: how many started, how many finished, and how many started but did not finish. That is the four-field row: team, week, started, finished.</p>
+        <p>Per team, per week: on how many days the close ran, and how many people joined on an average day. That is the whole row: team, week, days run, average joined.</p>
 
         <h3>What is never collected</h3>
         <ul>
@@ -130,9 +127,9 @@
 
       <section class="doc-section" id="small-numbers">
         <h2>Small numbers are suppressed</h2>
-        <p>A team appears in a weekly email only when at least <strong>10 people started</strong> that week. We also hide the next-smallest team, so a hidden team cannot be worked out by subtracting the visible rows from a company total. Counts are weekly, never daily, so one person’s day of leave cannot reveal who usually takes part.</p>
+        <p>A team appears in a Friday line or the HR view only when at least <strong>10 people joined</strong> that week. We also hide the next-smallest team, so a hidden team cannot be worked out by subtracting the visible rows from a company total. Counts are weekly, never daily, so one person’s day of leave cannot reveal who usually takes part.</p>
         <p><strong>We call this aggregated with small numbers suppressed. We do not call it anonymous.</strong> A team code can describe a group, and a group can be small. Suppression is what protects the group, not a promise that the data contains no person at all.</p>
-        <p>If too few teams pass the threshold, the week's email says so and shows no team rows.</p>
+        <p>If too few teams pass the threshold, the Friday line and the HR view say so and show no team rows.</p>
       </section>
 
       <section class="doc-section" id="roles">
@@ -202,10 +199,10 @@
         <h2>The employee notice</h2>
         <p>You send this before the link. It is short on purpose.</p>
         <div class="notice">
-          <p><strong>What this is.</strong> Sukoon is a three-minute seated movement break. It is optional. There is no login and nothing to install.</p>
-          <p><strong>What is counted.</strong> If our team joins the pilot, Sukoon counts how many people in the team started and finished a break each week. It does not record who.</p>
-          <p><strong>What is not counted.</strong> What you type, how you feel, and anything about pain are never sent. If you stop or report pain, no one at the company is told.</p>
-          <p><strong>Your choice.</strong> You can ignore the link, turn counting off in the app, and clear the device log at any time.</p>
+          <p><strong>What this is.</strong> For the last 2½ minutes of our standup, we open one link and do a short seated break together. It is optional. There is no login and nothing to install.</p>
+          <p><strong>What is counted.</strong> How many people in the team joined, and on how many days it ran. It does not record who.</p>
+          <p><strong>What is not counted.</strong> What you type, including your "first step" note, and anything about pain is never sent. If you stop or tap "Something hurts", no one at the company is told.</p>
+          <p><strong>Your choice.</strong> You can skip it any day by not opening the link. Nothing about you is recorded either way.</p>
           <p><strong>Questions.</strong> Ask <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a>.</p>
         </div>
         <p class="small">This is a template, not legal advice. Your company decides the final wording.</p>
