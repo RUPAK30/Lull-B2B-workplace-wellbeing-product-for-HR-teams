@@ -1456,3 +1456,8 @@ body::before{inset:-10%;background:
 .gen-qr{display:flex;gap:16px;align-items:center;padding-top:14px;border-top:1px solid var(--rule)}.gen-qr p{margin:0}
 .price-hero{font-size:1.1rem;color:var(--ink-2);margin:0 0 12px}.price-hero strong{font:500 2.4rem/1 var(--serif);color:var(--accent);margin-right:6px}.price-hero span{display:block;margin-top:6px}
 .price-chips{margin:0 0 18px}
+
+.cc-dial{position:relative;overflow:hidden}.cc-dial strong,.cc-dial span{position:relative}.cc-dial span{max-width:85%;text-align:center}
+.cc-breath{position:absolute;width:44%;aspect-ratio:1;border-radius:50%;background:#1F4D3A14;transform:scale(.6);transition:transform 4s ease-in-out}
+.cc-dial.breathing .cc-breath{transform:scale(1.15)}
+.cc-steps li{transition:background .3s,color .3s}.cc-steps li.on{background:var(--accent);color:#fff;border-color:var(--accent)}
