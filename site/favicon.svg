@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-label="Hard Stop">
-  <title>Hard Stop</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-label="Viraam">
+  <title>Viraam</title>
   <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2E7A58"/><stop offset="1" stop-color="#123B2A"/></linearGradient></defs>
   <circle cx="20" cy="20" r="19" fill="url(#g)"/>
   <circle cx="10" cy="20" r="2" fill="#9FD8B6" opacity=".45"/>
