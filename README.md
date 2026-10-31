@@ -2,7 +2,7 @@
 
 **Your standup has a start time. Give it an ending.**
 
-Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pastes one line into the standup invite. As the meeting ends, everyone opens the link and starts a guided, seated movement break at the same second, in English, Hindi, Hinglish or Marathi. On Friday the lead gets one line: how many days it ran. HR's whole involvement is one yes and one invoice; there is nothing to run.
+Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pastes one line into the standup invite. As the meeting ends, everyone opens the link and starts the same 2½-minute close at the same second: stand if you can, move, rest the eyes, and finish "When this ends, I'll first…", in English, हिंदी or मराठी. On Friday the lead gets one line: how many days it ran. HR's whole involvement is one yes and one invoice; there is nothing to run.
 
 [Live product](https://lull-hr.vercel.app/) · [Create a team link](https://lull-hr.vercel.app/start) · [Try the 2½ minutes](https://lull-hr.vercel.app/app/?reset=unknot-seated&start=1) · [Pilot & pricing](https://lull-hr.vercel.app/pilot) · [Trust & data](https://lull-hr.vercel.app/trust) · [Product case study](https://lull-hr.vercel.app/pm)
 
@@ -47,12 +47,10 @@ The promise is deliberately narrow: less fatigue, rested eyes, and a clear first
 - **Aggregated, not "anonymous".** Viraam deliberately does not claim anonymity; small-number suppression is what protects the group.
 - **The only data that leaves a device** is six allow-listed team counts (`src/shared/pilot.ts`). What people type, how they feel, and every safety stop stay on the device.
 
-## Language and understanding
+## Language
 
-- **Four input languages:** English, Hinglish, and Hindi and Marathi in Devanagari or Roman script.
-- **Three display languages:** the full app runs in English, हिंदी or मराठी, more than 300 lines each. It switches automatically when someone types in Devanagari, and offers a one-tap switch for Roman Hinglish or Marathi.
-- **About 900 phrases understood without AI,** covering how people feel, pain and emergencies, and mid-session requests ("slower", "stop", "I'm on a call", "how long?").
-- **Optional AI layer.** A company can switch on a model such as Claude with its own API key and a written opt-in. Safety always stays on fixed rules; a model never decides whether someone is safe.
+- **The close runs in English, हिंदी or मराठी,** switchable at any time; the brand reads viraam ⇄ विराम.
+- **The earlier individual app** (in `src/`, kept as history) understood about 900 phrases across English, Hinglish, Hindi and Marathi without AI, with an optional AI layer; safety always stayed on fixed rules. The close itself needs no typing to understand.
 
 ## Site map
 
