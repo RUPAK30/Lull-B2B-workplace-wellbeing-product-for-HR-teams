@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Create your team's link · Sukoon</title>
+<title>Create your team's link · Hard Stop</title>
 <meta name="description" content="Make the one line for your standup invite: the last 2½ minutes, everyone starts together.">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#FAF8F3">
 <link rel="canonical" href="https://lull-hr.vercel.app/start">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Sukoon">
+<meta property="og:site_name" content="Hard Stop">
 <meta property="og:title" content="Changes — what we changed, and why">
 <meta property="og:url" content="https://lull-hr.vercel.app/start">
 <link rel="stylesheet" href="fonts.css">
@@ -24,7 +24,7 @@
 
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="./" aria-label="Sukoon home"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">sukoon</span></a>
+    <a class="brand" href="./" aria-label="Hard Stop home"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">hard stop</span></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="close/">The close</a>
       <a href="start.html">Create your link</a>
@@ -82,7 +82,7 @@
     var t=a+'00',d=new Date(),ymd=d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2);
     var e=(function(){var m=(+a.slice(0,2))*60+(+a.slice(2))+3;return ('0'+Math.floor(m/60%24)).slice(-2)+('0'+m%60).slice(-2)+'00';})();
     $('g-gcal').href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(team+' · last 2½ minutes')+'&details='+encodeURIComponent(line)+'&dates='+ymd+'T'+t+'/'+ymd+'T'+e+'&recur='+encodeURIComponent('RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR');
-    var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Sukoon//Team close//EN','BEGIN:VEVENT','UID:'+Date.now()+'@sukoon','DTSTAMP:'+ymd+'T000000','DTSTART:'+ymd+'T'+t,'DTEND:'+ymd+'T'+e,'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR','SUMMARY:'+team+' · last 2½ minutes','DESCRIPTION:'+line,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Hard Stop//Team close//EN','BEGIN:VEVENT','UID:'+Date.now()+'@sukoon','DTSTAMP:'+ymd+'T000000','DTSTART:'+ymd+'T'+t,'DTEND:'+ymd+'T'+e,'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR','SUMMARY:'+team+' · last 2½ minutes','DESCRIPTION:'+line,'END:VEVENT','END:VCALENDAR'].join('\r\n');
     $('g-ics').href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
     $('g-wa').href='https://wa.me/?text='+encodeURIComponent(line);
     if(window.QRCode){$('g-qr').innerHTML='';qr=new QRCode($('g-qr'),{text:url,width:132,height:132,colorDark:'#1F4D3A',colorLight:'#ffffff'});}
@@ -102,7 +102,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <a class="brand" href="./"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">sukoon</span></a>
+        <a class="brand" href="./"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">hard stop</span></a>
         <p class="foot-note">An early-stage product: the last 2½ minutes of a team's standup. A movement break, not medical care. Sample figures are illustrative, not a customer.</p>
         <p class="foot-updated">Updated 30 Oct 2026 · v3.1</p>
       </div>
@@ -127,7 +127,7 @@
       </nav>
     </div>
     <div class="foot-legal">
-      <span>© <span id="year">2026</span> Sukoon · India</span>
+      <span>© <span id="year">2026</span> Hard Stop · India</span>
       <span>GST invoice on request · <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a></span>
     </div>
   </div>

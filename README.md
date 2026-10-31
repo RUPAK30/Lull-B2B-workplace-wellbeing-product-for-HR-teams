@@ -1,8 +1,8 @@
-# Sukoon
+# Hard Stop
 
 **Your standup has a start time. Give it an ending.**
 
-Sukoon is the last 2½ minutes of a meeting a team already holds. A team lead pastes one line into the standup invite. As the meeting ends, everyone opens the link and starts a guided, seated movement break at the same second, in English, Hindi, Hinglish or Marathi. On Friday the lead gets one line: how many days it ran. HR's whole involvement is one yes and one invoice; there is nothing to run.
+Hard Stop is the last 2½ minutes of a meeting a team already holds. A team lead pastes one line into the standup invite. As the meeting ends, everyone opens the link and starts a guided, seated movement break at the same second, in English, Hindi, Hinglish or Marathi. On Friday the lead gets one line: how many days it ran. HR's whole involvement is one yes and one invoice; there is nothing to run.
 
 [Live product](https://lull-hr.vercel.app/) · [Create a team link](https://lull-hr.vercel.app/start) · [Try the 2½ minutes](https://lull-hr.vercel.app/app/?reset=unknot-seated&start=1) · [Pilot & pricing](https://lull-hr.vercel.app/pilot) · [Trust & data](https://lull-hr.vercel.app/trust) · [Product case study](https://lull-hr.vercel.app/pm)
 
@@ -44,7 +44,7 @@ The promise is deliberately narrow: less fatigue, rested eyes, and a clear first
 - **No employee personal data.** There are no names, emails, device IDs or session records, and nothing to export or delete under the DPDP Act.
 - **The under-10 rule.** A team appears only when at least 10 people took part. The next-smallest team is hidden too, so a hidden team cannot be worked out by subtraction.
 - **Weekly, never daily.** One person's day of leave cannot reveal who usually takes part.
-- **Aggregated, not "anonymous".** Sukoon deliberately does not claim anonymity; small-number suppression is what protects the group.
+- **Aggregated, not "anonymous".** Hard Stop deliberately does not claim anonymity; small-number suppression is what protects the group.
 - **The only data that leaves a device** is six allow-listed team counts (`src/shared/pilot.ts`). What people type, how they feel, and every safety stop stay on the device.
 
 ## Language and understanding
