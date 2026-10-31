@@ -1,7 +1,7 @@
 // Shows the app in English, Hindi or Marathi. The engine keeps speaking English internally (buttons still
 // send their English labels), and this layer translates every line on screen as it is drawn.
 // The language follows the person: typing in Devanagari switches it; Roman Hinglish/Marathi gets a one-tap offer.
-import { STRINGS } from './i18n-strings.js?v=mvve6tcf';
+import { STRINGS } from './i18n-strings.js?v=mvwgfwjp';
 const table = new Map();
 for (const line of STRINGS.split('\n')) {
     const [en, hi, mr] = line.split(' || ').map(s => s?.trim());
@@ -73,6 +73,8 @@ function sentence(s) {
         return `${w.recorded} · ${m[1]} ${w.planned}`;
     if ((m = t.match(/^You moved for (.+?) — that counts, even on a busy day\.$/)))
         return w.moved(m[1].replace('min', w.min).replace('sec', w.sec));
+    if ((m = t.match(/^At (\d\d:\d\d)$/)))
+        return lang === 'hi' ? `${m[1]} बजे` : `${m[1]} वाजता`;
     if ((m = t.match(/^Step (\d+) of (\d+)$/)))
         return lang === 'hi' ? `स्टेप ${m[1]} / ${m[2]}` : `स्टेप ${m[1]} / ${m[2]}`;
     if ((m = t.match(/^([\d:]+) on the timer$/)))

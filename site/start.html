@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Create your team's link · Sukoon</title>
+<meta name="description" content="Make the one line for your standup invite: the last 2½ minutes, everyone starts together.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF8F3">
+<link rel="canonical" href="https://lull-hr.vercel.app/start">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sukoon">
+<meta property="og:title" content="Changes — what we changed, and why">
+<meta property="og:url" content="https://lull-hr.vercel.app/start">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="home.css">
+<script data-goatcounter="/gc/count" async src="/gc/count.js"></script>
+</head>
+
+<body class="home">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="./" aria-label="Sukoon home"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">sukoon</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#runs">How it runs</a>
+      <a href="pilot.html#price">Pricing</a>
+      <a href="trust.html">Trust</a>
+      <a href="changes.html" >Changelog</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="pilot.html">Start a free pilot</a>
+    <button type="button" class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu-panel" aria-label="Menu">☰</button>
+  </div>
+  <nav class="menu" id="menu-panel" aria-label="Menu">
+    <div class="wrap">
+      <a href="index.html#runs">How it runs</a>
+      <a href="workspace.html">HR dashboard</a>
+      <a href="report.html">Week-6 report</a>
+      <a href="pilot.html#price">Pricing</a>
+      <a href="trust.html">Trust and data</a>
+      <a href="mailto:rupakr2g@gmail.com">Email Rupak</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="gen">
+<section class="pm-sec gen-sec"><div class="wrap">
+  <p class="eyebrow">One minute, once</p>
+  <h1 class="gen-h">Your team's link</h1>
+  <form id="gen" class="gen-form" autocomplete="off">
+    <label>Team name<input id="g-team" maxlength="40" placeholder="e.g. Platform team" required></label>
+    <label>Standup ends at<input id="g-end" type="time" value="10:15" required></label>
+    <label>The 2½ minutes<select id="g-r">
+      <option value="unknot-seated">Neck &amp; shoulders</option><option value="calm-seated">Calm down</option><option value="energy-seated">Energy lift</option><option value="screen-seated">Eyes &amp; wrists</option>
+    </select></label>
+  </form>
+  <div class="gen-out" aria-live="polite">
+    <p class="gen-label">Paste this into the invite</p>
+    <p id="g-line" class="gen-line"></p>
+    <div class="gen-actions">
+      <button type="button" class="btn btn-primary" data-copy-target="g-line">Copy</button>
+      <a class="btn btn-ghost" id="g-gcal" target="_blank" rel="noopener">Google Calendar</a>
+      <a class="btn btn-ghost" id="g-ics" download="team-close.ics">Outlook (.ics)</a>
+      <a class="btn btn-ghost" id="g-wa" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <div class="gen-qr"><div id="g-qr"></div><p class="small">QR for a meeting room screen. Everyone who opens the link at <b id="g-at"></b> starts together.</p></div>
+  </div>
+</div></section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)},qr=null;
+  function at(end){var p=end.split(':'),m=(+p[0])*60+(+p[1])-3;if(m<0)m+=1440;return ('0'+Math.floor(m/60)).slice(-2)+('0'+m%60).slice(-2);}
+  function paint(){
+    var team=($('g-team').value.trim()||'Our team').replace(/[^\w .&-]/g,''),end=$('g-end').value||'10:15',a=at(end),r=$('g-r').value;
+    var url='https://lull-hr.vercel.app/app/?team='+encodeURIComponent(team)+'&reset='+r+'&at='+a;
+    var line='Last 2½ minutes: a seated break together, camera off. Open at '+a.slice(0,2)+':'+a.slice(2)+' → '+url;
+    $('g-line').textContent=line;$('g-at').textContent=a.slice(0,2)+':'+a.slice(2);
+    var t=a+'00',d=new Date(),ymd=d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2);
+    var e=(function(){var m=(+a.slice(0,2))*60+(+a.slice(2))+3;return ('0'+Math.floor(m/60%24)).slice(-2)+('0'+m%60).slice(-2)+'00';})();
+    $('g-gcal').href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(team+' · last 2½ minutes')+'&details='+encodeURIComponent(line)+'&dates='+ymd+'T'+t+'/'+ymd+'T'+e+'&recur='+encodeURIComponent('RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR');
+    var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Sukoon//Team close//EN','BEGIN:VEVENT','UID:'+Date.now()+'@sukoon','DTSTAMP:'+ymd+'T000000','DTSTART:'+ymd+'T'+t,'DTEND:'+ymd+'T'+e,'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR','SUMMARY:'+team+' · last 2½ minutes','DESCRIPTION:'+line,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    $('g-ics').href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
+    $('g-wa').href='https://wa.me/?text='+encodeURIComponent(line);
+    if(window.QRCode){$('g-qr').innerHTML='';qr=new QRCode($('g-qr'),{text:url,width:132,height:132,colorDark:'#1F4D3A',colorLight:'#ffffff'});}
+  }
+  ['g-team','g-end','g-r'].forEach(function(i){$(i).addEventListener('input',paint);});
+  window.addEventListener('load',paint);paint();
+})();
+</script>
+</main>
+
+<nav class="pager" aria-label="Continue">
+  <a class="pager-link" href="trust.html"><span>Previous</span><b>Security and data</b></a>
+  <a class="pager-link pager-next" href="index.html"><span>Next</span><b>Home</b></a>
+</nav>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="./"><img src="img/mark.svg" alt="" width="36" height="36"><span class="wm">sukoon</span></a>
+        <p class="foot-note">An early-stage product. A general movement break, not medical care. Sample figures are illustrative, not a customer.</p>
+        <p class="foot-updated">Updated 30 Oct 2026 · v3.1</p>
+      </div>
+      <nav class="foot-links" aria-label="Trust">
+        <p class="foot-head">Trust</p>
+        <a href="trust.html">Security and data</a>
+        <a href="trust.html#status">Status</a>
+        <a href="trust.html#dpa">DPA</a>
+        <a href="trust.html#subprocessors">Subprocessors</a>
+        <a href="safety.html">Safety and limits</a>
+        <a href="report.html">Sample report</a>
+      </nav>
+      <nav class="foot-links" aria-label="Company">
+        <p class="foot-head">Company</p>
+        <a href="pilot.html">Pilot and pricing</a>
+        <a href="changes.html">Changelog</a>
+        <a href="changes.html">Changes</a>
+        <a href="privacy.html">Site privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:rupakr2g@gmail.com">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-legal">
+      <span>© <span id="year">2026</span> Sukoon · India</span>
+      <span>GST invoice on request · <a href="mailto:rupakr2g@gmail.com">rupakr2g@gmail.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="home.js" defer></script>
+</body>
+</html>

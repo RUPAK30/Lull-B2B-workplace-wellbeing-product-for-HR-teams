@@ -7,7 +7,7 @@ async function fresh(page, prefs = { ready: false }) { await page.addInitScript(
 test('home offers one clear way in, quick picks with real durations, and accepts a typed need', async ({ page }) => {
   await fresh(page);
   await expect(page.locator('.home-title')).toHaveText('Between calls? Take three minutes.');
-  await expect(page.locator('#workout')).toHaveText('Start with Sukoon');
+  await expect(page.locator('#workout')).toHaveText('Pick for how I feel');
   await expect(page.locator('.quick')).toHaveText([/After back-to-back calls.*Unknot neck & shoulders · 2:30/, /Stiff from sitting.*Undo the sitting · 2:40/, /Post-lunch slump.*Energy lift · 2:25/, /Stressed, can’t switch off.*Calm down · 2:30/, /Tired eyes and wrists.*Screen break · 2:30/]);
   await expect(page.locator('#pause')).toBeHidden();
   await send(page, 'I only have five minutes before my next call');

@@ -2,7 +2,7 @@
 // sends what shared/pilot.ts allows, and records every send on this device so the person can
 // see exactly what left ("What leaves this device" in Settings). The local app's CSP blocks
 // these requests, so they only ever leave the hosted pilot copy.
-import { cleanTeam, parseReset, pilotEvent, pilotPath, resetFromTitle } from '../shared/pilot.js?v=mvve6tcf';
+import { cleanTeam, parseReset, pilotEvent, pilotPath, resetFromTitle } from '../shared/pilot.js?v=mvwgfwjp';
 const TEAM = 'sw.pilot.team', COUNT = 'sw.pilot.count', SENT = 'sw.pilot.sent', LIMIT = 50;
 // On the hosted site, counts go through our own domain so ad blockers don't drop them.
 const ENDPOINT = typeof location !== 'undefined' && location.hostname.endsWith('vercel.app') ? '/gc/count' : 'https://lull.goatcounter.com/count';
@@ -37,6 +37,10 @@ export const openedFromReminder = params.get('from') === 'reminder';
 export const teamReset = parseReset(params.get('reset'));
 /** A homepage taster (?taster=1) opens the seated neck-and-shoulder reset, so a buyer feels it in under a minute. */
 export const taster = params.get('taster') === '1';
+/** A team close: ?at=HHMM is the shared wall-clock start; ?start=1 starts at once. */
+export const closeAt = (() => { const v = params.get('at'); if (!v || !/^\d{4}$/.test(v))
+    return null; const d = new Date(); d.setHours(+v.slice(0, 2), +v.slice(2), 0, 0); return d.getTime(); })();
+export const closeNow = params.get('start') === '1';
 /** The person can stop their sessions being counted at any time. */
 export const pilotCounting = {
     get on() { return pilotTeam !== null && store.get(COUNT) !== 'off'; },

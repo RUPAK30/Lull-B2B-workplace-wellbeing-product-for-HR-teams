@@ -50,7 +50,7 @@
   </div>
   <nav class="menu" id="menu-panel" aria-label="Menu">
     <div class="wrap">
-      <a href="#runs">How it runs</a>
+      <a href="start.html">Create your link</a>
       <a href="workspace.html">HR dashboard</a>
       <a href="report.html">Sample week-6 report</a>
       <a href="pilot.html#price">Pricing</a>
@@ -59,202 +59,55 @@
     </div>
   </nav>
 </header>
-<nav class="toc" id="toc" aria-label="On this page">
-  <div class="toc-in">
-    <a href="#top"><span class="l">Overview</span><span class="s">Overview</span></a><a href="#runs"><span class="l">How it runs</span><span class="s">How</span></a><a href="#privacy"><span class="l">Who sees what</span><span class="s">Privacy</span></a><a href="#ask"><span class="l">Your answer</span><span class="s">Answer</span></a>
-  </div>
-</nav>
-
-<nav class="sec-nav" aria-label="Contents">
-  <div class="wrap">
-    <span class="sec-label">Contents</span>
-    <div class="sec-links">
-      <a href="#runs" data-sec="runs"><span>01</span> Why, how, when</a>
-      <a href="#privacy" data-sec="privacy"><span>02</span> Who sees what</a>
-      <a href="#ask" data-sec="ask"><span>03</span> One word</a>
-    </div>
-    <span class="sec-count" id="sec-count">01 / 03</span>
-  </div>
-</nav>
-
 <main id="main">
-
-<!-- WHY — one screen ---------------------------------------------------->
-<section class="hero" id="top">
+<section class="hero close-hero" id="top">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow"><span id="greet"></span><span class="lg">For HR and People teams · 30–250 people · India</span><span class="sm">HR &amp; People teams · 30–250 · India</span></p>
-      <h1>A 2½-minute desk break your team will actually do. <span class="h1-em">HR gets weekly proof. Never names.</span></h1>
-      <p class="lede"><span class="lg">Share one link with your team. They follow a guided 2½-minute movement break at their desk, between calls. Every Friday, HR gets an email showing how many people in each team did it — never who.</span><span class="sm">Share one link. Your team stretches for 2½ minutes at their desk. Every Friday, HR sees how many did it — never who.</span></p>
-
+      <p class="eyebrow"><span id="greet"></span>For team leads · India</p>
+      <h1>Your standup has a start time. <span class="h1-em">Give it an ending.</span></h1>
+      <p class="lede">The last 2½ minutes of a meeting you already hold. One link in the invite, everyone starts together, nothing to run.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="workspace.html" data-ev="hero-demo">See what HR gets</a>
-        <a class="btn btn-ghost" href="app/?from=hr" data-ev="hero-try">Try the 2½-minute break</a>
+        <a class="btn btn-primary" href="start.html" data-ev="hero-create">Create your team's link</a>
+        <a class="btn btn-ghost" href="app/?reset=unknot-seated&amp;start=1&amp;from=hr" data-ev="hero-try">Try the 2½ minutes</a>
       </div>
-
-      <ul class="trust-row" aria-label="How Sukoon is built">
-        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5 2.5 4v4c0 3 2.4 5.6 5.5 6.5 3.1-.9 5.5-3.5 5.5-6.5V4Z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>No employee data collected</li>
-        <li><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>Built for India's DPDP Act</li>
-        <li><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.5V8l2.5 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Set up in 10 minutes</li>
+      <ul class="trust-row" aria-label="How it works">
+        <li>No accounts, nothing to install</li>
+        <li>English · हिंदी · मराठी</li>
+        <li>Counts per team, never names</li>
       </ul>
-      <p class="pm-line"><strong>Team lead?</strong> <button type="button" class="link-btn" data-copy-target="lead-msg" data-ev="copy-lead">Copy a message for your team</button><span id="lead-msg" hidden>Trying something this week: a 2½-minute seated desk break between calls. No app, no login, cameras off, nobody sees who joins. Try it at 3:30 → https://lull-hr.vercel.app/app/</span></p>
-
-      <div class="word">
-        <p class="word-q">Would your team use it? <b>One tap is enough.</b></p>
-        <div class="word-chips">
-          <a class="chip-link" href="mailto:rupakr2g@gmail.com?subject=Sukoon%20%E2%80%94%20yes" data-ev="word-yes">yes</a>
-          <a class="chip-link" href="mailto:rupakr2g@gmail.com?subject=Sukoon%20%E2%80%94%20no" data-ev="word-no">no</a>
-          <a class="chip-link" href="mailto:rupakr2g@gmail.com?subject=Sukoon%20%E2%80%94%20already%20have%20one" data-ev="word-have">we already use something</a>
-        </div>
-      </div>
-
     </div>
-
     <div class="hero-shot">
-      <div class="pv" id="pv">
-        <div class="pv-tabs" role="tablist" aria-label="Product view">
-          <button type="button" role="tab" id="pvt-dash" aria-controls="pv-dash" aria-selected="true">Dashboard</button>
-          <button type="button" role="tab" id="pvt-email" aria-controls="pv-email" aria-selected="false" tabindex="-1">Friday email</button>
-          <button type="button" role="tab" id="pvt-privacy" aria-controls="pv-privacy" aria-selected="false" tabindex="-1">Privacy</button>
-        </div>
-        <div class="pv-panel" id="pv-dash" role="tabpanel" aria-labelledby="pvt-dash">
-      <div class="ws-preview" aria-label="The Sukoon HR dashboard. Sample data you can edit.">
-        <div class="ws-preview-top">
-          <span class="ws-dot" aria-hidden="true"></span>
-          <b>HR dashboard</b>
-          <span class="ws-preview-meta"><span class="lg">Week 6 · </span>6 teams · 180 seats</span>
-          <button class="ws-reset" type="button">Reset</button>
-        </div>
-        <div class="ws-metrics" aria-live="polite">
-          <div><strong><span id="ws-started">92</span><small>/180</small></strong><span>took a break</span><em class="ws-per" id="ws-rate">51% of seats</em></div>
-          <div><strong id="ws-finished">75</strong><span>finished</span><em class="ws-per" id="ws-done">82% of those who started</em></div>
-          <div><strong>₹16,200<small>/mo</small></strong><span>cost</span><em class="ws-per">₹90 × 180 seats</em></div>
-        </div>
-        <table class="ws-mini">
-          <thead><tr><th scope="col">Team</th><th scope="col">Seats</th><th scope="col">Started</th><th scope="col">Finished</th><th scope="col">Status</th></tr></thead>
-          <tbody>
-            <tr data-seats="64"><th scope="row">Engineering</th><td>64</td><td><input class="ws-num" type="number" min="0" max="64" value="45" inputmode="numeric" aria-label="Engineering, how many started this week"></td><td class="fin">37</td><td><span class="st ok">Reporting</span></td></tr>
-            <tr data-seats="38"><th scope="row">Operations</th><td>38</td><td><input class="ws-num" type="number" min="0" max="38" value="21" inputmode="numeric" aria-label="Operations, how many started this week"></td><td class="fin">17</td><td><span class="st ok">Reporting</span></td></tr>
-            <tr data-seats="34"><th scope="row">Sales</th><td>34</td><td><input class="ws-num" type="number" min="0" max="34" value="16" inputmode="numeric" aria-label="Sales, how many started this week"></td><td class="fin">13</td><td><span class="st ok">Reporting</span></td></tr>
-            <tr data-seats="30"><th scope="row">Support</th><td>30</td><td><input class="ws-num" type="number" min="0" max="30" value="10" inputmode="numeric" aria-label="Support, how many started this week"></td><td class="fin">8</td><td><span class="st ok">Reporting</span></td></tr>
-            <tr data-seats="8" class="off"><th scope="row">Design</th><td>8</td><td><input class="ws-num" type="number" min="0" max="8" value="0" inputmode="numeric" aria-label="Design, how many started this week"></td><td class="fin">—</td><td><span class="st na">Hidden · under 10</span></td></tr>
-            <tr data-seats="6" class="off"><th scope="row">Finance</th><td>6</td><td><input class="ws-num" type="number" min="0" max="6" value="0" inputmode="numeric" aria-label="Finance, how many started this week"></td><td class="fin">—</td><td><span class="st na">Hidden · under 10</span></td></tr>
-          </tbody>
-        </table>
-        <p class="ws-preview-foot"><span class="lg">Try it: change any number. Teams with fewer than 10 people taking part are hidden from HR.</span><span class="sm">Change a number. Teams under 10 are hidden.</span> <a href="workspace.html">Open the full dashboard →</a></p>
+      <div class="close-card" aria-label="What your team sees">
+        <p class="cc-top"><span>Daily standup · Platform team</span><b>10:12</b></p>
+        <div class="cc-dial"><strong>0:07</strong><span>Everyone starts together</span></div>
+        <ol class="cc-steps"><li>Neck release</li><li>Shoulder rolls</li><li>Chest opener</li><li>Long exhale</li></ol>
+        <p class="cc-note"><b>Friday, to you:</b> ran 4 of 5 days · 9 people on average · no names.</p>
       </div>
-        </div>
-        <div class="pv-panel" id="pv-email" role="tabpanel" aria-labelledby="pvt-email" hidden>
-    <div class="email">
-      <div class="email-tabs" role="tablist" aria-label="Read the email as">
-        <button type="button" role="tab" id="tab-hr" aria-controls="email-hr" aria-selected="true">For HR</button>
-        <button type="button" role="tab" id="tab-fin" aria-controls="email-fin" aria-selected="false" tabindex="-1">For Finance</button>
-      </div>
-      <div class="email-head">
-        <p><span>From</span> Sukoon &lt;rupakr2g@gmail.com&gt;</p>
-        <p><span>Subject</span> Week 6 · Northwind Logistics</p>
-        <p><span>Sent</span> Fri 30 Oct, 09:00 IST · sample</p>
-      </div>
-      <div class="email-body" id="email-hr" role="tabpanel" aria-labelledby="tab-hr">
-        <p class="email-kicker">Week 6</p>
-        <p class="email-team">4 of 6 teams reporting</p>
-        <div class="email-stats">
-          <div><strong>92</strong><span>started</span></div>
-          <div><strong>75</strong><span>finished</span></div>
-          <div><strong>₹176</strong><span>per person who started</span></div>
-        </div>
-        <p class="email-note">Finance and Design are not in this email. Both had fewer than 10 people taking part.</p>
-        <p class="email-note"><strong>Recommendation:</strong> continue at 180 seats. Sales is thinning — week 3 had 19 people taking part, this week is 12.</p>
-        <p class="email-link"><a href="report.html?pdf=1">Week-6 report · PDF ↓</a></p>
-      </div>
-      <div class="email-body" id="email-fin" role="tabpanel" aria-labelledby="tab-fin" hidden>
-        <p class="email-kicker">Week 6 · Finance</p>
-        <p class="email-team">₹16,200 this month</p>
-        <div class="email-stats">
-          <div><strong>₹90</strong><span>per seat</span></div>
-          <div><strong>180</strong><span>seats</span></div>
-          <div><strong>₹176</strong><span>per person who started</span></div>
-        </div>
-        <p class="email-note">92 of 180 started; 75 finished (₹216 per person who finished). Four teams report, two are under 10 taking part.</p>
-        <p class="email-note"><strong>Recommendation:</strong> continue at 180 seats. ₹16,200 a month, GST extra — ₹176 per person who started.</p>
-        <p class="email-link"><a href="pilot.html#price">How the price is built →</a></p>
-      </div>
+      <p class="shot-note">Sample team. The meeting is the reminder, so nobody has to remember.</p>
     </div>
-        </div>
-        <div class="pv-panel" id="pv-privacy" role="tabpanel" aria-labelledby="pvt-privacy" hidden>
-      <div class="ledger">
-        <div class="ledger-top"><span>Friday · Week 6</span><span>Northwind Logistics</span></div>
-        <table class="ledger-table">
-          <thead><tr><th scope="col">Team</th><th scope="col">Started</th><th scope="col">Finished</th></tr></thead>
-          <tbody>
-            <tr><th scope="row">Engineering</th><td>45</td><td>38</td></tr>
-            <tr><th scope="row">Operations</th><td>21</td><td>17</td></tr>
-            <tr class="gone"><th scope="row">Design</th><td colspan="2"><span class="hid">Hidden · under 10 taking part</span></td></tr>
-            <tr class="gone"><th scope="row">Finance</th><td colspan="2"><span class="hid">Hidden · under 10 taking part</span></td></tr>
-          </tbody>
-        </table>
-        <div class="ledger-names"><span>Names</span><span class="blank"></span><span class="blank"></span><span class="blank"></span><b>not stored</b></div>
-        <p class="ledger-foot"><span class="lg">Teams under 10 are hidden, plus the next-smallest, and counts are weekly, never daily — so no one can work out who did or didn't.</span><span class="sm">Under-10 teams hidden, counts weekly — nobody singled out.</span></p>
-      </div>
-        </div>
-      </div>
-      <p class="shot-note">This is everything HR sees, shown with sample data from a made-up company. There is no view of individuals.</p>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <dl class="hero-spec" aria-label="The product at a glance">
-      <div><dt>Deployment</dt><dd>No app, no accounts</dd></div>
-      <div><dt>Data</dt><dd>Counts only, no names</dd></div>
-      <div><dt>Agreement</dt><dd><a href="trust.html#dpa">DPA before the first link</a></dd></div>
-      <div><dt>Price</dt><dd><strong>₹120 / ₹90 / ₹60</strong> per person</dd></div>
-      <div><dt>Status</dt><dd><a href="trust.html#status">Pre-revenue · six teams free</a></dd></div>
-    </dl>
   </div>
 </section>
 
-<!-- HOW / WHEN — three labelled rows ------------------------------------>
 <section class="q" id="runs">
   <div class="wrap">
-    <h2 class="sr">Why this exists, how it runs, and what it costs</h2>
-
-    <div class="q-row">
-      <h3 class="q-label">Why this exists</h3>
-      <div class="q-body"><p class="q-head">Most wellness programmes fade after two weeks, and HR can't prove they worked.</p><ul class="q-chips"><li>Usage drops after launch</li><li>Finance asks for proof</li><li>Sukoon gives you a real number</li></ul></div>
-    </div>
-
-    <div class="q-row">
-      <h3 class="q-label">How it runs</h3>
-      <div class="q-body"><p class="q-head">Share one link. People take a guided 2½-minute break at their desk.</p><ul class="q-chips"><li>No app, no sign-up</li><li>Seated, in work clothes</li><li>Usage email to HR every Friday</li></ul></div>
-    </div>
-
-    <div class="q-row">
-      <h3 class="q-label">When it starts</h3>
-      <div class="q-body"><p class="q-head">Set up in 10 minutes.</p><ul class="q-chips"><li>First report this Friday</li><li>Free for the first 6 teams</li><li>Then monthly · cancel with 15 days’ notice</li></ul><a class="link q-price" href="pilot.html#price">See pricing →</a></div>
-    </div>
-
+    <h2 class="sr">How it works</h2>
+    <div class="q-row"><h3 class="q-label">1 · Once</h3><div class="q-body"><p class="q-head">Paste one line into your standup invite.</p><ul class="q-chips"><li>Google, Outlook or WhatsApp</li><li>Set up in one minute</li></ul></div></div>
+    <div class="q-row"><h3 class="q-label">2 · Daily</h3><div class="q-body"><p class="q-head">At the end, everyone taps the link and starts together.</p><ul class="q-chips"><li>Seated, camera off</li><li>The link hosts it, not you</li></ul></div></div>
+    <div class="q-row"><h3 class="q-label">3 · Friday</h3><div class="q-body"><p class="q-head">One line to you: how many days it ran.</p><ul class="q-chips"><li>Never who</li><li>Teams under 10 hidden</li></ul></div></div>
+    <p class="close-time"><strong>We don't add 2½ minutes to your day.</strong> We take them out of the overrun.</p>
   </div>
 </section>
 
-<!-- PRIVACY — a peer of the price, not a footnote ----------------------->
-<section class="privacy-band" id="privacy">
+<section class="privacy-band" id="hr">
   <div class="wrap">
-    <h2>Who sees what</h2>
-    <div class="privacy">
-      <div class="priv-copy">
-        <p><strong>HR sees</strong> how many people in each team started and finished, and the cost per person — in one email, every Friday at 9:00.</p>
-        <p><strong>HR never sees</strong> names, emails, or who did what. We don't collect them, so there is nothing to leak. <a href="trust.html#data">What we store →</a></p>
-      </div>
-      <div class="pv-jump"><button type="button" class="btn btn-ghost" data-pv="email">See the Friday email ↑</button> <button type="button" class="btn btn-ghost" data-pv="privacy">See the data ledger ↑</button></div>
+    <h2>For HR: there is nothing to run.</h2>
+    <div class="ledger-grid">
+      <div><span>Rollout</span><b>None. A manager pastes one line.</b></div>
+      <div><span>Chasing</span><b>None. No accounts, no reminders to send.</b></div>
+      <div><span>Legal</span><b>No employee personal data. <a href="trust.html#data">Data map</a></b></div>
+      <div><span>Renewal</span><b>None. Unused teams stop by themselves.</b></div>
     </div>
-
-    <p class="doors"><span><span class="lg">Explore:</span><span class="sm">Explore:</span></span>
-      <a href="workspace.html">HR dashboard</a>
-      <a href="report.html">sample week-6 report</a>
-      <a href="pilot.html#procurement">procurement</a>
-      <a href="trust.html">security</a>
-      <a href="changes.html">what changed</a>
-    </p>
+    <p class="price-line"><strong>₹1,499 per team a month</strong> — less than a team lunch. First six teams free. One invoice. <a href="pilot.html#price">Pricing</a></p>
   </div>
 </section>
 

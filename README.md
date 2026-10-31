@@ -1,32 +1,32 @@
 # Sukoon
 
-**A 2½-minute desk break your team will actually do. HR gets weekly proof. Never names.**
+**Your standup has a start time. Give it an ending.**
 
-Sukoon is a B2B workplace-wellbeing product for HR and People teams at Indian companies of 30–250 people. HR shares one link per team. Employees take a guided, seated movement break between calls, in English, Hindi, Hinglish or Marathi. Every Friday, HR receives one email with team-level participation and cost, and never a single name.
+Sukoon is the last 2½ minutes of a meeting a team already holds. A team lead pastes one line into the standup invite. As the meeting ends, everyone opens the link and starts a guided, seated movement break at the same second, in English, Hindi, Hinglish or Marathi. On Friday the lead gets one line: how many days it ran. HR's whole involvement is one yes and one invoice; there is nothing to run.
 
-[Live product](https://lull-hr.vercel.app/) · [Try the break](https://lull-hr.vercel.app/app/) · [HR dashboard](https://lull-hr.vercel.app/workspace) · [Pilot & pricing](https://lull-hr.vercel.app/pilot) · [Trust & data](https://lull-hr.vercel.app/trust) · [Product case study](https://lull-hr.vercel.app/pm)
+[Live product](https://lull-hr.vercel.app/) · [Create a team link](https://lull-hr.vercel.app/start) · [Try the 2½ minutes](https://lull-hr.vercel.app/app/?reset=unknot-seated&start=1) · [Pilot & pricing](https://lull-hr.vercel.app/pilot) · [Trust & data](https://lull-hr.vercel.app/trust) · [Product case study](https://lull-hr.vercel.app/pm)
 
 > **Status:** pre-revenue and pilot-ready. The first six teams run free. All figures on the site are sample data from a fictional company, and every page says so.
 
 ---
 
-## The problem
+## Why "the close"
 
-Companies pay for wellbeing benefits that most employees never use, and HR cannot prove usage without tracking individuals. Sukoon is designed around both halves of that problem:
+| Finding | Consequence |
+|---|---|
+| Break reminders already ship free inside Microsoft 365 (Viva Insights), and they are private to each person by design | A personal reminder is not a product. A **team's shared** moment, with a record the lead can forward, is. |
+| Links dropped in a channel depend on memory and fade after week one | Attach the break to the **standup that already happens daily**. The meeting is the reminder. |
+| Per-seat pricing put a timer at par with complete HR software | **₹1,499 per team a month**: less than a team lunch, one invoice, no seats. |
+| HR teams are overloaded with admin | No rollout, no accounts, no chasing, no dashboard. Unused teams stop by themselves. |
+| Meetings overrun anyway | It does not add 2½ minutes to the day; it takes them out of the overrun. |
 
-| Who | What they need | How Sukoon answers |
-|---|---|---|
-| **Employee** | Under three minutes, seated, nothing to install, nobody watching | One link, no app or login; a guided 2½-minute break that works on a call with the camera off |
-| **HR / People lead** | Proof of use, zero admin, no privacy risk under India's DPDP Act | A Friday email per team; no employee personal data is collected at all |
-| **Finance** | A defensible cost and a clear stop rule | Seat-based pricing, cost per person who took part, and a week-6 report that can recommend fewer seats |
+## How it works
 
-## The product, end to end
-
-1. **One link per team.** No download, account, roster, HRIS or SSO. Setup takes about ten minutes.
-2. **The break.** The employee says how they feel, by tapping or typing in any of four languages. Sukoon suggests one of five breaks: neck and shoulders, back, energy, calm, or eyes and wrists. Each is four guided steps, seated or standing.
-3. **Safety first.** Pain, feeling unwell or emergency symptoms, in any language, stop the session immediately. Sukoon never suggests movement around pain, and an emergency points to 112.
-4. **The Friday email.** HR sees, per team, how many people started and finished, plus the cost per person who took part.
-5. **The week-6 report.** A one-page A4 PDF in the format Finance reads, including a recommendation: continue, reduce seats, or stop.
+1. **Once:** the lead creates the team link (`/start`): team name, standup end time, which break. Out comes one invite line, a Google Calendar link, an Outlook `.ics`, a WhatsApp share and a QR code.
+2. **Daily:** the link carries a wall-clock start (`?at=HHMM`). Everyone who opens it sees the same countdown and begins together. The link hosts it, not a person. `?start=1` starts at once.
+3. **During:** four guided steps, seated and camera-off friendly. Typing "slower", "stop" or "मान आखडली" works mid-session, and pain in any language stops it.
+4. **Friday:** one line to the lead, such as "ran 4 of 5 days, 9 people on average", and never names. A team appears only when 10 or more took part.
+5. **Anytime:** individuals can still open the app and pick a break for how they feel.
 
 ## Privacy by design
 
@@ -47,8 +47,9 @@ Companies pay for wellbeing benefits that most employees never use, and HR canno
 
 | Path | Audience | What it is |
 |---|---|---|
-| `/` | HR | The pitch: product view (HR dashboard · Friday email · privacy), why/how/when, who sees what |
-| `/app/` | Employees | The real 2½-minute break, running in demo mode |
+| `/` | Team leads, HR | The pitch: the close, how it works, and HR's "nothing to run" |
+| `/start` | Team leads | Invite generator: one line, Google/Outlook/WhatsApp, QR |
+| `/app/` | Employees | The break: shared start from a team link, or pick for how you feel |
 | `/workspace` | HR | HR dashboard: teams, seats, hidden teams, Friday email, six-week history, invoice |
 | `/report` | HR, Finance | Week-6 report, print-ready as a one-page A4 PDF |
 | `/pilot` | HR, Procurement | The offer, the six weeks, launch kit, pricing, procurement, FAQ |
@@ -86,6 +87,7 @@ Serve `site/` with any static server to preview the marketing site. In productio
 - **SSO, HRIS sync or roster upload.** Each adds an IT approval; one link needs none.
 - **AI by default.** Typed text would leave the device. It is offered as an opt-in instead.
 - **Voice input.** Browser speech APIs send audio to third parties.
+- **Slack or Teams apps, HRMS integrations, an admin console.** Each needs admin consent or a security review, which is exactly the burden the product removes.
 
 ## Honest status
 

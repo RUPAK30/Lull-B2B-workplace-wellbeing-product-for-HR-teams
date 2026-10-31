@@ -1,9 +1,9 @@
 // "Make it a habit": the person picks a time and puts a recurring reminder on their own calendar
 // or in Slack. Sukoon never schedules or sends reminders itself, so skipping a day costs nothing.
-import { reminderGoogle, reminderIcs, reminderSlack, teamResetInvite } from '../shared/pilot.js?v=mvve6tcf';
-import { el, button } from './dom.js?v=mvve6tcf';
-import { track } from './analytics.js?v=mvve6tcf';
-import { reminderLink, teamResetLink } from './pilot.js?v=mvve6tcf';
+import { reminderGoogle, reminderIcs, reminderSlack, teamResetInvite } from '../shared/pilot.js?v=mvwgfwjp';
+import { el, button } from './dom.js?v=mvwgfwjp';
+import { track } from './analytics.js?v=mvwgfwjp';
+import { reminderLink, teamResetLink } from './pilot.js?v=mvwgfwjp';
 const TIME = 'sw.reminder.time', SET = 'sw.reminder.set';
 const saved = () => { try {
     return localStorage.getItem(TIME) ?? '15:30';

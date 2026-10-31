@@ -596,3 +596,5 @@ body.no-talk .talk{display:none}
 @media(max-width:760px){#pause:disabled{display:none}.topbar{gap:6px;padding-left:12px;padding-right:12px}.topbar .brand > span:last-child{font-size:17px}.brand-mark{width:26px;height:26px}.site-link{padding:4px 8px}.lang-switch{margin-right:0}.lang-switch button{min-height:28px;padding:2px 6px}}
 @media(max-width:380px){.topbar .brand > span:last-child{display:none}}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hold{text-align:center;align-items:center;margin-top:6vh}.hold-clock{font:500 clamp(64px,16vw,120px)/1 "Fraunces",Georgia,serif;color:var(--accent);margin:18px 0 6px;font-variant-numeric:tabular-nums}
+body:has(.hold) .talk{display:none}

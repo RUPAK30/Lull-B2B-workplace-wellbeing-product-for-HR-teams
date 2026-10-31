@@ -1,20 +1,20 @@
-import { Conversation } from '../shared/controller.js?v=mvve6tcf';
-import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvve6tcf';
-import { TimerLedger } from '../shared/openui/timer-store.js?v=mvve6tcf';
-import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvve6tcf';
-import { createRunNav } from '../shared/openui/run-nav.js?v=mvve6tcf';
-import { splitReply } from '../shared/openui/document.js?v=mvve6tcf';
-import { redactValue } from '../shared/redact.js?v=mvve6tcf';
-import { renderComponent } from './components.js?v=mvve6tcf';
-import { byId, el, button } from './dom.js?v=mvve6tcf';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvve6tcf';
-import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset } from './pilot.js?v=mvve6tcf';
-import { reminderCard } from './reminder.js?v=mvve6tcf';
-import { initI18n } from './i18n.js?v=mvve6tcf';
-import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvve6tcf';
-import { renderInsights, teamExport } from './insights-view.js?v=mvve6tcf';
-import { sampleEvents } from '../shared/insights.js?v=mvve6tcf';
-import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvve6tcf';
+import { Conversation } from '../shared/controller.js?v=mvwgfwjp';
+import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvwgfwjp';
+import { TimerLedger } from '../shared/openui/timer-store.js?v=mvwgfwjp';
+import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvwgfwjp';
+import { createRunNav } from '../shared/openui/run-nav.js?v=mvwgfwjp';
+import { splitReply } from '../shared/openui/document.js?v=mvwgfwjp';
+import { redactValue } from '../shared/redact.js?v=mvwgfwjp';
+import { renderComponent } from './components.js?v=mvwgfwjp';
+import { byId, el, button } from './dom.js?v=mvwgfwjp';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvwgfwjp';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset, closeAt, closeNow } from './pilot.js?v=mvwgfwjp';
+import { reminderCard } from './reminder.js?v=mvwgfwjp';
+import { initI18n } from './i18n.js?v=mvwgfwjp';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvwgfwjp';
+import { renderInsights, teamExport } from './insights-view.js?v=mvwgfwjp';
+import { sampleEvents } from '../shared/insights.js?v=mvwgfwjp';
+import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvwgfwjp';
 let config;
 const timers = new TimerLedger();
 let previousTimers = new Map(), updates = [];
@@ -369,7 +369,7 @@ function render() {
     transcript.scrollTop = transcript.scrollHeight;
     syncTimers();
     holdForSafety();
-    const screens = c.document.screens, index = screens.findIndex(s => s.key === c.document.cursor), key = c.document.echo() + String(paused) + String(closedRun);
+    const screens = c.document.screens, index = screens.findIndex(s => s.key === c.document.cursor), key = c.document.echo() + String(paused) + String(closedRun) + String(holdUntil);
     if (key !== renderKey || !byId('screen').childNodes.length) {
         renderKey = key;
         updates = [];
@@ -504,9 +504,18 @@ async function start() {
         select.disabled = false;
         render();
         if (teamReset) {
-            track('team_reset');
-            send(`/reset ${teamReset.reset} ${teamReset.posture}`, 'team-reset');
+            const tr0 = teamReset;
+            const go = () => { holdUntil = 0; track('team_reset'); send(closeAt || closeNow ? `/close ${tr0.reset} ${tr0.posture}` : `/reset ${tr0.reset} ${tr0.posture}`, 'team-reset'); if (closeAt || closeNow)
+                autoStartFirst(); };
             history.replaceState(null, '', location.pathname);
+            const wait = closeAt ? closeAt - Date.now() : 0;
+            if (closeAt && wait > 0 && wait < 20 * 60e3) {
+                holdUntil = closeAt;
+                holdGo = go;
+                render();
+            }
+            else
+                go();
         }
         else if (taster) {
             track('taster');
@@ -549,11 +558,39 @@ function renderDone(current) {
     queueMicrotask(() => { byId('navigation').hidden = true; });
     return n;
 }
+const teamLabel = (new URLSearchParams(location.search).get('team') ?? '').replace(/[^\p{L}\p{N} .&-]/gu, '').slice(0, 40);
+let holdUntil = 0, holdGo = null, holdTimer = 0;
+/** The shared start: everyone on the link sees the same countdown and begins at the same second. */
+function renderHold() {
+    const n = el('div', '', 'home hold');
+    const team = teamLabel;
+    const t = new Date(holdUntil);
+    n.append(el('p', team ? team : 'Your team', 'home-hello'), el('h2', 'Everyone starts together', 'home-title'));
+    const clock = el('p', '', 'hold-clock');
+    const sub = el('p', `At ${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}`, 'home-lede');
+    const tick = () => { const s = Math.max(0, Math.ceil((holdUntil - Date.now()) / 1000)); clock.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; if (s <= 0) {
+        clearInterval(holdTimer);
+        holdGo?.();
+    } };
+    clearInterval(holdTimer);
+    holdTimer = window.setInterval(tick, 250);
+    tick();
+    n.append(clock, sub, button('Start now', () => { clearInterval(holdTimer); holdGo?.(); }, 'quiet'));
+    return n;
+}
+function autoStartFirst() { let tries = 0; const t = window.setInterval(() => { const b = document.querySelector('#screen .timer button.primary, #screen button.primary'); if (b && b.textContent && /^(Start|शुरू करें|सुरू करा)$/.test(b.textContent.trim())) {
+    b.click();
+    clearInterval(t);
+} if (++tries > 40)
+    clearInterval(t); }, 150); }
 function renderHome() {
+    if (holdUntil)
+        return renderHold();
     const mem = loadMemory(), hour = new Date().getHours(), hello = hour < 5 ? 'Up late' : hour < 9 ? 'Early start' : hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : hour < 21 ? 'Good evening' : 'Working late';
     const n = el('div', '', 'home');
-    n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', hour < 5 || hour >= 21 ? 'Before you log off, take 2½ minutes.' : hour < 9 ? 'Ease into the day: take 2½ minutes.' : hour >= 13 && hour < 16 ? 'Afternoon slump? Take 2½ minutes.' : 'Between calls? Take 2½ minutes.', 'home-title'), el('p', 'Tell me how you feel, in English, Hindi, Hinglish or Marathi. I’ll suggest one break and stay quiet while you move.', 'home-lede'));
-    const begin = button('Start with Sukoon', () => send('Start Sukoon', 'onboarding'), 'primary home-start');
+    n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', hour < 5 || hour >= 21 ? 'End the last call of the day together.' : 'The last 2½ minutes of your meeting.', 'home-title'), el('p', 'Open this as the meeting ends: everyone starts together. Or pick a break for how you feel, in English, Hindi, Hinglish or Marathi.', 'home-lede'));
+    const together = button('Start the 2½ minutes', () => { send('/close unknot seated', 'close'); autoStartFirst(); }, 'primary home-start');
+    const begin = button('Pick for how I feel', () => send('Start Sukoon', 'onboarding'), 'home-start');
     begin.id = 'workout';
     // Opened from their own reminder: their usual session is one tap away.
     const usual = openedFromReminder ? usualReset() : null;
@@ -578,7 +615,7 @@ function renderHome() {
         b.append(el('strong', q.label), el('span', q.detail));
         quick.append(b);
     }
-    n.append(begin, ...(quick.childNodes.length ? [el('p', last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), el('p', 'Text only: Sukoon can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
+    n.append(together, begin, el('p', '', 'home-label'), ...(quick.childNodes.length ? [el('p', last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), el('p', 'Text only: Sukoon can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
     return n;
 }
 /** Sukoon's latest words, shown as a caption outside the reset (where the stage speaks for itself). */

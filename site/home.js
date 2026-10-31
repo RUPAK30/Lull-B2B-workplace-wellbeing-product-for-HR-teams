@@ -385,7 +385,7 @@ addEventListener('scroll',upd,{passive:true});upd();})();
 (function(){var t=document.getElementById('ws-table');if(!t)return;var h=[].map.call(t.querySelectorAll('thead th'),function(x){return x.textContent.trim();});
 function lab(){t.querySelectorAll('tbody tr').forEach(function(r){[].forEach.call(r.children,function(c,i){if(i>0&&h[i])c.setAttribute('data-label',h[i]);});});}lab();new MutationObserver(lab).observe(t,{childList:true,subtree:true});})();
 /* Phones: fold long paragraphs to two lines with "More" */
-(function(){if(!matchMedia('(max-width:640px)').matches)return;document.querySelectorAll('main section:not(.hero) p').forEach(function(p){if(p.closest('.email,.demo,.ws,.ask,table,.pager,.toc,.ledger,.privacy,aside,[class*=callout],[class*=card],[class*=box],[class*=note],blockquote,.pmx')||!p.parentElement.matches('.wrap,.wrap > div,section > div > div')||p.textContent.trim().length<150||p.querySelector('input,button'))return;
+(function(){if(!matchMedia('(max-width:640px)').matches)return;document.querySelectorAll('main section:not(.hero) p').forEach(function(p){if(p.closest('.email,.demo,.ws,.ask,table,.pager,.toc,.ledger,.privacy,aside,[class*=callout],[class*=card],[class*=box],[class*=note],blockquote,.pmx,#runs,#hr')||!p.parentElement.matches('.wrap,.wrap > div,section > div > div')||p.textContent.trim().length<150||p.querySelector('input,button'))return;
 p.classList.add('fold');var b=document.createElement('button');b.type='button';b.className='fold-btn';b.textContent='More';b.addEventListener('click',function(){var o=p.classList.toggle('open');b.textContent=o?'Less':'More';});p.after(b);});})();
 
 /* Product view tabs */

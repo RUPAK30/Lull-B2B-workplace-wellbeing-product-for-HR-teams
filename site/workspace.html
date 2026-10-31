@@ -79,8 +79,8 @@
         </div>
         <div class="ws-bill">
           <p class="ws-bill-label">Next invoice</p>
-          <p class="ws-bill-value">₹<span id="ws-total">16,200</span> <span class="ws-bill-gst">+ ₹<span id="ws-gst">2,916</span> GST</span></p>
-          <p class="ws-bill-note" id="ws-note">₹90 a person at 180 seats</p>
+          <p class="ws-bill-value">₹<span id="ws-total">8,994</span> <span class="ws-bill-gst">+ ₹<span id="ws-gst">1,619</span> GST</span></p>
+          <p class="ws-bill-note" id="ws-note">₹1,499 a team · 6 teams · 180 people</p>
         </div>
       </div>
 
@@ -145,7 +145,7 @@
               <div class="email-stats">
                 <div><strong>92</strong><span>started</span></div>
                 <div><strong>75</strong><span>finished</span></div>
-                <div><strong>₹176</strong><span>per person who started</span></div>
+                <div><strong>₹98</strong><span>per person who took part</span></div>
               </div>
               <p class="email-note">Finance and Design are not in this email. Both had fewer than 10 people taking part, and the next-smallest team is hidden with them.</p>
               <p class="email-note"><strong>Recommendation:</strong> continue at 180 seats. Sales is thinning — week 3 had 19 people taking part, this week is 12.</p>
@@ -181,7 +181,7 @@
       <div class="rep-facts">
         <div><b>92</b><span>people taking part, six weeks</span></div>
         <div><b>75</b><span>finished the full 2½ minutes</span></div>
-        <div><b>₹176</b><span>cost per person who started</span></div>
+        <div><b>₹98</b><span>cost per person who took part</span></div>
         <div><b>4 of 6</b><span>teams shown</span></div>
       </div>
 
@@ -275,12 +275,12 @@
   function paint() {
     var n = 0, teams = 0;
     rows.querySelectorAll('tr').forEach(function (tr) { teams++; var i = tr.querySelector('input.ws-seat-input'); n += i ? Math.max(0, Number(i.value) || 0) : Number(tr.dataset.seats) || 0; });
-    var billed = Math.max(n, 10), sub = billed * rate(billed);
+    var sub = teams * 1499;
     seatCount.textContent = String(n);
     document.querySelector('.ws-sub').firstChild.textContent = teams + ' teams · ';
     total.textContent = money(sub);
     gst.textContent = money(Math.round(sub * 0.18));
-    note.textContent = '₹' + rate(billed) + ' a person at ' + n + ' seats' + (n > 250 ? ' · above 250, talk to us' : '');
+    note.textContent = '₹1,499 a team · ' + teams + ' teams · ' + n + ' people';
   }
   var add = document.getElementById('ws-add');
   add.addEventListener('click', function () {

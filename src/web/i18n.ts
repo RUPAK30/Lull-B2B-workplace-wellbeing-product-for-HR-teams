@@ -43,6 +43,7 @@ function sentence(s: string): string | null {
   if ((m = t.match(/^(\d+) of (\d+) · (.+)$/))) return `${m[1]}/${m[2]} · ${word(m[3]) ?? m[3]}`;
   if ((m = t.match(/^What the timers recorded · ([\d:]+) planned$/))) return `${w.recorded} · ${m[1]} ${w.planned}`;
   if ((m = t.match(/^You moved for (.+?) — that counts, even on a busy day\.$/))) return w.moved(m[1].replace('min', w.min).replace('sec', w.sec));
+  if ((m = t.match(/^At (\d\d:\d\d)$/))) return lang === 'hi' ? `${m[1]} बजे` : `${m[1]} वाजता`;
   if ((m = t.match(/^Step (\d+) of (\d+)$/))) return lang === 'hi' ? `स्टेप ${m[1]} / ${m[2]}` : `स्टेप ${m[1]} / ${m[2]}`;
   if ((m = t.match(/^([\d:]+) on the timer$/))) return lang === 'hi' ? `टाइमर पर ${m[1]}` : `टायमरवर ${m[1]}`;
   if ((m = t.match(/^Last step\. (.+)$/))) { const rest = sentence(m[1]) ?? m[1]; return (lang === 'hi' ? 'आख़िरी स्टेप। ' : 'शेवटची स्टेप. ') + rest; }

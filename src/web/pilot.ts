@@ -22,6 +22,9 @@ export const openedFromReminder = params.get('from') === 'reminder';
 export const teamReset = parseReset(params.get('reset'));
 /** A homepage taster (?taster=1) opens the seated neck-and-shoulder reset, so a buyer feels it in under a minute. */
 export const taster = params.get('taster') === '1';
+/** A team close: ?at=HHMM is the shared wall-clock start; ?start=1 starts at once. */
+export const closeAt = (() => { const v = params.get('at'); if (!v || !/^\d{4}$/.test(v)) return null; const d = new Date(); d.setHours(+v.slice(0, 2), +v.slice(2), 0, 0); return d.getTime(); })();
+export const closeNow = params.get('start') === '1';
 
 /** The person can stop their sessions being counted at any time. */
 export const pilotCounting = {

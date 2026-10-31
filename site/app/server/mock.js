@@ -1,6 +1,6 @@
-import { serializeStatement } from '../shared/openui/serialize.js?v=mvve6tcf';
-import { ScreenDocument } from '../shared/openui/document.js?v=mvve6tcf';
-import * as lull from './lull.js?v=mvve6tcf';
+import { serializeStatement } from '../shared/openui/serialize.js?v=mvwgfwjp';
+import { ScreenDocument } from '../shared/openui/document.js?v=mvwgfwjp';
+import * as lull from './lull.js?v=mvwgfwjp';
 const fence = (code) => '```openui\n' + code + '\n```';
 const CLEAR = fence('root = Screens([])');
 const HELP = 'Mock understands /lull to start, /reset [unknot|unsit|energy|calm|screen] [seated|standing] for a reset, /demo for the wiring sample, next, back and “change value to 6”. It does not read your skill or call an AI provider.';
@@ -129,6 +129,10 @@ export function mockTurn(request, input, options = {}) {
     const raw = request.messages.at(-1)?.content.trim() ?? '', last = raw.toLowerCase();
     if (last === 'load wiring sample' || last === '/demo')
         return { reply: 'Wiring fixture loaded. This is deterministic, not a model interpreting your skill.\n' + CLEAR + '\n' + fence(wiring) };
+    // A team close link lands straight on step one, ready to start together.
+    const close = last.match(/^\/close (unknot|unsit|energy|calm|screen) (seated|standing)$/);
+    if (close)
+        return session(close[1], close[2], { name: '' }, `${lull.RESET_NAMES[close[1]]}, ${close[2]}:`, true);
     const command = resetCommand(last);
     if (command)
         return session(command.reset, command.posture, { name: '' }, `${lull.RESET_NAMES[command.reset]}, ${command.posture}:`);

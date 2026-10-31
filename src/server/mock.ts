@@ -106,6 +106,9 @@ export function mockTurn(request: RequestData, input: string | MockFixtures, opt
   const wiring = typeof input === 'string' ? input : input.wiring;
   const raw = request.messages.at(-1)?.content.trim() ?? '', last = raw.toLowerCase();
   if (last === 'load wiring sample' || last === '/demo') return { reply: 'Wiring fixture loaded. This is deterministic, not a model interpreting your skill.\n' + CLEAR + '\n' + fence(wiring) };
+  // A team close link lands straight on step one, ready to start together.
+  const close = last.match(/^\/close (unknot|unsit|energy|calm|screen) (seated|standing)$/);
+  if (close) return session(close[1] as lull.Reset, close[2] as lull.Posture, { name: '' }, `${lull.RESET_NAMES[close[1] as lull.Reset]}, ${close[2]}:`, true);
   const command = resetCommand(last);
   if (command) return session(command.reset, command.posture, { name: '' }, `${lull.RESET_NAMES[command.reset]}, ${command.posture}:`);
   if (['/lull', '/start', 'start lull', 'start sukoon'].includes(last)) return { reply: 'How are you feeling right now?\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
