@@ -2,6 +2,16 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/app",
+      "destination": "/close/",
+      "permanent": false
+    },
+    {
+      "source": "/app/",
+      "destination": "/close/",
+      "permanent": false
+    },
+    {
       "source": "/data",
       "destination": "/trust#data",
       "permanent": true

@@ -22,11 +22,22 @@ Sukoon is the last 2½ minutes of a meeting a team already holds. A team lead pa
 
 ## How it works
 
-1. **Once:** the lead creates the team link (`/start`): team name, standup end time, which break. Out comes one invite line, a Google Calendar link, an Outlook `.ics`, a WhatsApp share and a QR code.
-2. **Daily:** the link carries a wall-clock start (`?at=HHMM`). Everyone who opens it sees the same countdown and begins together. The link hosts it, not a person. `?start=1` starts at once.
-3. **During:** four guided steps, seated and camera-off friendly. Typing "slower", "stop" or "मान आखडली" works mid-session, and pain in any language stops it.
-4. **Friday:** one line to the lead, such as "ran 4 of 5 days, 9 people on average", and never names. A team appears only when 10 or more took part.
-5. **Anytime:** individuals can still open the app and pick a break for how they feel.
+1. **Once:** the lead creates the team link at `/start` (team name and standup end time). Out comes one invite line, a Google Calendar link, an Outlook `.ics`, a WhatsApp share and a QR code.
+2. **Daily:** the link carries a wall-clock start (`/close/?team=…&at=HHMM`). Everyone who opens it sees the same countdown and starts at the same second; anyone late joins at the right step. The link hosts it, not a person.
+3. **The close, 2:30, no taps:**
+
+| Time | Phase | On screen | Evidence |
+|---|---|---|---|
+| 0:00–0:15 | Breathe | One physiological sigh | Cyclic sighing trial (Balban et al., 2023) |
+| 0:15–1:15 | Neck · shoulders · wrists | 20 seconds each, seated, small | Micro-break meta-analysis (Albulescu et al., 2022) |
+| 1:15–1:45 | Eyes | Look across the room, blink slowly | 20-20-20 study (Aston University) |
+| 1:45–2:15 | Next step | "Your first step after this?" (never stored) | Ready-to-resume plan (Leroy & Glomb) |
+| 2:15–2:30 | Done | "Back at 10:15." | — |
+
+4. **Safety:** "Something hurts" stops it for that person, says to rest, and points to 112 for red flags.
+5. **Friday:** one line to the lead: how many days it ran, never who. A team appears only when 10 or more took part.
+
+The promise is deliberately narrow: less fatigue, rested eyes, and a clear first step. No productivity or pain-relief claims (see `/safety`).
 
 ## Privacy by design
 
@@ -49,7 +60,7 @@ Sukoon is the last 2½ minutes of a meeting a team already holds. A team lead pa
 |---|---|---|
 | `/` | Team leads, HR | The pitch: the close, how it works, and HR's "nothing to run" |
 | `/start` | Team leads | Invite generator: one line, Google/Outlook/WhatsApp, QR |
-| `/app/` | Employees | The break: shared start from a team link, or pick for how you feel |
+| `/close/` | Employees | The close: shared countdown and the 2½-minute timeline, in English, Hindi and Marathi |
 | `/workspace` | HR | HR dashboard: teams, seats, hidden teams, Friday email, six-week history, invoice |
 | `/report` | HR, Finance | Week-6 report, print-ready as a one-page A4 PDF |
 | `/pilot` | HR, Procurement | The offer, the six weeks, launch kit, pricing, procurement, FAQ |
@@ -73,7 +84,8 @@ Serve `site/` with any static server to preview the marketing site. In productio
 
 | Folder | Contents |
 |---|---|
-| `src/server` | The engine: five breaks, safety rules, language understanding (`lull.ts`), offline responder (`mock.ts`), optional AI providers |
+| `site/close/` | The close (current product): one self-contained page, no AI, no accounts |
+| `src/server` | The earlier individual-break engine (v1–v4), kept as history: five breaks, safety rules, language understanding (`lull.ts`), offline responder (`mock.ts`), optional AI providers |
 | `src/web` | The employee app, translations (`i18n.ts`, `i18n-strings.ts`), reminders, pilot counting |
 | `src/shared` | Contracts, the screen document model, pilot allow-list, team insights |
 | `site/` | The marketing site, HR dashboard, report, trust, safety and pilot pages, plus the hosted app |

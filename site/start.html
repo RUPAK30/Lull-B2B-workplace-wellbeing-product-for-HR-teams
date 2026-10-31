@@ -53,9 +53,6 @@
   <form id="gen" class="gen-form" autocomplete="off">
     <label>Team name<input id="g-team" maxlength="40" placeholder="e.g. Platform team" required></label>
     <label>Standup ends at<input id="g-end" type="time" value="10:15" required></label>
-    <label>The 2½ minutes<select id="g-r">
-      <option value="unknot-seated">Neck &amp; shoulders</option><option value="calm-seated">Calm down</option><option value="energy-seated">Energy lift</option><option value="screen-seated">Eyes &amp; wrists</option>
-    </select></label>
   </form>
   <div class="gen-out" aria-live="polite">
     <p class="gen-label">Paste this into the invite</p>
@@ -76,8 +73,8 @@
   var $=function(i){return document.getElementById(i)},qr=null;
   function at(end){var p=end.split(':'),m=(+p[0])*60+(+p[1])-3;if(m<0)m+=1440;return ('0'+Math.floor(m/60)).slice(-2)+('0'+m%60).slice(-2);}
   function paint(){
-    var team=($('g-team').value.trim()||'Our team').replace(/[^\w .&-]/g,''),end=$('g-end').value||'10:15',a=at(end),r=$('g-r').value;
-    var url='https://lull-hr.vercel.app/app/?team='+encodeURIComponent(team)+'&reset='+r+'&at='+a;
+    var team=($('g-team').value.trim()||'Our team').replace(/[^\w .&-]/g,''),end=$('g-end').value||'10:15',a=at(end),
+    var url='https://lull-hr.vercel.app/close/?team='+encodeURIComponent(team)+'&at='+a;
     var line='Last 2½ minutes: a seated break together, camera off. Open at '+a.slice(0,2)+':'+a.slice(2)+' → '+url;
     $('g-line').textContent=line;$('g-at').textContent=a.slice(0,2)+':'+a.slice(2);
     var t=a+'00',d=new Date(),ymd=d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2);
@@ -88,7 +85,7 @@
     $('g-wa').href='https://wa.me/?text='+encodeURIComponent(line);
     if(window.QRCode){$('g-qr').innerHTML='';qr=new QRCode($('g-qr'),{text:url,width:132,height:132,colorDark:'#1F4D3A',colorLight:'#ffffff'});}
   }
-  ['g-team','g-end','g-r'].forEach(function(i){$(i).addEventListener('input',paint);});
+  ['g-team','g-end'].forEach(function(i){$(i).addEventListener('input',paint);});
   window.addEventListener('load',paint);paint();
 })();
 </script>

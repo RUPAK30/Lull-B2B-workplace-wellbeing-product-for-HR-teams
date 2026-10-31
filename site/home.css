@@ -1446,7 +1446,7 @@ body::before{inset:-10%;background:
 .price-line{margin:6px 0 0;font-size:1rem}.price-line a{color:var(--accent)}
 @media(max-width:899px){.close-card{margin:0 auto}}
 .gen .wrap{max-width:720px}.gen-sec{border-top:0;padding-top:40px}.gen-h{font-size:clamp(2rem,6vw,2.8rem);margin:6px 0 18px}
-.gen-form{display:grid;gap:12px}@media(min-width:700px){.gen-form{grid-template-columns:1.4fr 1fr 1fr}}
+.gen-form{display:grid;gap:12px}@media(min-width:700px){.gen-form{grid-template-columns:1.4fr 1fr}}
 .gen-form label{display:flex;flex-direction:column;gap:6px;font:600 .72rem var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 .gen-form input,.gen-form select{font:500 1rem var(--sans);text-transform:none;letter-spacing:0;color:var(--ink);padding:12px 14px;border:1px solid var(--rule-2);border-radius:12px;background:#fff;min-height:48px}
 .gen-out{margin-top:20px;background:#fff;border:1px solid var(--rule);border-radius:18px;padding:18px}
