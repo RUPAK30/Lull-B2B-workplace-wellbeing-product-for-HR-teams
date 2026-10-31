@@ -28,20 +28,20 @@ Good evening || शुभ संध्या || शुभ संध्याक�
 Between calls? Take 2½ minutes. || दो कॉल्स के बीच? 2½ मिनट निकालें। || दोन कॉल्सच्या मध्ये? 2½ मिनिटं काढा.
 Tell me how you feel, in English, Hindi, Hinglish or Marathi. || बताइए आप कैसा महसूस कर रहे हैं, अंग्रेज़ी, हिंदी, हिंग्लिश या मराठी में। || सांगा तुम्हाला कसं वाटतंय, इंग्रजी, हिंदी, हिंग्लिश किंवा मराठीत.
 I’ll suggest one break and stay quiet while you move. || मैं एक ब्रेक सुझाऊँगा और आपके करते समय चुप रहूँगा। || मी एक ब्रेक सुचवेन आणि तुम्ही करत असताना शांत राहीन.
-Start with Sukoon || सुकून के साथ शुरू करें || सुकूनसोबत सुरू करा
-Text only: Sukoon can’t see you. Stop anything that doesn’t feel right. || सिर्फ़ टेक्स्ट: सुकून आपको देख नहीं सकता। जो ठीक न लगे, उसे रोक दें। || फक्त मजकूर: सुकून तुम्हाला पाहू शकत नाही. जे बरोबर वाटत नाही ते थांबवा.
+Start with Viraam || विराम के साथ शुरू करें || विरामसोबत सुरू करा
+Text only: Viraam can’t see you. Stop anything that doesn’t feel right. || सिर्फ़ टेक्स्ट: विराम आपको देख नहीं सकता। जो ठीक न लगे, उसे रोक दें। || फक्त मजकूर: विराम तुम्हाला पाहू शकत नाही. जे बरोबर वाटत नाही ते थांबवा.
 Type how you feel… || लिखें, आप कैसा महसूस कर रहे हैं… || लिहा, तुम्हाला कसं वाटतंय…
 Send || भेजें || पाठवा
 Stop || रोकें || थांबवा
 Update || भेजें || पाठवा
 Pause || रोकें || थांबवा
 Resume || फिर शुरू करें || पुन्हा सुरू करा
-Sukoon is thinking… || सुकून सोच रहा है… || सुकून विचार करतंय…
+Viraam is thinking… || विराम सोच रहा है… || विराम विचार करतंय…
 Paused. Your place is kept. || रुका हुआ है। आपकी जगह सुरक्षित है। || थांबवलं आहे. तुमची जागा जपली आहे.
 Ready when you are || जब आप तैयार हों || तुम्ही तयार असाल तेव्हा
-Sukoon for HR teams || HR टीम्स के लिए सुकून || HR टीमसाठी सुकून
+Viraam for HR teams || HR टीम्स के लिए विराम || HR टीमसाठी विराम
 For HR || HR के लिए || HR साठी
-← Back to Sukoon for HR || ← HR पेज पर वापस || ← HR पानावर परत
+← Back to Viraam for HR || ← HR पेज पर वापस || ← HR पानावर परत
 ← HR site || ← HR पेज || ← HR पान
 Suggested || सुझाव || सुचवलेले
 Unknot neck & shoulders || गर्दन और कंधों की जकड़न खोलें || मान आणि खांदे मोकळे करा
@@ -88,8 +88,8 @@ Restless energy does well with a bit of easy rhythm. || बेचैनी म�
 A quick lift, then. || तो फिर, एक छोटा-सा उत्साह। || मग, एक छोटी उभारी.
 Something quieter, then. || तो फिर, कुछ शांत। || मग, काहीतरी शांत.
 No need to know. Let’s start with the one most people like. || जानना ज़रूरी नहीं। वही शुरू करते हैं जो ज़्यादातर लोगों को पसंद है। || माहीत असण्याची गरज नाही. बहुतेकांना आवडतो तोच सुरू करूया.
-Sukoon is for short breaks at your desk, not a fitness plan. An energy lift is the closest fit. || सुकून डेस्क पर छोटे ब्रेक के लिए है, फ़िटनेस प्लान नहीं। ऊर्जा बढ़ाने वाला ब्रेक सबसे क़रीब है। || सुकून डेस्कवरच्या छोट्या ब्रेकसाठी आहे, फिटनेस प्लॅन नाही. ऊर्जा वाढवणारा ब्रेक सगळ्यात जवळचा आहे.
-Running, weights and jumping are outside what Sukoon does; these are short, quiet breaks you can do at your desk. || दौड़ना, वज़न उठाना और कूदना सुकून में नहीं है; ये डेस्क पर किए जाने वाले छोटे, शांत ब्रेक हैं। || धावणं, वजन उचलणं आणि उड्या सुकूनमध्ये नाहीत; हे डेस्कवर करता येणारे छोटे, शांत ब्रेक आहेत.
+Viraam is for short breaks at your desk, not a fitness plan. An energy lift is the closest fit. || विराम डेस्क पर छोटे ब्रेक के लिए है, फ़िटनेस प्लान नहीं। ऊर्जा बढ़ाने वाला ब्रेक सबसे क़रीब है। || विराम डेस्कवरच्या छोट्या ब्रेकसाठी आहे, फिटनेस प्लॅन नाही. ऊर्जा वाढवणारा ब्रेक सगळ्यात जवळचा आहे.
+Running, weights and jumping are outside what Viraam does; these are short, quiet breaks you can do at your desk. || दौड़ना, वज़न उठाना और कूदना विराम में नहीं है; ये डेस्क पर किए जाने वाले छोटे, शांत ब्रेक हैं। || धावणं, वजन उचलणं आणि उड्या विराममध्ये नाहीत; हे डेस्कवर करता येणारे छोटे, शांत ब्रेक आहेत.
 Slow neck and shoulder release for after a run of calls. || लगातार कॉल्स के बाद गर्दन और कंधों को धीरे से ढीला करें। || सलग कॉल्सनंतर मान आणि खांदे हळूहळू मोकळे करा.
 Gentle movement for the back and hips after a long stretch of sitting. || देर तक बैठने के बाद कमर और कूल्हों की हल्की हरकत। || खूप वेळ बसल्यानंतर पाठ आणि कंबरेची हलकी हालचाल.
 A quiet lift for a heavy afternoon. No sweat, nothing on the floor. || भारी दोपहर के लिए हल्का उत्साह। न पसीना, न ज़मीन पर कुछ। || जड दुपारसाठी हलकी उभारी. घाम नाही, जमिनीवर काही नाही.
@@ -122,11 +122,11 @@ Something else || कुछ और || काहीतरी वेगळं
 Choose seated or standing below, or tell me what you need instead. Seated works on a call; standing works beside your desk. || नीचे बैठकर या खड़े होकर चुनें, या बताइए आपको क्या चाहिए। बैठकर वाला कॉल पर हो सकता है; खड़े होकर वाला डेस्क के पास। || खाली बसून किंवा उभे राहून निवडा, किंवा तुम्हाला काय हवं ते सांगा. बसून करायचा कॉलवर करता येतो; उभे राहून करायचा डेस्कजवळ.
 Sure. What would help more? || ठीक है। क्या ज़्यादा मदद करेगा? || ठीक आहे. काय जास्त उपयोगी ठरेल?
 Stay at your desk; nothing to change into. || डेस्क पर ही रहें; कपड़े बदलने की ज़रूरत नहीं। || डेस्कवरच राहा; कपडे बदलायची गरज नाही.
-Sukoon can’t see you. Do only what feels comfortable, and stop if anything hurts. || सुकून आपको देख नहीं सकता। सिर्फ़ उतना करें जितना आरामदायक लगे, और कहीं दर्द हो तो रुक जाएँ। || सुकून तुम्हाला पाहू शकत नाही. फक्त जितकं आरामदायक वाटेल तितकंच करा, आणि कुठे दुखलं तर थांबा.
+Viraam can’t see you. Do only what feels comfortable, and stop if anything hurts. || विराम आपको देख नहीं सकता। सिर्फ़ उतना करें जितना आरामदायक लगे, और कहीं दर्द हो तो रुक जाएँ। || विराम तुम्हाला पाहू शकत नाही. फक्त जितकं आरामदायक वाटेल तितकंच करा, आणि कुठे दुखलं तर थांबा.
 Start each timer when you’re set. Back is always there. || तैयार होने पर हर टाइमर शुरू करें। पीछे जाने का विकल्प हमेशा है। || तयार झाल्यावर प्रत्येक टायमर सुरू करा. मागे जाण्याचा पर्याय नेहमी आहे.
-Something changed? Tell Sukoon || कुछ बदला? सुकून को बताएँ || काही बदललं? सुकूनला सांगा
+Something changed? Tell Viraam || कुछ बदला? विराम को बताएँ || काही बदललं? विरामला सांगा
 e.g. can I do this seated? || जैसे: क्या मैं यह बैठकर कर सकता हूँ? || उदा.: हे मी बसून करू शकतो का?
-Tell Sukoon || सुकून को बताएँ || सुकूनला सांगा
+Tell Viraam || विराम को बताएँ || विरामला सांगा
 Up next || आगे || पुढे
 Back to your day || अपने काम पर वापस || पुन्हा कामाला
 Back to your day. || अपने काम पर वापस। || पुन्हा कामाला.
@@ -336,7 +336,7 @@ I can’t assess pain or injuries, so I won’t suggest a movement around it. Ge
 That sounds like it needs urgent medical attention, not movement. Please stop and contact your local emergency number or urgent care now. || ऐसा लगता है कि इसमें तुरंत डॉक्टरी मदद चाहिए, हरकत नहीं। कृपया रुकें और अभी आपातकालीन नंबर (भारत में 112) या नज़दीकी अस्पताल से संपर्क करें। || यासाठी तातडीची वैद्यकीय मदत हवी आहे असं वाटतं, हालचाल नाही. कृपया थांबा आणि आत्ताच आपत्कालीन क्रमांक (भारतात 112) किंवा जवळच्या रुग्णालयाशी संपर्क साधा.
 If you’re recovering, your clinician’s advice and restrictions come first. These breaks aren’t a rehab plan. || अगर आप ठीक हो रहे हैं, तो आपके डॉक्टर की सलाह और पाबंदियाँ पहले आती हैं। ये ब्रेक रिहैब प्लान नहीं हैं। || तुम्ही बरे होत असाल, तर तुमच्या डॉक्टरांचा सल्ला आणि बंधनं आधी. हे ब्रेक रिहॅब प्लॅन नाहीत.
 If you’d still like a break today, choose one that leaves that area alone, and stop if anything hurts. || अगर फिर भी आज ब्रेक लेना चाहें, तो ऐसा चुनें जिसमें वह हिस्सा न हिले, और कहीं दर्द हो तो रुक जाएँ। || तरीही आज ब्रेक घ्यायचा असेल, तर तो भाग न हलवणारा निवडा, आणि कुठे दुखलं तर थांबा.
-This isn’t something Sukoon can help with, and it isn’t a time to move. || इसमें सुकून मदद नहीं कर सकता, और यह हरकत करने का समय नहीं है। || यात सुकून मदत करू शकत नाही, आणि ही हालचाल करण्याची वेळ नाही.
+This isn’t something Viraam can help with, and it isn’t a time to move. || इसमें विराम मदद नहीं कर सकता, और यह हरकत करने का समय नहीं है। || यात विराम मदत करू शकत नाही, आणि ही हालचाल करण्याची वेळ नाही.
 I understand || मैं समझ गया/गई || मला समजलं
 Not today || आज नहीं || आज नाही
 Show the breaks || ब्रेक दिखाएँ || ब्रेक दाखवा
@@ -344,7 +344,7 @@ Please look after yourself first. || कृपया पहले अपना �
 No pressure either way. || किसी भी तरह कोई दबाव नहीं। || कोणत्याही प्रकारे दबाव नाही.
 Please look after that first. || कृपया पहले उसका ध्यान रखें। || कृपया आधी त्याची काळजी घ्या.
 That’s a good call. || यह सही फ़ैसला है। || हा योग्य निर्णय आहे.
-Get help now. Sukoon will be here another time, when you’re ready. || अभी मदद लें। जब आप तैयार हों, सुकून फिर यहीं होगा। || आत्ता मदत घ्या. तुम्ही तयार असाल तेव्हा सुकून पुन्हा इथेच असेल.
+Get help now. Viraam will be here another time, when you’re ready. || अभी मदद लें। जब आप तैयार हों, विराम फिर यहीं होगा। || आत्ता मदत घ्या. तुम्ही तयार असाल तेव्हा विराम पुन्हा इथेच असेल.
 Look after yourself. If you change your mind, the breaks are still here. || अपना ध्यान रखें। मन बदले तो ब्रेक यहीं हैं। || स्वतःची काळजी घ्या. विचार बदलला तर ब्रेक इथेच आहेत.
 Take care. || ध्यान रखें। || काळजी घ्या.
 Here they are. Pick one that leaves that area alone. || ये रहे। ऐसा चुनें जिसमें वह हिस्सा न हिले। || हे घ्या. तो भाग न हलवणारा निवडा.
@@ -410,14 +410,14 @@ Good. Shake it out if you like, then carry on. || बढ़िया। चा�
 That was the last step. || यह आख़िरी स्टेप था। || ही शेवटची स्टेप होती.
 Marked done without timing. || बिना टाइमर के पूरा माना गया। || टायमरशिवाय पूर्ण मानलं.
 Get ready. 3 || तैयार हो जाएँ। 3 || तयार व्हा. 3
-Sukoon suggests || सुकून का सुझाव || सुकूनचा सुझाव
+Viraam suggests || विराम का सुझाव || विरामचा सुझाव
 Session complete || सेशन पूरा हुआ || सेशन पूर्ण झालं
 Nicely done. That was time well spent. || बहुत बढ़िया। यह समय अच्छे से बीता। || छान केलंत. हा वेळ सार्थकी लागला.
 Even a short pause away from the screen counts. || स्क्रीन से छोटा-सा विराम भी मायने रखता है। || स्क्रीनपासून छोटासा विरामही महत्त्वाचा आहे.
 Another 2½ minutes || 2½ मिनट और || आणखी 2½ मिनिटं
 All done || सब हो गया || सगळं झालं
 Enjoy the rest of your day. || आपका बाकी दिन अच्छा बीते। || तुमचा उरलेला दिवस छान जावो.
-You can close this tab. Whenever the next long call ends, Sukoon will be here. || आप यह टैब बंद कर सकते हैं। अगली लंबी कॉल ख़त्म होने पर सुकून यहीं होगा। || तुम्ही हा टॅब बंद करू शकता. पुढचा लांब कॉल संपल्यावर सुकून इथेच असेल.
+You can close this tab. Whenever the next long call ends, Viraam will be here. || आप यह टैब बंद कर सकते हैं। अगली लंबी कॉल ख़त्म होने पर विराम यहीं होगा। || तुम्ही हा टॅब बंद करू शकता. पुढचा लांब कॉल संपल्यावर विराम इथेच असेल.
 Start another break || एक और ब्रेक शुरू करें || आणखी एक ब्रेक सुरू करा
 How did that feel? || कैसा लगा? || कसं वाटलं?
 Lighter || हल्का || हलकं
@@ -431,12 +431,12 @@ Weekdays at || हफ़्ते के दिनों में || आठव�
 Copy Slack reminder || Slack रिमाइंडर कॉपी करें || Slack रिमाइंडर कॉपी करा
 Copy team break invite || टीम ब्रेक इनवाइट कॉपी करें || टीम ब्रेक इनवाइट कॉपी करा
 Outlook or Apple (.ics) || Outlook या Apple (.ics) || Outlook किंवा Apple (.ics)
-Pick a time and add it to your own calendar or Slack. Skip any day you like: Sukoon won’t follow up. || एक समय चुनें और अपने कैलेंडर या Slack में जोड़ें। कोई भी दिन छोड़ें: सुकून पीछे नहीं पड़ेगा। || एक वेळ निवडा आणि तुमच्या कॅलेंडर किंवा Slack मध्ये जोडा. हवा तो दिवस सोडा: सुकून मागे लागणार नाही.
+Pick a time and add it to your own calendar or Slack. Skip any day you like: Viraam won’t follow up. || एक समय चुनें और अपने कैलेंडर या Slack में जोड़ें। कोई भी दिन छोड़ें: विराम पीछे नहीं पड़ेगा। || एक वेळ निवडा आणि तुमच्या कॅलेंडर किंवा Slack मध्ये जोडा. हवा तो दिवस सोडा: विराम मागे लागणार नाही.
 Or do it together: paste this into a recurring meeting invite, and end it with a 2½-minute break together. || या साथ में करें: इसे किसी रोज़ की मीटिंग के इनवाइट में डालें, और मीटिंग 2½ मिनट के ब्रेक के साथ ख़त्म करें। || किंवा एकत्र करा: हे रोजच्या मीटिंगच्या इनवाइटमध्ये टाका, आणि मीटिंग 2½ मिनिटांच्या ब्रेकने संपवा.
 What the timers recorded || टाइमर ने क्या दर्ज किया || टायमरने काय नोंदवलं
 Your break time. Same as usual? || आपके ब्रेक का समय। हमेशा जैसा? || तुमच्या ब्रेकची वेळ. नेहमीसारखा?
 Something different || कुछ अलग || काहीतरी वेगळं
-Sukoon couldn’t load. Check your connection and refresh the page. || सुकून लोड नहीं हो पाया। अपना इंटरनेट देखें और पेज रिफ़्रेश करें। || सुकून लोड झालं नाही. इंटरनेट तपासा आणि पान रिफ्रेश करा.
+Viraam couldn’t load. Check your connection and refresh the page. || विराम लोड नहीं हो पाया। अपना इंटरनेट देखें और पेज रिफ़्रेश करें। || विराम लोड झालं नाही. इंटरनेट तपासा आणि पान रिफ्रेश करा.
 Previous reply interrupted. Your messages are kept. || पिछला जवाब बीच में रुक गया। आपके संदेश सुरक्षित हैं। || मागचं उत्तर मध्येच थांबलं. तुमचे संदेश जपले आहेत.
 A calm close, then back to work || एक शांत अंत, फिर काम पर वापस || शांत शेवट, मग पुन्हा कामाला
 Or pick your moment || या अपना पल चुनें || किंवा तुमचा क्षण निवडा
@@ -444,7 +444,7 @@ Or pick up where you left off || या जहाँ छोड़ा था व�
 After back-to-back calls || लगातार कॉल्स के बाद || सलग कॉल्सनंतर
 Stiff from sitting || बैठे-बैठे जकड़न || बसून बसून आखडलं
 Same as last time || पिछली बार जैसा || मागच्या वेळेसारखं
-About Sukoon || सुकून के बारे में || सुकूनबद्दल
+About Viraam || विराम के बारे में || विरामबद्दल
 About || परिचय || माहिती
 Up late || इतनी रात तक जागे हैं || इतक्या रात्रीपर्यंत जागे आहात
 Early start || जल्दी शुरुआत || लवकर सुरुवात

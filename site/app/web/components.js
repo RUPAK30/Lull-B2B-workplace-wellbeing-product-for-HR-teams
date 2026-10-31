@@ -1,6 +1,6 @@
-import { el, button } from './dom.js?v=mvwgfwjp';
-import { recapLine, recapSummary } from '../shared/openui/recap.js?v=mvwgfwjp';
-import { validateName, nameMessage } from '../shared/openui/name-input.js?v=mvwgfwjp';
+import { el, button } from './dom.js?v=mvwpo3if';
+import { recapLine, recapSummary } from '../shared/openui/recap.js?v=mvwpo3if';
+import { validateName, nameMessage } from '../shared/openui/name-input.js?v=mvwpo3if';
 const afterBlock = ['Done. Take whatever pause you need.', 'That one is done. No rush into the next.', 'Good. Shake it out if you like, then carry on.'];
 // Drafts and focus survive re-renders, so a reply arriving mid-sentence never wipes what someone is typing.
 const drafts = new Map();
@@ -85,7 +85,7 @@ export const renderers = {
         if (typingIn === key)
             setTimeout(() => { if (input.isConnected && !input.disabled)
                 input.focus({ preventScroll: true }); }, 0);
-        const go = el('button', 'Tell Sukoon', 'primary');
+        const go = el('button', 'Tell Viraam', 'primary');
         go.type = 'submit';
         const line = el('div', '', 'name-line');
         line.append(input, go);

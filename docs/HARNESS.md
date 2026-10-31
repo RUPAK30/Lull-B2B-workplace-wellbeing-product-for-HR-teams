@@ -2,7 +2,7 @@
 
 ## Origin
 
-Sukoon was built on top of a **starter harness provided for a take-home product exercise**. The starter supplied the plumbing:
+Viraam was built on top of a **starter harness provided for a take-home product exercise**. The starter supplied the plumbing:
 - the OpenUI parser and screen document;
 - base component signatures, validation and the timer ledger;
 - run navigation and event phrasing;

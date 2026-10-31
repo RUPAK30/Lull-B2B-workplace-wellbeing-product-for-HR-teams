@@ -1,6 +1,6 @@
-import { serializeStatement } from '../shared/openui/serialize.js?v=mvwgfwjp';
-import { ScreenDocument } from '../shared/openui/document.js?v=mvwgfwjp';
-import * as lull from './lull.js?v=mvwgfwjp';
+import { serializeStatement } from '../shared/openui/serialize.js?v=mvwpo3if';
+import { ScreenDocument } from '../shared/openui/document.js?v=mvwpo3if';
+import * as lull from './lull.js?v=mvwpo3if';
 const fence = (code) => '```openui\n' + code + '\n```';
 const CLEAR = fence('root = Screens([])');
 const HELP = 'Mock understands /lull to start, /reset [unknot|unsit|energy|calm|screen] [seated|standing] for a reset, /demo for the wiring sample, next, back and “change value to 6”. It does not read your skill or call an AI provider.';
@@ -136,7 +136,7 @@ export function mockTurn(request, input, options = {}) {
     const command = resetCommand(last);
     if (command)
         return session(command.reset, command.posture, { name: '' }, `${lull.RESET_NAMES[command.reset]}, ${command.posture}:`);
-    if (['/lull', '/start', 'start lull', 'start sukoon'].includes(last))
+    if (['/lull', '/start', 'start lull', 'start viraam'].includes(last))
         return { reply: 'How are you feeling right now?\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
     const doc = new ScreenDocument();
     if (request.state.ui_state)

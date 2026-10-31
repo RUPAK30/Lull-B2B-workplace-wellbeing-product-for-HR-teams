@@ -1,5 +1,5 @@
-import { isTurn } from './contracts.js?v=mvwgfwjp';
-import { ScreenDocument, splitReply } from './openui/document.js?v=mvwgfwjp';
+import { isTurn } from './contracts.js?v=mvwpo3if';
+import { ScreenDocument, splitReply } from './openui/document.js?v=mvwpo3if';
 /** Recent turns sent as context. The current screen always travels in ui_state, so earlier
  *  replies are sent as their words only and long sessions never outgrow the request limits. */
 const CONTEXT_TURNS = 30;

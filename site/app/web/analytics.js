@@ -1,7 +1,7 @@
 // A private activity log for product insight. It lives in this browser only: nothing is
 // sent anywhere, it can be turned off, cleared or exported, and it never stores free text
-// except the requests Sukoon could not understand (so they can shape the backlog).
-import { sendPilot, noteUsual } from './pilot.js?v=mvwgfwjp';
+// except the requests Viraam could not understand (so they can shape the backlog).
+import { sendPilot, noteUsual } from './pilot.js?v=mvwpo3if';
 const LOG = 'sw.events', ON = 'sw.analytics', DEVICE = 'sw.device', LIMIT = 3000;
 const store = {
     get(key) { try {
@@ -70,7 +70,7 @@ export function setOverride(experiment, value) { if (value === 'A' || value === 
     store.set('sw.exp.' + experiment, value);
 else
     store.del('sw.exp.' + experiment); }
-/** Reads what Sukoon just did from its reply, so the log reflects product moments, not clicks. */
+/** Reads what Viraam just did from its reply, so the log reflects product moments, not clicks. */
 export function observeTurn(said, reply) {
     const heard = reply.match(/pick_need = Text\("For ([^"]+)"/);
     if (heard)

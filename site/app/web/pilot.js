@@ -1,8 +1,8 @@
-// The browser side of a team pilot. Only active when Sukoon was opened from a pilot link, only
+// The browser side of a team pilot. Only active when Viraam was opened from a pilot link, only
 // sends what shared/pilot.ts allows, and records every send on this device so the person can
 // see exactly what left ("What leaves this device" in Settings). The local app's CSP blocks
 // these requests, so they only ever leave the hosted pilot copy.
-import { cleanTeam, parseReset, pilotEvent, pilotPath, resetFromTitle } from '../shared/pilot.js?v=mvwgfwjp';
+import { cleanTeam, parseReset, pilotEvent, pilotPath, resetFromTitle } from '../shared/pilot.js?v=mvwpo3if';
 const TEAM = 'sw.pilot.team', COUNT = 'sw.pilot.count', SENT = 'sw.pilot.sent', LIMIT = 50;
 // On the hosted site, counts go through our own domain so ad blockers don't drop them.
 const ENDPOINT = typeof location !== 'undefined' && location.hostname.endsWith('vercel.app') ? '/gc/count' : 'https://lull.goatcounter.com/count';

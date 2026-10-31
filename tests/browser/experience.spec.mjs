@@ -44,7 +44,7 @@ test('keyboard: Space starts and pauses the timer, arrows move; focus mode quiet
   await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4'); await page.locator('#screen').focus();
   await page.keyboard.press('Space'); await expect(page.locator('.timer-status')).toHaveText('running');
   await expect(page.locator('body')).toHaveAttribute('data-phase', 'focus');
-  await expect(page.locator('#composer')).toBeHidden(); // the stage's own "Tell Sukoon" is the way to talk here
+  await expect(page.locator('#composer')).toBeHidden(); // the stage's own "Tell Viraam" is the way to talk here
   await page.keyboard.press('Space'); await expect(page.locator('.timer-status')).toHaveText('paused');
   await page.keyboard.press('ArrowRight'); await expect(page.locator('.workout-count')).toHaveText('Step 2 of 4');
   await page.keyboard.press('ArrowLeft'); await expect(page.locator('.workout-count')).toHaveText('Step 1 of 4');
@@ -75,7 +75,7 @@ test('remember me is opt-in, offers the last reset on return, and forgets on req
 test('installable: manifest, icons and a service worker allowed to control the app', async ({ page, request }) => {
   await fresh(page);
   const manifest = await request.get('/web/manifest.webmanifest'); expect(manifest.headers()['content-type']).toContain('application/manifest+json');
-  expect((await manifest.json()).short_name).toBe('Sukoon');
+  expect((await manifest.json()).short_name).toBe('Viraam');
   for (const icon of ['/web/icon-192.png', '/web/icon-512.png']) expect((await request.get(icon)).headers()['content-type']).toBe('image/png');
   expect((await request.get('/web/sw.js')).headers()['service-worker-allowed']).toBe('/');
   await expect.poll(() => page.evaluate(async () => !!(await navigator.serviceWorker.getRegistration('/')))).toBe(true);

@@ -111,7 +111,7 @@ export function mockTurn(request: RequestData, input: string | MockFixtures, opt
   if (close) return session(close[1] as lull.Reset, close[2] as lull.Posture, { name: '' }, `${lull.RESET_NAMES[close[1] as lull.Reset]}, ${close[2]}:`, true);
   const command = resetCommand(last);
   if (command) return session(command.reset, command.posture, { name: '' }, `${lull.RESET_NAMES[command.reset]}, ${command.posture}:`);
-  if (['/lull', '/start', 'start lull', 'start sukoon'].includes(last)) return { reply: 'How are you feeling right now?\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
+  if (['/lull', '/start', 'start lull', 'start viraam'].includes(last)) return { reply: 'How are you feeling right now?\n' + CLEAR + '\n' + fence(lull.feelProgram()) };
   const doc = new ScreenDocument(); if (request.state.ui_state) doc.apply(fence(request.state.ui_state));
   // Typed next/back still navigate on the first screens.
   if (lull.isOnboarding(doc) && !['next', 'back'].includes(last)) { const turn = onboardingTurn(doc, raw, last, options.understood?.need); if (turn) return turn; }

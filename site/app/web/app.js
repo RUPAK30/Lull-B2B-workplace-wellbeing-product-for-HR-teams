@@ -1,20 +1,20 @@
-import { Conversation } from '../shared/controller.js?v=mvwgfwjp';
-import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvwgfwjp';
-import { TimerLedger } from '../shared/openui/timer-store.js?v=mvwgfwjp';
-import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvwgfwjp';
-import { createRunNav } from '../shared/openui/run-nav.js?v=mvwgfwjp';
-import { splitReply } from '../shared/openui/document.js?v=mvwgfwjp';
-import { redactValue } from '../shared/redact.js?v=mvwgfwjp';
-import { renderComponent } from './components.js?v=mvwgfwjp';
-import { byId, el, button } from './dom.js?v=mvwgfwjp';
-import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvwgfwjp';
-import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset, closeAt, closeNow } from './pilot.js?v=mvwgfwjp';
-import { reminderCard } from './reminder.js?v=mvwgfwjp';
-import { initI18n } from './i18n.js?v=mvwgfwjp';
-import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvwgfwjp';
-import { renderInsights, teamExport } from './insights-view.js?v=mvwgfwjp';
-import { sampleEvents } from '../shared/insights.js?v=mvwgfwjp';
-import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvwgfwjp';
+import { Conversation } from '../shared/controller.js?v=mvwpo3if';
+import { APP_VERSION, SCHEMA_VERSION } from '../shared/contracts.js?v=mvwpo3if';
+import { TimerLedger } from '../shared/openui/timer-store.js?v=mvwpo3if';
+import { activityClientEvents, timerTransitionEvent } from '../shared/openui/activity-client-events.js?v=mvwpo3if';
+import { createRunNav } from '../shared/openui/run-nav.js?v=mvwpo3if';
+import { splitReply } from '../shared/openui/document.js?v=mvwpo3if';
+import { redactValue } from '../shared/redact.js?v=mvwpo3if';
+import { renderComponent } from './components.js?v=mvwpo3if';
+import { byId, el, button } from './dom.js?v=mvwpo3if';
+import { track, observeTurn, noteReturn, variantOf, overrideOf, setOverride, EXPERIMENTS, logging, events, clearEvents, currentRun, lastFinishReason } from './analytics.js?v=mvwpo3if';
+import { pilotTeam, pilotCounting, sentLog, clearSent, openedFromReminder, teamReset, taster, usualReset, closeAt, closeNow } from './pilot.js?v=mvwpo3if';
+import { reminderCard } from './reminder.js?v=mvwpo3if';
+import { initI18n } from './i18n.js?v=mvwpo3if';
+import { RESETS, RESET_NAMES, RESET_MOMENTS, DEFAULT_POSTURE, POSTURE_LABELS, fromTitle } from '../shared/resets.js?v=mvwpo3if';
+import { renderInsights, teamExport } from './insights-view.js?v=mvwpo3if';
+import { sampleEvents } from '../shared/insights.js?v=mvwpo3if';
+import { prefs, savePrefs, loadMemory, saveMemory, forgetMemory, applyTheme, primeChime, chime, announce } from './prefs.js?v=mvwpo3if';
 let config;
 const timers = new TimerLedger();
 let previousTimers = new Map(), updates = [];
@@ -56,20 +56,20 @@ function upNext(key) { const screens = c.document.screens, i = screens.findIndex
     return null; const children = next.props.children, title = children.find(n => n.name === 'Text' && n.props.variant === 'title'); return { label: title ? String(title.props.text).replace(/^\d+ of \d+ · /, '') : `step ${i + 2}`, closing: children.some(n => n.name === 'Recap') }; }
 function advance(key) { const holds = (c.document.current?.props.children ?? []).some(n => n.key === key); if (!holds || nav.phase() !== 'idle' || paused)
     return; nav.next(); }
-/** Sukoon's ambient presence follows the activity: present at arrival, receding during movement, calm at the close. */
+/** Viraam's ambient presence follows the activity: present at arrival, receding during movement, calm at the close. */
 const hasTimer = (s) => s.props.children.some(n => n.name === 'Timer');
 /** A movement screen: it has a timer and no safety notice. These render as one continuous reset stage. */
 function isWorkout(s) { const kids = s?.props.children; return !!kids && hasTimer(s) && !kids.some(n => n.name === 'Alert' && (n.props.tone === 'warning' || n.props.tone === 'danger')); }
 /** The active reset, composed as one guided stage:
- *  header (Sukoon, session, progress) → movement stage (name, instruction, dial timer, controls, cues)
- *  → up next + Sukoon companion (guidance, offers, "Tell Sukoon") → session navigation. */
+ *  header (Viraam, session, progress) → movement stage (name, instruction, dial timer, controls, cues)
+ *  → up next + Viraam companion (guidance, offers, "Tell Viraam") → session navigation. */
 function renderWorkout(current, ctx) {
     const kids = current.props.children, screens = c.document.screens, moves = screens.filter(hasTimer), pos = moves.findIndex(s => s.key === current.key);
     const of = (name) => kids.find(n => n.name === name), rail = of('Rail'), intent = String(rail?.props.intent ?? ''), timerNode = of('Timer');
     const stage = el('section', '', 'workout');
     // Header: who is with you, what this session is, where you are in it.
     const head = el('div', '', 'workout-head'), mark = el('p', '', 'workout-mark'), progress = button('', () => toggleSheet(), 'workout-progress'), track = el('div', '', 'workout-track');
-    mark.append(el('span', '', 'sw-dot'), el('span', 'Sukoon', 'sw-name'), el('span', intent || 'Session', 'workout-intent'));
+    mark.append(el('span', '', 'sw-dot'), el('span', 'Viraam', 'sw-name'), el('span', intent || 'Session', 'workout-intent'));
     track.setAttribute('aria-hidden', 'true');
     const dots = moves.map(() => { const d = el('span'); track.append(d); return d; });
     progress.setAttribute('aria-expanded', 'false');
@@ -127,7 +127,7 @@ function renderWorkout(current, ctx) {
         list.classList.add('workout-cues');
         hero.append(list);
     }
-    // Below the stage: what comes next, and Sukoon (guidance, any offer, and the way to tell it something).
+    // Below the stage: what comes next, and Viraam (guidance, any offer, and the way to tell it something).
     const lower = el('div', '', 'workout-lower'), next = el('div', '', 'workout-next'), companion = el('div', '', 'workout-companion'), offer = el('div', '', 'workout-offer');
     const after = screens[screens.findIndex(s => s.key === current.key) + 1], afterKids = after?.props.children ?? [];
     const afterTimer = afterKids.find(n => n.name === 'Timer'), afterTitle = afterKids.find(n => n.name === 'Text' && n.props.variant === 'title');
@@ -138,7 +138,7 @@ function renderWorkout(current, ctx) {
         if (node.name === 'Alert' || node.name === 'FollowUps')
             offer.append(renderComponent(node, ctx));
     if (offer.childNodes.length) {
-        offer.prepend(el('span', 'Sukoon suggests', 'workout-offer-label'));
+        offer.prepend(el('span', 'Viraam suggests', 'workout-offer-label'));
         stage.classList.add('has-offer');
     }
     companion.append(offer.childNodes.length ? offer : say);
@@ -354,11 +354,11 @@ function render() {
     const transcript = byId('transcript');
     transcript.replaceChildren();
     if (!c.events.length)
-        transcript.append(el('p', 'Start the scripted Sukoon flow, type /reset (optionally /reset calm seated) for a reset, or load the wiring sample. Mock makes no model calls.', 'micro'));
+        transcript.append(el('p', 'Start the scripted Viraam flow, type /reset (optionally /reset calm seated) for a reset, or load the wiring sample. Mock makes no model calls.', 'micro'));
     for (const event of c.events) {
         if (event.kind === 'input' || event.kind === 'response') {
             const n = el('div', '', 'message ' + (event.kind === 'input' ? 'user' : 'assistant'));
-            n.append(el('span', event.kind === 'input' ? 'You' : 'Sukoon', 'who'), el('p', event.text ?? splitReply(event.result.turn.reply).prose ?? ''));
+            n.append(el('span', event.kind === 'input' ? 'You' : 'Viraam', 'who'), el('p', event.text ?? splitReply(event.result.turn.reply).prose ?? ''));
             transcript.append(n);
         }
         else if (event.text)
@@ -524,7 +524,7 @@ async function start() {
         }
     }
     catch {
-        byId('status').textContent = 'Sukoon couldn’t load. Check your connection and refresh the page.';
+        byId('status').textContent = 'Viraam couldn’t load. Check your connection and refresh the page.';
     }
 }
 /** Jump to a movement from the session overview (never while safety holds the session). */
@@ -553,7 +553,7 @@ function renderDone(current) {
     }
     catch { } for (const sib of [...(n.parentElement?.children ?? [])])
         if (sib !== n)
-            sib.remove(); window.scrollTo({ top: 0, behavior: 'smooth' }); n.replaceChildren(mark, el('p', 'All done', 'done-kicker'), el('h2', 'Enjoy the rest of your day.', 'done-title'), el('p', 'You can close this tab. Whenever the next long call ends, Sukoon will be here.', 'done-text'), button('Start another break', () => { byId('reset').click(); setTimeout(() => send('Start Sukoon', 'onboarding'), 50); }, 'quiet')); }, 'primary home-start'), button('Another 2½ minutes', () => { byId('reset').click(); setTimeout(() => send('Start Sukoon', 'onboarding'), 50); }, 'home-start'));
+            sib.remove(); window.scrollTo({ top: 0, behavior: 'smooth' }); n.replaceChildren(mark, el('p', 'All done', 'done-kicker'), el('h2', 'Enjoy the rest of your day.', 'done-title'), el('p', 'You can close this tab. Whenever the next long call ends, Viraam will be here.', 'done-text'), button('Start another break', () => { byId('reset').click(); setTimeout(() => send('Start Viraam', 'onboarding'), 50); }, 'quiet')); }, 'primary home-start'), button('Another 2½ minutes', () => { byId('reset').click(); setTimeout(() => send('Start Viraam', 'onboarding'), 50); }, 'home-start'));
     n.append(row, el('p', say('finish_again'), 'done-again'));
     queueMicrotask(() => { byId('navigation').hidden = true; });
     return n;
@@ -590,7 +590,7 @@ function renderHome() {
     const n = el('div', '', 'home');
     n.append(el('p', `${hello}${mem.name ? `, ${mem.name}` : ''}`, 'home-hello'), el('h2', hour < 5 || hour >= 21 ? 'End the last call of the day together.' : 'The last 2½ minutes of your meeting.', 'home-title'), el('p', 'Open this as the meeting ends: everyone starts together. Or pick a break for how you feel, in English, Hindi, Hinglish or Marathi.', 'home-lede'));
     const together = button('Start the 2½ minutes', () => { send('/close unknot seated', 'close'); autoStartFirst(); }, 'primary home-start');
-    const begin = button('Pick for how I feel', () => send('Start Sukoon', 'onboarding'), 'home-start');
+    const begin = button('Pick for how I feel', () => send('Start Viraam', 'onboarding'), 'home-start');
     begin.id = 'workout';
     // Opened from their own reminder: their usual session is one tap away.
     const usual = openedFromReminder ? usualReset() : null;
@@ -615,10 +615,10 @@ function renderHome() {
         b.append(el('strong', q.label), el('span', q.detail));
         quick.append(b);
     }
-    n.append(together, begin, el('p', '', 'home-label'), ...(quick.childNodes.length ? [el('p', last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), el('p', 'Text only: Sukoon can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
+    n.append(together, begin, el('p', '', 'home-label'), ...(quick.childNodes.length ? [el('p', last && quick.childNodes.length === 1 ? 'Or pick up where you left off' : 'Or pick your moment', 'home-label'), quick] : []), el('p', 'Text only: Viraam can’t see you. Stop anything that doesn’t feel right.', 'micro home-note'), ...(pilotTeam ? [pilotNote()] : []));
     return n;
 }
-/** Sukoon's latest words, shown as a caption outside the reset (where the stage speaks for itself). */
+/** Viraam's latest words, shown as a caption outside the reset (where the stage speaks for itself). */
 function renderCaption() { const reply = [...c.events].reverse().find(e => e.kind === 'response'), prose = reply?.result ? splitReply(reply.result.turn.reply).prose : ''; const kids = c.document.current?.props.children; const quiet = isWorkout(c.document.current) || (kids ?? []).some(n => n.name === 'Recap') || c.pending; const cap = byId('caption'); if (cap.textContent !== prose)
     cap.textContent = prose; const onScreen = (kids ?? []).some(n => typeof n.props.text === 'string' && prose.includes(String(n.props.text))); cap.hidden = quiet || !prose || onScreen; }
 /** Opt-in memory: the last reset, kept in this browser only. */
@@ -774,7 +774,7 @@ function renderDeviceSends() {
     const box = byId('sent-box');
     box.replaceChildren();
     if (!pilotTeam) {
-        box.append(el('p', 'Nothing. This copy of Sukoon isn’t part of a team pilot, so nothing is sent anywhere.', 'micro'));
+        box.append(el('p', 'Nothing. This copy of Viraam isn’t part of a team pilot, so nothing is sent anywhere.', 'micro'));
         return;
     }
     const toggle = el('label', '', 'toggle'), input = el('input');

@@ -1,9 +1,9 @@
 // "Make it a habit": the person picks a time and puts a recurring reminder on their own calendar
-// or in Slack. Sukoon never schedules or sends reminders itself, so skipping a day costs nothing.
-import { reminderGoogle, reminderIcs, reminderSlack, teamResetInvite } from '../shared/pilot.js?v=mvwgfwjp';
-import { el, button } from './dom.js?v=mvwgfwjp';
-import { track } from './analytics.js?v=mvwgfwjp';
-import { reminderLink, teamResetLink } from './pilot.js?v=mvwgfwjp';
+// or in Slack. Viraam never schedules or sends reminders itself, so skipping a day costs nothing.
+import { reminderGoogle, reminderIcs, reminderSlack, teamResetInvite } from '../shared/pilot.js?v=mvwpo3if';
+import { el, button } from './dom.js?v=mvwpo3if';
+import { track } from './analytics.js?v=mvwpo3if';
+import { reminderLink, teamResetLink } from './pilot.js?v=mvwpo3if';
 const TIME = 'sw.reminder.time', SET = 'sw.reminder.set';
 const saved = () => { try {
     return localStorage.getItem(TIME) ?? '15:30';
@@ -19,7 +19,7 @@ catch { /* storage blocked */ } };
 export function reminderCard(compact = false) {
     const n = el('section', '', 'reminder' + (compact ? ' compact' : ''));
     if (!compact)
-        n.append(el('p', 'Make it a habit', 'reminder-q'), el('p', 'Pick a time and add it to your own calendar or Slack. Skip any day you like: Sukoon won’t follow up.', 'micro'));
+        n.append(el('p', 'Make it a habit', 'reminder-q'), el('p', 'Pick a time and add it to your own calendar or Slack. Skip any day you like: Viraam won’t follow up.', 'micro'));
     const row = el('div', '', 'row reminder-time'), label = el('label', 'Weekdays at'), input = el('input');
     input.type = 'time';
     input.id = compact ? 'reminder-time-settings' : 'reminder-time';

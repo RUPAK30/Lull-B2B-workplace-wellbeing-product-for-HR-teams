@@ -1,4 +1,4 @@
-// Copies the built app into site/app so the public site can host the real Sukoon in Mock mode.
+// Copies the built app into site/app so the public site can host the real Viraam in Mock mode.
 // The browser answers the app's two API calls itself (site/app/shim.js) with the same mockTurn
 // the local server uses, so no server, account or model is involved. Run `npm run build` first.
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
@@ -23,7 +23,7 @@ const html = (await readFile(join(root, 'src/web/index.html'), 'utf8'))
   // Developer tools (provider switch, patch builder, run capture) stay in the local app only.
   .replace('</head>', '<style>#tab-dev,#panel-dev{display:none!important}</style></head>')
   .replace('<script type="module" src="./web/app.js"></script>', '<script type="module" src="./shim.js"></script><script type="module" src="./web/app.js"></script>')
-  .replaceAll('href="/teams"', 'href="../"').replaceAll('href="/safety"', 'href="../safety.html"').replaceAll('href="/"', 'href="./"').replace('<div id="progress"', '<a id="site-link" class="site-link" href="../"><span class="lg">About Sukoon</span><span class="sm">About</span></a><script>(function(){var from=/[?&]from=hr/.test(location.search);try{if(from)sessionStorage.setItem("fromhr","1");from=from||sessionStorage.getItem("fromhr")==="1";}catch(e){}if(from){var a=document.getElementById("site-link");a.classList.add("back");a.innerHTML=\'<span class="lg">← Back to Sukoon for HR</span><span class="sm">← HR site</span>\';a.href="../";}})();</script><div id="progress"').replace('</head>', '<link rel="stylesheet" href="../fonts.css"></head>');
+  .replaceAll('href="/teams"', 'href="../"').replaceAll('href="/safety"', 'href="../safety.html"').replaceAll('href="/"', 'href="./"').replace('<div id="progress"', '<a id="site-link" class="site-link" href="../"><span class="lg">About Viraam</span><span class="sm">About</span></a><script>(function(){var from=/[?&]from=hr/.test(location.search);try{if(from)sessionStorage.setItem("fromhr","1");from=from||sessionStorage.getItem("fromhr")==="1";}catch(e){}if(from){var a=document.getElementById("site-link");a.classList.add("back");a.innerHTML=\'<span class="lg">← Back to Viraam for HR</span><span class="sm">← HR site</span>\';a.href="../";}})();</script><div id="progress"').replace('</head>', '<link rel="stylesheet" href="../fonts.css"></head>');
 await writeFile(join(out, 'index.html'), html);
 
 await writeFile(join(out, 'shim.js'), `// Stands in for the local server's API in the hosted demo. Mock mode only: no network calls.
@@ -34,7 +34,7 @@ import { redactValue } from './shared/redact.js';
 const wiring = fetch(new URL('./examples/wiring.openui', import.meta.url)).then(r => r.text());
 const json = (status, body) => new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 const config = { defaultProvider: 'mock', token: 'hosted', appVersion: APP_VERSION,
-  providers: [{ id: 'mock', label: 'Offline (no AI)', enabled: true, model: 'wiring-fixture-v1', message: 'Runs entirely in this browser on Sukoon\\u2019s fixed rules. Nothing is sent anywhere.' }] };
+  providers: [{ id: 'mock', label: 'Offline (no AI)', enabled: true, model: 'wiring-fixture-v1', message: 'Runs entirely in this browser on Viraam\\u2019s fixed rules. Nothing is sent anywhere.' }] };
 // The local app's service worker isn't part of the hosted demo.
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register = () => Promise.resolve(); navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister())).catch(() => {}); }
 const native = window.fetch.bind(window);

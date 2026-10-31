@@ -1,4 +1,4 @@
-// Team pilots. When Sukoon is opened from a team's pilot link (?team=sales), a handful of anonymous
+// Team pilots. When Viraam is opened from a team's pilot link (?team=sales), a handful of anonymous
 // counts may leave the device so HR can see team totals. This file is the whole contract: the
 // allow-list below is the only thing that can be sent, and it never includes who, what was typed,
 // or anything about pain or safety. It also builds the opt-in reminder the employee sets for
@@ -56,14 +56,14 @@ const plusMinutes = (stamp: string, minutes: number) => {
   return `${stamp.slice(0, 9)}${pad(h + Math.floor(m / 60))}${pad(m % 60)}00`;
 };
 
-const TITLE = 'Sukoon: 2:30 reset';
-const details = (link: string) => `A short guided movement break. Open Sukoon: ${link}\nSkip any day you like. Sukoon won't follow up.`;
+const TITLE = 'Viraam: 2:30 reset';
+const details = (link: string) => `A short guided movement break. Open Viraam: ${link}\nSkip any day you like. Viraam won't follow up.`;
 
 /** A recurring weekday event in iCalendar format, for Outlook, Apple Calendar or Google import. */
 export function reminderIcs(time: string, link: string, from: Date, uid: string): string {
   const start = nextStart(time, from), stamp = from.toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
   const esc = (s: string) => s.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/[,;]/g, m => '\\' + m);
-  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Sukoon//Reset reminder//EN', 'BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${stamp}`,
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Viraam//Reset reminder//EN', 'BEGIN:VEVENT', `UID:${uid}`, `DTSTAMP:${stamp}`,
     `DTSTART:${start}`, `DTEND:${plusMinutes(start, 5)}`, `RRULE:FREQ=WEEKLY;BYDAY=${WEEKDAYS}`, `SUMMARY:${esc(TITLE)}`,
     `DESCRIPTION:${esc(details(link))}`, `URL:${link}`, 'TRANSP:TRANSPARENT', 'END:VEVENT', 'END:VCALENDAR', ''].join('\r\n');
 }
@@ -78,7 +78,7 @@ export function reminderGoogle(time: string, link: string, from: Date, zone: str
 /** Slack's own /remind command: no app to install, and the reminder belongs to the person. */
 export function reminderSlack(time: string, link: string): string {
   const { h, m } = parseTime(time), hour = h % 12 || 12;
-  return `/remind me "Take a 2:30 Sukoon reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
+  return `/remind me "Take a 2:30 Viraam reset: ${link}" every weekday at ${hour}:${pad(m)}${h < 12 ? 'am' : 'pm'}`;
 }
 
 /** Team reset: a meeting link that opens one known reset for everyone. Anything else is ignored. */
@@ -88,7 +88,7 @@ export function parseReset(raw: string | null | undefined): ResetChoice | null {
   return match ? { reset: match[1] as Reset, posture: match[2] as Posture } : null;
 }
 /** The text a manager pastes into a recurring meeting invite. */
-export const teamResetInvite = (link: string) => `Last 3 minutes: Sukoon team reset. Open this together and press Start: ${link}`;
+export const teamResetInvite = (link: string) => `Last 3 minutes: Viraam team reset. Open this together and press Start: ${link}`;
 
 /** Reads a session's own title (e.g. "Calm down · Seated") back into a reset code, or null. */
 export function resetFromTitle(title: string): string | null {
