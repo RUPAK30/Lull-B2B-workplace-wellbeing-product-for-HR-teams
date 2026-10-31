@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 6 report — Northwind Logistics (sample) · Sukoon</title>
+<meta name="description" content="An illustrative company-wide week-6 report: 92 of 180 seats took part, 75 finished, cost per person who took part, a recommendation, and two teams the report refuses to show.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF8F3">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="home.css">
+<style>
+  @page{size:A4;margin:0}
+  body{background:var(--paper-2)}
+  .rep-tools{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;max-width:1080px;margin:0 auto;padding:20px var(--gut)}
+  .rep-tools a{color:var(--ink-2);text-decoration:none;font-size:.875rem}
+  .rep-tools a:hover{color:var(--ink)}
+  .rep{max-width:1080px;margin:0 auto 40px;padding:clamp(24px,4vw,52px);background:#fff;border:1px solid var(--rule);border-radius:10px;box-shadow:0 24px 60px -50px rgba(21,24,26,.5)}
+  .rep-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:20px;border-bottom:2px solid var(--ink)}
+  .rep-brand{display:flex;align-items:center;gap:8px;font:500 1.2rem/1 var(--serif);margin:0}
+  .rep-brand img{width:24px;height:24px}
+  .rep-top h1{margin-top:12px;font-size:clamp(1.5rem,2.4vw,2rem);line-height:1.15}
+  .rep-meta{text-align:right;font-size:.75rem;line-height:1.6;color:var(--ink-3);margin:0}
+  .chip{display:inline-block;padding:4px 9px;border:1px solid var(--rule-2);border-radius:999px;font:500 .6875rem/1.4 var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+  .rep-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,48px);padding:28px 0 0}
+  .rep h2{font:600 .6875rem/1.4 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+  .goal{padding:14px 16px;border:1px solid var(--rule);border-radius:8px;margin-bottom:10px}
+  .goal p{margin:0;font-size:.8125rem;line-height:1.45;color:var(--ink-3)}
+  .goal strong{display:block;margin:3px 0 4px;font:400 1.35rem/1.15 var(--serif);color:var(--accent)}
+  .rep-note{margin-top:12px;font-size:.75rem;line-height:1.55;color:var(--ink-3)}
+  .rep-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:4px 0 18px;border-bottom:1px solid var(--rule)}
+  .rep-big{font:400 clamp(2.2rem,4vw,2.9rem)/1 var(--serif);letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums}
+  .rep-big span{font:400 .9375rem/1 var(--sans);color:var(--ink-3);letter-spacing:0}
+  .rep-cap{margin-top:5px;font-size:.8125rem;color:var(--ink-2)}
+  .rep-body{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,36px);padding-top:18px}
+  .rep-bars{list-style:none;display:flex;align-items:flex-end;gap:9px;height:120px;margin:0;padding:0}
+  .rep-bars li{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:5px}
+  .rep-bars .v{font-size:.6875rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .rep-bars .b{display:block;width:100%;height:var(--h);background:var(--accent);border-radius:3px 3px 0 0;min-height:3px}
+  .rep-bars .w{font-size:.625rem;color:var(--ink-3)}
+  .rep-teams{list-style:none;margin:0;padding:0;font-size:.8125rem}
+  .rep-teams li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--rule)}
+  .rep-teams li:first-child{border-top:0}
+  .rep-teams b{font-weight:500;white-space:nowrap}
+  .rep-teams small{color:var(--ink-3);font-weight:400}
+  .rep-teams .hid{color:var(--ink-3)}
+  .rep-insight{margin-top:18px;padding-top:14px;border-top:1px solid var(--rule);font-size:.8125rem;line-height:1.55;color:var(--ink-2)}
+  .rep-foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:26px;padding-top:16px;border-top:2px solid var(--ink);font-size:.75rem;line-height:1.55;color:var(--ink-3)}
+  .rep-foot b{color:var(--ink);font-weight:500}
+  .how{max-width:760px;margin:0 auto 64px;padding:0 var(--gut)}
+  .how h2{font-size:1.4rem;margin-top:0}
+  .how p,.how li{font-size:.875rem;line-height:1.6;color:var(--ink-2)}
+  .how ul{padding-left:18px;display:grid;gap:6px;margin-top:12px}
+  .how p{margin-top:12px}
+  .how a{color:var(--accent)}
+  @media(max-width:760px){
+    .rep{padding:20px;border-radius:0;border-left:0;border-right:0}
+    .rep-top{flex-direction:column;gap:12px}
+    .rep-meta{text-align:left}
+    .rep-grid,.rep-body{grid-template-columns:1fr}
+  }
+  .print-only{display:none}
+  @page{size:A4;margin:0}
+  @media print{
+    html,body{background:#fff!important}
+    body::before,body::after,.nav,.toc,.foot,.pager,.skip-link{display:none!important}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .print-only{display:flex}
+    .pr-band{justify-content:space-between;align-items:center;padding:7mm 16mm;background:#1F4D3A;color:#fff;font:500 9pt var(--sans);letter-spacing:.06em;text-transform:uppercase}
+    .pr-band b{font:600 13pt var(--sans);letter-spacing:-.02em;text-transform:none;display:flex;align-items:center;gap:8px}
+    .pr-band img{width:22px;height:22px}
+    .pr-foot{justify-content:space-between;gap:12mm;padding:5mm 16mm;border-top:1px solid #DDD6C8;font:8pt var(--sans);color:#555}
+    .rep{padding-top:8mm!important;width:auto!important;max-width:none!important;min-height:0!important}
+    .pr-foot{position:fixed;bottom:0;left:0;right:0;background:#fff}
+    .rep-top .rep-brand{display:none}
+    .rep-tools,.how{display:none}
+    .rep{width:297mm;max-width:297mm;min-height:210mm;margin:0;border:0;border-radius:0;box-shadow:none;padding:14mm 16mm}
+  }
+</style>
+</head>
+<body class="home"><div style="position:sticky;top:0;z-index:9999;background:#F2E6CF;color:#5B4310;font:500 13px/1.4 system-ui,sans-serif;padding:8px 16px;text-align:center">Archived: <b>Sukoon</b>, the individual desk-break version, as it stood on 30 Oct 2026. It became <a href="/" style="color:#1F5A40;font-weight:700">Viraam →</a> · <a href="/pm#evolution" style="color:#1F5A40">Why it changed</a></div>
+<div class="rep-tools">
+  <a href="index.html">← Sukoon</a>
+  <div>
+    <a href="pilot.html">Pilot and pricing</a> &nbsp;·&nbsp;
+    <a href="trust.html#data">How this is calculated</a> &nbsp;·&nbsp;
+    <a href="#" onclick="window.print();return false">Print or save as PDF</a>
+  </div>
+</div>
+
+<div class="print-only pr-band"><b><img src="img/mark.svg" alt="">sukoon</b><span>Week-6 report · For HR and Finance · Team totals only</span></div>
+<main id="main">
+<article class="rep" aria-labelledby="r-title">
+  <header class="rep-top">
+    <div>
+      <p class="rep-brand"><img src="img/mark.svg" alt="">Sukoon</p>
+      <h1 id="r-title">Northwind Logistics · week 6</h1>
+      <p style="margin:10px 0 0"><span class="chip">Illustrative sample · not a customer</span></p>
+    </div>
+    <p class="rep-meta" id="r-meta">Sample report<br>lull-hr.vercel.app<br>Week 6 · v3.1</p>
+  </header>
+
+  <div class="rep-grid">
+    <section>
+      <h2 id="r-goals-h">Targets we agree before day one</h2>
+      <div class="goal"><p>Tried it in the first two weeks</p><strong id="g-tried">At least 60 people take part</strong><p id="g-tried-sub">Of 180 seats. A third of the company opening the link once.</p></div>
+      <div class="goal"><p>Came back within a week</p><strong>At least 1 in 3</strong><p>Of people who finish one session, how many use it again within a week.</p></div>
+      <div class="goal"><p>Safe, every time</p><strong>No exceptions</strong><p>Any report of pain or a symptom ends the session without offering more movement.</p></div>
+      <p class="rep-note" id="r-size-note">Proposed targets. Final targets are agreed with you in writing before the pilot starts.</p>
+    </section>
+
+    <section>
+      <h2>What happened · Northwind Logistics (sample)</h2>
+      <div class="rep-stats">
+        <div><p class="rep-big">92 <span>of 180</span></p><p class="rep-cap">started at least once</p></div>
+        <div><p class="rep-big">75 <span>of 92</span></p><p class="rep-cap">finished the full 2½ minutes</p></div>
+      </div>
+      <div class="rep-body">
+        <figure style="margin:0">
+          <figcaption class="rep-cap" style="margin-bottom:10px">People active each week</figcaption>
+          <ol class="rep-bars" id="bars"></ol>
+        </figure>
+        <div>
+          <p class="rep-cap" style="margin-bottom:6px">Six weeks, by team · started / finished</p>
+          <ul class="rep-teams">
+            <li><span>Engineering <small>64 seats</small></span><b>45 / 38</b></li>
+            <li><span>Operations <small>38</small></span><b>21 / 17</b></li>
+            <li><span>Customer success <small>26</small></span><b>14 / 11</b></li>
+            <li><span>Sales <small>28</small></span><b>12 / 9</b></li>
+            <li class="hid"><span>Finance <small>16</small></span><b>Hidden · under 10 taking part</b></li>
+            <li class="hid"><span>Design <small>8</small></span><b>Hidden · under 10 taking part</b></li>
+          </ul>
+        </div>
+      </div>
+      <p class="rep-insight"><b>Cost per person who took part ₹176.</b> Cost per finished session ₹216, at 180 seats and ₹16,200 a month.<br><b>Recommendation:</b> continue at 180 seats. Sales is thinning — week 3 had 19 people taking part, week 6 was 12.<br><b>Not in this report:</b> anything about pain, what anyone typed, or how they felt.</p>
+    </section>
+  </div>
+
+  <nav class="pager" aria-label="Continue">
+  <a class="pager-link" href="workspace.html"><span>Previous</span><b>The HR dashboard</b></a>
+  <a class="pager-link pager-next" href="pilot.html"><span>Next</span><b>Pilot and price</b></a>
+</nav>
+
+<footer class="rep-foot">
+    <p><b>HR sees team totals only.</b> No names, no messages, no individual sessions. Teams under 10 are hidden, and the next-smallest team is hidden too.</p>
+    <p>Sample figures are from a made-up company. Sukoon is a pilot-stage product, not a medical or mental-health service.</p>
+  </footer>
+</article>
+
+<section class="how limits">
+  <h2>What this report cannot tell you</h2>
+  <ul>
+    <li>It shows that people started and finished a timer, not that they exercised or felt better.</li>
+    <li>It can't show who used it, by design.</li>
+    <li>Six weeks is short. Novelty usually lifts weeks 1–2.</li>
+    <li>The figures here are a made-up sample company, not customer data.</li>
+  </ul>
+  <p><button class="btn btn-ghost" type="button" onclick="window.print()" data-ev="report-print">Save as PDF</button></p>
+</section>
+
+<section class="how">
+  <h2>How this is calculated</h2>
+  <p>Every number comes from six counters per team per week: starts, finishes, returns, reminders set, reminders opened, and team-break joins. There is no person-level row.</p>
+  <ul>
+    <li><strong>Started:</strong> a break was opened from the team link.</li>
+    <li><strong>Finished:</strong> the break reached the end. A stop is not a finish.</li>
+    <li><strong>Came back:</strong> a start on a later day, after a finished session.</li>
+    <li><strong>Cost per person who took part:</strong> the monthly invoice divided by people who started at least once. Cost per finished session divides it by finished sessions instead.</li>
+    <li><strong>Safety stops:</strong> never counted, never included, never reported.</li>
+  </ul>
+  <p>If your team has fewer than 10 people taking part in a week, the report says so and shows no team row. <a href="trust.html#data">The full data map</a>.</p>
+</section>
+</main>
+<div class="print-only pr-foot"><span><strong>Privacy:</strong> no names, emails or individual records exist in this report. Teams under 10 people taking part, and the next-smallest, are hidden.</span><span>Sample data from a made-up company · <span id="pr-date"></span> · lull-hr.vercel.app/report</span></div>
+
+<script>
+(function () {
+  var W = [71, 108, 96, 89, 94, 92];
+  document.getElementById('bars').innerHTML = W.map(function (n, i) {
+    return '<li style="--h:' + Math.round(n / 108 * 88) + 'px"><span class="v">' + n + '</span><span class="b"></span><span class="w">W' + (i + 1) + '</span></li>';
+  }).join('');
+})();
+</script>
+<script>document.getElementById("pr-date").textContent="Generated "+new Date().toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});document.title="Sukoon week-6 report - Northwind Logistics (sample)";if(/[?&]pdf=1/.test(location.search))addEventListener("load",function(){setTimeout(function(){window.print()},400)});</script>
+</body>
+</html>
