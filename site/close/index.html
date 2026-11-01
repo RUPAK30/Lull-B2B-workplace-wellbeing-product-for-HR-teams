@@ -93,7 +93,8 @@ mr:{team:'तुमची टीम',land_k:'क्लोज',startTitle:'तु
  nextPh:'उदा.: क्लायंटच्या ईमेलला उत्तर',me:{title:'खांदे सैल सोडा. अडीच मिनिटं फक्त स्वतःसाठी.',sub:'कधीही एखादा कॉल जड गेला तर. कोणतीही मोजणी नाही, काहीही पाठवलं जात नाही.',start:'सुरू करा',land:'गोंगाटातून बाहेर या.',plan:'हे संपताच मी सगळ्यात आधी…',pin:'हे एका टॅपवर ठेवा: होम स्क्रीनवर जोडा',pinIos:'iPhone वर: Share → Add to Home Screen',tally:function(n){return 'या आठवड्यात '+n+' क्लोज. फक्त तुमच्यासाठी.';}},notice:'आत्ता तुमच्या जबड्याकडे आणि खांद्यांकडे लक्ष द्या.',g:['सुप्रभात','नमस्कार','शुभ संध्याकाळ','दिवसाचा शेवटचा कॉल','आठवड्याचा पहिला स्टँडअप','वीकेंडआधीचा शेवटचा'],shared:'या लिंकवर सगळ्यांना हाच काउंटडाउन दिसतोय.',promise:'अडीच मिनिटं. कोण जोडलं गेलं, हे कोणीच पाहत नाही.',idleLine:'तुमच्या मीटिंगची शेवटची अडीच मिनिटं, एकत्र.',cueOn:'प्रत्येक स्टेपला हलका संकेत: चालू',cueOff:'प्रत्येक स्टेपला हलका संकेत: बंद',nice:'छान क्लोज',cue:['आत','थोडा आणखी','बाहेर','डावीकडे','उजवीकडे','फिरवा','गोल','दूर','पापणी'],upnext:'पुढे',leftw:'बाकी',copy:'कॉपी करा',copied:'कॉपी झालं',monday:'या आठवड्यातलं तुमचं पहिलं काम?',friday:'आठवडा संपवा. सोमवारी सगळ्यात आधी काय?',back:'परत',yours:'सोबत घेऊन जाताय:',again:'पुन्हा सुरू करा',closeTab:'तुम्ही हा टॅब बंद करू शकता.',stop:'थांबवा',hurt:'कुठे दुखतंय',stopped:'थांबवलं. अगदी चालेल.',stoppedSub:'तयार झाल्यावर पुन्हा कामाला.',
  safeT:'इथेच थांबा आणि आराम करा.',safeA:'दुखणं सहन करत चालू ठेवू नका. छातीत दुखणं, श्वास घ्यायला त्रास, चक्कर येऊन पडणं, अचानक अशक्तपणा किंवा बधिरपणा असेल तर लगेच मदत घ्या: 112 वर कॉल करा.',safeB:'विराम हा छोटा हालचाल ब्रेक आहे, उपचार नाही.',ok:'मी ठीक आहे',late:'हा क्लोज संपला:',lateSub:'आत्ता एकट्याने एक सुरू करा.'}};
 // Phase ends in seconds from the shared start.
-var ENDS=[20,40,60,80,100,140,150],TOTAL=150;
+var ENDS=[20,40,60,80,100,140,150],TOTAL=150,MINI=false;
+var MINIL={en:'Standup ran over. One slow breath, then your first step.',hi:'स्टैंडअप लंबा चला। एक धीमी साँस, फिर पहला कदम।',mr:'स्टँडअप लांबला. एक सावकाश श्वास, मग पहिलं पाऊल.'};
 /* Weekday moves: the shape of the close never changes; the 60-second move block does. Day is read on the device in Indian time, so a team sees the same set. Sat/Sun use Monday's. */
 var SETS={en:[
  [['Neck','Tilt one ear toward your shoulder.','Slow. Let your jaw unclench. Switch sides halfway.'],['Shoulders','Roll your shoulders back, slowly.','Shoulders down, away from your ears.'],['Wrists','Circle your wrists both ways.','Then shake your hands out.']],
@@ -176,7 +177,7 @@ function draw(force){
   if(mode==='hold'||now<start){var s=Math.ceil((start-now)/1000);var key='hold'+lang;if(key!==lastKey||force){lastKey=key;foot.hidden=true;view.innerHTML='<p class="kicker">'+esc(greet())+'</p><div class="wait"><i class="orb2"></i><div class="big" id="cd"></div></div><h1 class="h-hold">'+(at?esc(t('hold'))+' '+hhmm(start):'…')+'</h1>'+(at?'<p class="sub">'+esc(t('shared'))+'<br>'+esc(t('promise'))+'</p>':'')+'<button class="btn ghost" id="early">'+esc(t('startEarly'))+'</button><br>'+cueBtn()+sndBtn();document.getElementById('early').onclick=function(){begin(Date.now());};wireCue();wireSnd();}
     var cd=document.getElementById('cd');if(cd)cd.textContent=s>59?Math.floor(s/60)+':'+('0'+s%60).slice(-2):String(s);if(now>=start){mode='run';counted('session-started');sndPlay();foot.hidden=false;}return;}
   var e=(now-start)/1000;if(mode==='done')return;if(e>=ENDS[5]){mode='done';counted('session-finished');done();return;}
-  var i=0;while(e>=ENDS[i])i++;var p0=i?ENDS[i-1]:0,left=Math.ceil(ENDS[i]-e),frac=(e-p0)/(ENDS[i]-p0),ph=P(i).slice();if(personal&&i===0)ph[1]=t('me').land;
+  var i=0;while(e>=ENDS[i])i++;var p0=i?ENDS[i-1]:0,left=Math.ceil(ENDS[i]-e),frac=(e-p0)/(ENDS[i]-p0),ph=P(i).slice();if(personal&&i===0)ph[1]=t('me').land;if(MINI&&i===0)ph[1]=MINIL[lang];
   if(i!==lastPhase){if(lastPhase>=0||i===0)ping();lastPhase=i;}
   var key='run'+i+lang,cu=t('cue');
   if(key!==lastKey||force){lastKey=key;foot.hidden=i>=6;var sf=document.getElementById('sndf');if(sf){sf.innerHTML=sndBtn();wireSnd();}
@@ -209,7 +210,7 @@ document.getElementById('stop').onclick=function(){sndStop(0.6);mode='stopped';s
 document.getElementById('hurt').onclick=function(){sndStop(0.4);mode='safe';safe();};
 document.querySelectorAll('.lang button').forEach(function(b){b.onclick=function(){setLang(b.dataset.l);};});
 // A link with a time joins the shared timeline: wait, run, or catch up mid-way.
-if(at){var since=(Date.now()-at)/1000;if(since<-20*60){start=null;idle();}else if(since<0){start=at;mode='hold';loop();}else if(since<TOTAL){begin(at);}else{mode='late';late();}}
+if(at){var since=(Date.now()-at)/1000;if(since<-20*60){start=null;idle();}else if(since<0){start=at;mode='hold';loop();}else if(since<90){begin(at);}else if(180-since>=30){var dm=Math.min(45,Math.floor(180-since));MINI=true;ENDS=[15,15,15,15,15,dm,dm];TOTAL=dm;begin(Date.now());}else{mode='late';late();}}
 else if(q.get('start')==='1'){begin(Date.now()+3000);}else idle();
 setLang(lang);
 })();

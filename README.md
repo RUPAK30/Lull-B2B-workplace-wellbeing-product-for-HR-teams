@@ -43,6 +43,8 @@ Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pa
 | 1:40–2:20 | Plan | "When this ends, I'll first…" (never stored) | If-then plans, 94 tests, d = .65 (Gollwitzer & Sheeran, 2006) |
 | 2:20–2:30 | Done | "Back at 10:15." · "Leaving with:" card · "Tomorrow: legs" | — |
 
+**Standup ran over?** If the team opens the link with under 90 seconds left before the meeting's end, the close compresses to a 30–45 second landing (one slow breath, then the plan) and still finishes on the boundary, so a late standup never means a skipped close.
+
 The shape never changes; only the move block does. The page reads the day itself (Indian time), so everyone on a team gets the same set; weekends use Monday's.
 
 4. **Safety:** "Something hurts" stops it for that person, says to rest, and points to 112 for red flags.
