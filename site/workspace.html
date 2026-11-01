@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>HR dashboard — team totals, never a person · Viraam</title>
-<meta name="description" content="What a Viraam workspace looks like: teams, seats, this week's digest, six weeks of history, and a team of eight that the screen refuses to report.">
+<meta name="description" content="What a Viraam workspace looks like: teams, sessions, this week's digest, six weeks of history, and a team of eight that the screen refuses to report.">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#FAF8F3">
 <link rel="canonical" href="https://lull-hr.vercel.app/workspace">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Viraam">
 <meta property="og:title" content="The workspace: team totals, never a person">
-<meta property="og:description" content="Six teams, 180 seats, and a team of eight the screen refuses to report. Demo data, labelled.">
+<meta property="og:description" content="Six teams, 180 people declared, and a team of eight the screen refuses to report. Demo data, labelled.">
 <meta property="og:url" content="https://lull-hr.vercel.app/workspace">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts.css">
@@ -77,7 +77,7 @@
       <div class="ws-bar">
         <div>
           <p class="ws-co">Northwind Logistics</p>
-          <p class="ws-sub">6 teams · <span id="seat-count">180</span> people · billed monthly</p>
+          <p class="ws-sub">6 teams · <span id="seat-count">180</span> people declared · billed monthly</p>
         </div>
         <div class="ws-bill">
           <p class="ws-bill-label">Next invoice</p>
@@ -92,9 +92,9 @@
         <thead>
           <tr>
             <th scope="col">Team</th>
-            <th scope="col">People</th>
+            <th scope="col">Declared size</th>
             <th scope="col">Days run</th>
-            <th scope="col">Joined (avg)</th>
+            <th scope="col">Sessions a day (avg)</th>
             <th scope="col">Trend</th>
             <th scope="col">Status</th>
           </tr>
@@ -117,11 +117,11 @@
             <td><span class="st ok">Running</span></td>
           </tr>
           <tr data-seats="16" class="is-hidden-team">
-            <th scope="row">Finance</th><td>16</td><td colspan="3" class="ws-hidden-cell"><span class="hid">Hidden · under 10 taking part</span></td>
+            <th scope="row">Finance</th><td>16</td><td colspan="3" class="ws-hidden-cell"><span class="hid">Hidden · under 10 sessions this week</span></td>
             <td><span class="st na">Not shown</span></td>
           </tr>
           <tr data-seats="8" class="is-hidden-team">
-            <th scope="row">Design</th><td>8</td><td colspan="3" class="ws-hidden-cell"><span class="hid">Hidden · under 10 taking part</span></td>
+            <th scope="row">Design</th><td>8</td><td colspan="3" class="ws-hidden-cell"><span class="hid">Hidden · under 10 sessions this week</span></td>
             <td><span class="st na">Not shown</span></td>
           </tr>
         </tbody>
@@ -129,7 +129,7 @@
 
       <div class="ws-actions">
         <button type="button" class="btn btn-ghost" id="ws-add">Add a team</button>
-        <p class="small ws-hint">Add a team and set its seats: the total and the invoice update. Nothing is saved.</p>
+        <p class="small ws-hint">Add a team and type its size: the invoice updates (₹1,499 a team; size is only used for the "joined" share). Nothing is saved.</p>
       </div>
 
       <div class="ws-cols">
@@ -283,13 +283,13 @@
     document.querySelector('.ws-sub').firstChild.textContent = teams + ' teams · ';
     total.textContent = money(sub);
     gst.textContent = money(Math.round(sub * 0.18));
-    note.textContent = '₹1,499 a team · ' + teams + ' teams · ' + n + ' people';
+    note.textContent = '₹1,499 a team · ' + teams + ' teams · ' + n + ' people declared';
   }
   var add = document.getElementById('ws-add');
   add.addEventListener('click', function () {
     var tr = document.createElement('tr');
     tr.className = 'is-new';
-    tr.innerHTML = '<th scope="row">New team</th><td><input class="ws-seat-input" type="number" min="0" max="250" step="1" value="12" inputmode="numeric" aria-label="Seats in the new team"></td><td colspan="3" class="ws-hidden-cell">No breaks yet this week</td><td><span class="st na">Waiting</span></td>';
+    tr.innerHTML = '<th scope="row">New team</th><td><input class="ws-seat-input" type="number" min="0" max="250" step="1" value="12" inputmode="numeric" aria-label="Declared size of the new team"></td><td colspan="3" class="ws-hidden-cell">Not run yet this week</td><td><span class="st na">Waiting</span></td>';
     rows.appendChild(tr);
     var input = tr.querySelector('input');
     input.addEventListener('input', paint);

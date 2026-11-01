@@ -84,7 +84,7 @@
           <tbody>
             <tr><th scope="row">Personal data collected</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">No names, emails or device IDs. Team counts only.</td></tr>
             <tr><th scope="row">Hindi and Marathi screens</th><td data-label="Status"><span class="st part">In review</span></td><td data-label="Detail">The close is shown in English, Hindi and Marathi. Translations are written in plain everyday language; a native-speaker review of the safety screens is due before a paid pilot.</td></tr>
-            <tr><th scope="row">Small-number suppression</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Teams under 10 are hidden, plus a second team if subtraction could reveal one.</td></tr>
+            <tr><th scope="row">Small-number suppression</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Teams with fewer than 10 sessions in a week are hidden, plus a second team if subtraction could reveal one.</td></tr>
             <tr><th scope="row">HR view data</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Company name, team names, team sizes, and how many days each team ran the close. No person, no email, no employee ID, no session record.</td></tr>
             <tr><th scope="row">Subprocessor list</th><td data-label="Status"><span class="st ok">In place</span></td><td data-label="Detail">Complete list below, with location and data.</td></tr>
             <tr><th scope="row">Incident response</th><td data-label="Status"><span class="st part">Partial</span></td><td data-label="Detail">Named contact and a two-working-day reply. No formal runbook yet.</td></tr>
@@ -97,15 +97,14 @@
       </section>
 
       <section class="doc-section" id="data">
-        <p><strong>The HR dashboard holds four things and nothing else:</strong> your company name, your team names, the seat count per team, and the weekly counts. There is no field for a person, an email address, an employee ID, a device ID, or a session record, so none can be stored by accident.</p>
+        <p><strong>The HR dashboard holds four things and nothing else:</strong> your company name, your team names, the declared size per team (typed by the team lead), and the weekly counts. There is no field for a person, an email address, an employee ID, a device ID, or a session record, so none can be stored by accident.</p>
         <h2>What is collected</h2>
         <p><strong>Only counts leave a device.</strong> A team link carries a short team code. When someone joins the close and when it reaches the end, one is added to that team's count. There is no row for a person and no history per person.</p>
         <table class="data-table">
           <caption>Every event the close can send</caption>
           <thead><tr><th scope="col">Event</th><th scope="col">What it means</th></tr></thead>
           <tbody>
-            <tr><td><code>team-reset-joined</code></td><td>Someone opened the team's link.</td></tr>
-            <tr><td><code>session-started</code></td><td>The close started on that screen.</td></tr>
+                        <tr><td><code>session-started</code></td><td>The close started on that screen.</td></tr>
             <tr><td><code>session-finished</code></td><td>The close reached the end on that screen.</td></tr>
           </tbody>
         </table>

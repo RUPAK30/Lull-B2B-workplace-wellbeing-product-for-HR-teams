@@ -2,7 +2,7 @@
 
 **Your standup has a start time. Give it an ending.**
 
-Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pastes one line into the standup invite. As the meeting ends, everyone opens the link and starts the same 2½-minute close at the same second: stand if you can, move, rest the eyes, and finish "When this ends, I'll first…", in English, हिंदी or मराठी. On Friday the lead gets one line: how many days it ran. HR's whole involvement is one yes and one invoice; there is nothing to run.
+Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pastes one line into the standup invite. As the meeting ends, everyone opens the link and starts the same 2½-minute close in the same minute: stand if you can, move, rest the eyes, and finish "When this ends, I'll first…", in English, हिंदी or मराठी. On Friday the lead gets one line: how many days it ran. HR's whole involvement is one yes and one invoice; there is nothing to run.
 
 [Live product](https://lull-hr.vercel.app/) · [Create a team link](https://lull-hr.vercel.app/start) · [Try the 2½ minutes](https://lull-hr.vercel.app/app/?reset=unknot-seated&start=1) · [Pilot & pricing](https://lull-hr.vercel.app/pilot) · [Trust & data](https://lull-hr.vercel.app/trust) · [Product case study](https://lull-hr.vercel.app/pm)
 
@@ -32,7 +32,7 @@ Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pa
 ## How it works
 
 1. **Once:** the lead creates the team link at `/start` (team name and standup end time). Out comes one invite line, a Google Calendar link, an Outlook `.ics`, a WhatsApp share and a QR code.
-2. **Daily:** the link carries a wall-clock start (`/close/?team=…&at=HHMM`). Everyone who opens it sees the same countdown and starts at the same second; anyone late joins at the right step. The link hosts it, not a person.
+2. **Daily:** the link carries a wall-clock start (`/close/?team=…&at=HHMM`). Everyone who opens it sees the same countdown and starts in the same minute; anyone late joins at the right step. The link hosts it, not a person.
 3. **The close, 2:30, no taps:**
 
 | Time | Phase | On screen | Evidence |

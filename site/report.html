@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Week 6 report — Northwind Logistics (sample) · Viraam</title>
-<meta name="description" content="An illustrative company-wide week-6 report: 141 of 180 team-days run, 84 people on an average day, cost per team-day, a recommendation, and two teams the report refuses to show.">
+<meta name="description" content="An illustrative company-wide week-6 report: 141 of 180 team-days run, 84 sessions on an average day, cost per team-day, a recommendation, and two teams the report refuses to show.">
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#FAF8F3">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -105,7 +105,7 @@
     <section>
       <h2 id="r-goals-h">Targets we agree before day one</h2>
       <div class="goal"><p>Kept it up past week 2</p><strong id="g-tried">At least 3 of 5 days per team</strong><p id="g-tried-sub">Each team that starts it runs it on at least three weekdays out of five.</p></div>
-      <div class="goal"><p>People who join</p><strong>At least half the team</strong><p>On an average day, of the people in each team that runs it.</p></div>
+      <div class="goal"><p>Sessions per run</p><strong>At least half the declared size</strong><p>A session is one start on one screen; we do not tell people apart.</p></div>
       <div class="goal"><p>Safe, every time</p><strong>No exceptions</strong><p>Any report of pain or a symptom ends the session without offering more movement.</p></div>
       <p class="rep-note" id="r-size-note">Proposed targets. Final targets are agreed with you in writing before the pilot starts.</p>
     </section>
@@ -114,7 +114,7 @@
       <h2>What happened · Northwind Logistics (sample)</h2>
       <div class="rep-stats">
         <div><p class="rep-big">141 <span>of 180</span></p><p class="rep-cap">team-days the close ran</p></div>
-        <div><p class="rep-big">84 <span>of 180</span></p><p class="rep-cap">people on an average day</p></div>
+        <div><p class="rep-big">84</p><p class="rep-cap">sessions on an average day (180 people declared)</p></div>
       </div>
       <div class="rep-body">
         <figure style="margin:0">
@@ -143,7 +143,7 @@
 </nav>
 
 <footer class="rep-foot">
-    <p><b>HR sees team totals only.</b> No names, no messages, no individual sessions. Teams under 10 are hidden, and the next-smallest team is hidden too.</p>
+    <p><b>HR sees team totals only.</b> No names, no messages, no individual sessions. Teams with under 10 sessions a week are hidden, and the next-smallest team is hidden too.</p>
     <p>Sample figures are from a made-up company. Viraam is a pilot-stage product, not a medical or mental-health service.</p>
   </footer>
 </article>
@@ -161,18 +161,18 @@
 
 <section class="how">
   <h2>How this is calculated</h2>
-  <p>Every number comes from six counters per team per week: starts, finishes, returns, reminders set, reminders opened, and team-break joins. There is no person-level row.</p>
+  <p>Every number comes from two counts per team: sessions started and sessions finished. A session is one start on one screen; a reload in the same visit is not counted twice, and we do not try to tell people apart. There is no person-level row.</p>
   <ul>
-    <li><strong>Started:</strong> a break was opened from the team link.</li>
-    <li><strong>Finished:</strong> the break reached the end. A stop is not a finish.</li>
-    <li><strong>Came back:</strong> a start on a later day, after a finished session.</li>
+    <li><strong>Session started:</strong> the close started on one screen. A reload in the same visit is not counted again.</li>
+    <li><strong>Session finished:</strong> the close reached the end. A stop is not a finish.</li>
+    <li><strong>Ran again:</strong> the team started the close again within 7 days. Return is measured per team, never per person.</li>
     <li><strong>Cost per team-day run:</strong> the invoice for the period divided by the number of days teams actually ran the close.</li>
     <li><strong>Safety stops:</strong> never counted, never included, never reported.</li>
   </ul>
-  <p>If your team has fewer than 10 people taking part in a week, the report says so and shows no team row. <a href="trust.html#data">The full data map</a>.</p>
+  <p>If your team has fewer than 10 sessions in a week, the report says so and shows no team row. <a href="trust.html#data">The full data map</a>.</p>
 </section>
 </main>
-<div class="print-only pr-foot"><span><strong>Privacy:</strong> no names, emails or individual records exist in this report. Teams under 10 people taking part, and the next-smallest, are hidden.</span><span>Sample data from a made-up company · <span id="pr-date"></span> · lull-hr.vercel.app/report</span></div>
+<div class="print-only pr-foot"><span><strong>Privacy:</strong> no names, emails or individual records exist in this report. Teams with under 10 sessions in a week, and the next-smallest, are hidden.</span><span>Sample data from a made-up company · <span id="pr-date"></span> · lull-hr.vercel.app/report</span></div>
 
 <script>
 (function () {
