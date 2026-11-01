@@ -11,6 +11,9 @@ Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pa
 ---
 
 
+## Where it fits
+Calendars can shorten meetings; they can't end them. Outlook's "end meetings early" setting shortens the slot, but doesn't help when people run past it ([Petri](https://petri.com/outlooks-new-scheduling-feature-targets-meeting-burnout/)). Viraam works in the meeting's last minutes: it ends the meeting together, and everyone writes their next step. A short ready-to-resume plan reduced attention residue and improved decisions on the next task in four studies ([Leroy & Glomb, 2018](https://www.sciencedaily.com/releases/2018/01/180116151600.htm)). Microsoft's small EEG study found stress spikes at the transition between back-to-back meetings ([WorkLab](https://www.microsoft.com/en-us/worklab/work-trend-index/brain-research)). No claim is made that the close improves performance or reduces stress.
+
 ## Evolution: three products, one problem
 
 | Stage | What it was | Why it changed | See it |
