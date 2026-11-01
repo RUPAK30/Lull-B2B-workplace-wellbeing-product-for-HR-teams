@@ -86,7 +86,7 @@
     var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Viraam//Team close//EN','BEGIN:VEVENT','UID:'+Date.now()+'@sukoon','DTSTAMP:'+ymd+'T000000','DTSTART:'+ymd+'T'+t,'DTEND:'+ymd+'T'+e,'RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR','SUMMARY:'+team+' · last 2½ minutes','DESCRIPTION:'+line,'END:VEVENT','END:VCALENDAR'].join('\r\n');
     $('g-ics').href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
     $('g-wa').href='https://wa.me/?text='+encodeURIComponent(line);
-    if(window.QRCode){$('g-qr').innerHTML='';qr=new QRCode($('g-qr'),{text:url,width:132,height:132,colorDark:'#B4532F',colorLight:'#ffffff'});}
+    if(window.QRCode){$('g-qr').innerHTML='';qr=new QRCode($('g-qr'),{text:url,width:132,height:132,colorDark:'#4A6075',colorLight:'#ffffff'});}
   }
   ['g-team','g-end'].forEach(function(i){$(i).addEventListener('input',paint);});
   window.addEventListener('load',paint);paint();

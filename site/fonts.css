@@ -11,20 +11,21 @@
 .vm .dv{font-family:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif;font-weight:400;font-size:1.06em;letter-spacing:0;animation-delay:-6s}
 .vm-t{display:inline-flex;align-items:center;gap:.13em;font-size:1em}
 .vm .dv .vm-t{font-size:.943em}
-.vm-t i{width:.13em;height:.13em;border-radius:50%;background:#CF7A55}
+.vm-t i{width:.13em;height:.13em;border-radius:50%;background:#6F8597}
 .vm-t i:nth-child(1){opacity:.3}.vm-t i:nth-child(2){opacity:.55}.vm-t i:nth-child(3){opacity:.85}
-.vm-t b{width:.14em;height:.78em;margin-left:.1em;border-radius:.07em;background:#2E3A6E}
+.vm-t b{width:.14em;height:.78em;margin-left:.1em;border-radius:.07em;background:#D89A3A}
 /* each word holds ~4.6s, then a 1.4s overlapping fade with a small rise */
 @keyframes vmSwap{0%,38%{opacity:1;transform:none}50%,88%{opacity:0;transform:translateY(-.12em)}88.01%{opacity:0;transform:translateY(.12em)}100%{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.vm-w>span{animation:none}.vm .dv{visibility:hidden}}
 /* Light by time of day (sky.js). Fixed, behind content, never takes clicks. */
 .sky{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
 .sky i,.sky b{position:absolute;inset:-10%;display:block}
+.sky i{filter:blur(6px);opacity:.8}.sky b{filter:blur(14px);opacity:.55}
 [data-light=day] .sky i{background:radial-gradient(circle at 84% 20%,rgba(255,250,225,1) 0,rgba(255,232,160,.85) 5%,rgba(255,210,130,.45) 16%,rgba(255,216,160,.18) 34%,transparent 58%)}
-[data-light=day] .sky b{background:repeating-conic-gradient(from 0deg at 84% 20%,rgba(255,226,160,.38) 0deg 2.4deg,transparent 2.4deg 9deg);-webkit-mask-image:radial-gradient(circle at 84% 20%,transparent 4%,#000 7%,rgba(0,0,0,.45) 32%,transparent 62%);mask-image:radial-gradient(circle at 84% 20%,transparent 4%,#000 7%,rgba(0,0,0,.45) 32%,transparent 62%);transform-origin:84% 20%;animation:skyRays 40s linear infinite}
-[data-light=evening] .sky i{background:radial-gradient(circle at 78% 86%,rgba(255,236,190,1) 0,rgba(255,176,96,.9) 5%,rgba(255,128,96,.5) 16%,rgba(240,120,140,.22) 34%,transparent 60%),linear-gradient(to top,rgba(255,150,100,.34),rgba(250,160,170,.18) 38%,rgba(190,160,220,.12) 65%,transparent 90%)}
-[data-light=evening] .sky b{background:repeating-conic-gradient(from 0deg at 78% 86%,rgba(255,190,130,.30) 0deg 2deg,transparent 2deg 8deg);-webkit-mask-image:radial-gradient(circle at 78% 86%,transparent 4%,#000 7%,transparent 60%);mask-image:radial-gradient(circle at 78% 86%,transparent 4%,#000 7%,transparent 60%);transform-origin:78% 86%;animation:skyRays 50s linear infinite}
-[data-light=night] .sky i{background:radial-gradient(circle at 9% 34%,#FFFFFB 0,#FFFFF2 2.6%,rgba(230,236,255,.85) 4%,rgba(196,210,246,.4) 12%,rgba(176,192,236,.16) 30%,transparent 52%),linear-gradient(180deg,rgba(150,170,224,.40),rgba(180,194,236,.20) 55%,rgba(200,210,240,.10))}
+[data-light=day] .sky b{background:repeating-conic-gradient(from 0deg at 84% 20%,rgba(255,232,180,.42) 0deg 3.2deg,transparent 2.4deg 9deg);-webkit-mask-image:radial-gradient(circle at 84% 20%,transparent 4%,#000 7%,rgba(0,0,0,.45) 32%,transparent 62%);mask-image:radial-gradient(circle at 84% 20%,transparent 4%,#000 7%,rgba(0,0,0,.45) 32%,transparent 62%);transform-origin:84% 20%;animation:skyRays 40s linear infinite}
+[data-light=evening] .sky i{background:radial-gradient(circle at 78% 86%,rgba(255,236,190,1) 0,rgba(255,176,96,.9) 5%,rgba(255,128,96,.5) 16%,rgba(240,120,140,.22) 34%,transparent 60%),linear-gradient(to top,rgba(255,170,120,.22),rgba(250,180,180,.12) 38%,rgba(200,175,220,.07) 65%,transparent 90%)}
+[data-light=evening] .sky b{background:repeating-conic-gradient(from 0deg at 78% 86%,rgba(255,200,150,.34) 0deg 2.8deg,transparent 2deg 8deg);-webkit-mask-image:radial-gradient(circle at 78% 86%,transparent 4%,#000 7%,transparent 60%);mask-image:radial-gradient(circle at 78% 86%,transparent 4%,#000 7%,transparent 60%);transform-origin:78% 86%;animation:skyRays 50s linear infinite}
+[data-light=night] .sky i{background:radial-gradient(circle at 9% 34%,#FFFFFB 0,#FFFFF2 2.6%,rgba(230,236,255,.85) 4%,rgba(196,210,246,.4) 12%,rgba(176,192,236,.16) 30%,transparent 52%),linear-gradient(180deg,rgba(160,178,226,.26),rgba(186,198,236,.12) 55%,rgba(200,210,240,.05))}
 [data-light=night] .sky b{background:linear-gradient(125deg,transparent 14%,rgba(232,238,255,.55) 24%,rgba(232,238,255,.18) 36%,transparent 50%),radial-gradient(1.5px 1.5px at 30% 12%,#fff,transparent),radial-gradient(1.5px 1.5px at 62% 8%,#fff,transparent),radial-gradient(1.2px 1.2px at 78% 30%,#fff,transparent),radial-gradient(1.2px 1.2px at 44% 36%,#fff,transparent),radial-gradient(1.5px 1.5px at 90% 14%,#fff,transparent);animation:skyBeam 14s ease-in-out infinite alternate}
 @keyframes skyRays{to{transform:rotate(360deg)}}
 @keyframes skyBeam{from{opacity:.65}to{opacity:1}}
