@@ -16,14 +16,14 @@ Viraam is the last 2½ minutes of a meeting a team already holds. A team lead pa
 | Stage | What it was | Why it changed | See it |
 |---|---|---|---|
 | AIRA → Stillwater | A workout companion, then short desk breaks with safety rules | People choose by problem ("stiff neck"), not workout type | — |
-| Lull → Sukoon | An individual desk-break app with an HR layer: type how you feel (EN, Hinglish, हिं, मरा), one guided break, team totals only | Relies on people remembering; a free reminder already ships in Microsoft 365 | [Live archive](https://lull-hr.vercel.app/sukoon/) · branch [`sukoon`](https://github.com/RUPAK30/Lull-B2B-workplace-wellbeing-product-for-HR-teams/tree/sukoon) |
+| Lull → Sukoon | An individual desk-break app with an HR layer: type how you feel (EN, Hinglish, हिं, मरा), one guided break, team totals only | Relies on people remembering; a break reminder is already included in many Microsoft 365 plans | [Live archive](https://lull-hr.vercel.app/sukoon/) · branch [`sukoon`](https://github.com/RUPAK30/Lull-B2B-workplace-wellbeing-product-for-HR-teams/tree/sukoon) |
 | Viraam | The last 2½ minutes of a standup the team already holds | — | [lull-hr.vercel.app](https://lull-hr.vercel.app/) |
 
 ## Why "the close"
 
 | Finding | Consequence |
 |---|---|
-| Break reminders already ship free inside Microsoft 365 (Viva Insights), and they are private to each person by design | A personal reminder is not a product. A **team's shared** moment, with a record the lead can forward, is. |
+| Break reminders are already included in many Microsoft 365 plans (Viva Insights), and they are private to each person by design | A personal reminder is not a product. A **team's shared** moment, with a record the lead can forward, is. |
 | Links dropped in a channel depend on memory and fade after week one | Attach the break to the **standup that already happens daily**. The meeting is the reminder. |
 | Per-seat pricing put a timer at par with complete HR software | **₹1,499 per team a month**: less than a team lunch, one invoice, no seats. |
 | HR teams are overloaded with admin | No rollout, no accounts, no chasing, no dashboard. Unused teams stop by themselves. |
