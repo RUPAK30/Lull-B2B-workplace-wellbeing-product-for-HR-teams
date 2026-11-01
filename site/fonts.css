@@ -11,7 +11,7 @@
 .vm .dv{font-family:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif;font-weight:400;font-size:1.06em;letter-spacing:0;animation-delay:-6s}
 .vm-t{display:inline-flex;align-items:center;gap:.13em;font-size:1em}
 .vm .dv .vm-t{font-size:.943em}
-.vm-t i{width:.13em;height:.13em;border-radius:50%;background:#3B4A86}
+.vm-t i{width:.13em;height:.13em;border-radius:50%;background:#6573BF}
 .vm-t i:nth-child(1){opacity:.3}.vm-t i:nth-child(2){opacity:.55}.vm-t i:nth-child(3){opacity:.85}
 .vm-t b{width:.14em;height:.78em;margin-left:.1em;border-radius:.07em;background:#D9912B}
 /* each word holds ~4.6s, then a 1.4s overlapping fade with a small rise */
